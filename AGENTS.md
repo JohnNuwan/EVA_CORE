@@ -1,12 +1,12 @@
-# Hermes Agent - Development Guide
+# EVA Agent - Development Guide
 
-Instructions for AI coding assistants and developers working on the hermes-agent codebase.
+Instructions for AI coding assistants and developers working on the EVA (hermes-agent) codebase.
 
 **Never give up on the right solution.**
 
-## What Hermes Is
+## What EVA Is
 
-Hermes is a personal AI agent that runs the same agent core across a CLI, a
+EVA is a personal AI agent that runs the same agent core across a CLI, a
 messaging gateway (Telegram, Discord, Slack, and ~20 other platforms), a TUI,
 and an Electron desktop app. It learns across sessions (memory + skills),
 delegates to subagents, runs scheduled jobs, and drives a real terminal and
