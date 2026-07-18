@@ -28,7 +28,9 @@
 #
 services:
   gateway:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     image: hermes-agent
     container_name: hermes
     restart: unless-stopped
