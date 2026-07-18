@@ -1,16 +1,15 @@
-"""
-Timezone-aware clock for Hermes.
+"""Horloge consciente des fuseaux horaires (timezone-aware) pour EVA.
 
-Provides a single ``now()`` helper that returns a timezone-aware datetime
-based on the user's configured IANA timezone (e.g. ``Asia/Kolkata``).
+Fournit une fonction d'aide ``now()`` unique qui renvoie un objet datetime
+conscient du fuseau horaire configuré par l'utilisateur (ex: ``Europe/Paris``).
 
-Resolution order:
-  1. ``HERMES_TIMEZONE`` environment variable
-  2. ``timezone`` key in ``~/.hermes/config.yaml``
-  3. Falls back to the server's local time (``datetime.now().astimezone()``)
+Ordre de résolution :
+  1. Variable d'environnement ``HERMES_TIMEZONE``
+  2. Clé ``timezone`` dans le fichier ``~/.hermes/config.yaml``
+  3. Par défaut, l'heure locale du serveur (``datetime.now().astimezone()``)
 
-Invalid timezone values log a warning and fall back safely — Hermes never
-crashes due to a bad timezone string.
+Les fuseaux horaires invalides génèrent un avertissement dans les logs et se
+rabattent sur l'heure système du serveur — EVA ne plante pas en cas de mauvaise valeur.
 """
 
 import logging
@@ -24,33 +23,32 @@ logger = logging.getLogger(__name__)
 try:
     from zoneinfo import ZoneInfo
 except ImportError:
-    # Python 3.8 fallback (shouldn't be needed — Hermes requires 3.9+)
+    # Rétrocompatibilité Python 3.8 (non requise pour EVA car python >= 3.9)
     from backports.zoneinfo import ZoneInfo  # type: ignore[no-redef]
 
-# Cached state — resolved once, reused on every call.
-# Call reset_cache() to force re-resolution (e.g. after config changes).
+# État mis en cache — résolu une seule fois, réutilisé à chaque appel.
+# Appeler reset_cache() pour forcer une nouvelle résolution.
 _cached_tz: Optional[ZoneInfo] = None
 _cached_tz_name: Optional[str] = None
 _cache_resolved: bool = False
 
 
 def _resolve_timezone_name() -> str:
-    """Read the configured IANA timezone string (or empty string).
+    """Lit la chaîne du fuseau horaire IANA configurée (ou vide).
 
-    This does file I/O when falling through to config.yaml, so callers
-    should cache the result rather than calling on every ``now()``.
+    Cette fonction effectue des opérations d'E/S fichiers lors de la lecture
+    de config.yaml, son résultat doit donc être mis en cache.
+
+    Returns:
+        La chaîne de fuseau horaire configurée ou une chaîne vide.
     """
-    # 1. Environment variable (highest priority — set by Supervisor, etc.)
+    # 1. Variable d'environnement (priorité la plus haute)
     tz_env = os.getenv("HERMES_TIMEZONE", "").strip()
     if tz_env:
         return tz_env
 
-    # 2. config.yaml ``timezone`` key
+    # 2. Clé ``timezone`` dans config.yaml
     try:
-        # Prefer the shared cached raw-config reader (mtime/size-keyed cache +
-        # libyaml C loader) — a direct yaml.safe_load of a large config.yaml
-        # costs ~100ms+ and this used to run inside the FIRST system prompt
-        # build, on the time-to-first-token critical path.
         try:
             from hermes_cli.config import read_raw_config
             cfg = read_raw_config() or {}
@@ -63,8 +61,6 @@ def _resolve_timezone_name() -> str:
             else:
                 cfg = {}
         if cfg:
-            # Managed scope: an administrator can pin ``timezone`` too. Overlay
-            # via the shared helper (fail-open) since this reads config.yaml directly.
             try:
                 from hermes_cli import managed_scope
                 cfg = managed_scope.apply_managed_overlay(cfg)
@@ -80,23 +76,33 @@ def _resolve_timezone_name() -> str:
 
 
 def _get_zoneinfo(name: str) -> Optional[ZoneInfo]:
-    """Validate and return a ZoneInfo, or None if invalid."""
+    """Valide et renvoie un fuseau horaire ZoneInfo.
+
+    Args:
+        name: Le nom du fuseau horaire IANA.
+
+    Returns:
+        Un objet ZoneInfo valide ou None en cas d'erreur ou d'absence de nom.
+    """
     if not name:
         return None
     try:
         return ZoneInfo(name)
     except (KeyError, Exception) as exc:
         logger.warning(
-            "Invalid timezone '%s': %s. Falling back to server local time.",
+            "Fuseau horaire invalide '%s': %s. Utilisation de l'heure du serveur par défaut.",
             name, exc,
         )
         return None
 
 
 def get_timezone() -> Optional[ZoneInfo]:
-    """Return the user's configured ZoneInfo, or None (meaning server-local).
+    """Renvoie le ZoneInfo configuré de l'utilisateur.
 
-    Resolved once and cached. Call ``reset_cache()`` after config changes.
+    Le résultat est résolu une seule fois et mis en cache.
+
+    Returns:
+        Le fuseau horaire ZoneInfo configuré, ou None (heure système du serveur).
     """
     global _cached_tz, _cached_tz_name, _cache_resolved
     if not _cache_resolved:
@@ -107,11 +113,10 @@ def get_timezone() -> Optional[ZoneInfo]:
 
 
 def reset_cache() -> None:
-    """Clear the cached timezone so the next call re-resolves it.
+    """Vide le cache pour forcer une nouvelle résolution du fuseau horaire.
 
-    Call this after the configured timezone may have changed (e.g. after a
-    config edit or ``HERMES_TIMEZONE`` update) to force ``get_timezone()`` /
-    ``now()`` to read the new value instead of the value cached at first use.
+    À appeler après chaque modification de configuration ou mise à jour de
+    ``HERMES_TIMEZONE``.
     """
     global _cached_tz, _cached_tz_name, _cache_resolved
     _cached_tz = None
@@ -120,16 +125,14 @@ def reset_cache() -> None:
 
 
 def now() -> datetime:
-    """
-    Return the current time as a timezone-aware datetime.
+    """Renvoie l'heure actuelle sous forme de datetime conscient du fuseau horaire.
 
-    If a valid timezone is configured, returns wall-clock time in that zone.
-    Otherwise returns the server's local time (via ``astimezone()``).
+    Returns:
+        L'heure courante convertie dans le fuseau configuré, ou l'heure
+        système locale du serveur si aucun fuseau n'est configuré.
     """
     tz = get_timezone()
     if tz is not None:
         return datetime.now(tz)
-    # No timezone configured — use server-local (still tz-aware)
+    # Aucun fuseau configuré — heure locale du serveur
     return datetime.now().astimezone()
-
-
