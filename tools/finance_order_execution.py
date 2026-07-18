@@ -3,8 +3,9 @@
 """Outil d'exécution d'ordres de trading et de gestion du compte pour EVA.
 
 Ce module gère le passage d'ordres d'achat/vente, la clôture de positions,
-et la récupération du solde de compte. Il prend en charge un mode Simulation
-(Paper Trading persistant) et l'intégration REST API vers MetaTrader 5.
+la modification de Stop Loss/Take Profit, et la récupération du solde de compte.
+Il prend en charge un mode Simulation (Paper Trading persistant) et l'intégration
+REST API vers MetaTrader 5.
 """
 
 import json
@@ -12,9 +13,15 @@ import logging
 import os
 import time
 from pathlib import Path
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional
 
 logger = logging.getLogger(__name__)
+
+# Tente d'importer yfinance pour valoriser les positions en temps réel
+try:
+    import yfinance as yf
+except ImportError:
+    yf = None
 
 # Fichier local de persistance des positions simulées (Paper Trading)
 POSITIONS_FILE = Path.home() / ".hermes" / "finance_positions.json"
@@ -70,26 +77,93 @@ def executer_ordre_simule(
     """Exécute un ordre de trading en mode Simulation (Paper Trading).
 
     Args:
-        action: L'action (buy, sell, close, status).
+        action: L'action (buy, sell, close, modify, status).
         symbol: Le symbole financier.
         lot: La taille de lot.
         stop_loss: Le niveau de prix Stop Loss.
         take_profit: Le niveau de prix Take Profit.
-        position_id: L'identifiant de la position à fermer.
+        position_id: L'identifiant de la position à modifier ou fermer.
 
     Returns:
         Résultat structuré de la transaction simulée.
     """
     data = charger_donnees_simulees()
 
+    # Résolution des symboles pour yfinance
+    symbol_mappings = {
+        "GOLD": "GC=F",
+        "SILVER": "SI=F",
+        "EURUSD": "EURUSD=X",
+        "GBPUSD": "GBPUSD=X",
+        "USDCAD": "USDCAD=X",
+        "USDJPY": "JPY=X"
+    }
+
     if action == "status":
-        # Recalcule de l'equity (l'equity simulée reste égale au balance si pas d'API de flux)
+        equity = data["balance"]
+        # Met à jour les prix actuels et calcule les P&L en direct (logique calc_dif)
+        for pos in data["positions"]:
+            sym = pos["symbole"]
+            yf_sym = symbol_mappings.get(sym.upper(), sym)
+            prix_actuel = pos["prix_ouverture"]
+            
+            if yf:
+                try:
+                    ticker = yf.Ticker(yf_sym)
+                    hist = ticker.history(period="1d")
+                    if not hist.empty:
+                        prix_actuel = float(hist.iloc[-1]["Close"])
+                except Exception:
+                    pass
+            
+            # Formule calc_dif : différence en pourcentage
+            diff_pct = 0.0
+            if pos["type"] == "BUY":
+                diff_pct = ((prix_actuel - pos["prix_ouverture"]) / pos["prix_ouverture"]) * 100
+            elif pos["type"] == "SELL":
+                diff_pct = ((pos["prix_ouverture"] - prix_actuel) / pos["prix_ouverture"]) * 100
+                
+            pos["prix_actuel"] = prix_actuel
+            pos["gain_pourcentage"] = round(diff_pct, 4)
+            # Supposons un multiplicateur standard (1 lot standard = gain/perte proportionnelle)
+            gain_reel = round(diff_pct * pos["lot"] * 1000, 2)
+            pos["pnl"] = gain_reel
+            equity += gain_reel
+            
+        data["equity"] = round(equity, 2)
+        sauvegarder_donnees_simulees(data)
+        
         return {
             "status": "succes",
             "mode": "Simulation (Paper Trading)",
             "solde": data["balance"],
             "equite": data["equity"],
             "positions_ouvertes": data["positions"]
+        }
+
+    if action == "modify":
+        if not position_id:
+            return {"status": "erreur", "message": "position_id requis pour modifier les stops."}
+        
+        position_trouvee = None
+        for pos in data["positions"]:
+            if pos["id"] == position_id:
+                position_trouvee = pos
+                break
+                
+        if not position_trouvee:
+            return {"status": "erreur", "message": f"Position avec l'ID {position_id} introuvable."}
+
+        if stop_loss is not None:
+            position_trouvee["stop_loss"] = stop_loss
+        if take_profit is not None:
+            position_trouvee["take_profit"] = take_profit
+            
+        sauvegarder_donnees_simulees(data)
+        return {
+            "status": "succes",
+            "message": f"Stops de la position {position_id} mis à jour avec succès.",
+            "position": position_trouvee
         }
 
     if action == "close":
@@ -107,13 +181,40 @@ def executer_ordre_simule(
         if not position_trouvee:
             return {"status": "erreur", "message": f"Position avec l'ID {position_id} introuvable."}
 
-        # Simule un gain/perte neutre lors de la fermeture
+        # Valorise la position finale
+        sym = position_trouvee["symbole"]
+        yf_sym = symbol_mappings.get(sym.upper(), sym)
+        prix_actuel = position_trouvee["prix_ouverture"]
+        
+        if yf:
+            try:
+                ticker = yf.Ticker(yf_sym)
+                hist = ticker.history(period="1d")
+                if not hist.empty:
+                    prix_actuel = float(hist.iloc[-1]["Close"])
+            except Exception:
+                pass
+                
+        # Calcule le P&L final
+        diff_pct = 0.0
+        if position_trouvee["type"] == "BUY":
+            diff_pct = ((prix_actuel - position_trouvee["prix_ouverture"]) / position_trouvee["prix_ouverture"]) * 100
+        elif position_trouvee["type"] == "SELL":
+            diff_pct = ((position_trouvee["prix_ouverture"] - prix_actuel) / position_trouvee["prix_ouverture"]) * 100
+            
+        gain_reel = round(diff_pct * position_trouvee["lot"] * 1000, 2)
+        
+        # Crédite/débite le solde du compte
+        data["balance"] = round(data["balance"] + gain_reel, 2)
         data["positions"] = nouvelles_positions
+        # Recalcule de l'equity globale
+        data["equity"] = data["balance"]
         sauvegarder_donnees_simulees(data)
         
         return {
             "status": "succes",
-            "message": f"Position {position_id} fermée avec succès (Simulation).",
+            "message": f"Position {position_id} fermée à {prix_actuel}. P&L final: {gain_reel} $.",
+            "solde_restant": data["balance"],
             "position_fermee": position_trouvee
         }
 
@@ -121,9 +222,18 @@ def executer_ordre_simule(
     if not symbol or not lot:
         return {"status": "erreur", "message": "symbol et lot requis pour ouvrir un trade."}
 
-    # Simulation d'un prix approximatif de marché si non fourni
-    prix_simule = 1.0850 if "USD" in symbol.upper() else (2350.0 if "GOLD" in symbol.upper() else 150.0)
-    
+    # Simulation d'un prix de départ via yfinance si dispo
+    prix_simule = 1.0850
+    yf_sym = symbol_mappings.get(symbol.upper(), symbol)
+    if yf:
+        try:
+            ticker = yf.Ticker(yf_sym)
+            hist = ticker.history(period="1d")
+            if not hist.empty:
+                prix_simule = float(hist.iloc[-1]["Close"])
+        except Exception:
+            pass
+
     nouvel_id = int(time.time())
     nouvelle_position = {
         "id": nouvel_id,
@@ -161,24 +271,21 @@ def executer_ordre_trading(
     sur le mode simulation locale.
 
     Args:
-        action: L'action (buy, sell, close, status).
+        action: L'action (buy, sell, close, modify, status).
         symbol: Le symbole financier.
         lot: La taille de lot.
         stop_loss: Prix Stop Loss.
         take_profit: Prix Take Profit.
-        position_id: Identifiant de position (fermeture).
+        position_id: Identifiant de position.
 
     Returns:
         Dictionnaire avec les résultats de la transaction ou du statut.
     """
-    # Vérifie si une URL de serveur API REST de trading est présente
     api_url = os.getenv("MT5_API_URL", "").strip()
     
     if not api_url:
-        # Par défaut, bascule en mode Paper Trading simulé
         return executer_ordre_simule(action, symbol, lot, stop_loss, take_profit, position_id)
 
-    # Logique d'appel HTTP vers le serveur REST du client
     try:
         import requests
         if action == "status":
@@ -187,9 +294,15 @@ def executer_ordre_trading(
                 return {"status": "succes", "mode": "MetaTrader5 (REST)", "donnees": r.json()}
             
         elif action in ["buy", "sell"]:
-            # Route type : /open_position/{name}/{timeframe}/{Type}/{comment}/{lot}
-            route = f"{api_url}/open_position/{symbol}/D1/{action}/{comment}/{lot}"
-            r = requests.get(route, timeout=10) # Utilise GET selon le pattern client
+            route = f"{api_url}/open_position/{symbol}/D1/{action}/EVA_CORE/{lot}"
+            r = requests.get(route, timeout=10)
+            if r.status_code == 200:
+                return {"status": "succes", "mode": "MetaTrader5 (REST)", "resultat": r.json()}
+
+        elif action == "modify":
+            # Appel d'adaptation REST pour modifier les stops
+            route = f"{api_url}/modify_position/{position_id}/{stop_loss}/{take_profit}"
+            r = requests.get(route, timeout=5)
             if r.status_code == 200:
                 return {"status": "succes", "mode": "MetaTrader5 (REST)", "resultat": r.json()}
 
@@ -210,7 +323,7 @@ from tools.registry import registry
 FINANCE_ORDRE_SCHEMA = {
     "name": "finance_execution_ordres",
     "description": (
-        "Gère l'exécution des ordres de trading (achat, vente, fermeture de position) "
+        "Gère l'exécution des ordres de trading (achat, vente, fermeture de position, modification de stops) "
         "sur MetaTrader 5. Utilise le mode Simulation par défaut (Paper Trading local) "
         "ou l'API REST de trading si l'environnement le spécifie."
     ),
@@ -219,8 +332,8 @@ FINANCE_ORDRE_SCHEMA = {
         "properties": {
             "action": {
                 "type": "string",
-                "description": "L'action : 'buy' (achat), 'sell' (vente), 'close' (fermeture de position), ou 'status' (solde et positions).",
-                "enum": ["buy", "sell", "close", "status"]
+                "description": "L'action : 'buy' (achat), 'sell' (vente), 'close' (fermeture de position), 'modify' (modifier stops) ou 'status' (solde et positions).",
+                "enum": ["buy", "sell", "close", "modify", "status"]
             },
             "symbol": {
                 "type": "string",
@@ -241,7 +354,7 @@ FINANCE_ORDRE_SCHEMA = {
             },
             "position_id": {
                 "type": "integer",
-                "description": "Identifiant de la position à fermer (requis si action='close')."
+                "description": "Identifiant de la position concernée (requis si action='close' ou 'modify')."
             }
         },
         "required": ["action"]
