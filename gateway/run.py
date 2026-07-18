@@ -13,6 +13,15 @@ Usage:
     python cli.py --gateway
 """
 
+import os
+import sys
+
+# Bootstrap eva_core path before importing any core modules
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_EVA_CORE_DIR = os.path.join(_ROOT, 'eva_core')
+if _EVA_CORE_DIR not in sys.path:
+    sys.path.insert(0, _EVA_CORE_DIR)
+
 # IMPORTANT: hermes_bootstrap must be the very first import — UTF-8 stdio
 # on Windows.  No-op on POSIX.  See hermes_bootstrap.py for full rationale.
 try:

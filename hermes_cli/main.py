@@ -43,6 +43,15 @@ Usage:
     hermes claw migrate --dry-run  # Preview migration without changes
 """
 
+import os
+import sys
+
+# Bootstrap eva_core path before importing any core modules
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_EVA_CORE_DIR = os.path.join(_ROOT, 'eva_core')
+if _EVA_CORE_DIR not in sys.path:
+    sys.path.insert(0, _EVA_CORE_DIR)
+
 # IMPORTANT: hermes_bootstrap must be the very first import — it sets up
 # UTF-8 stdio on Windows so print()/subprocess children don't hit
 # UnicodeEncodeError with non-ASCII characters.  No-op on POSIX.
@@ -60,9 +69,6 @@ try:
     import hermes_bootstrap  # noqa: F401
 except ModuleNotFoundError:
     pass
-
-import os
-import sys
 
 
 def _set_process_title() -> None:

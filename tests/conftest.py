@@ -30,6 +30,9 @@ import pytest
 PROJECT_ROOT = Path(__file__).parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
+EVA_CORE = PROJECT_ROOT / "eva_core"
+if str(EVA_CORE) not in sys.path:
+    sys.path.insert(0, str(EVA_CORE))
 
 
 # ── Per-file process isolation ──────────────────────────────────────────────
