@@ -2,11 +2,11 @@
 name: industry4-workflows-pipelines
 description: "Concevoir, modéliser et optimiser des pipelines de workflows industriels pour l'Industrie 4.0, de la donnée capteur à la prise de décision automatisée."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industry40, workflows, pipelines, bpmn, orchestration, kafka, airflow, iot]
     related_skills: [industry-4-0-advanced-architecture, industry50-and-sustainability, industrial-communication-protocols]
 ---
@@ -86,7 +86,7 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
 default_args = {
-    "owner": "actemium",
+    "owner": "EVA",
     "retries": 2,
     "retry_delay": timedelta(minutes=5),
 }

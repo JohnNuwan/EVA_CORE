@@ -2,11 +2,11 @@
 name: predictive-maintenance-ml
 description: "Développer des modèles ML/DL pour la maintenance prédictive sur séries temporelles industrielles."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - predictive-maintenance
       - deep-learning

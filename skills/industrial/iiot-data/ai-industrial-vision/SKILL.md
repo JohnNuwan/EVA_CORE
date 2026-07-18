@@ -2,11 +2,11 @@
 name: ai-industrial-vision
 description: "Déployer des pipelines de vision IA sur ligne."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [computer-vision, opencv, yolo, onnx, quality-control, gige-vision, industrial-camera, defect-detection]
     related_skills: [computer-vision-quality, plc-connectivity, industrial-edge, predictive-maintenance]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 La **vision industrielle** est un pilier de l'Industrie 4.0 pour l'inspection automatique, la détection de défauts et la lecture de codes sur les lignes de production. L'intégration de modèles d'intelligence artificielle (YOLO, ONNX Runtime) permet de dépasser les limites des algorithmes classiques (seuillage, template matching) sur des défauts visuels complexes.
 
-Cette compétence guide l'agent Helios pour :
+Cette compétence guide l'agent EVA pour :
 1. Configurer des **caméras industrielles** (GigE Vision, USB3 Vision) via Python.
 2. Développer des **pipelines de prétraitement** OpenCV (binarisation, détection de contours, calibration).
 3. Intégrer des **modèles de détection de défauts** YOLO/ONNX pour le contrôle qualité en ligne.

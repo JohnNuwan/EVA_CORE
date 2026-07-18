@@ -2,10 +2,10 @@
 name: pneumatic-industrial-standards
 description: "Concevoir, auditer et fiabiliser des systèmes pneumatiques industriels selon les exigences de sécurité, de qualité d'air comprimé et de maintenabilité."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, pneumatic, compressed-air, iso-4414, iso-8573, valves, cylinders, safety, maintenance, energy]
     related_skills: [multi-sector-industrial-standards, electrical-schematics-eplan, emc-protection-grounding]
 ---

@@ -2,8 +2,8 @@
 name: virtual-commissioning
 description: "Simuler des automates et configurer la mise en service."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [virtual-commissioning, simulation, plc-emulation, digital-twins, industrial-automation]

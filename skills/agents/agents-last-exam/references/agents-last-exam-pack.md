@@ -12,4 +12,4 @@ Recent AI systems have achieved strong results on a wide range of benchmarks, ye
 ---
 
 ## Synthèse et Analyse
-L'intégration de cette recherche au sein de l'agent Helios permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.
+L'intégration de cette recherche au sein de l'agent EVA permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.

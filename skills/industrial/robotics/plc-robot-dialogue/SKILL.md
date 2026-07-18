@@ -2,8 +2,8 @@
 name: plc-robot-dialogue
 description: "Concevoir le dialogue et la synchronisation PLC/Robot."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [plc, robot, synchronization, handshake, industrial-protocols, communication, safety, collision-avoidance]

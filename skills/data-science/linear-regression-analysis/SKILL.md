@@ -2,10 +2,10 @@
 name: linear-regression-analysis
 description: "Analyse et modélisation de régressions linéaires."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [regression, statistics, predictive-modeling, scikit-learn, statsmodels, industry-analytics]
     related_skills: [data-analysis-exploration, predictive-maintenance-ml, engineering-project-management]
 ---

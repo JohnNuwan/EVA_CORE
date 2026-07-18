@@ -6,10 +6,10 @@ description: |
   Space. Works with any tool-capable model. Load this skill whenever the
   `computer_use` tool is available.
 version: 1.0.0
-license: Privée Actemium St-Étienne
+license: Privée EVA St-Étienne
 platforms: [macos]
 metadata:
-  helios:
+  EVA:
     tags: [computer-use, macos, desktop, automation, gui]
     category: desktop
     related_skills: [browser]
@@ -19,9 +19,9 @@ metadata:
 
 ## Vue d'ensemble
 
-Cette compétence permet à l'agent Helios de piloter le bureau macOS en **arrière-plan** via l'outil `computer_use`. Contrairement aux approches classiques comme `pyautogui` ou AppleScript, cette compétence ne vole pas le curseur, ne capture pas le clavier et ne change pas l'espace de travail actif de l'utilisateur. L'utilisateur peut continuer à taper dans son éditeur pendant que l'agent clique dans Safari sur un autre espace.
+Cette compétence permet à l'agent EVA de piloter le bureau macOS en **arrière-plan** via l'outil `computer_use`. Contrairement aux approches classiques comme `pyautogui` ou AppleScript, cette compétence ne vole pas le curseur, ne capture pas le clavier et ne change pas l'espace de travail actif de l'utilisateur. L'utilisateur peut continuer à taper dans son éditeur pendant que l'agent clique dans Safari sur un autre espace.
 
-L'outil `computer_use` est basé sur [`cua-driver`](https://github.com/HeliosAgent/cua-driver), un pilote d'automatisation macOS qui utilise les API Accessibility (AX) et CoreGraphics. Il fonctionne avec **tout modèle capable d'utiliser des outils** : Claude, GPT, Gemini, ou un modèle open source via un endpoint compatible OpenAI.
+L'outil `computer_use` est basé sur [`cua-driver`](https://github.com/EVAAgent/cua-driver), un pilote d'automatisation macOS qui utilise les API Accessibility (AX) et CoreGraphics. Il fonctionne avec **tout modèle capable d'utiliser des outils** : Claude, GPT, Gemini, ou un modèle open source via un endpoint compatible OpenAI.
 
 Le workflow canonique suit trois étapes :
 1. **Capturer** l'interface avec des annotations numérotées sur chaque élément interactif
@@ -33,9 +33,9 @@ Le workflow canonique suit trois étapes :
 ## Prérequis
 
 - **macOS 13+** (Ventura, Sonoma, Sequoia)
-- Installation via Helios :
+- Installation via EVA :
   ```bash
-  helios tools
+  EVA tools
   ```
   → Activer **Computer Use** dans l'interface de configuration
   → Le script d'installation configure `cua-driver` avec les permissions nécessaires
@@ -302,7 +302,7 @@ Si `cua-driver` n'est pas installé, le message suivant apparaît :
 "cua-driver not install"
 ```
 
-**Solution :** Exécuter `helios tools` et activer Computer Use. Vérifier les permissions dans **Réglages Système → Confidentialité → Accessibilité** et **Enregistrement d'écran**.
+**Solution :** Exécuter `EVA tools` et activer Computer Use. Vérifier les permissions dans **Réglages Système → Confidentialité → Accessibilité** et **Enregistrement d'écran**.
 
 ### 5. Application cible non trouvée
 
@@ -368,7 +368,7 @@ Bien que `computer_use` fonctionne sur tous les espaces, si vous tentez d'intera
 
 | Symptôme | Cause probable | Solution |
 |---|---|---|
-| `"cua-driver not installed"` | cua-driver manquant | `helios tools` → activer Computer Use |
+| `"cua-driver not installed"` | cua-driver manquant | `EVA tools` → activer Computer Use |
 | Clic sans effet | Index obsolète ou modal bloquant | Recapturer, vérifier l'état, fermer les modaux |
 | `"blocked pattern in type text"` | Chaîne dangereuse détectée | Fractionner ou utiliser `terminal` |
 | Capture vide | App cible non lancée | Lancer l'application d'abord |

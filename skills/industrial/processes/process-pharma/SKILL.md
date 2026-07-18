@@ -2,11 +2,11 @@
 name: process-pharma
 description: "Utiliser quand l'utilisateur demande d'écrire du code, de configurer des systèmes SCADA ou d'analyser des procédés pour les secteurs pharmaceutique et biologique sous contraintes réglementaires GAMP 5 et FDA 21 CFR Part 11."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [pharma, biological, gamp5, 21-cfr-part-11, audit-trail, isa-88, validation, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ Les industries pharmaceutiques et biologiques sont soumises à des contraintes r
 1. **GAMP 5 (Good Automated Manufacturing Practice) :** Un guide méthodologique de cycle de vie pour la validation des systèmes automatisés (Spécifications, Qualification de Conception, Qualification d'Installation QI, Qualification Opérationnelle QO, Qualification de Performance QP).
 2. **FDA 21 CFR Part 11 (et son équivalent européen Annexe 11 des BPF) :** Exigences sur la sécurité des données, l'intégrité des enregistrements électroniques (ALCOA+), les signatures électroniques et l'**Audit Trail** (journal d'événements inaltérable).
 
-Cette compétence guide l'agent Helios pour écrire du code et concevoir des systèmes de traçabilité conformes à ces contraintes.
+Cette compétence guide l'agent EVA pour écrire du code et concevoir des systèmes de traçabilité conformes à ces contraintes.
 
 ## Quand l'utiliser
 

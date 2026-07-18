@@ -2,8 +2,8 @@
 name: plc-simulation-blocks
 description: "Générer des blocs de simulation de procédé pour tests."
 version: 1.3.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [simulation, sil, hil, process-control, testing, automation-engineering, pid-control]

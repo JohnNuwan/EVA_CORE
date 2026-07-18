@@ -2,11 +2,11 @@
 name: industrial-communication-protocols
 description: "Mettre en œuvre et optimiser les protocoles de communication industrielle (OPC-UA, MQTT, Modbus, Profinet) pour l'interopérabilité et l'automatisation des systèmes connectés."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [protocols, opcua, mqtt, modbus, profinet, industrial-communication, iot, automation]
     related_skills: [industry-4-0-advanced-architecture, plc-connectivity, interoperability-of-industrial-systems]
 ---
@@ -67,7 +67,7 @@ make && sudo make install
 ```python
 from opcua import Client
 
-client = Client("opc.tcp://plc.actemium.local:4840")
+client = Client("opc.tcp://plc.EVA.local:4840")
 client.connect()
 print("Connecté au serveur OPC-UA")
 
@@ -131,7 +131,7 @@ def publish_sensor_data(client, sensor_id, temperature, pressure):
     payload.add_metric("pressure", MetricDataType.Double, pressure)
     payload.add_metric("timestamp", MetricDataType.DateTime, int(time.time() * 1000))
 
-    topic = f"spBv1.0/actemium/NDATA/{sensor_id}"
+    topic = f"spBv1.0/EVA/NDATA/{sensor_id}"
     client.publish(topic, payload.serialize(), qos=1)
 ```
 

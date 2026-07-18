@@ -2,11 +2,11 @@
 name: python-pep8
 description: "Respecter le guide de style PEP 8 pour le code Python."
 version: 1.0.0
-author: Helios Agent (adapté de obra/superpowers)
-license: Privée Actemium St-Étienne
+author: EVA Agent (adapté de obra/superpowers)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [python, pep8, style-guide, formatting, clean-code]
     related_skills: [python-pep257, python-pep484, python-pep20, simplify-code]
 ---

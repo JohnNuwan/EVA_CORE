@@ -2,12 +2,12 @@
 name: os-aix-engineering
 description: "Administrer et optimiser IBM AIX sur architecture IBM Power, configurer les partitions logiques (LPARs), gérer la base système ODM, administrer le stockage avec LVM AIX et installer via NIM."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [aix, ibm, power, lpar, odm, lvm-aix, nim, unix, system-ops]
-  helios:
+  EVA:
     related_skills: [os-solaris-engineering, os-linux-admin]
 ---
 

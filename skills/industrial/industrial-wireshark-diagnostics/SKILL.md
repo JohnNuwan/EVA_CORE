@@ -2,10 +2,10 @@
 name: industrial-wireshark-diagnostics
 description: "Utiliser quand l'utilisateur demande d'analyser une capture réseau OT avec Wireshark/tshark pour identifier protocoles industriels, latences, conversations et signatures de panne."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [wireshark, tshark, ot, diagnostics, pcap, profinet, modbus, ethernet-ip, opc-ua]
     related_skills: [industrial-network-design, industrial-protocols, industrial-networks-ot]
 ---

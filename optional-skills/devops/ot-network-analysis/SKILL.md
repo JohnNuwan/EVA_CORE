@@ -2,7 +2,7 @@
 name: ot-network-analysis
 description: "Analyser des captures de paquets réseau industriels (PCAP)."
 version: 1.0.0
-author: Actemium
+author: EVA
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
@@ -16,7 +16,7 @@ metadata:
 
 Le diagnostic des réseaux industriels (OT) nécessite souvent d'analyser des captures de paquets (fichiers `.pcap` ou `.pcapng` générés par Wireshark ou tcpdump). Ces fichiers contiennent l'historique exact des échanges entre les automates (PLC), les supervisions (SCADA) et les capteurs.
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'analyse de paquets réseau en Python en utilisant la bibliothèque **Scapy**. Elle permet d'identifier les pannes intermittentes, les latences excessives, les erreurs de communication et les requêtes suspectes.
+Cette compétence guide l'agent EVA pour écrire des scripts d'analyse de paquets réseau en Python en utilisant la bibliothèque **Scapy**. Elle permet d'identifier les pannes intermittentes, les latences excessives, les erreurs de communication et les requêtes suspectes.
 
 ---
 

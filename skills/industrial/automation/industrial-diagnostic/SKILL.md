@@ -2,11 +2,11 @@
 name: industrial-diagnostic
 description: "Diagnostiquer des pannes industrielles via SQL et RAG local sur documentation technique."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - industrial
       - diagnostic

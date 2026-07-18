@@ -2,12 +2,12 @@
 name: os-suse-engineering
 description: "Administrer SUSE Linux Enterprise Server (SLES), utiliser l'outil d'administration centralisé YaST, configurer les paquets avec Zypper et déployer des clusters de haute disponibilité (SLES HA)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux]
 metadata:
   tags: [sles, suse, yast, zypper, high-availability, clustering, system-ops]
-  helios:
+  EVA:
     related_skills: [os-linux-admin, os-rhel-engineering]
 ---
 

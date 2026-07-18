@@ -2,11 +2,11 @@
 name: gmp-pharmaceutical
 description: "Implémenter les Bonnes Pratiques de Fabrication (GMP) pharmaceutiques : BPF, FDA 21 CFR Part 11/210/211, ICH Q7/Q10, EU GMP Annex 1, validation des procédés et qualité pharmaceutique."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [gmp, pharmaceutical, fda, bpF, ich-q7, ich-q10, validation, cfr21-part11, eu-gmp, quality-by-design, pharma-manufacturing]
     related_skills: [iso-22000, iso-quality, industrial-risk-analysis-hazop, cleanroom-sterile]
     difficulty: advanced

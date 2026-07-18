@@ -1,11 +1,11 @@
 # Native MCP Client
 
-Helios Agent has a built-in MCP client that connects to MCP servers at startup, discovers their tools, and makes them available as first-class tools the agent can call directly. No bridge CLI needed -- tools from MCP servers appear alongside built-in tools like `terminal`, `read_file`, etc.
+EVA Agent has a built-in MCP client that connects to MCP servers at startup, discovers their tools, and makes them available as first-class tools the agent can call directly. No bridge CLI needed -- tools from MCP servers appear alongside built-in tools like `terminal`, `read_file`, etc.
 
 ## When to Use
 
 Use this whenever you want to:
-- Connect to MCP servers and use their tools from within Helios Agent
+- Connect to MCP servers and use their tools from within EVA Agent
 - Add external capabilities (filesystem access, GitHub, databases, APIs) via MCP
 - Run local stdio-based MCP servers (npx, uvx, or any command)
 - Connect to remote HTTP/StreamableHTTP MCP servers
@@ -29,7 +29,7 @@ uv pip install mcp
 
 ## Quick Start
 
-Add MCP servers to `~/.helios/config.yaml` under the `mcp_servers` key:
+Add MCP servers to `~/.EVA/config.yaml` under the `mcp_servers` key:
 
 ```yaml
 mcp_servers:
@@ -38,7 +38,7 @@ mcp_servers:
     args: ["mcp-server-time"]
 ```
 
-Restart Helios Agent. On startup it will:
+Restart EVA Agent. On startup it will:
 1. Connect to the server
 2. Discover available tools
 3. Register them with the prefix `mcp_time_*`
@@ -93,12 +93,12 @@ Note: A server config must have either `command` (stdio) or `url` (HTTP), not bo
 
 ### Startup Discovery
 
-When Helios Agent starts, `discover_mcp_tools()` is called during tool initialization:
+When EVA Agent starts, `discover_mcp_tools()` is called during tool initialization:
 
-1. Reads `mcp_servers` from `~/.helios/config.yaml`
+1. Reads `mcp_servers` from `~/.EVA/config.yaml`
 2. For each server, spawns a connection in a dedicated background event loop
 3. Initializes the MCP session and calls `list_tools()` to discover available tools
-4. Registers each tool in the Helios tool registry
+4. Registers each tool in the EVA tool registry
 
 ### Tool Naming Convention
 
@@ -117,7 +117,7 @@ Examples:
 
 ### Auto-Injection
 
-After discovery, MCP tools are automatically injected into all `helios-*` platform toolsets (CLI, Discord, Telegram, etc.). This means MCP tools are available in every conversation without any additional configuration.
+After discovery, MCP tools are automatically injected into all `EVA-*` platform toolsets (CLI, Discord, Telegram, etc.). This means MCP tools are available in every conversation without any additional configuration.
 
 ### Connection Lifecycle
 
@@ -134,7 +134,7 @@ After discovery, MCP tools are automatically injected into all `helios-*` platfo
 
 ### Stdio Transport
 
-The most common transport. Helios launches the MCP server as a subprocess and communicates over stdin/stdout.
+The most common transport. EVA launches the MCP server as a subprocess and communicates over stdin/stdout.
 
 ```yaml
 mcp_servers:
@@ -163,7 +163,7 @@ If HTTP support is not available in your installed `mcp` version, the server wil
 
 ### Environment Variable Filtering
 
-For stdio servers, Helios does NOT pass your full shell environment to MCP subprocesses. Only safe baseline variables are inherited:
+For stdio servers, EVA does NOT pass your full shell environment to MCP subprocesses. Only safe baseline variables are inherited:
 
 - `PATH`, `HOME`, `USER`, `LANG`, `LC_ALL`, `TERM`, `SHELL`, `TMPDIR`
 - Any `XDG_*` variables
@@ -201,7 +201,7 @@ pip install mcp
 
 ### "No MCP servers configured"
 
-No `mcp_servers` key in `~/.helios/config.yaml`, or it's empty. Add at least one server.
+No `mcp_servers` key in `~/.EVA/config.yaml`, or it's empty. Add at least one server.
 
 ### "Failed to connect to MCP server 'X'"
 
@@ -223,7 +223,7 @@ pip install --upgrade mcp
 
 - Check that the server is listed under `mcp_servers` (not `mcp` or `servers`)
 - Ensure the YAML indentation is correct
-- Look at Helios Agent startup logs for connection messages
+- Look at EVA Agent startup logs for connection messages
 - Tool names are prefixed with `mcp_{server}_{tool}` -- look for that pattern
 
 ### Connection keeps dropping
@@ -311,7 +311,7 @@ All tools from all servers are registered and available simultaneously. Each ser
 
 ## Sampling (Server-Initiated LLM Requests)
 
-Helios supports MCP's `sampling/createMessage` capability — MCP servers can request LLM completions through the agent during tool execution. This enables agent-in-the-loop workflows (data analysis, content generation, decision-making).
+EVA supports MCP's `sampling/createMessage` capability — MCP servers can request LLM completions through the agent during tool execution. This enables agent-in-the-loop workflows (data analysis, content generation, decision-making).
 
 Sampling is **enabled by default**. Configure per server:
 

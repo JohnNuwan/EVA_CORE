@@ -2,8 +2,8 @@
 name: cross-vendor-plc-scada-patterns
 description: "Orchestrer des livrables et des patterns transverses entre Rockwell Studio 5000, Siemens TIA Portal/SCL et Ignition SCADA."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 created_by: agent
 metadata:

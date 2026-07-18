@@ -2,25 +2,25 @@
 name: codex
 description: "Déléguer des tâches de code à OpenAI Codex CLI."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [coding-agent, codex, openai, code-review, refactoring, ai-assisted-development, batch-processing, Pull-Request]
-    related_skills: [claude-code, helios-agent, helios-agent-mcp-development]
+    related_skills: [claude-code, EVA-agent, EVA-agent-mcp-development]
 ---
 
 # Délégation de tâches de code avec OpenAI Codex CLI
 
 ## Vue d'ensemble
 
-Cette compétence permet à Helios de déléguer des tâches de développement logiciel à **[Codex](https://github.com/openai/codex)**, l'agent autonome de codage en ligne de commande d'OpenAI. Au lieu qu'Helios exécute directement du code ou écrive lui-même des fichiers, il peut confier à Codex des sous-tâches complètes (développement de fonctionnalités, refactoring, revue de code, correction de bugs) et en récupérer le résultat.
+Cette compétence permet à EVA de déléguer des tâches de développement logiciel à **[Codex](https://github.com/openai/codex)**, l'agent autonome de codage en ligne de commande d'OpenAI. Au lieu qu'EVA exécute directement du code ou écrive lui-même des fichiers, il peut confier à Codex des sous-tâches complètes (développement de fonctionnalités, refactoring, revue de code, correction de bugs) et en récupérer le résultat.
 
 ### Principe de fonctionnement
 
 ```
-Helios Agent ──terminal(pty=true)──> Codex CLI
+EVA Agent ──terminal(pty=true)──> Codex CLI
     │                                       │
     │  Prompt : "Ajouter un mode sombre"     │
     │───────────────────────────────────────►│
@@ -58,7 +58,7 @@ Helios Agent ──terminal(pty=true)──> Codex CLI
 
 ### Authentification
 
-Pour Helios, le fournisseur `model.provider: openai-codex` utilise l'OAuth géré par Helios depuis `~/.helios/auth.json` après `helios auth add openai-codex`. Pour la CLI Codex autonome, une session OAuth peut résider sous `~/.codex/auth.json`.
+Pour EVA, le fournisseur `model.provider: openai-codex` utilise l'OAuth géré par EVA depuis `~/.EVA/auth.json` après `EVA auth add openai-codex`. Pour la CLI Codex autonome, une session OAuth peut résider sous `~/.codex/auth.json`.
 
 > **Important :** Ne pas traiter l'absence de `OPENAI_API_KEY` comme une preuve d'absence d'authentification Codex. Vérifier d'abord `~/.codex/auth.json`.
 
@@ -196,7 +196,7 @@ terminal(command="git worktree remove /tmp/issue-99", workdir="~/mon-projet")
 
 ### 6.1 Problème connu
 
-Quand Codex CLI est invoqué depuis un contexte **gateway Helios** (ex: session Telegram), le sandbox `workspace-write` peut échouer même si la même commande fonctionne dans le shell interactif de l'utilisateur.
+Quand Codex CLI est invoqué depuis un contexte **gateway EVA** (ex: session Telegram), le sandbox `workspace-write` peut échouer même si la même commande fonctionne dans le shell interactif de l'utilisateur.
 
 **Symptômes typiques :**
 

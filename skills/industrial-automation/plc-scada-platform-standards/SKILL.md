@@ -2,10 +2,10 @@
 name: plc-scada-platform-standards
 description: "Use when standardizing or producing expert packs across Siemens SCL, Rockwell Studio 5000, Ignition SCADA, and PLC↔SCADA integration. Creates coordinated, professional deliverables instead of isolated vendor notes."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, plc, scada, siemens, rockwell, ignition, standards, integration, fat, sat]
     related_skills: [siemens-scl, rockwell-studio5000, ignition-scada, industrial-generator]
 ---
@@ -16,7 +16,7 @@ metadata:
 
 Cette compétence sert à produire une base d'expertise structurée et réutilisable quand l'utilisateur demande de "monter le niveau" ou de créer des packs experts couvrant plusieurs plateformes industrielles à la fois. Le bon livrable n'est pas une note unique et plate, mais un ensemble coordonné de standards par plateforme plus un document d'intégration transverse.
 
-Elle est particulièrement adaptée aux environnements Actemium où le même standard doit rester cohérent entre Siemens, Rockwell, Ignition et les interfaces PLC ↔ SCADA.
+Elle est particulièrement adaptée aux environnements EVA où le même standard doit rester cohérent entre Siemens, Rockwell, Ignition et les interfaces PLC ↔ SCADA.
 
 ## Quand l'utiliser
 

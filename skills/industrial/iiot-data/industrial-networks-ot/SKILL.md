@@ -2,8 +2,8 @@
 name: industrial-networks-ot
 description: "Utiliser quand l'utilisateur demande de concevoir, de sécuriser ou de dépanner des architectures réseau industrielles (OT) selon le modèle Purdue ou les spécifications CPwE."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [industrial-networks, ot-networks, cpwe, routing, switch-config, industrial-automation]

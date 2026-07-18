@@ -2,11 +2,11 @@
 name: industry50-and-sustainability
 description: "Concevoir des systèmes de production durables alliant automatisation intelligente (Industrie 5.0), collaboration homme-machine et responsabilité environnementale."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industry50, sustainability, human-machine, ethics, collaboration, circular-economy, green-manufacturing]
     related_skills: [industry-4-0-advanced-architecture, iso-standards-for-industry, energy-monitoring]
 ---

@@ -2,11 +2,11 @@
 name: retrieval-augmented-generation
 description: "Concevoir et déployer des pipelines RAG (Retrieval-Augmented Generation) combinant recherche documentaire et LLM pour de l'IA contextuelle en milieu industriel."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [rag, retrieval-augmented-generation, llm, embeddings, vector-database, semantic-search]
     related_skills: [llm-frameworks-exploration, ai-foundations-exploration, rag, arxiv, prompt-engineering]
 ---

@@ -12,4 +12,4 @@ Slide design requires personalizing both deck themes and page layouts. Yet, curr
 ---
 
 ## Synthèse et Analyse
-L'intégration de cette recherche au sein de l'agent Helios permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.
+L'intégration de cette recherche au sein de l'agent EVA permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.

@@ -2,10 +2,10 @@
 name: multi-constructor-plc-comparison
 description: "Comparer les principales plateformes automates industrielles et choisir la plus adaptée au cas d'usage."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [plc, comparison, siemens, rockwell, beckhoff, omron, schneider, wago, plcnext, br, mitsubishi]
     related_skills: [siemens-scl, rockwell-studio5000, beckhoff-twincat, omron-sysmac, schneider-unity, wago-codesys, phoenix-plcnext, br-automation-studio, mitsubishi-gx-works3]
 ---

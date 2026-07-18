@@ -2,8 +2,8 @@
 name: iec61499-distributed-control
 description: "Concevoir des systèmes distribués selon la norme IEC 61499."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [iec61499, distributed-control, function-blocks, 4diac, ecostruxure, industry4-0, events, runtime]

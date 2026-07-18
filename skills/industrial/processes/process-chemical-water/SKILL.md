@@ -2,11 +2,11 @@
 name: process-chemical-water
 description: "Utiliser quand l'utilisateur demande de concevoir, réguler ou optimiser des systèmes de traitement d'eau industrielle ou des procédés chimiques continus impliquant des boucles PID et des vannes d'asservissement."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [chemical-processes, water-treatment, pid, process-engineering]
     related_skills: [industrial-protocols, systematic-debugging]
 ---

@@ -2,10 +2,10 @@
 name: low-level-assembly-optimization
 description: "Rétro-ingénierie et optimisation de firmware en assembleur."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: pilot
     tags: [assembly, embedded, reverse-engineering, optimization, arm, x86, edge-mcu]
     related_skills: [siemens-scl-expert, industrial-ai-pipeline]

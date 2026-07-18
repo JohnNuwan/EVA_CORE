@@ -2,12 +2,12 @@
 name: industrial-maintenance-reliability
 description: "Appliquer l'ingénierie de fiabilité des équipements industriels, déployer la démarche TPM (Total Productive Maintenance), analyser les modes de défaillance via la RCM (Reliability Centered Maintenance) et calculer les indicateurs FMD (MTBF, MTTR, Disponibilité, Loi de Weibull)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [reliability, tpm, rcm, fmd, mtbf, mttr, availability, maintenance-engineering, weibull, reliability-analysis, fmeca, oee, asset-management]
-  helios:
+  EVA:
     related_skills: [industrial-maintenance-preventive, oee-performance, cmms-gmao-integration]
     difficulty: advanced
     industry_sectors: [manufacturing, chemical, pharmaceutical, energy, oil-gas, automotive, aerospace]

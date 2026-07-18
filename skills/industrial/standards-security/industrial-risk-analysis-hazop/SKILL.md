@@ -2,11 +2,11 @@
 name: industrial-risk-analysis-hazop
 description: "Appliquer les méthodologies d'analyse de risques industriels de procédés : HAZOP (Hazard and Operability), AMDEC / FMEA, LOPA (Layer of Protection Analysis), et concevoir les barrières de sécurité (SIS, vannes de sécurité, alarmes) conformément à la réglementation SEVESO et à la norme IEC 61511."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [risk-analysis, hazop, amdec, fmea, lopa, safety, chemical-process, industrial-safety, sis, sil, pfd, bowtie, barriers, seveso, iec-61511, process-safety]
     related_skills: [pid-instrumentation, systems-engineering-sysml, atex-hazardous-areas]
     difficulty: advanced

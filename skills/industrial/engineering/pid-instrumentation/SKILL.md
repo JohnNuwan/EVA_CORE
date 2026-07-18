@@ -2,11 +2,11 @@
 name: pid-instrumentation
 description: "Concevoir, interpréter et documenter des schémas de procédé P&ID (Piping & Instrumentation Diagram) et sélectionner l'instrumentation industrielle (capteurs, vannes, transmetteurs) selon la norme ISA-5.1."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [piping, instrumentation, pid, isa-51, isa-20, process, sensors, valves, control-loops, loop-diagram, engineering]
     related_skills: [electrical-schematics-eplan, pid-tuning-control, electrical-cabinet-3d]
 ---

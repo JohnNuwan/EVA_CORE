@@ -2,10 +2,10 @@
 name: spatialclaw-rethinking-action-interface
 description: "Mettre en œuvre SpatialClaw pour le raisonnement spatial agentique 3D via un interpréteur Python d'outils géométriques."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, spatial-reasoning, spatialclaw, vlm, 3d-geometry, robotics]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

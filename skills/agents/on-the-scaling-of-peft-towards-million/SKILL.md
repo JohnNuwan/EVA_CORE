@@ -2,10 +2,10 @@
 name: on-the-scaling-of-peft-towards-million
 description: "Optimiser le routage et le passage à l'échelle de millions d'adaptateurs LoRA personnalisés (PEFT) avec cache de signatures d'experts sur GPUs distribués."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

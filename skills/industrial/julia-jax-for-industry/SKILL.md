@@ -2,10 +2,10 @@
 name: julia-jax-for-industry
 description: "Structurer l’usage professionnel de Julia et JAX en industrie pour optimisation, simulation, différentiation automatique et calcul scientifique avancé."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, julia, jax, optimization, simulation, autodiff, scientific-computing]
     related_skills: [scientific-computing-for-industry, industrial-programming-languages]
 ---

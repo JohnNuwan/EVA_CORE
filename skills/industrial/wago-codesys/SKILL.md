@@ -2,10 +2,10 @@
 name: wago-codesys
 description: "Programmer les contrôleurs WAGO sous CODESYS et migrer depuis e!COCKPIT."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [wago, codesys, iec61131-3, ecockpit, pfc200, opc-ua, modbus, plcopen]
     related_skills: [plcopen-xml, beckhoff-twincat, industrial-protocols, industrial-communication-protocols]
 ---

@@ -2,12 +2,12 @@
 name: engineering-project-management
 description: "Gérer des projets d'ingénierie industrielle (EPCm), planifier le chemin critique, maîtriser les risques, et piloter les phases de tests d'acceptation (FAT, SAT) et de mise en service (Commissioning)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [project-management, epcm, commissioning, fat, sat, scheduling, gantt, risk-management, earned-value, wbs]
-  helios:
+  EVA:
     related_skills: [industry40-digital-transformation, systems-engineering-sysml, supply-chain-planning-erp]
 ---
 
@@ -26,7 +26,7 @@ Les projets d'ingénierie industrielle se caractérisent par :
 
 Cette compétence intègre les bonnes pratiques du PMI (Project Management Institute) adaptées au contexte de l'ingénierie lourde : planification par chemin critique, management de la valeur acquise (EVM), gestion des réserves (Punch List), et management des risques projet.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la planification, l'organisation, la gestion des risques ou la mise en service d'un projet d'ingénierie industrielle.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la planification, l'organisation, la gestion des risques ou la mise en service d'un projet d'ingénierie industrielle.
 
 ---
 

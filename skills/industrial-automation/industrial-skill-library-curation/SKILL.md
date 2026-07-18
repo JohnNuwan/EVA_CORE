@@ -1,20 +1,20 @@
 ---
 name: industrial-skill-library-curation
-description: "Use when auditing, expanding, or remediating an industrial Helios skill library across MCPs, plugins, and domain skills instead of treating updates as one-off edits."
+description: "Use when auditing, expanding, or remediating an industrial EVA skill library across MCPs, plugins, and domain skills instead of treating updates as one-off edits."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [skills, curation, industrial, mcp, plugin, audit, remediation, library]
-    related_skills: [helios-agent-skill-authoring, helios-agent-mcp-development, plc-scada-platform-standards]
+    related_skills: [EVA-agent-skill-authoring, EVA-agent-mcp-development, plc-scada-platform-standards]
 ---
 
 # Industrial Skill Library Curation
 
 ## Vue d'ensemble
 
-Use this skill when the task is to improve an industrial Helios knowledge/tooling library at the collection level: identify weak skills, add missing MCPs/plugins first, then enrich the weakest domain skills with better structure, support files, and reusable validation artifacts. The goal is to raise the whole library's quality, not just patch a single page.
+Use this skill when the task is to improve an industrial EVA knowledge/tooling library at the collection level: identify weak skills, add missing MCPs/plugins first, then enrich the weakest domain skills with better structure, support files, and reusable validation artifacts. The goal is to raise the whole library's quality, not just patch a single page.
 
 ## Quand l'utiliser
 

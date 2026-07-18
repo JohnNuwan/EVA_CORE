@@ -2,10 +2,10 @@
 name: industrial-monitoring-pack
 description: "Use when structuring a reusable industrial monitoring pack across PLCs, robots, historians, dashboards, diagnostics, and performance KPIs."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, monitoring, plc, robot, opc-ua, historian, grafana, maintenance, oee]
     related_skills: [industrial-monitoring-stack, robot-monitoring-maintenance, plc-diagnostic, historian-timeseries, industrial-analytics-grafana, oee-performance]
 ---
@@ -34,7 +34,7 @@ Cette skill oriente la composition du pack et s'appuie sur des skills détaillé
 - de standardiser la supervision de plusieurs PLC / robots / variateurs ;
 - de créer un socle maintenance + diagnostic + optimisation ;
 - de relier collecte terrain, historian, dashboard et alerting ;
-- de bâtir un pack réutilisable Actemium pour plusieurs projets.
+- de bâtir un pack réutilisable EVA pour plusieurs projets.
 
 Ne pas utiliser pour :
 - une simple lecture ponctuelle de quelques tags sans objectif de réutilisation ;

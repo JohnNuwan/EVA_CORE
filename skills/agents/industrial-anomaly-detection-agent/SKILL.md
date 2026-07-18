@@ -2,10 +2,10 @@
 name: industrial-anomaly-detection-agent
 description: "Détection d'anomalies industrielles en vocabulaire ouvert."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: pilot
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]

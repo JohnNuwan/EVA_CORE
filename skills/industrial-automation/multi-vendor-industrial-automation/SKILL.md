@@ -2,10 +2,10 @@
 name: multi-vendor-industrial-automation
 description: "Use when the task spans multiple PLC/DCS vendors or the user wants a cross-vendor automation comparison, learning path, or standardization approach."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, plc, dcs, siemens, rockwell, beckhoff, omron, schneider, ignition, interoperability]
     related_skills: [industrial-communication-protocols, interoperability-of-industrial-systems]
 ---

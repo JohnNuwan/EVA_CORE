@@ -40,11 +40,11 @@ if (typeof THREE !== 'undefined') {
   initHead3D();
 } else {
   console.warn('Three.js CDN failed — 3D disabled');
-  window._heliosReady = true;
+  window._EVAReady = true;
 }
 
 function initHead3D() {
-  window._heliosReady = true;
+  window._EVAReady = true;
   // ... Three.js code using THREE.AmbientLight, THREE.Mesh, etc.
 }
 ```
@@ -81,14 +81,14 @@ external script (script.js, loaded after Three.js CDN)
 // In index.html (inline script):
 window.startSite = function(withSound) {
   revealUI();  // Show all HTML UI immediately
-  if (window._heliosReady) window._heliosEnter(withSound);
+  if (window._EVAReady) window._EVAEnter(withSound);
 };
 
 // In script.js (loaded after Three.js CDN):
-window._heliosReady = true;
+window._EVAReady = true;
 // If user already clicked Enter before this script loaded:
-if (window._heliosSound !== undefined) {
-  window._heliosEnter(window._heliosSound);
+if (window._EVASound !== undefined) {
+  window._EVAEnter(window._EVASound);
 }
 ```
 
@@ -756,7 +756,7 @@ The 600ms delay allows the mask-reveal animation to play before the scroll start
 
 ## Comprehensive Content Rule (Agent/Landing Pages)
 
-When creating a **presentation/landing page for an agent** (AI assistant, engineering service, agency), the user expects **exhaustive coverage** of capabilities — not a summary. This is a recurring expectation from Actemium/Homunculus-style clients.
+When creating a **presentation/landing page for an agent** (AI assistant, engineering service, agency), the user expects **exhaustive coverage** of capabilities — not a summary. This is a recurring expectation from EVA/Homunculus-style clients.
 
 ### What \"exhaustive\" means
 

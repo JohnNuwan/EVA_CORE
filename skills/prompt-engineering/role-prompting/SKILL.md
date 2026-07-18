@@ -2,11 +2,11 @@
 name: prompt-method-role-prompting
 description: "Attribuer un rôle ou une expertise à l'agent."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, role-prompting, biblio-ia, methods, persona, system-prompt, llm-patterns, expert-system]
     related_skills: [python-pep8, simplify-code, plan, prompt-chaining, few-shot]
 ---

@@ -2,10 +2,10 @@
 name: rust-cython-for-industry
 description: "Structurer l’usage professionnel de Rust et Cython en industrie pour performance, sûreté mémoire et accélération ciblée de composants Python."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, rust, cython, performance, safety, edge, parsers, acceleration]
     related_skills: [ot-it-integration-languages, scientific-computing-for-industry, industrial-programming-languages]
 ---

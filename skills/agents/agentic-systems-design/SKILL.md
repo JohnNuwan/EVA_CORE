@@ -2,11 +2,11 @@
 name: agentic-systems-design
 description: "Concevoir et implémenter des systèmes multi-agents autonomes pour l'industrie 4.0 et l'optimisation des processus."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [agents, multi-agents, orchestration, spade, autonomous, industry4, coordination]
     related_skills: [multi-agent-orchestration, autonomous-agent-evolution-strategy, multi-agent-systems-exploration]
 ---

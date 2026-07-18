@@ -2,11 +2,11 @@
 name: io-hardware-ingestion
 description: "Ingérer des listes E/S pour générer des variables."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, io-list, eplan, plc, hardware-architecture]
     related_skills: [rockwell-studio5000, siemens-scl]
 ---
@@ -71,7 +71,7 @@ Regroupez tous les signaux physiques individuels appartenant à un même composa
 
 ### 3.2 Table de Correspondance Matérielle / Logicielle
 
-| Type de Signal | Usage Matériel | Variable Logique dans le CM (Standard Actemium) |
+| Type de Signal | Usage Matériel | Variable Logique dans le CM (Standard EVA) |
 | :--- | :--- | :--- |
 | **DI** | Retour physique (contact sec) | `i_FB_Open`, `i_FB_Run`, `i_Trip`, `i_Local` |
 | **DO** | Commande physique (bobine relais) | `q_Cmd_Open`, `q_Cmd_Run`, `q_Cmd_Speed` |

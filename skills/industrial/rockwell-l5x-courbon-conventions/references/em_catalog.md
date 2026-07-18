@@ -1,7 +1,7 @@
 # Catalogue des Equipment Modules (EM) — Projets ROH & RGY
 
 Ce catalogue référence tous les UDT_EM_XXX utilisés dans les projets
-Courbon/Actemium pour Royal Canin (ROH) et Gimje (RGY).
+Courbon/EVA pour Royal Canin (ROH) et Gimje (RGY).
 
 Chaque EM = 5 UDTs :
   UDT_EM_XXX            (conteneur COMMAND/STATUS)

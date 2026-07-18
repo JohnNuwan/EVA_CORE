@@ -2,11 +2,11 @@
 name: industrial-generator
 description: "Générer du code Siemens/Rockwell et SCADA pour automates."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux, macos]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, plc, scada, generation, siemens, rockwell, ignition, intouch, wincc, grafcet]
     related_skills: [siemens-scl, rockwell-studio5000, ignition-scada, plc-converter]
 ---

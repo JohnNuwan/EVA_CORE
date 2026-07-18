@@ -2,10 +2,10 @@
 name: ot-cybersecurity-audit-playbook
 description: "Auditer un système OT par étapes : inventaire, segmentation, accès distants, durcissement, sauvegardes et preuves de conformité."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, cybersecurity, ot, audit, iec-62443, iso-27001, hardening]
     related_skills: [cybersecurity-iec62443, iso-27001, multi-sector-industrial-standards, ot-security-skill-map]
 ---

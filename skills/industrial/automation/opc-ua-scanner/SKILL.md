@@ -2,11 +2,11 @@
 name: opc-ua-scanner
 description: "Explorer un serveur OPC UA et valider les tags EPH/EM."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, opc-ua, opcua, scanner, tags, automation, security-policies, unified-architecture]
     related_skills: [plc-connectivity, industrial-audit]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 Le protocole **OPC UA (Open Platform Communications Unified Architecture)** est la norme industrielle de référence pour l'échange de données indépendant des constructeurs. Il structure ses informations sous forme d'un graphe d'objets, de variables et de méthodes appelé **Espace d'Adressage**.
 
-Cette compétence fournit à l'agent Helios les connaissances et outils nécessaires pour :
+Cette compétence fournit à l'agent EVA les connaissances et outils nécessaires pour :
 1. Se connecter à un serveur OPC UA de manière sécurisée (chiffrement et authentification).
 2. Explorer récursivement (Browsing) l'espace d'adressage de manière performante.
 3. Lire, écrire ou s'abonner (Subscription) aux variables de données (Tags) d'équipements (EM) et de phases (EPH).
@@ -72,8 +72,8 @@ def generate_self_signed_cert(cert_path="client_cert.der", key_path="client_key.
     private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     
     subject = issuer = x509.Name([
-        x509.NameAttribute(NameOID.COMMON_NAME, u"Helios_OPCUA_Client"),
-        x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"Actemium"),
+        x509.NameAttribute(NameOID.COMMON_NAME, u"EVA_OPCUA_Client"),
+        x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"EVA"),
     ])
     
     cert = x509.CertificateBuilder().subject_name(
@@ -89,7 +89,7 @@ def generate_self_signed_cert(cert_path="client_cert.der", key_path="client_key.
     ).not_valid_after(
         datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=365)
     ).add_extension(
-        x509.SubjectAlternativeName([x509.UniformResourceIdentifier(u"urn:helios:client")]),
+        x509.SubjectAlternativeName([x509.UniformResourceIdentifier(u"urn:EVA:client")]),
         critical=False,
     ).sign(private_key, hashes.SHA256())
     
@@ -127,7 +127,7 @@ async def main():
     client = Client(url=server_url)
     
     # Configurer l'authentification (si nécessaire)
-    client.set_user("operateur_actemium")
+    client.set_user("operateur_EVA")
     client.set_password("SecuredPassword99!")
     
     # Configurer la sécurité cryptographique
@@ -195,7 +195,7 @@ if __name__ == "__main__":
 
 2. **Rejet du Certificat Client (Rejected Certificates) :**
    * *Erreur :* Le client ne parvient pas à se connecter avec la politique de sécurité configurée, l'automate renvoyant une erreur d'accès refusé ou de certificat non valide.
-   * *Correction :* Sur l'automate ou le serveur de communication (ex: Kepware), il faut ouvrir le magasin de certificats et déplacer manuellement le certificat du client Helios depuis le dossier "Rejected" vers le dossier "Trusted". S'assurer également que l'horloge système du PC client est synchronisée avec l'automate (décalage horaire max souvent fixé à 10 minutes).
+   * *Correction :* Sur l'automate ou le serveur de communication (ex: Kepware), il faut ouvrir le magasin de certificats et déplacer manuellement le certificat du client EVA depuis le dossier "Rejected" vers le dossier "Trusted". S'assurer également que l'horloge système du PC client est synchronisée avec l'automate (décalage horaire max souvent fixé à 10 minutes).
 
 3. **Multiplication excessive des abonnements :**
    * *Erreur :* Créer un abonnement séparé (Subscription) pour chacune des 5000 variables d'une ligne de production. Cela génère des milliers de requêtes de surveillance internes et ralentit l'automate.
@@ -210,6 +210,6 @@ if __name__ == "__main__":
 - [ ] La profondeur de parcours récursif est limitée par un paramètre de garde (`depth` <= 3) pour ne pas saturer l'automate.
 - [ ] Les NodeIDs complets (`ns=...;...`) sont collectés pour les accès directs en lecture/écriture à la place des noms textuels instables.
 - [ ] Les certificats de sécurité du client sont générés au format DER (certificat) et PEM (clé privée) avec des URI d'application valides.
-- [ ] Le certificat du client Helios a été explicitement déplacé dans les certificats de confiance (Trusted) du serveur cible.
+- [ ] Le certificat du client EVA a été explicitement déplacé dans les certificats de confiance (Trusted) du serveur cible.
 - [ ] Les variables fréquemment actualisées font l'objet d'abonnements (Subscriptions) collectifs plutôt que de lectures périodiques répétées.
 

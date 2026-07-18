@@ -14,17 +14,17 @@ Browser renders HTML
   ├── <script type="importmap"> starts loading Three.js
   │
   └── <script type="module" src="script.js"> starts loading
-        └── Sets window._heliosReady = true
-        └── Checks: if _heliosSound already set → reveal now
-        └── Defines _heliosEnter() with full UI reveal logic
+        └── Sets window._EVAReady = true
+        └── Checks: if _EVASound already set → reveal now
+        └── Defines _EVAEnter() with full UI reveal logic
 ```
 
 ## Three states the user can be in when module loads
 
 | State | What happens |
 |---|---|
-| **User hasn't clicked yet** | Module sets `_heliosReady = true`, defines `_heliosEnter()`. When user later clicks, inline `startSite()` calls `_heliosEnter()`. |
-| **User already clicked** | Inline code already set `_heliosSound`. Module checks `if (window._heliosSound !== undefined)` → calls `_heliosEnter()` immediately. |
+| **User hasn't clicked yet** | Module sets `_EVAReady = true`, defines `_EVAEnter()`. When user later clicks, inline `startSite()` calls `_EVAEnter()`. |
+| **User already clicked** | Inline code already set `_EVASound`. Module checks `if (window._EVASound !== undefined)` → calls `_EVAEnter()` immediately. |
 | **Module fails to load** (CDN down) | Inline `startSite()` still runs and hides the loading screen. The user sees the dark Three.js canvas background (set in HTML/CSS) without 3D content. |
 
 ## HTML structure
@@ -38,7 +38,7 @@ Browser renders HTML
   <div class="loading-bg"></div>
   <div class="loading-bar"><div class="loading-barIn"></div></div>
   <button class="loading-start" id="loading-start" onclick="startSite(true)">
-    <p class="loading-name">Helios DevAssist</p>
+    <p class="loading-name">EVA DevAssist</p>
     <div class="loading-start-actWrapp">
       <div class="loading-start-actBg"></div>
       <div class="loading-start-act">Enter</div>
@@ -50,15 +50,15 @@ Browser renders HTML
 <!-- Inline fallback — executes immediately -->
 <script>
 window.startSite = function(withSound) {
-  window._heliosSound = withSound;
+  window._EVASound = withSound;
   const el = document.getElementById('loading');
   if (el) {
     el.style.transition = 'opacity 0.5s';
     el.style.opacity = '0';
     setTimeout(function() { el.remove(); }, 600);
   }
-  if (window._heliosReady) {
-    window._heliosEnter(withSound);
+  if (window._EVAReady) {
+    window._EVAEnter(withSound);
   }
 };
 </script>
@@ -75,14 +75,14 @@ window.startSite = function(withSound) {
 ## Module script (top)
 
 ```js
-window._heliosReady = true;
-if (window._heliosSound !== undefined) {
-  window._heliosEnter(window._heliosSound);
+window._EVAReady = true;
+if (window._EVASound !== undefined) {
+  window._EVAEnter(window._EVASound);
 }
 
 // ... Three.js setup ...
 
-window._heliosEnter = function(withSound) {
+window._EVAEnter = function(withSound) {
   if (document.querySelector('.loading') === null) return; // already entered
   
   // Fade out loading bg

@@ -2,7 +2,7 @@
 name: julia-programming
 description: "Programmer en Julia pour le calcul scientifique."
 version: 1.0.0
-author: Actemium
+author: EVA
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
@@ -16,7 +16,7 @@ metadata:
 
 Le langage **Julia** est conçu pour combiner la vitesse des langages compilés (C/Fortran) avec la flexibilité et la simplicité d'utilisation des langages dynamiques (Python/R). Il est particulièrement adapté pour le calcul scientifique, la simulation physique, l'optimisation mathématique et la manipulation de données volumineuses.
 
-Cette compétence guide l'agent Helios pour écrire du code Julia performant, structurer les projets à l'aide de packages isolés, éliminer les instabilités de types, et interfacer des composants Julia avec des infrastructures Python existantes.
+Cette compétence guide l'agent EVA pour écrire du code Julia performant, structurer les projets à l'aide de packages isolés, éliminer les instabilités de types, et interfacer des composants Julia avec des infrastructures Python existantes.
 
 ---
 

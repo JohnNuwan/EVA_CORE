@@ -2,11 +2,11 @@
 name: industrial-blockchain-applications
 description: "Implémenter la blockchain dans les environnements industriels pour la traçabilité des ressources, la sécurisation des données IoT et l'automatisation par smart contracts."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [blockchain, smart-contracts, ethereum, hyperledger, industry40, traceability, iot, supply-chain]
     related_skills: [industrial-cybersecurity-guidelines, iso-standards-for-industry, interoperability-of-industrial-systems]
 ---

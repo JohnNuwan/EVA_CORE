@@ -2,8 +2,8 @@
 name: elixir-programming
 description: "Programmer en Elixir, utiliser OTP et les outils Mix."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [elixir, otp, mix, nerves, functional-programming, iot, industrial-protocols]
@@ -77,7 +77,7 @@ L'atout majeur d'Elixir réside dans son modèle d'acteurs de processus légers 
 ### GenServer (Generic Server)
 Composant standard pour encapsuler l'état d'un processus et gérer des requêtes synchrones (`call`) ou asynchrones (`cast`).
 ```elixir
-defmodule Actemium.TelemetryWorker do
+defmodule EVA.TelemetryWorker do
   use GenServer
 
   # API Client
@@ -106,7 +106,7 @@ end
 ### Supervisor et Tolérance aux Pannes
 Les superviseurs surveillent d'autres processus (leurs enfants) et les redémarrent automatiquement en cas de crash suivant des stratégies précises (`one_for_one`, `one_for_all`, `rest_for_one`).
 ```elixir
-defmodule Actemium.Supervisor do
+defmodule EVA.Supervisor do
   use Supervisor
 
   def start_link(opts) do
@@ -116,7 +116,7 @@ defmodule Actemium.Supervisor do
   @impl true
   def init(_opts) do
     children = [
-      {Actemium.TelemetryWorker, []}
+      {EVA.TelemetryWorker, []}
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
@@ -126,7 +126,7 @@ end
 
 ---
 
-## 4. Intégration Industrielle (IoT & Nerves) chez Actemium
+## 4. Intégration Industrielle (IoT & Nerves) chez EVA
 
 ### Le Framework Nerves
 Nerves permet de compiler du code Elixir directement en une image système minimale (firmware) démarrant instantanément sur du matériel embarqué (Raspberry Pi, BeagleBone, PC industriels).

@@ -2,12 +2,12 @@
 name: industrial-piping-vessels
 description: "Concevoir des réseaux de tuyauterie 3D, tracer des isométriques, réaliser des calculs de flexibilité thermique et dimensionner des appareils de chaudronnerie sous pression selon le CODAP et l'ASME VIII."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [piping, pressure-vessels, codap, asme-viii, isometric, chaudronnerie, mechanical-engineering, pipe-stress, thermal-expansion]
-  helios:
+  EVA:
     related_skills: [cad-bom-automation, cfd-fluid-dynamics, materials-selection-metallurgy]
 ---
 
@@ -24,7 +24,7 @@ Cette compétence guide la conception complète des réseaux de tuyauterie indus
 
 La conception de tuyauterie et de chaudronnerie est un domaine fortement réglementé, où une erreur de dimensionnement peut entraîner une fuite, une rupture catastrophique ou une explosion. Chaque calcul doit être documenté et traçable conformément à la réglementation des équipements sous pression (DESP 2014/68/UE en Europe).
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la conception, au dimensionnement ou à l'analyse de réseaux de tuyauterie ou d'équipements sous pression.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la conception, au dimensionnement ou à l'analyse de réseaux de tuyauterie ou d'équipements sous pression.
 
 ---
 

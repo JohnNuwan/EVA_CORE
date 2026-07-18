@@ -2,11 +2,11 @@
 name: data-analysis-exploration
 description: "Analyser, nettoyer et visualiser des données tabulaires avec Pandas, NumPy, Polars, Matplotlib et Seaborn pour l'exploration de données (EDA) en Python."
 version: 2.0.0
-author: Actemium & communauté Helios
-license: Privée Actemium St-Étienne
+author: EVA & communauté EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [pandas, numpy, polars, matplotlib, seaborn, data-science, analyse-de-données, visualisation, python, EDA]
     homepage: https://pandas.pydata.org/
     related_skills: [jupyter-live-kernel, industrial-analytics-grafana, huggingface-hub]

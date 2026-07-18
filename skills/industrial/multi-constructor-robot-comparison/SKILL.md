@@ -2,10 +2,10 @@
 name: multi-constructor-robot-comparison
 description: "Comparer les principales plateformes de robots industriels et choisir la plus adaptée au cas d'usage."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [robotics, industrial, abb, fanuc, kuka, staubli, comparison]
     related_skills: [robotics-abb, robotics-fanuc, robotics-kuka, robotics-staubli]
 ---

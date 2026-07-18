@@ -2,8 +2,8 @@
 name: cobot-human-collaboration
 description: "Utiliser quand l'utilisateur demande de concevoir des applications collaboratives de robotique (Cobots), de configurer les fonctions de limitation de force/vitesse ou de programmer des modèles courants (UR, Fanuc CRX)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [cobot, human-robot-collaboration, safety-standards, universal-robots, fanuc-crx, industrial-robotics]

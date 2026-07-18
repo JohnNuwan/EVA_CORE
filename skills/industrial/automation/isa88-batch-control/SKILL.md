@@ -2,8 +2,8 @@
 name: isa88-batch-control
 description: "Structurer le code PLC selon le standard ISA-88."
 version: 1.3.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [isa-88, batch, phase, state-model, process-automation, standard]

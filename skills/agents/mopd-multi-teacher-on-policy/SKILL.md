@@ -2,10 +2,10 @@
 name: mopd-multi-teacher-on-policy
 description: "Mettre en œuvre la distillation multi-enseignants On-Policy (MOPD) pour fusionner des compétences LLM spécialisées sans biais d'exposition."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, distillation, on-policy, mopd, alignment, post-training]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---
@@ -28,7 +28,7 @@ Le framework **MOPD** (Multi-Teacher On-Policy Distillation) résout ce problèm
 
 | Scénario | Pertinence | Justification |
 |---|---|---|
-| Vous devez fusionner plusieurs modèles spécialisés (experts de tâches) dans un seul modèle étudiant Helios | Très Élevée | Évite la régression de performance inter-domaines et le couplage de code. |
+| Vous devez fusionner plusieurs modèles spécialisés (experts de tâches) dans un seul modèle étudiant EVA | Très Élevée | Évite la régression de performance inter-domaines et le couplage de code. |
 | Vous entraînez un modèle étudiant sur de nouvelles tâches à partir d'API d'enseignants premium propriétaires | Élevée | Réduit le coût d'appel des APIs en distillant la logique dans un SLM local. |
 | Vous effectuez une distillation classique sur base de données figée (Static Dataset) | Faible | Préférer la distillation on-policy pour éviter la dérive de distribution. |
 

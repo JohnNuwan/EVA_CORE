@@ -2,10 +2,10 @@
 name: multi-sector-industrial-standards
 description: "Structurer et comparer les normes industrielles multi-secteurs : agroalimentaire, pharma, médical, électrique, CEM, ATEX et cybersécurité OT."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, standards, agrifood, pharma, medical, electrical, emc, atex, cybersecurity]
     related_skills: [agrifood-norms-haccp, iso-22000, gmp-pharmaceutical, iso-13485-medical-devices, electrical-schematics-eplan, emc-protection-grounding, atex-hazardous-areas, cybersecurity-iec62443, iso-27001]
 ---

@@ -2,11 +2,11 @@
 name: industrial-uns
 description: "Concevoir une architecture UNS et des topics MQTT."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [uns, unified-namespace, mqtt, isa-95, broker, industrial-architecture]
     related_skills: [isa95-modelling, sparkplug-b, industrial-edge, opc-ua-scanner, mes-integration]
 ---
@@ -19,7 +19,7 @@ Dans les architectures industrielles traditionnelles (la pyramide de l'automatis
 
 Le **Unified Namespace (UNS)** propose une architecture plate centralisée en temps réel. C'est un tronc commun où tous les composants de l'entreprise (OT et IT) peuvent s'abonner et publier des données. Il repose généralement sur un courtier MQTT et suit la structure hiérarchique définie par la norme **ISA-95**.
 
-Cette compétence guide l'agent Helios pour modéliser, concevoir et structurer l'architecture des données d'un UNS.
+Cette compétence guide l'agent EVA pour modéliser, concevoir et structurer l'architecture des données d'un UNS.
 
 ## Quand l'utiliser
 
@@ -45,11 +45,11 @@ L'UNS exige un nommage de sujet strict et standardisé représentant la structur
 ### Exemple pratique de topics MQTT :
 
 * **Données d'état en temps réel d'un moteur :**
-  `actemium/paris/embouteillage/ligne1/moteur1/state/speed`
+  `EVA/paris/embouteillage/ligne1/moteur1/state/speed`
 * **Événements et alarmes de la ligne :**
-  `actemium/paris/embouteillage/ligne1/events/alarm`
+  `EVA/paris/embouteillage/ligne1/events/alarm`
 * **Indicateurs de performance agrégés par le MES :**
-  `actemium/paris/embouteillage/ligne1/kpi/oee`
+  `EVA/paris/embouteillage/ligne1/kpi/oee`
 
 ---
 
@@ -97,8 +97,8 @@ username user_bridge
 password password_bridge
 
 # Redirection des topics de l'atelier local vers le serveur central
-# Topic local: atelier1/ligne1/# -> Central: actemium/paris/atelier1/ligne1/#
-topic # out 2 local/ actemium/paris/
+# Topic local: atelier1/ligne1/# -> Central: EVA/paris/atelier1/ligne1/#
+topic # out 2 local/ EVA/paris/
 ```
 
 ---

@@ -1,15 +1,15 @@
-# Intégration de Projets Open-Source dans Helios Agent
+# Intégration de Projets Open-Source dans EVA Agent
 
 > Session : Juillet 2026 — Intégration de 10 projets open-source (19 outils, 14 fichiers, 5 skills).
-> Méthode : Analyse → extraction partielle → adaptation au pattern Helios → test → documentation.
+> Méthode : Analyse → extraction partielle → adaptation au pattern EVA → test → documentation.
 
 ## Principe
 
 **Ne pas importer les projets en bloc.** Pour chaque projet open-source retenu :
 
-1. Analyser le codebase Helios existant pour comprendre l'architecture
+1. Analyser le codebase EVA existant pour comprendre l'architecture
 2. Extraire UNIQUEMENT les parties utiles (pas le projet complet)
-3. Adapter au pattern Helios : `registry.register()`, schémas JSON, handlers
+3. Adapter au pattern EVA : `registry.register()`, schémas JSON, handlers
 4. Optionnel : ajouter une `check_fn` pour les dépendances optionnelles
 5. Tester import + registry avant de déclarer terminé
 

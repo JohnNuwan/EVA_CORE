@@ -2,11 +2,11 @@
 name: html-panel-header-analysis
 description: "Analyser et extraire la structure HTML des en-têtes de panneaux, leurs styles CSS et attributs associés."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - html
       - css

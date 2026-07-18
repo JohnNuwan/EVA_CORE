@@ -2,11 +2,11 @@
 name: oee-performance
 description: "Utiliser quand l'utilisateur demande de concevoir, implémenter ou optimiser le calcul du TRS (Taux de Rendement Synthétique / OEE) ou de modéliser les états machine pour le suivi de production."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [oee, trs, kpi, production-monitoring, industrial-analytics]
     related_skills: [industrial-databases, industrial-reporting, mes-integration]
 ---

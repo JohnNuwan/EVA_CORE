@@ -2,11 +2,11 @@
 name: cfd-fluid-dynamics
 description: "Modéliser les écoulements de fluides et les transferts thermiques (CFD) sous ANSYS Fluent ou SolidWorks Flow Simulation, calculer les pertes de charge et dimensionner les pompes et échangeurs."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [cfd, fluid-dynamics, thermal, hydraulics, piping, pump-sizing, simulation, fluent, comsol, openfoam]
     related_skills: [fea-structural-analysis, pid-instrumentation, pid-tuning-control]
 ---

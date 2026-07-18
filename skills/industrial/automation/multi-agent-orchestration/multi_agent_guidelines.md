@@ -1,6 +1,6 @@
 # Guide d'Orchestration Multi-Agents pour les Projets d'Automatisme
 
-Ce guide décrit la méthodologie et les meilleures pratiques pour structurer et orchestrer des tâches complexes de développement et d'audit d'automates industriels à l'aide de l'outil de délégation de sous-agents Helios (`delegate_task`).
+Ce guide décrit la méthodologie et les meilleures pratiques pour structurer et orchestrer des tâches complexes de développement et d'audit d'automates industriels à l'aide de l'outil de délégation de sous-agents EVA (`delegate_task`).
 
 ## 1. Principes de la Délégation avec `delegate_task`
 
@@ -34,7 +34,7 @@ Voici un exemple type d'orchestration en Python montrant comment l'agent parent 
 """Exemple d'orchestration multi-agents pour l'audit de stations.
 
 Ce script illustre comment diviser le travail d'audit entre plusieurs sous-agents
-de manière parallèle en utilisant l'infrastructure Helios.
+de manière parallèle en utilisant l'infrastructure EVA.
 """
 
 import json

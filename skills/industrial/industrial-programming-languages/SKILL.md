@@ -2,10 +2,10 @@
 name: industrial-programming-languages
 description: "Structurer, comparer et sélectionner les langages de programmation rencontrés en industrie : automates, SCADA/HMI, robotique, OT/IT, calcul scientifique et formats d’échange."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, programming-languages, iec61131-3, scada, hmi, robot, python, julia, rust, jax, sql, plcopen]
     related_skills: [iec61131-3-programming-standards, scada-hmi-programming-languages, ot-it-integration-languages, scientific-computing-for-industry, robot-programming-languages, industrial-exchange-formats]
 ---

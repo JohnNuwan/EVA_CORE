@@ -2,7 +2,7 @@
 name: deep-learning-frameworks
 description: "Programmer sous PyTorch, TensorFlow, JAX et Diffusers."
 version: 1.1.0
-author: Actemium
+author: EVA
 license: MIT
 platforms: [linux, macos, windows]
 metadata:

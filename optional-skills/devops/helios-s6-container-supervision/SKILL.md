@@ -1,61 +1,61 @@
 ---
-name: helios-s6-container-supervision
-description: Modify, debug, or extend the s6-overlay supervision tree inside the Helios Agent Docker image — adding new services, debugging profile gateways, understanding the Architecture B main-program pattern.
+name: EVA-s6-container-supervision
+description: Modify, debug, or extend the s6-overlay supervision tree inside the EVA Agent Docker image — adding new services, debugging profile gateways, understanding the Architecture B main-program pattern.
 version: 1.0.0
-author: Helios Agent
+author: EVA Agent
 license: MIT
 platforms: [linux]
 environments: [s6]
 metadata:
-  helios:
+  EVA:
     tags: [docker, s6, supervision, gateway, profiles]
-    related_skills: [helios-agent, helios-agent-dev]
+    related_skills: [EVA-agent, EVA-agent-dev]
 ---
 
-# Helios s6-overlay Container Supervision
+# EVA s6-overlay Container Supervision
 
 ## When to use this skill
 
 Load this skill when you're working on:
-- Adding or removing a static service in the Helios Docker image (something that should be supervised at every container start, like the dashboard)
+- Adding or removing a static service in the EVA Docker image (something that should be supervised at every container start, like the dashboard)
 - Diagnosing why a per-profile gateway isn't starting, restarting, or surviving `docker restart`
-- Understanding why the container's CMD is `/opt/helios/docker/main-wrapper.sh` and how leading-dash args reach the user's program
+- Understanding why the container's CMD is `/opt/EVA/docker/main-wrapper.sh` and how leading-dash args reach the user's program
 - Modifying `cont-init.d` boot scripts (UID remap, volume seeding, profile reconciliation)
 - Changing the rendered run-script for per-profile gateways (Phase 4)
 
-If you're just running the Helios Agent and want to use Docker, see `website/docs/user-guide/docker.md` instead.
+If you're just running the EVA Agent and want to use Docker, see `website/docs/user-guide/docker.md` instead.
 
 ## Architecture at a glance
 
 ```
 /init                                  ← PID 1 (s6-overlay v3.2.3.0)
 ├── cont-init.d                        ← oneshot setup, runs as root
-│   ├── 01-helios-setup                ← docker/stage2-hook.sh
+│   ├── 01-EVA-setup                ← docker/stage2-hook.sh
 │   │   ├── UID/GID remap
 │   │   ├── chown /opt/data
 │   │   ├── chown /opt/data/profiles (every boot)
 │   │   ├── seed .env / config.yaml / SOUL.md
 │   │   └── skills_sync.py
-│   └── 02-reconcile-profiles          ← helios_cli.container_boot
-│       ├── chown /run/service (helios-writable for runtime register)
-│       └── walk $HELIOS_HOME/profiles/<name>/gateway_state.json
+│   └── 02-reconcile-profiles          ← EVA_cli.container_boot
+│       ├── chown /run/service (EVA-writable for runtime register)
+│       └── walk $EVA_HOME/profiles/<name>/gateway_state.json
 │           → recreate /run/service/gateway-<name>/
 │           → auto-start only those with prior_state == "running"
 │
 ├── s6-rc.d (static services, in /etc/s6-overlay/s6-rc.d/)
-│   ├── main-helios/run                ← exec sleep infinity (no-op slot)
-│   └── dashboard/run                  ← if HELIOS_DASHBOARD=1, runs `helios dashboard`
+│   ├── main-EVA/run                ← exec sleep infinity (no-op slot)
+│   └── dashboard/run                  ← if EVA_DASHBOARD=1, runs `EVA dashboard`
 │
 ├── /run/service (s6-svscan watches; tmpfs)
 │   ├── gateway-coder/                 ← runtime-registered per-profile
 │   │   ├── type        ("longrun")
-│   │   ├── run         ("#!/command/with-contenv sh ... exec s6-setuidgid helios helios -p coder gateway run")
+│   │   ├── run         ("#!/command/with-contenv sh ... exec s6-setuidgid EVA EVA -p coder gateway run")
 │   │   ├── down        (marker — present means "registered but don't auto-start")
-│   │   └── log/run     (s6-log → $HELIOS_HOME/logs/gateways/coder/current)
+│   │   └── log/run     (s6-log → $EVA_HOME/logs/gateways/coder/current)
 │   └── ...
 │
-└── CMD ("main program")               ← /opt/helios/docker/main-wrapper.sh
-    └── routes user args: bare exec | helios subcommand | helios (no args)
+└── CMD ("main program")               ← /opt/EVA/docker/main-wrapper.sh
+    └── routes user args: bare exec | EVA subcommand | EVA (no args)
         — exec'd by /init with stdin/stdout/stderr inherited (TTY for --tui)
 ```
 
@@ -63,27 +63,27 @@ If you're just running the Helios Agent and want to use Docker, see `website/doc
 
 | Path | Role |
 |---|---|
-| `Dockerfile` | s6-overlay install + cont-init.d wiring + `ENTRYPOINT ["/init", "/opt/helios/docker/main-wrapper.sh"]` |
-| `docker/stage2-hook.sh` | The "old entrypoint logic" — UID remap, chown, seed, skills sync. Runs as cont-init.d/01-helios-setup. |
-| `docker/cont-init.d/02-reconcile-profiles` | Calls `helios_cli.container_boot` on every boot to restore profile gateway slots from the persistent volume. |
-| `docker/main-wrapper.sh` | The container's CMD. Routes user args, drops to helios via `s6-setuidgid`, exec's the chosen program. |
-| `docker/s6-rc.d/main-helios/run` | No-op `sleep infinity` — slot exists so the s6-rc user bundle is valid; main helios runs as the CMD, not as a supervised service. |
-| `docker/s6-rc.d/dashboard/run` | Conditional service — `exec sleep infinity` unless `HELIOS_DASHBOARD` is truthy. |
+| `Dockerfile` | s6-overlay install + cont-init.d wiring + `ENTRYPOINT ["/init", "/opt/EVA/docker/main-wrapper.sh"]` |
+| `docker/stage2-hook.sh` | The "old entrypoint logic" — UID remap, chown, seed, skills sync. Runs as cont-init.d/01-EVA-setup. |
+| `docker/cont-init.d/02-reconcile-profiles` | Calls `EVA_cli.container_boot` on every boot to restore profile gateway slots from the persistent volume. |
+| `docker/main-wrapper.sh` | The container's CMD. Routes user args, drops to EVA via `s6-setuidgid`, exec's the chosen program. |
+| `docker/s6-rc.d/main-EVA/run` | No-op `sleep infinity` — slot exists so the s6-rc user bundle is valid; main EVA runs as the CMD, not as a supervised service. |
+| `docker/s6-rc.d/dashboard/run` | Conditional service — `exec sleep infinity` unless `EVA_DASHBOARD` is truthy. |
 | `docker/entrypoint.sh` | Back-compat shim that `exec`s the stage2 hook. External scripts that hard-coded the old entrypoint path still work. |
-| `helios_cli/service_manager.py` | `S6ServiceManager`: `register_profile_gateway`, `unregister_profile_gateway`, `start/stop/restart/is_running`, `list_profile_gateways`. |
-| `helios_cli/container_boot.py` | `reconcile_profile_gateways()` — walks persistent profiles, regenerates s6 slots, emits `container-boot.log`. |
-| `helios_cli/gateway.py::_dispatch_via_service_manager_if_s6` | Intercepts `helios gateway start/stop/restart` and routes to s6 when running in a container. |
+| `EVA_cli/service_manager.py` | `S6ServiceManager`: `register_profile_gateway`, `unregister_profile_gateway`, `start/stop/restart/is_running`, `list_profile_gateways`. |
+| `EVA_cli/container_boot.py` | `reconcile_profile_gateways()` — walks persistent profiles, regenerates s6 slots, emits `container-boot.log`. |
+| `EVA_cli/gateway.py::_dispatch_via_service_manager_if_s6` | Intercepts `EVA gateway start/stop/restart` and routes to s6 when running in a container. |
 
 ## Why Architecture B (CMD as main program, not s6-supervised)
 
-The original plan (v1–v3) called for main helios to run as a supervised s6-rc service. Two real s6-overlay v3 mechanics blocked that:
+The original plan (v1–v3) called for main EVA to run as a supervised s6-rc service. Two real s6-overlay v3 mechanics blocked that:
 
-1. **cont-init.d scripts receive no CMD args** — so the stage2 hook can't parse `docker run <image> chat -q "hi"` to set `HELIOS_ARGS` for a service `run` script to consume.
+1. **cont-init.d scripts receive no CMD args** — so the stage2 hook can't parse `docker run <image> chat -q "hi"` to set `EVA_ARGS` for a service `run` script to consume.
 2. **`/run/s6/basedir/bin/halt` does NOT propagate the exit code** written to `/run/s6-linux-init-container-results/exitcode`. Containers always exit 143 (SIGTERM) regardless. Confirmed by skarnet (s6 author) in [issue #477](https://github.com/just-containers/s6-overlay/issues/477): _"if you want a container shutdown, you need to either have your CMD exit, or, if you have no CMD, write the container exit code you want then call halt"_.
 
-So we use the s6-overlay-native CMD pattern: `ENTRYPOINT ["/init", "/opt/helios/docker/main-wrapper.sh"]`. /init prepends the wrapper to user args automatically — so `docker run <image> --version` becomes `/init main-wrapper.sh --version`, and `--version` doesn't get intercepted by /init's POSIX shell. The wrapper drops to helios via `s6-setuidgid`, then exec's the chosen program. The program's exit code becomes the container exit code, exactly matching the pre-s6 tini contract.
+So we use the s6-overlay-native CMD pattern: `ENTRYPOINT ["/init", "/opt/EVA/docker/main-wrapper.sh"]`. /init prepends the wrapper to user args automatically — so `docker run <image> --version` becomes `/init main-wrapper.sh --version`, and `--version` doesn't get intercepted by /init's POSIX shell. The wrapper drops to EVA via `s6-setuidgid`, then exec's the chosen program. The program's exit code becomes the container exit code, exactly matching the pre-s6 tini contract.
 
-Trade-off: main helios is unsupervised under s6. That exactly matches its behavior under tini (the pre-s6 image). Dashboard supervision is the only **new** guarantee — and per-profile gateways under `/run/service/` get full supervision.
+Trade-off: main EVA is unsupervised under s6. That exactly matches its behavior under tini (the pre-s6 image). Dashboard supervision is the only **new** guarantee — and per-profile gateways under `/run/service/` get full supervision.
 
 ## Quick recipes
 
@@ -123,20 +123,20 @@ docker exec <c> tail -n 50 /opt/data/logs/container-boot.log
 ### Add a new static service
 
 1. Create `docker/s6-rc.d/<name>/type` with `longrun\n` and `docker/s6-rc.d/<name>/run` (use `#!/command/with-contenv sh` + `# shellcheck shell=sh`).
-2. Drop to helios via `s6-setuidgid helios` at the top of run (unless you specifically need root).
+2. Drop to EVA via `s6-setuidgid EVA` at the top of run (unless you specifically need root).
 3. Create empty `docker/s6-rc.d/<name>/dependencies.d/base` so it waits for the base bundle.
 4. Create empty `docker/s6-rc.d/user/contents.d/<name>` so it joins the user bundle.
 5. The `COPY docker/s6-rc.d/` in the Dockerfile picks it up automatically — no other changes.
 
 ### Change the per-profile gateway run command
 
-Edit `S6ServiceManager._render_run_script` in `helios_cli/service_manager.py`. The function is also called by `helios_cli/container_boot.py::_register_service` during boot reconciliation, so it's the single source of truth. Update the corresponding assertion in `tests/helios_cli/test_service_manager.py::test_s6_register_creates_service_dir_and_triggers_scan`.
+Edit `S6ServiceManager._render_run_script` in `EVA_cli/service_manager.py`. The function is also called by `EVA_cli/container_boot.py::_register_service` during boot reconciliation, so it's the single source of truth. Update the corresponding assertion in `tests/EVA_cli/test_service_manager.py::test_s6_register_creates_service_dir_and_triggers_scan`.
 
 ### Run the docker test harness
 
 ```sh
-docker build -t helios-agent-harness:latest .
-HELIOS_TEST_IMAGE=helios-agent-harness:latest scripts/run_tests.sh tests/docker/ -v
+docker build -t EVA-agent-harness:latest .
+EVA_TEST_IMAGE=EVA-agent-harness:latest scripts/run_tests.sh tests/docker/ -v
 # Expect 19 passed, 0 xfailed against the s6 image
 ```
 
@@ -146,15 +146,15 @@ The harness lives in `tests/docker/` and skips when Docker isn't available. The 
 
 ### "command not found" via `docker exec`
 
-`/command/` (where s6-overlay puts its binaries) is on PATH only for processes spawned by the supervision tree — services, cont-init.d, main-wrapper.sh. `docker exec <c> s6-svstat …` will fail with "command not found"; always use the absolute path `/command/s6-svstat`. The `helios` binary works because the Dockerfile adds `/opt/helios/.venv/bin` to the runtime `ENV PATH`.
+`/command/` (where s6-overlay puts its binaries) is on PATH only for processes spawned by the supervision tree — services, cont-init.d, main-wrapper.sh. `docker exec <c> s6-svstat …` will fail with "command not found"; always use the absolute path `/command/s6-svstat`. The `EVA` binary works because the Dockerfile adds `/opt/EVA/.venv/bin` to the runtime `ENV PATH`.
 
 ### Profile directory ownership
 
-The cont-init reconciler runs as helios (`s6-setuidgid helios` in `02-reconcile-profiles`). If a profile dir ends up root-owned (e.g. because `docker exec <c> helios profile create …` ran as root by default), the reconciler can't read SOUL.md and fails with `PermissionError`. Mitigation: `stage2-hook.sh` chowns `$HELIOS_HOME/profiles` to helios on **every** boot, idempotently. Don't remove that block.
+The cont-init reconciler runs as EVA (`s6-setuidgid EVA` in `02-reconcile-profiles`). If a profile dir ends up root-owned (e.g. because `docker exec <c> EVA profile create …` ran as root by default), the reconciler can't read SOUL.md and fails with `PermissionError`. Mitigation: `stage2-hook.sh` chowns `$EVA_HOME/profiles` to EVA on **every** boot, idempotently. Don't remove that block.
 
 ### Files written by `docker exec` are root-owned
 
-`docker exec` defaults to root. Either pass `--user helios` or rely on the stage2 chown sweep next reboot. Don't write files under `$HELIOS_HOME/profiles/<name>/` as root manually — the next reconcile pass will sweep them but in-flight operations may hit perm errors.
+`docker exec` defaults to root. Either pass `--user EVA` or rely on the stage2 chown sweep next reboot. Don't write files under `$EVA_HOME/profiles/<name>/` as root manually — the next reconcile pass will sweep them but in-flight operations may hit perm errors.
 
 ### Service slot exists but s6-svstat says "s6-supervise not running"
 
@@ -162,11 +162,11 @@ The service directory is on tmpfs and was wiped on container restart. Either the
 
 ### Gateway starts then immediately exits (`down (exitcode 1)` in svstat)
 
-Most likely the profile has no model or auth configured. The service slot is correct — the gateway itself is unconfigured. Run `helios -p <profile> setup` first. The s6 supervisor will keep restarting it; that's the desired behavior (when you fix the config, the next attempt succeeds and stays up).
+Most likely the profile has no model or auth configured. The service slot is correct — the gateway itself is unconfigured. Run `EVA -p <profile> setup` first. The s6 supervisor will keep restarting it; that's the desired behavior (when you fix the config, the next attempt succeeds and stays up).
 
 ### Reconciler skipped a profile
 
-The reconciler keys on the **presence of `SOUL.md`** as the "real profile" marker. `helios profile create` always seeds it. If a profile dir is missing SOUL.md (stray directory, partial restore, backup-in-progress), the reconciler skips it intentionally. Add a `SOUL.md` (even empty) to opt back in.
+The reconciler keys on the **presence of `SOUL.md`** as the "real profile" marker. `EVA profile create` always seeds it. If a profile dir is missing SOUL.md (stray directory, partial restore, backup-in-progress), the reconciler skips it intentionally. Add a `SOUL.md` (even empty) to opt back in.
 
 ### "Help, the container exits 143!"
 
@@ -174,5 +174,5 @@ Check whether something is invoking `s6-svscanctl -t` or `/run/s6/basedir/bin/ha
 
 ## Related skills
 
-- `helios-agent-dev`: General helios-agent codebase navigation
-- `helios-tool-quirks`: Specific Helios-tool workarounds (sed/grep/etc.) — load when debugging the s6 stack's interaction with helios built-in tools.
+- `EVA-agent-dev`: General EVA-agent codebase navigation
+- `EVA-tool-quirks`: Specific EVA-tool workarounds (sed/grep/etc.) — load when debugging the s6 stack's interaction with EVA built-in tools.

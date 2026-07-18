@@ -2,11 +2,11 @@
 name: spatial-decodable-image-generation
 description: "Accélérer la génération d'images auto-régressive par détection spéculative spatiale (SSD) pour une inference plus rapide."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [computer-vision, image-generation, speculative-decoding, SSD, autoregressive, machine-learning]
     related_skills: [persistent-world-model-design, ai-foundations-exploration, comfyui]
 ---

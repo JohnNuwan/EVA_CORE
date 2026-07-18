@@ -2,8 +2,8 @@
 name: ot-cybersecurity-audit
 description: "Diagnostiquer la sécurité des réseaux et automates OT."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [cybersecurity, ot, plc, security-audit, pcap, port-scan, industrial-networks]
@@ -29,7 +29,7 @@ Les outils de diagnostic réseau suivants peuvent être mobilisés :
 ## Cadre Normatif IEC 62443 et Rôles
 
 La norme **IEC 62443** structure la sécurité des architectures industrielles en plusieurs sections selon les acteurs :
-* **IEC 62443-2-4** : Exigences de sécurité pour les prestataires de services d'intégration (rôle d'Actemium lors de la mise en service).
+* **IEC 62443-2-4** : Exigences de sécurité pour les prestataires de services d'intégration (rôle d'EVA lors de la mise en service).
 * **IEC 62443-3-3** : Exigences de sécurité système et niveaux de sécurité.
 * **IEC 62443-4-2** : Exigences de sécurité détaillées pour les composants (CPU automate, commutateur, HMI).
 
@@ -81,7 +81,7 @@ Les réseaux industriels temps réel (ex: boucle Profinet ou anneau EtherNet/IP)
 
 ### Étape 1 : Découverte Passive (Recommandée)
 * Configurer un port miroir (**SPAN / Mirror Port**) sur le commutateur principal de cellule.
-* Connecter la sonde Helios pour capturer le trafic (outil `` `industrial_connectivity_analyze_pcap` ``) sans envoyer un seul paquet sur le réseau.
+* Connecter la sonde EVA pour capturer le trafic (outil `` `industrial_connectivity_analyze_pcap` ``) sans envoyer un seul paquet sur le réseau.
 * Analyser les requêtes ARP, les annonces broadcast/multicast (Profinet DCP, EtherNet/IP CIP) pour dresser l'inventaire matériel sans perturbation.
 
 ### Étape 2 : Découverte Active Contrôlée

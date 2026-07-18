@@ -2,11 +2,11 @@
 name: ai-foundations-exploration
 description: "Explorer les concepts fondamentaux de l'intelligence artificielle : apprentissage automatique, NLP, vision par ordinateur et systèmes experts pour des applications industrielles."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [ai, machine-learning, deep-learning, nlp, computer-vision, expert-systems, foundations]
     related_skills: [ai-optimization-techniques, rag-retrieval-augmented-generation, llm-frameworks-exploration]
 ---

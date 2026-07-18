@@ -2,8 +2,8 @@
 name: agentic-research-and-arxiv
 description: "Veille scientifique et extraction d'insights sur arXiv."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [arxiv, recherche, veille-scientifique, extraction-connaissances, agentic-skills]
 keywords: [arXiv API, crawling académique, synthèse de littérature, skill-generation]
@@ -195,7 +195,7 @@ name: {nom_skill}
 description: "Compétence générée depuis l'article : {article['titre']}"
 version: 1.0.0
 author: Généré automatiquement
-license: Privée Actemium St-Étienne
+license: Privée EVA St-Étienne
 plateformes: [linux, macos, windows]
 source: {article['id']}
 ---
@@ -287,7 +287,7 @@ def requete_avec_backoff(url: str, tentatives: int = 3) -> str:
 
 ### 6.1 Veille automatisée (cron)
 
-Combinez cette compétence avec le planificateur cron d'Helios pour une exécution périodique :
+Combinez cette compétence avec le planificateur cron d'EVA pour une exécution périodique :
 
 ```yaml
 # Configuration cron pour veille hebdomadaire
@@ -318,4 +318,4 @@ veille_arxiv:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

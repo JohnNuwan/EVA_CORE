@@ -2,11 +2,11 @@
 name: prompt-method-reflexion
 description: "Apprendre par retour d'erreur avec la méthode Reflexion."
 version: 1.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, reflexion, biblio-ia, methods]
     related_skills: [python-pep8, simplify-code, plan]
 ---

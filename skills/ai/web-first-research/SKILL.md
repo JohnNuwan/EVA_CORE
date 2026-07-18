@@ -2,10 +2,10 @@
 name: web-first-research
 description: "Recherche web prioritaire de nouvelles compétences."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: production
     tags: [web-research, search, information-retrieval, acquisition]
     related_skills: [agent-knowledge-gap-resolution, experiential-self-improvement, jepa-joint-embedding-predictive]
@@ -116,4 +116,4 @@ Voir [`references/recherche-concurrentielle-agents.md`](references/recherche-con
 
 Voir [`references/recherche-open-source-github.md`](references/recherche-open-source-github.md) pour la méthodologie de recherche systématique de projets open-source sur GitHub via API REST multi-catégories — découverte de bibliothèques, frameworks et outils pouvant enrichir les capacités d'un agent AI, avec paramètres de requête, seuils de stars, parsing et structuration en fichier .md.
 
-Voir [`references/integration-open-source.md`](references/integration-open-source.md) pour la méthodologie d'intégration de projets open-source sélectionnés dans Helios — extraction partielle, adaptation au pattern registry, règles de structuration.
+Voir [`references/integration-open-source.md`](references/integration-open-source.md) pour la méthodologie d'intégration de projets open-source sélectionnés dans EVA — extraction partielle, adaptation au pattern registry, règles de structuration.

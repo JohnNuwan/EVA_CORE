@@ -2,11 +2,11 @@
 name: lie-algebra-based-agent-attention
 description: "Implémenter des mécanismes d'attention pour agents utilisant l'algèbre de Lie sur des groupes de matrices (SE(2), SO(3)) pour améliorer l'efficacité et la précision des modèles géométriques."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [lie-algebra, attention, geometric-deep-learning, se2, so3, machine-learning, transformers]
     related_skills: [ai-foundations-exploration, spatial-decodable-image-generation, persistent-world-model-design]
 ---

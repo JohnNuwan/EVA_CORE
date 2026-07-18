@@ -2,8 +2,8 @@
 name: industrial-safety-sistema
 description: "Utiliser quand l'utilisateur demande d'évaluer la sécurité des machines (conforme à l'ISO 13849-1), de calculer le niveau de performance (PL) ou d'utiliser le logiciel SISTEMA pour valider des boucles de sécurité."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [sistema, safety-integrity, iso-13849, safety-loops, industrial-standards]

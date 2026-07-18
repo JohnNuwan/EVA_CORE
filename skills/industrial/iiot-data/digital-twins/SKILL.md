@@ -2,11 +2,11 @@
 name: digital-twins
 description: "Modéliser des jumeaux numériques et des AAS."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [digital-twin, aas, asset-administration-shell, websockets, fastapi, api, industrial-automation]
     related_skills: [industrial-uns, predictive-maintenance, industrial-edge, opc-ua-scanner]
 ---
@@ -19,7 +19,7 @@ Un **jumeau numérique (Digital Twin)** est la réplique virtuelle d'un actif ph
 
 Dans l'Industrie 4.0, l'**Asset Administration Shell (AAS)** est le standard d'échange de données visant à donner une structure numérique unifiée à n'importe quel équipement industriel. La synchronisation dynamique se fait via des APIs REST et des **WebSockets** pour le flux continu.
 
-Cette compétence guide l'agent Helios pour modéliser des jumeaux numériques et concevoir des services de synchronisation temps réel.
+Cette compétence guide l'agent EVA pour modéliser des jumeaux numériques et concevoir des services de synchronisation temps réel.
 
 ## Quand l'utiliser
 
@@ -51,7 +51,7 @@ class AssetAdministrationShell:
 # Création du jumeau numérique d'une Pompe Industrielle
 pump_twin = AssetAdministrationShell(
     id_short="Pump_Line1", 
-    global_id="urn:actemium:paris:assets:pump_line1"
+    global_id="urn:EVA:paris:assets:pump_line1"
 )
 
 # Sous-modèle de caractéristiques techniques (Statique)

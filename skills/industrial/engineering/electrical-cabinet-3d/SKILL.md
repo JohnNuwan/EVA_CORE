@@ -2,11 +2,11 @@
 name: electrical-cabinet-3d
 description: "Concevoir des armoires électriques en 3D sous EPLAN Pro Panel ou SolidWorks Electrical 3D, optimiser l'implantation des composants, simuler la dissipation thermique et router le câblage."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [cabinet-design, electrical, 3d-cad, pro-panel, solidworks-electrical, thermal-analysis, wire-routing, iec-60890, perforex]
     related_skills: [electrical-schematics-eplan, cad-bom-automation, cfd-fluid-dynamics]
 ---

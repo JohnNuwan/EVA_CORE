@@ -2,11 +2,11 @@
 name: pcb-design-altium
 description: "Concevoir des circuits imprimés (CAO PCB : schématique et routage multicouches) sous Altium Designer ou KiCad, respecter les règles de CEM et de fabrication (DFM) et générer les dossiers industriels."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [pcb, electronics, altium, kicad, hardware, cad, signal-integrity, circuit-design, dfm, gerber, cem, emc]
     related_skills: [embedded-systems-firmware, electrical-cabinet-3d, electrical-schematics-eplan]
 ---

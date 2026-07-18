@@ -2,12 +2,12 @@
 name: os-solaris-engineering
 description: "Administrer et optimiser Oracle Solaris, gérer la virtualisation légère par zones (Solaris Zones), configurer le système de fichiers ZFS, dépanner via DTrace et gérer les services avec SMF."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [solaris, oracle, zones, zfs, smf, dtrace, unix, system-ops]
-  helios:
+  EVA:
     related_skills: [os-bsd-engineering, os-aix-engineering]
 ---
 
@@ -31,27 +31,27 @@ Cette compétence guide l'administration, la maintenance et l'optimisation des s
 Les zones Solaris permettent d'exécuter des environnements virtuels isolés partageant le même noyau que l'hôte (Global Zone), mais disposant de leurs propres processus et configurations réseau.
 
 ```bash
-# Exemple de configuration et installation d'une zone nommée "actemium-zone"
+# Exemple de configuration et installation d'une zone nommée "EVA-zone"
 # 1. Configurer la zone
-sudo zonecfg -z actemium-zone
+sudo zonecfg -z EVA-zone
 # (Dans l'invite zonecfg)
-# zonecfg:actemium-zone> create
-# zonecfg:actemium-zone> set zonepath=/zones/actemium-zone
-# zonecfg:actemium-zone> set autoboot=true
-# zonecfg:actemium-zone> add net
-# zonecfg:actemium-zone:net> set physical=vnic1
-# zonecfg:actemium-zone:net> end
-# zonecfg:actemium-zone> commit
-# zonecfg:actemium-zone> exit
+# zonecfg:EVA-zone> create
+# zonecfg:EVA-zone> set zonepath=/zones/EVA-zone
+# zonecfg:EVA-zone> set autoboot=true
+# zonecfg:EVA-zone> add net
+# zonecfg:EVA-zone:net> set physical=vnic1
+# zonecfg:EVA-zone:net> end
+# zonecfg:EVA-zone> commit
+# zonecfg:EVA-zone> exit
 
 # 2. Installer la zone (téléchargement des paquets requis)
-sudo zoneadm -z actemium-zone install
+sudo zoneadm -z EVA-zone install
 
 # 3. Démarrer la zone
-sudo zoneadm -z actemium-zone boot
+sudo zoneadm -z EVA-zone boot
 
 # 4. Se connecter à la console de la zone
-sudo zlogin -C actemium-zone
+sudo zlogin -C EVA-zone
 ```
 
 ## Gestion des Services avec SMF (Service Management Facility)

@@ -2,10 +2,10 @@
 name: br-motion-control
 description: "Structurer les axes et la logique motion B&R dans Automation Studio."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [br, motion, automation-studio, axis, servo, machine-oem]
     related_skills: [drive-motion-control, br-automation-studio, industrial-safety-sistema]
 ---

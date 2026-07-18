@@ -2,11 +2,11 @@
 name: optimization-algorithms-industry4
 description: "Analyser, sélectionner et implémenter des algorithmes d'optimisation pour les problématiques Industrie 4.0 : ordonnancement, allocation de ressources, maintenance prédictive et logistique."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [optimization, algorithms, genetic, pso, reinforcement-learning, scheduling, industry4, predictive-maintenance]
     related_skills: [algorithms-optimization-industry4, ai-foundations-exploration, multi-agent-reinforcement-learning]
 ---

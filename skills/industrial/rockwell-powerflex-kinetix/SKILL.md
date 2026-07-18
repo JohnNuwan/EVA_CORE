@@ -2,10 +2,10 @@
 name: rockwell-powerflex-kinetix
 description: "Configurer les variateurs PowerFlex et servo Kinetix dans les architectures motion Rockwell."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [rockwell, powerflex, kinetix, motion, drive, cip-motion, servo]
     related_skills: [drive-motion-control, rockwell-studio5000, rockwell-guardlogix]
 ---

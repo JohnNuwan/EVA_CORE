@@ -2,10 +2,10 @@
 name: sql-for-industrial-systems
 description: "Structurer l’usage professionnel de SQL en industrie pour historian, OEE, traçabilité, reporting, MES et consolidation OT/IT."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, sql, historian, oee, traceability, mes, reporting, scada]
     related_skills: [scada-hmi-programming-languages, industrial-databases, industrial-reporting, ot-it-integration-languages]
 ---

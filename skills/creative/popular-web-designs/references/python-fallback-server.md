@@ -1,6 +1,6 @@
 # Zéro-Dépendance Fallback Server & Gabarits Industriels
 
-Lors de la livraison de maquettes de tableaux de bord, de landing pages ou d'interfaces d'administration pour les ingénieurs d'Actemium, l'environnement cible peut ne pas disposer de paquets de serveurs web comme Flask ou FastAPI. Ce guide définit la méthode de livraison d'applications hybrides robustes à zéro dépendance avec simulation de moteur de rendu de gabarits.
+Lors de la livraison de maquettes de tableaux de bord, de landing pages ou d'interfaces d'administration pour les ingénieurs d'EVA, l'environnement cible peut ne pas disposer de paquets de serveurs web comme Flask ou FastAPI. Ce guide définit la méthode de livraison d'applications hybrides robustes à zéro dépendance avec simulation de moteur de rendu de gabarits.
 
 ## 1. Patrouille de secours : Serveur Web Standard Library (http.server)
 
@@ -16,8 +16,8 @@ import socketserver
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
-helios_data = {
-    "name": "Helios DevAssiste",
+EVA_data = {
+    "name": "EVA DevAssiste",
     "languages": [
         {"category": "OT", "list_items": [{"name": "SCL"}]}
     ]
@@ -29,7 +29,7 @@ try:
 
     @app.route('/')
     def index():
-        return render_template('index.html', helios=helios_data)
+        return render_template('index.html', EVA=EVA_data)
 
 except ImportError:
     # Serveur de secours autonome sans dépendances
@@ -45,7 +45,7 @@ except ImportError:
                     content = f.read()
 
                 # Simulation simple de substitution
-                content = content.replace('{{ helios.name }}', helios_data["name"])
+                content = content.replace('{{ EVA.name }}', EVA_data["name"])
 
                 # Remplacement de boucles basiques par Expression Régulière
                 # Exemple pour une boucle For Jinja2

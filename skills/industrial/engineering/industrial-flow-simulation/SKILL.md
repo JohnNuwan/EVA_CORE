@@ -2,12 +2,12 @@
 name: industrial-flow-simulation
 description: "Modéliser et simuler dynamiquement les flux de production en 3D (FlexSim, Arena, Witness), analyser les goulets d'étranglement, dimensionner les tampons de stockage et optimiser les implantations d'usine."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [simulation, flow-simulation, flexsim, arena, witness, bottleneck, layout, buffer-sizing, discrete-event, throughput]
-  helios:
+  EVA:
     related_skills: [lean-manufacturing-vsm, supply-chain-planning-erp, hvac-industrial-ventilation]
 ---
 
@@ -26,7 +26,7 @@ La simulation de flux est un outil d'aide à la décision puissant pour valider 
 
 Contrairement aux calculs statiques (feuilles Excel, formules déterministes), la simulation intégre la **variabilité** : pannes aléatoires, temps de cycle variables, arrivées non uniformes, absenteéisme. C'est cette capacité à capturer le comportement dynamique du système qui rend la simulation indispensable pour dimensionner correctement des systèmes complexes.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la modélisation, la simulation, l'analyse de flux ou l'optimisation de la production par simulation dynamique.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la modélisation, la simulation, l'analyse de flux ou l'optimisation de la production par simulation dynamique.
 
 ---
 

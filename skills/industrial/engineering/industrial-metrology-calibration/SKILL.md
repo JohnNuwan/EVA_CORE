@@ -2,12 +2,12 @@
 name: industrial-metrology-calibration
 description: "Appliquer la métrologie industrielle et les procédures d'étalonnage des instruments physiques, assurer la traçabilité métrologique et gérer le parc d'appareils de mesure selon la norme ISO 10012."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [metrology, calibration, sensors, iso-10012, verification, industrial-metrology, measurement, traceability]
-  helios:
+  EVA:
     related_skills: [measurement-uncertainty-analysis, pid-instrumentation, pcb-design-altium]
 ---
 
@@ -21,7 +21,7 @@ L'ingénierie métrologique impose plusieurs piliers méthodologiques : le **rac
 
 L'ensemble de ces activités s'inscrit dans le cadre de la norme **ISO 10012** (*Systèmes de management de la mesure — Exigences pour les processus et les équipements de mesure*), qui définit les exigences pour un système de management de la mesure garantissant la compétence métrologique.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à l'étalonnage, la vérification, la gestion ou la documentation métrologique d'instruments industriels.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à l'étalonnage, la vérification, la gestion ou la documentation métrologique d'instruments industriels.
 
 ---
 

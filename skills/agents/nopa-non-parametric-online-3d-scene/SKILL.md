@@ -2,10 +2,10 @@
 name: nopa-non-parametric-online-3d-scene
 description: "Générer en temps réel des graphes de scènes 3D via des distributions non-paramétriques (particle sets) et fusion robuste par divergences MMD."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

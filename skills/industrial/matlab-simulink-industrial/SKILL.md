@@ -2,8 +2,8 @@
 name: matlab-simulink-industrial
 description: "Concevoir et réguler des systèmes sous MATLAB et Simulink."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [matlab, simulink, control-theory, pid, mpc, physical-modeling, plc-coder, code-generation]
@@ -90,7 +90,7 @@ disp(['Ti calcule (secondes) : ', num2str(Ti)]);
 Lors de la saturation de la commande physique (ex: vanne ouverte à 100%), l'intégrateur continue d'accumuler l'erreur, ce qui provoque un dépassement massif lors du retour à la normale (phénomène de *windup*). L'algorithme ST ci-dessous intègre un anti-windup par **clamping** (blocage de l'intégration si la commande sature et que l'erreur aggrave la saturation).
 
 ```pascal
-FUNCTION_BLOCK FB_Actemium_PID_Precision
+FUNCTION_BLOCK FB_EVA_PID_Precision
 VAR_INPUT
     SetPoint : REAL;   (* Consigne physique *)
     ProcessVal : REAL; (* Mesure capteur *)

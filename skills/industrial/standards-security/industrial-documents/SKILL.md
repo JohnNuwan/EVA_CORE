@@ -2,11 +2,11 @@
 name: industrial-documents
 description: "Utiliser quand l'utilisateur demande d'analyser, d'extraire des données ou de manipuler des documents Excel (.xlsx, .xlsm), Word (.docx) ou des fichiers CAO/P&ID (.dxf)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [documents, excel, word, dxf, cad, pid, parsing, python, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -20,7 +20,7 @@ Dans l'ingénierie et l'informatique industrielle, les spécifications technique
 - **Word (.docx) :** Utilisé pour les analyses fonctionnelles, les cahiers des charges et les rapports d'essais.
 - **DXF (Drawing Exchange Format) :** Format CAO vectoriel standard ouvert (AutoCAD) utilisé pour les schémas d'implantation d'armoires et les schémas tuyauteries et instrumentation (P&ID - Piping and Instrumentation Diagram).
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'extraction et de traitement automatique de ces documents en Python.
+Cette compétence guide l'agent EVA pour écrire des scripts d'extraction et de traitement automatique de ces documents en Python.
 
 ## Quand l'utiliser
 

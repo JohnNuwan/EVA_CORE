@@ -2,10 +2,10 @@
 name: crafter-a-multi-agent-harness-for
 description: "Coordonner un collectif d'agents spécialisés (dessinateurs, critiques, éditeurs) pour la génération et l'édition collaborative de schémas vectoriels."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

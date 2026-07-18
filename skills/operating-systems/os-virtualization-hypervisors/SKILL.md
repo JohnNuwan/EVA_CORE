@@ -2,12 +2,12 @@
 name: os-virtualization-hypervisors
 description: "Déployer, configurer et optimiser des hyperviseurs de type 1 (Bare-metal) comme VMware ESXi, Proxmox VE (KVM/LXC) et Microsoft Hyper-V, allouer les ressources physiques et configurer le stockage réseau."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [hypervisor, virtualization, esxi, vmware, proxmox, kvm, hyper-v, storage, san, nas, network, system-ops]
-  helios:
+  EVA:
     related_skills: [os-linux-admin, os-windows-admin]
 ---
 

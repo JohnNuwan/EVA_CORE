@@ -2,7 +2,7 @@
 
 ## Contexte
 Projet Royal Canin (Mars Inc.) — ligne d'extrusion, site Lewisburg Ohio.
-Ingénierie : Actemium Saint-Étienne (ex Courbon SAS).
+Ingénierie : EVA Saint-Étienne (ex Courbon SAS).
 CPU : 1756-L83E v33. 29 FDS (Functional Design Specifications).
 
 ## Structure du projet L5X

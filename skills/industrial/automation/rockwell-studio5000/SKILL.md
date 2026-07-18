@@ -2,8 +2,8 @@
 name: rockwell-studio5000
 description: "Programmer en ST Rockwell et manipuler des fichiers L5X."
 version: 1.3.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [rockwell, studio5000, logix-designer, plc, l5x, industrial-automation]
@@ -274,7 +274,7 @@ client_data/{PROJET}/FDS/
    * *Correction* : Implémenter une routine de troncature intelligente garantissant que tous les tags générés font maximum 40 caractères et se terminent proprement par un caractère alphanumérique.
 4. **Génération L5X par sous-agents délégués (delegate_task) :**
    * *Erreur :* Déléguer la génération complète de fichiers L5X (avec code ST, CDATA, XML) à des sous-agents. Les sous-agents produisent des L5X avec des `<Content>` vides, sans CDATA, ou avec des structures XML incohérentes entre zones.
-   * *Cause :* Le script `generate_rockwell_from_fds.py` utilise `async_call_llm` depuis l'infrastructure Helios — les sous-agents n'y ont pas accès et reconstruisent leur propre logique de génération XML de façon non standardisée.
+   * *Cause :* Le script `generate_rockwell_from_fds.py` utilise `async_call_llm` depuis l'infrastructure EVA — les sous-agents n'y ont pas accès et reconstruisent leur propre logique de génération XML de façon non standardisée.
    * *Correction :*
      a) Déléguer uniquement la lecture des FDS et la génération des fichiers `.st` (Structured Text) aux sous-agents.
      b) Centraliser la génération des L5X (AOI + Routine) dans un script de post-traitement unique qui :

@@ -2,10 +2,10 @@
 name: industrial-iot-device-discovery
 description: "Concevoir des architectures de découverte et d'intégration IoT industrielle via le standard W3C Web of Things (WoT)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, iot, w3c-wot, discovery, opcua]
     related_skills: [multi-vendor-industrial-automation, plc-scada-platform-standards]
 ---
@@ -41,7 +41,7 @@ Lors de l'implémentation de la découverte dynamique, respectez les standards s
 {
   "@context": "https://www.w3.org/2019/wot/td/v1",
   "id": "urn:uuid:0804a601-382a-4a22-bf10-38e9ac689100",
-  "title": "ActemiumSmartVibrationSensor",
+  "title": "EVASmartVibrationSensor",
   "securityDefinitions": {
     "nosec_sc": {
       "scheme": "nosec"

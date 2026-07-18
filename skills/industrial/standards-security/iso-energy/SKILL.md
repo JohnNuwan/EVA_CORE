@@ -2,11 +2,11 @@
 name: iso-energy
 description: "Utiliser quand l'utilisateur demande d'implémenter des algorithmes de suivi de consommations d'énergie, de calculer des indicateurs de performance énergétique (IPE/EnPI) ou de configurer des systèmes de reporting conformes à l'ISO 50001."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [energy, sustainability, iso-50001, enpi, ipe, compressed-air, leak-detection, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ L'efficacité énergétique est devenue un enjeu majeur pour l'industrie, tant p
 
 Dans les systèmes de contrôle-commande (SCADA/MES), la contribution logicielle consiste à collecter les index des compteurs d'énergie (électricité, gaz, air comprimé, vapeur, eau), à calculer en temps réel des **Indicateurs de Performance Énergétique (IPE / EnPI)** et à détecter des anomalies de consommation.
 
-Cette compétence guide l'agent Helios pour coder des modules de suivi et d'optimisation de l'énergie.
+Cette compétence guide l'agent EVA pour coder des modules de suivi et d'optimisation de l'énergie.
 
 ## Quand l'utiliser
 
@@ -73,7 +73,7 @@ L'air comprimé est l'une des sources d'énergie les plus coûteuses en usine. L
 ### Algorithme de détection de fuites en SCL Siemens (Tâche OB30) :
 
 ```scl
-FUNCTION_BLOCK "FB_Actemium_AirLeakDetection"
+FUNCTION_BLOCK "FB_EVA_AirLeakDetection"
    VAR_INPUT
       i_ProductionActive : Bool;  // Statut marche de la ligne de production
       i_AirFlow : Real;           // Débit d'air comprimé instantané (Nm³/h)

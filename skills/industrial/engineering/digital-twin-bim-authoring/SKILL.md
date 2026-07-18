@@ -2,11 +2,11 @@
 name: digital-twin-bim-authoring
 description: "Créer et maintenir des jumeaux numériques industriels avec BIM, Unity et modélisation 3D."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - digital-twin
       - bim

@@ -1,6 +1,6 @@
 # Industrial capability strengthening patterns
 
-Session-derived patterns worth reusing when improving an industrial Helios library:
+Session-derived patterns worth reusing when improving an industrial EVA library:
 
 1. Priorize capability surface first.
    - Add MCPs/plugins before polishing SKILL.md when the user asked to improve the whole collection.

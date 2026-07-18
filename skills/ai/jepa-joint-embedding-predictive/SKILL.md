@@ -2,10 +2,10 @@
 name: jepa-joint-embedding-predictive
 description: "Architecture JEPA et applications de vision industrielle."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: pilot
     tags: [jepa, yann-lecun, meta-ai, self-supervised-learning, computer-vision, video-understanding, world-model, industry40]
     related_skills: [ai-foundations-exploration, predictive-maintenance-ml, computer-vision-quality, robotics-kuka, robotics-fanuc, robotics-abb, jepa-to-production]

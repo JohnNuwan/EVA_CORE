@@ -2,8 +2,8 @@
 name: probabilistic-modeling-ai
 description: "Appliquer la modélisation probabiliste dans des systèmes IA pour des modèles statistiques avancés, incluant l'inférence bayésienne, les processus gaussiens et l'optimisation de l'incertitude."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [probabiliste, bayésien, incertitude, inférence, processus-gaussiens, MCMC]
 keywords: [Bayesian inference, MCMC, Gaussian processes, uncertainty quantification, PyMC, probabilistic programming]
@@ -433,4 +433,4 @@ Pour combiner réseaux de neurones et modélisation probabiliste :
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

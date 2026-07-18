@@ -2,8 +2,8 @@
 name: robotics-kuka
 description: "Générer et programmer du code robotique KUKA."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [kuka, krl, plc, robot, automation-engineering, sub-interpreter]

@@ -2,8 +2,8 @@
 name: multi-agent-reinforcement-learning
 description: "Explorer les techniques d'apprentissage par renforcement multi-agents (MARL), incluant la communication dynamique, la coordination, la décomposition des tâches et les protocoles d'entraînement décentralisés."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [MARL, apprentissage-renforcement, multi-agents, coordination, communication, CTDE]
 keywords: [Multi-Agent Reinforcement Learning, CTDE, communication protocols, cooperative AI, decentralized training]
@@ -440,4 +440,4 @@ def entrainer_flotte_drones(n_drones: int = 5, n_epochs: int = 100) -> dict:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

@@ -2,11 +2,11 @@
 name: interoperability-of-industrial-systems
 description: "Concevoir des architectures industrielles intégrées combinant IA, RAG, protocoles OT/IT et normes ISO pour l'interopérabilité des systèmes connectés."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [interoperability, integration, it-ot, opcua, mqtt, iso, industry40, mes, erp, scada]
     related_skills: [industrial-communication-protocols, industry-4-0-advanced-architecture, combining-industry40-security-iso, iso-standards-for-industry]
 ---
@@ -166,7 +166,7 @@ from langchain_community.llms import Ollama
 
 # Connexion aux données temps réel via OPC-UA
 opc_tool = OPCUAConnector(
-    url="opc.tcp://plc.actemium.local:4840",
+    url="opc.tcp://plc.EVA.local:4840",
     nodes=["ns=2;i=1001", "ns=2;i=1002"]  # Température, Pression
 )
 

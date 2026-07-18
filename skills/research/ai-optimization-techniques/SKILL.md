@@ -2,8 +2,8 @@
 name: ai-optimization-techniques
 description: "Développer et explorer des techniques d'optimisation avancées pour l'IA, couvrant l'efficacité des modèles, leur compression, et la scalabilité des algorithmes."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [optimisation, compression-modèles, quantification, pruning, fine-tuning, edge-ai]
 keywords: [quantization, pruning, distillation, ONNX, TensorRT, hyperparameter-tuning]
@@ -362,4 +362,4 @@ def exporter_vers_onnx(modele: torch.nn.Module, chemin: str,
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

@@ -2,10 +2,10 @@
 name: br-automation-studio
 description: "Programmer sous B&R Automation Studio avec motion, safety et visualisation intégrés."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [br, b-and-r, automation-studio, motion, safety, mapp, visualization, st-oop, machine-oem]
     related_skills: [drive-motion-control, industrial-safety-sistema, plcopen-xml, industrial-protocols]
 ---

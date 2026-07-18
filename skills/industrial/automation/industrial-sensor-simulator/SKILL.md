@@ -2,11 +2,11 @@
 name: industrial-sensor-simulator
 description: "Simuler des capteurs et protocoles pour l'Industrie 4.0."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, simulator, modbus, opc-ua, plc, sensor-simulation, virtual-commissioning]
     related_skills: [plc-connectivity, opc-ua-scanner, historian-timeseries, sparkplug-b]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 Le développement d'applications pour l'**Industrie 4.0** et l'IIoT exige souvent de valider la connectivité des bases de données de séries temporelles (Historians), des clients OPC UA ou des passerelles d'UNS (MQTT Sparkplug B) sans accès physique à des automates (PLC) en fonctionnement réel.
 
-Cette compétence permet à l'agent Helios de configurer et de lancer un **serveur virtuel multi-protocoles** (Modbus TCP et OPC UA) émulant les variables et signaux physiques d'une machine industrielle (chaudière, pompe, cuve) avec des fluctuations réalistes, du bruit de mesure et des pannes simulées.
+Cette compétence permet à l'agent EVA de configurer et de lancer un **serveur virtuel multi-protocoles** (Modbus TCP et OPC UA) émulant les variables et signaux physiques d'une machine industrielle (chaudière, pompe, cuve) avec des fluctuations réalistes, du bruit de mesure et des pannes simulées.
 
 Le script d'assistance associé à cette compétence est disponible sous [sensor_simulator.py](scripts/sensor_simulator.py).
 
@@ -36,7 +36,7 @@ Le script d'assistance associé à cette compétence est disponible sous [sensor
 
 Le simulateur expose l'état d'une chaudière (`Boiler01`) contenant 3 variables à la fois en Modbus TCP et en OPC UA :
 
-### Cartographie OPC UA (Namespace URI: `http://actemium.com/sensor/simulator`) :
+### Cartographie OPC UA (Namespace URI: `http://EVA.com/sensor/simulator`) :
 - **NodeID :** `ns=1;s=Boiler01.Temperature` (Type: `Float`, Unité: °C)
 - **NodeID :** `ns=1;s=Boiler01.Pressure` (Type: `Float`, Unité: Bar)
 - **NodeID :** `ns=1;s=Boiler01.Fault_Active` (Type: `Boolean`, 0 = Nominal, 1 = Alarme)

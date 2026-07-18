@@ -1,28 +1,28 @@
 ---
-name: actemium-rag
-description: "Utiliser quand l'utilisateur doit interroger, exploiter et citer correctement la base RAG Actemium pour standards, architectures, automatisme et procédures internes."
+name: EVA-rag
+description: "Utiliser quand l'utilisateur doit interroger, exploiter et citer correctement la base RAG EVA pour standards, architectures, automatisme et procédures internes."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
-    tags: [actemium, rag, knowledge-base, industrial, standards, internal-docs]
+  EVA:
+    tags: [EVA, rag, knowledge-base, industrial, standards, internal-docs]
     related_skills: [industrial-generator, siemens-scl, industrial-protocols, ot-security-skill-map]
 ---
 
-# Utilisation du RAG Actemium
+# Utilisation du RAG EVA
 
 ## Vue d'ensemble
 
-Cette compétence permet à Helios d'utiliser au mieux le RAG Actemium pour répondre aux questions sur les standards industriels, les guides de programmation d'automates, les architectures OT/IT et les procédures d'intégration internes. L'objectif n'est pas seulement de retrouver une information, mais d'en faire une réponse traçable et exploitable.
+Cette compétence permet à EVA d'utiliser au mieux le RAG EVA pour répondre aux questions sur les standards industriels, les guides de programmation d'automates, les architectures OT/IT et les procédures d'intégration internes. L'objectif n'est pas seulement de retrouver une information, mais d'en faire une réponse traçable et exploitable.
 
 ## Quand l'utiliser
 
 À utiliser lorsque la requête porte sur :
-- des standards ou pratiques internes Actemium ;
+- des standards ou pratiques internes EVA ;
 - des guides de programmation automates (Structured Text, TIA Portal, etc.) ;
 - des architectures réseau industrielles (SCADA, MES, OPC UA, Sparkplug B) ;
-- des modèles ou spécifications propres à des sites, projets ou entités Actemium.
+- des modèles ou spécifications propres à des sites, projets ou entités EVA.
 
 Ne pas utiliser pour :
 - une question générique sans besoin de connaissance interne ;
@@ -31,7 +31,7 @@ Ne pas utiliser pour :
 
 ## Prérequis
 
-1. Le serveur MCP nommé `actemium_rag` doit être actif et configuré.
+1. Le serveur MCP nommé `EVA_rag` doit être actif et configuré.
 2. Si le serveur MCP n'est pas joignable, une commande CLI de fallback peut être utilisée si elle existe dans l'environnement.
 3. Les réponses doivent toujours citer les sources retournées par le RAG.
 
@@ -67,7 +67,7 @@ Ne pas utiliser pour :
 
 ## Liste de vérification (Checklist)
 
-- [ ] La question justifie bien l'usage du RAG Actemium.
+- [ ] La question justifie bien l'usage du RAG EVA.
 - [ ] Le RAG a été interrogé via MCP ou fallback approprié.
 - [ ] Les sources sont citées.
 - [ ] Les alertes ou écarts sont mis en évidence.

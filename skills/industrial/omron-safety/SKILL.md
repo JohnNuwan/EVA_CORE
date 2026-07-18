@@ -2,10 +2,10 @@
 name: omron-safety
 description: "Structurer les fonctions de sécurité Omron et leur intégration avec Sysmac et motion."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [omron, safety, sysmac, machine-safety, motion-safety, pl, sil]
     related_skills: [industrial-safety-sistema, omron-sysmac, drive-motion-control]
 ---

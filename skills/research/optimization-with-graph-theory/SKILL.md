@@ -5,8 +5,8 @@ description: >-
   Exploiter la théorie des graphes pour optimiser des structures algorithmiques,
   des systèmes multi-agents complexes et des réseaux distribués.
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 dependencies:
   - networkx>=3.1
@@ -14,7 +14,7 @@ dependencies:
   - scipy>=1.11
   - python-louvain>=0.16
 metadata:
-  helios:
+  EVA:
     tags:
       - graph-theory
       - optimization

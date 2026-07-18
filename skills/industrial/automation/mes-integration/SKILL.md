@@ -2,11 +2,11 @@
 name: mes-integration
 description: "Interfacer les automates avec un système MES."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [mes, isa-95, isa-88, scada, erp, industrial-automation, traceability, recipe-management, production-tracking, handshake-protocol]
     related_skills: [isa95-modelling, industrial-protocols, industrial-databases, sparkplug-b, plc-diagnostic]
 ---

@@ -2,11 +2,11 @@
 name: siemens-industrial-extraction
 description: "Extraire et documenter les technologies d'automatisation Siemens : Simatic, TIA Portal, MindSphere et l'écosystème Digital Enterprise."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - siemens
       - simatic
@@ -42,7 +42,7 @@ Cette compétence guide l'extraction systématique d'informations techniques, de
 
 ### Objectifs de l'extraction
 
-- Constituer une base de connaissance technique exploitable par l'agent Helios pour assister les ingénieurs automaticiens.
+- Constituer une base de connaissance technique exploitable par l'agent EVA pour assister les ingénieurs automaticiens.
 - Produire des fiches de référence, des guides pratiques et des checklists de validation.
 - Assurer la reproductibilité des recherches face aux contraintes d'accès (CAPTCHA, paywalls, versions régionales).
 

@@ -2,11 +2,11 @@
 name: omron-sysmac
 description: "Programmer sous Sysmac Studio et intégrer EtherCAT."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [omron, sysmac-studio, ethercat, fins, plc, industrial-automation, nj, nx, motion-control, iec-61131-3, servomoteur, cip]
     related_skills: [industrial-protocols, systematic-debugging, plc-converter, automation-linter]
 ---

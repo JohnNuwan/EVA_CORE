@@ -2,11 +2,11 @@
 name: os-linux-kernel-drivers
 description: "Développer au niveau du noyau Linux (Kernel Space), compiler des noyaux personnalisés, concevoir des modules noyau chargeables (LKM) en C et écrire des pilotes de périphériques."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux]
 metadata:
-  helios:
+  EVA:
     tags: [linux, kernel, drivers, lkm, system-programming, c, makefile, low-level]
     related_skills: [os-linux-admin, embedded-systems-firmware]
 ---
@@ -28,7 +28,7 @@ Cette compétence guide le développement en espace noyau (**Kernel Space**) sou
 
 ## Exemple de Module Noyau Simple (LKM en C)
 
-### 1. Code source : `actemium_module.c`
+### 1. Code source : `EVA_module.c`
 
 ```c
 #include <linux/init.h>
@@ -36,29 +36,29 @@ Cette compétence guide le développement en espace noyau (**Kernel Space**) sou
 #include <linux/kernel.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Actemium");
+MODULE_AUTHOR("EVA");
 MODULE_DESCRIPTION("Module de test d'affichage Kernel Space");
 MODULE_VERSION("1.0");
 
 // Fonction appelée lors du chargement du module
-static int __init actemium_init(void) {
-    pr_info("Actemium Module : Chargement réussi dans le noyau Linux.\n");
+static int __init EVA_init(void) {
+    pr_info("EVA Module : Chargement réussi dans le noyau Linux.\n");
     return 0; // 0 signifie succès du chargement
 }
 
 // Fonction appelée lors du déchargement du module
-static void __exit actemium_exit(void) {
-    pr_info("Actemium Module : Déchargement du module.\n");
+static void __exit EVA_exit(void) {
+    pr_info("EVA Module : Déchargement du module.\n");
 }
 
-module_init(actemium_init);
-module_exit(actemium_exit);
+module_init(EVA_init);
+module_exit(EVA_exit);
 ```
 
 ### 2. Le Makefile d'accompagnement :
 
 ```makefile
-obj-m += actemium_module.o
+obj-m += EVA_module.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
@@ -69,10 +69,10 @@ clean:
 
 *Commandes d'utilisation* :
 - **Compiler** : `make`
-- **Charger** : `sudo insmod actemium_module.ko`
+- **Charger** : `sudo insmod EVA_module.ko`
 - **Vérifier** : `dmesg | tail`
-- **Lister** : `lsmod | grep actemium`
-- **Décharger** : `sudo rmmod actemium_module`
+- **Lister** : `lsmod | grep EVA`
+- **Décharger** : `sudo rmmod EVA_module`
 
 ## Concepts Clés de Sécurité Noyau
 

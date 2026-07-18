@@ -2,11 +2,11 @@
 name: atex-hazardous-areas
 description: "Appliquer la réglementation ATEX (Atmosphères Explosives) : classifier les zones (0, 1, 2, 20, 21, 22), sélectionner le matériel certifié (Ex d, Ex i, Ex e, Ex p), et respecter les règles d'installation électrique EN 60079-14 et le Document Relatif à la Protection contre les Explosions (DRPEX)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [atex, safety, explosion-proof, hazardous-areas, en-60079, ex-d, ex-i, ex-e, ex-p, compliance, drpex, zone-classification, gas-explosion, dust-explosion, seveso]
     related_skills: [industrial-risk-analysis-hazop, electrical-schematics-eplan, iso-45001]
     difficulty: advanced

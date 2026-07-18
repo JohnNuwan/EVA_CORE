@@ -2,11 +2,11 @@
 name: prompt-method-step-back
 description: "Prendre du recul en formulant une question plus abstraite pour identifier les principes généraux avant de répondre."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, step-back, biblio-ia, methods, abstraction, reasoning]
     related_skills: [python-pep8, simplify-code, plan, analogical, generated-knowledge]
 ---

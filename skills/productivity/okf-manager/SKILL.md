@@ -3,8 +3,8 @@ type: skill
 title: OKF Manager
 description: Gérer la conformité des compétences au format Google OKF.
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux, macos]
 tags: [okf, documentation, formatting, management, compliance]
 ---

@@ -2,8 +2,8 @@
 name: robotics-fanuc
 description: "Générer et programmer du code robotique Fanuc."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [fanuc, robotics, tp, karel, trajectory, industrial-robotics, matrix-math]

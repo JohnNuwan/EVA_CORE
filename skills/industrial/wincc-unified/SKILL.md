@@ -2,10 +2,10 @@
 name: wincc-unified
 description: "Utiliser quand l'utilisateur demande de structurer, générer, auditer ou migrer des interfaces Siemens WinCC Unified avec scripts, tags, alarmes et faceplates."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [siemens, wincc-unified, hmi, scada, alarmes, faceplates, javascript]
     related_skills: [siemens-scl, scada-hmi-programming-languages, ignition-scada]
 ---

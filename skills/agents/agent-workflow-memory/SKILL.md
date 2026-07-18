@@ -2,10 +2,10 @@
 name: agent-workflow-memory
 description: "Analyser, extraire et réutiliser des patrons de flux de travail (workflows) à partir de traces d'exécution de l'agent."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, workflow, memory, extraction, recipes]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

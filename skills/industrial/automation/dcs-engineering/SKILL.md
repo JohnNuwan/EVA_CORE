@@ -2,11 +2,11 @@
 name: dcs-engineering
 description: "Configurer, programmer et maintenir les systèmes DCS des industries de procédé."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - dcs
       - distributed-control-system

@@ -2,10 +2,10 @@
 name: robot-plc-standard-interface
 description: "Standardiser l'interface robot ↔ PLC pour signaux, états, défauts, sécurité et séquence de cycle."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [robotics, plc, interface, handshake, safety, standard]
     related_skills: [robotics-abb, robotics-fanuc, robotics-kuka, robotics-staubli, industrial-protocols]
 ---

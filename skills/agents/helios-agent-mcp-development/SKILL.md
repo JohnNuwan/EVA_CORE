@@ -1,28 +1,28 @@
 ---
-name: helios-agent-mcp-development
-description: "Développer des serveurs Model Context Protocol (MCP) personnalisés pour Helios Agent."
+name: EVA-agent-mcp-development
+description: "Développer des serveurs Model Context Protocol (MCP) personnalisés pour EVA Agent."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
-    tags: [mcp, helios-agent, model-context-protocol, custom-tools, multi-agent, development, fastmcp, python, json-rpc, stdio]
-    related_skills: [helios-agent, software-development, python-pep8, codex]
+  EVA:
+    tags: [mcp, EVA-agent, model-context-protocol, custom-tools, multi-agent, development, fastmcp, python, json-rpc, stdio]
+    related_skills: [EVA-agent, software-development, python-pep8, codex]
 ---
 
-# Développement MCP (Model Context Protocol) pour Helios Agent
+# Développement MCP (Model Context Protocol) pour EVA Agent
 
 ## Vue d'ensemble
 
 Le **Model Context Protocol (MCP)** est un protocole standard ouvert qui permet aux modèles de langage (LLM) d'interagir de manière sécurisée avec des sources de données locales, des APIs et des outils système. Développé par la société Anthropic, le MCP définit un contrat d'interface clair entre l'agent (hôte MCP) et les serveurs d'outils.
 
-Cette compétence guide la création de **serveurs MCP personnalisés en Python** à l'aide de la bibliothèque `FastMCP` (daskey/fastmcp) ou de la SDK MCP officielle, et explique comment déclarer et configurer ces serveurs dans Helios Agent.
+Cette compétence guide la création de **serveurs MCP personnalisés en Python** à l'aide de la bibliothèque `FastMCP` (daskey/fastmcp) ou de la SDK MCP officielle, et explique comment déclarer et configurer ces serveurs dans EVA Agent.
 
-### Architecture MCP dans Helios
+### Architecture MCP dans EVA
 
 ```
-Helios Agent
+EVA Agent
     │
     ├── Outils natifs (intégrés)
     ├── Outils skills (locaux)
@@ -48,17 +48,17 @@ Helios Agent
 
 À utiliser lorsque l'utilisateur demande de :
 
-- Créer un **outil personnalisé** ou une intégration système qui n'existe pas dans la liste des outils par défaut de Helios.
-- Interfacer Helios Agent avec des **bases de données propriétaires**, des **APIs internes** ou des **équipements d'usine** (SCADA/OT).
+- Créer un **outil personnalisé** ou une intégration système qui n'existe pas dans la liste des outils par défaut de EVA.
+- Interfacer EVA Agent avec des **bases de données propriétaires**, des **APIs internes** ou des **équipements d'usine** (SCADA/OT).
 - Mettre à disposition du modèle des **ressources en lecture seule** (rapports, fichiers de configuration, documentation métier).
-- Configurer ou dépanner l'enregistrement d'un serveur MCP dans le fichier `cli-config.yaml` ou `config.yaml` de Helios.
+- Configurer ou dépanner l'enregistrement d'un serveur MCP dans le fichier `cli-config.yaml` ou `config.yaml` de EVA.
 - Développer un **écosystème multi-agents** où plusieurs spécialistes (MCP) collaborent.
 
 ### Ne pas utiliser pour
 
-- L'utilisation basique de Helios Agent sans modification de son catalogue d'outils.
+- L'utilisation basique de EVA Agent sans modification de son catalogue d'outils.
 - Le développement d'API HTTP REST non compatibles avec le protocole MCP.
-- Des outils qui existent déjà dans les skills intégrés Helios (vérifier d'abord).
+- Des outils qui existent déjà dans les skills intégrés EVA (vérifier d'abord).
 
 ---
 
@@ -79,7 +79,7 @@ logging.basicConfig(level=logging.INFO, stream=sys.stderr,
 logger = logging.getLogger(__name__)
 
 # Initialisation du serveur
-mcp = FastMCP("Actemium Industry Link")
+mcp = FastMCP("EVA Industry Link")
 
 @mcp.tool()
 def get_machine_status(machine_id: str) -> str:
@@ -101,7 +101,7 @@ def get_machine_status(machine_id: str) -> str:
 @mcp.resource("report://production/today")
 def get_daily_report() -> str:
     """Renvoie le rapport textuel de la production du jour (ressource)."""
-    return "Rapport Actemium du jour : OEE global de 82.4%, aucune panne majeure."
+    return "Rapport EVA du jour : OEE global de 82.4%, aucune panne majeure."
 
 if __name__ == "__main__":
     # Lancement du serveur (communication via STDIO)
@@ -163,15 +163,15 @@ def calculate_oee(availability: float, performance: float, quality: float) -> di
 
 ---
 
-## 2. Intégration du Serveur MCP dans Helios Agent
+## 2. Intégration du Serveur MCP dans EVA Agent
 
 ### 2.1 Configuration YAML
 
-Pour enregistrer un serveur MCP personnalisé, ajouter une entrée dans la section `mcp_servers` du fichier de configuration Helios (`~/.helios/config.yaml` ou `cli-config.yaml`) :
+Pour enregistrer un serveur MCP personnalisé, ajouter une entrée dans la section `mcp_servers` du fichier de configuration EVA (`~/.EVA/config.yaml` ou `cli-config.yaml`) :
 
 ```yaml
 mcp_servers:
-  actemium-industry-link:
+  EVA-industry-link:
     command: "python"
     args: ["C:/chemin/absolu/vers/mcp_server_custom.py"]
     env:
@@ -190,13 +190,13 @@ mcp_servers:
 
 ```bash
 # Vérifier que le serveur est détecté et que ses outils sont chargés
-helios doctor
+EVA doctor
 
 # Tester un outil MCP via le chat
-helios chat -q "Quel est le statut de la machine PLC_01 ?"
+EVA chat -q "Quel est le statut de la machine PLC_01 ?"
 
 # Voir les logs MCP (sur stderr) :
-helios chat --verbose -q "..."
+EVA chat --verbose -q "..."
 ```
 
 ### 2.3 Structure recommandée pour un projet MCP
@@ -319,7 +319,7 @@ def read_database(query: str) -> str:
 ## Pièges Courants (Common Pitfalls)
 
 1. **Pollution du flux de communication STDIO :**
-   * *Erreur :* Ajouter des déclarations `print("Début du traitement...")` dans le code du serveur. Cela pollue le canal `stdout` que le protocole MCP utilise pour échanger ses messages JSON-RPC, provoquant le plantage de l'intégration dans Helios.
+   * *Erreur :* Ajouter des déclarations `print("Début du traitement...")` dans le code du serveur. Cela pollue le canal `stdout` que le protocole MCP utilise pour échanger ses messages JSON-RPC, provoquant le plantage de l'intégration dans EVA.
    * *Correction :* Utiliser exclusivement le logging Python configuré sur `sys.stderr`. Exemple : `logging.basicConfig(level=logging.INFO, stream=sys.stderr)`.
 
 2. **Types de paramètres non typés ou sans description :**
@@ -327,19 +327,19 @@ def read_database(query: str) -> str:
    * *Correction :* Toujours documenter le but de la fonction et chacun de ses arguments avec des docstrings clairs et spécifier les annotations de type (ex: `machine_id: str`). Ajouter des descriptions Pydantic `Field` pour les modèles complexes.
 
 3. **Absence de chemins absolus dans la configuration :**
-   * *Erreur :* Utiliser des chemins relatifs dans `config.yaml`. Si Helios est lancé depuis un autre répertoire, le script ne sera pas trouvé.
+   * *Erreur :* Utiliser des chemins relatifs dans `config.yaml`. Si EVA est lancé depuis un autre répertoire, le script ne sera pas trouvé.
    * *Correction :* Toujours utiliser des chemins absolus : `C:/Users/utilisateur/projet/mcp_server_custom.py`.
 
 4. **Timeout trop court pour les outils longs :**
-   * *Erreur :* Un outil MCP qui prend plus de 30 secondes (ex: analyse de gros fichiers) est tué par Helios avant d'avoir terminé.
+   * *Erreur :* Un outil MCP qui prend plus de 30 secondes (ex: analyse de gros fichiers) est tué par EVA avant d'avoir terminé.
    * *Correction :* Augmenter le timeout dans la configuration YAML : `timeout: 120`. Pour les opérations très longues, envisager un mécanisme asynchrone (file d'attente, callback).
 
 5. **Décorateur manquant pour les outils :**
    * *Erreur :* Définir une fonction dans le fichier serveur mais oublier le décorateur `@mcp.tool()`. La fonction existe mais n'est pas exposée comme outil.
-   * *Correction :* Vérifier que chaque fonction destinée à être un outil porte le décorateur `@mcp.tool()`. Vérifier avec `helios doctor` que l'outil est bien listé.
+   * *Correction :* Vérifier que chaque fonction destinée à être un outil porte le décorateur `@mcp.tool()`. Vérifier avec `EVA doctor` que l'outil est bien listé.
 
-6. **Dépendances manquantes dans l'environnement Helios :**
-   * *Erreur :* Le serveur importe des bibliothèques qui ne sont pas installées dans le `.venv` du projet Helios.
+6. **Dépendances manquantes dans l'environnement EVA :**
+   * *Erreur :* Le serveur importe des bibliothèques qui ne sont pas installées dans le `.venv` du projet EVA.
    * *Correction :* Installer les dépendances avec `pip install -r requirements.txt` ou les déclarer dans le script lui-même avec un message d'erreur explicite en cas d'import manquant.
 
 ---
@@ -349,9 +349,9 @@ def read_database(query: str) -> str:
 - [ ] La fonction du serveur MCP possède des annotations de type explicites pour tous ses paramètres.
 - [ ] La docstring décrit clairement l'usage de l'outil et ses arguments pour guider le LLM.
 - [ ] Aucun `print()` n'écrit sur `stdout` en dehors de la boucle principale MCP. Les logs écrivent sur `stderr`.
-- [ ] Le serveur MCP est configuré avec un chemin absolu dans la configuration Helios.
-- [ ] La commande `helios doctor` confirme que le serveur est joignable et charge ses outils.
-- [ ] Les dépendances Python sont installées dans l'environnement Helios.
+- [ ] Le serveur MCP est configuré avec un chemin absolu dans la configuration EVA.
+- [ ] La commande `EVA doctor` confirme que le serveur est joignable et charge ses outils.
+- [ ] Les dépendances Python sont installées dans l'environnement EVA.
 - [ ] Le timeout est adapté à la durée d'exécution des outils (valeur par défaut ou surchargée).
 - [ ] Les modèles Pydantic (si utilisés) ont des descriptions de champ avec `Field(description=...)`.
 - [ ] La gestion d'erreur retourne des messages explicites au LLM (pas de stack trace brute).

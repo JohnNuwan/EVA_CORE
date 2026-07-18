@@ -2,10 +2,10 @@
 name: industrial-python-jython-programming
 description: "Structurer l’usage professionnel de Python et Jython en industrie pour intégration OT/IT, scripting SCADA, automatisation, génération et analytics."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, python, jython, ignition, scripting, automation, analytics, ot-it]
     related_skills: [ot-it-integration-languages, scada-hmi-programming-languages, scientific-computing-for-industry, scada-scripting-jython]
 ---

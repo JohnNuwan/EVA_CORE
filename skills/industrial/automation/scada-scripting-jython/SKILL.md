@@ -2,8 +2,8 @@
 name: scada-scripting-jython
 description: "Écrire des scripts Jython pour des applications SCADA."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [scada, scripting, jython, ignition, industrial-automation]

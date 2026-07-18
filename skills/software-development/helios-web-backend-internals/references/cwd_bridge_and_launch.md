@@ -1,6 +1,6 @@
 # Default-CWD bridge, launch chain, and live-value probes
 
-Source files (Helios backend).
+Source files (EVA backend).
 
 ## Config → env bridge
 
@@ -10,10 +10,10 @@ also reads. Two bridge sites:
 
 | Site | File:line | Behavior |
 |------|-----------|----------|
-| CLI local backend | `helios_cli/cli.py:593-640` | For `terminal.backend: local`, forces `terminal.cwd = os.getcwd()` (`:596-598`) then exports to `TERMINAL_CWD` via `env_mappings` `{"cwd": "TERMINAL_CWD"}` (`:604`). |
-| Gateway | `gateway/run.py:1337-1345` | Reads `TERMINAL_CWD`; if empty/sentinel, defaults to `MESSAGING_CWD` or home dir. `_HELIOS_GATEWAY` marker stops the CLI bridge from clobbering it. |
+| CLI local backend | `EVA_cli/cli.py:593-640` | For `terminal.backend: local`, forces `terminal.cwd = os.getcwd()` (`:596-598`) then exports to `TERMINAL_CWD` via `env_mappings` `{"cwd": "TERMINAL_CWD"}` (`:604`). |
+| Gateway | `gateway/run.py:1337-1345` | Reads `TERMINAL_CWD`; if empty/sentinel, defaults to `MESSAGING_CWD` or home dir. `_EVA_GATEWAY` marker stops the CLI bridge from clobbering it. |
 
-`DEFAULT_CONFIG` (`helios_cli/config.py:964-967`):
+`DEFAULT_CONFIG` (`EVA_cli/config.py:964-967`):
 
 ```python
 "terminal": {
@@ -23,18 +23,18 @@ also reads. Two bridge sites:
 }
 ```
 
-If `~/.helios/config.yaml` is absent, `load_config()` returns `DEFAULT_CONFIG`,
+If `~/.EVA/config.yaml` is absent, `load_config()` returns `DEFAULT_CONFIG`,
 so `terminal.cwd` is `"."` -> sentinel -> resolver falls through to
 `TERMINAL_CWD` / `Path.cwd()`.
 
 ## Web server launch chain
 
 - Served by `web/server/web_server.py` (FastAPI `app` hosting `/api/fs/*`).
-- Started **in-process** by `helios_cli/web_server.start_server`
-  (`from web.server import web_server` at `helios_cli/web_server.py:12`).
-- Called from the dashboard command (`helios_cli/main.py:10178`).
+- Started **in-process** by `EVA_cli/web_server.start_server`
+  (`from web.server import web_server` at `EVA_cli/web_server.py:12`).
+- Called from the dashboard command (`EVA_cli/main.py:10178`).
 - **No `os.chdir`** anywhere on this path -> backend `Path.cwd()` =
-  launch dir of the `helios` CLI = what the local-backend bridge wrote into
+  launch dir of the `EVA` CLI = what the local-backend bridge wrote into
   `TERMINAL_CWD`.
 
 ## Live-value probe checklist
@@ -42,8 +42,8 @@ so `terminal.cwd` is `"."` -> sentinel -> resolver falls through to
 | # | What the user asks | How to read it |
 |---|--------------------|----------------|
 | 1 | `TERMINAL_CWD` | `echo $TERMINAL_CWD` (inherited by the in-process web server) |
-| 2 | `terminal.cwd` in config.yaml | absent -> `DEFAULT_CONFIG["terminal"]["cwd"] == "."` (placeholder). Inspect `helios_cli/config.py` `DEFAULT_CONFIG`. |
-| 3 | process CWD of web server | launch dir of `helios` CLI (no chdir); equals `os.getcwd()` at startup |
+| 2 | `terminal.cwd` in config.yaml | absent -> `DEFAULT_CONFIG["terminal"]["cwd"] == "."` (placeholder). Inspect `EVA_cli/config.py` `DEFAULT_CONFIG`. |
+| 3 | process CWD of web server | launch dir of `EVA` CLI (no chdir); equals `os.getcwd()` at startup |
 | 4 | relative position of `output/` (or any top-level dir) | terminal `ls -la` / `find . -maxdepth N` - `search_files` misses bare dirs |
 
 ## Net result for a default local launch from the repo root

@@ -15,7 +15,7 @@ Sur les projets multi-FDS (50+ fichiers, 5-10 zones), la génération Rockwell e
 
 ## Cause racine
 
-Le script `scripts/generate_rockwell_from_fds.py` utilise `from agent.auxiliary_client import async_call_llm` — un import interne à Helios que les sous-agents n'ont pas dans leur namespace. Résultat : chaque sous-agent reconstruit sa propre logique de génération XML, sans standard.
+Le script `scripts/generate_rockwell_from_fds.py` utilise `from agent.auxiliary_client import async_call_llm` — un import interne à EVA que les sous-agents n'ont pas dans leur namespace. Résultat : chaque sous-agent reconstruit sa propre logique de génération XML, sans standard.
 
 ## Piège : Normalisation des noms de fichiers (.st → .L5X)
 

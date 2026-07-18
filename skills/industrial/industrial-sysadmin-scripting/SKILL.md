@@ -2,8 +2,8 @@
 name: industrial-sysadmin-scripting
 description: "Scripter en Bash et PowerShell pour l'administration OT."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux]
 metadata:
   tags: [bash, powershell, sysadmin, backup, ot, cybersecurity, network, monitoring, docker]
@@ -23,7 +23,7 @@ Les serveurs industriels exécutent des environnements de virtualisation (Hyper-
 ```powershell
 # Script de monitoring de service industriel avec journalisation Event Log
 $ServiceName = "Kepware.KEPServerEX.V6"
-$EventLogSource = "ActemiumOT"
+$EventLogSource = "EVAOT"
 $EventLogName = "Application"
 
 # Enregistrement de la source d'evenements si absente (requis execution Admin)
@@ -49,7 +49,7 @@ if ($Service.Status -ne 'Running') {
     $Service.Refresh()
     if ($Service.Status -eq 'Running') {
         Write-EventLog -LogName $EventLogName -Source $EventLogSource -EventId 1003 -EntryType Information `
-            -Message "Le service $ServiceName a ete redemarre avec succes par le script Actemium."
+            -Message "Le service $ServiceName a ete redemarre avec succes par le script EVA."
     } else {
         Write-EventLog -LogName $EventLogName -Source $EventLogSource -EventId 1004 -EntryType Error `
             -Message "Echec critique de redemarrage du service $ServiceName !"
@@ -71,7 +71,7 @@ Ce script réalise une copie de sauvegarde d'une configuration automate, génèr
 set -euo pipefail # Arrêt immédiat sur erreur, variables non déclarées ou échec de pipe
 
 # Configuration
-BACKUP_SOURCE="/opt/actemium/gateway/configs"
+BACKUP_SOURCE="/opt/EVA/gateway/configs"
 BACKUP_DEST_DIR="/tmp/backups"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 ARCHIVE_NAME="config_backup_${TIMESTAMP}.tar.gz"
@@ -97,7 +97,7 @@ EOF
 # 4. Nettoyage local
 rm -f "${BACKUP_DEST_DIR}/${ARCHIVE_NAME}" "${BACKUP_DEST_DIR}/${ARCHIVE_NAME}.sha256"
 
-logger -t ActemiumOT "[INFO] Archive de sauvegarde ${ARCHIVE_NAME} transmise avec succes."
+logger -t EVAOT "[INFO] Archive de sauvegarde ${ARCHIVE_NAME} transmise avec succes."
 ```
 
 ---
@@ -112,7 +112,7 @@ version: '3.8'
 services:
   telegraf:
     image: telegraf:1.28-alpine
-    container_name: actemium-telegraf-collector
+    container_name: EVA-telegraf-collector
     restart: unless-stopped
     read_only: true
     # Restriction stricte de consommation CPU et memoire
@@ -139,7 +139,7 @@ services:
 
   influxdb:
     image: influxdb:2.7-alpine
-    container_name: actemium-influxdb-telemetry
+    container_name: EVA-influxdb-telemetry
     restart: unless-stopped
     deploy:
       resources:

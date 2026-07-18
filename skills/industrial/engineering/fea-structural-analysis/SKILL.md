@@ -2,11 +2,11 @@
 name: fea-structural-analysis
 description: "Réaliser des simulations structurales par éléments finis (FEA) sous ANSYS ou SolidWorks Simulation pour valider la tenue mécanique des structures, l'analyse en fatigue et les coefficients de sécurité."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [fea, mechanical, simulation, structural, stress-analysis, cad, ansys, abaqus, finite-element, fatigue, vibration]
     related_skills: [cad-bom-automation, cfd-fluid-dynamics, electrical-cabinet-3d]
 ---

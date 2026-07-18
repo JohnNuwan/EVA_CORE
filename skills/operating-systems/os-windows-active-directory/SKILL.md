@@ -2,11 +2,11 @@
 name: os-windows-active-directory
 description: "Concevoir et administrer un domaine Active Directory (AD DS), gérer les utilisateurs, les ordinateurs et les contrôleurs de domaine, configurer les Group Policy Objects (GPOs), et implémenter LDAP et Kerberos."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux]
 metadata:
-  helios:
+  EVA:
     tags: [active-directory, ad-ds, gpo, kerberos, ldap, windows-server, identity-management]
     related_skills: [os-windows-admin, os-linux-admin]
 ---
@@ -34,7 +34,7 @@ Exemple de script pour identifier les comptes d'utilisateurs inactifs depuis plu
 Import-Module ActiveDirectory
 
 # Paramètres
-$TargetOU = "OU=Utilisateurs,OU=Actemium,DC=entreprise,DC=local"
+$TargetOU = "OU=Utilisateurs,OU=EVA,DC=entreprise,DC=local"
 $DaysInactive = 90
 $CutoffDate = (Get-Date).AddDays(-$DaysInactive)
 

@@ -2,12 +2,12 @@
 name: lean-manufacturing-vsm
 description: "Déployer les outils du Lean Manufacturing en milieu industriel (5S, SMED, Kaizen, Kanban), lisser les flux de production (Heijunka), et cartographier les chaînes de valeur (VSM) pour éliminer les gaspillages et maximiser la valeur ajoutée."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [lean, lean-manufacturing, vsm, value-stream-mapping, smed, 5s, kaizen, kanban, heijunka, muda, flow-management, continuous-improvement, six-sigma, just-in-time, jidoka]
-  helios:
+  EVA:
     related_skills: [industrial-flow-simulation, supply-chain-planning-erp, oee-performance, industrial-maintenance-reliability]
     difficulty: intermediate
     industry_sectors: [manufacturing, automotive, aerospace, electronics, food-beverage, pharmaceutical, chemical]

@@ -2,11 +2,11 @@
 name: ci-cd-docker-kubernetes
 description: "Optimiser les workflows DevOps avec Docker (multi-stage builds, compose), Kubernetes (pods, services, deployments) et concevoir des pipelines CI/CD."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [docker, docker-compose, kubernetes, k8s, ci-cd, github-actions, devops, deployment]
     related_skills: [os-linux-admin, os-virtualization-hypervisors]
 ---
@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: registry.actemium.com/my-app:1.0.0
+        image: registry.EVA.com/my-app:1.0.0
         ports:
         - containerPort: 8000
         resources:

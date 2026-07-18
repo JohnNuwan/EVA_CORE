@@ -2,8 +2,8 @@
 name: creative-problem-solving-ai
 description: "Explorer les techniques de résolution créative de problèmes pour des agents d'IA industriels, incluant le raisonnement analogique, la reformulation et l'exploration multi-modèles."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [cps, créativité, résolution-problèmes, raisonnement-analogique, exploration, agents-adaptatifs]
 keywords: [Creative Problem Solving, CPS, raisonnement latéral, reformulation, exploration stratégies]
@@ -359,4 +359,4 @@ class SelectionneurStrategieRL:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

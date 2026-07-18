@@ -2,11 +2,11 @@
 name: iso-safety
 description: "Utiliser quand l'utilisateur demande d'écrire ou d'analyser des logiques de sécurité machine (Safety PLC) conformes aux normes ISO 13849-1 (Performance Level) et CEI 62061 (SIL)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [safety, failsafe, iso-13849, iec-62061, plc, logic, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ La sécurité des personnes travaillant sur ou à proximité de machines industr
 
 Dans les automates de sécurité (Safety PLC/Failsafe), l'écriture du code de sécurité impose des structures spécifiques et des blocs fonctions standardisés pour éviter toute défaillance logicielle systématique.
 
-Cette compétence guide l'agent Helios pour concevoir et programmer des logiques de sécurité machine (Safety).
+Cette compétence guide l'agent EVA pour concevoir et programmer des logiques de sécurité machine (Safety).
 
 ## Quand l'utiliser
 
@@ -41,7 +41,7 @@ Pour atteindre les niveaux de sécurité élevés (PL d/e ou SIL 2/3), les capte
 ### Exemple de logique de surveillance de discordance double canal en SCL standard (simulé) :
 
 ```scl
-FUNCTION_BLOCK "FB_Actemium_DiscrepancyCheck"
+FUNCTION_BLOCK "FB_EVA_DiscrepancyCheck"
    VAR_INPUT
       i_Channel_A : Bool;       // Contact physique 1 (ex. Normalement Fermé)
       i_Channel_B : Bool;       // Contact physique 2 (ex. Normalement Fermé)

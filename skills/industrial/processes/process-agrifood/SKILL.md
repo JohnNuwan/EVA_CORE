@@ -2,11 +2,11 @@
 name: process-agrifood
 description: "Utiliser quand l'utilisateur demande de concevoir des séquences de nettoyage en place (NEP/CIP), de gérer des recettes de dosage ou d'implémenter la traçabilité des lots d'ingrédients en agro-alimentaire."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [agri-food, agroalimentaire, cip, nep, batch, isa-88, traceability, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ L'industrie agro-alimentaire (F&B - Food & Beverage) impose des règles strictes
 1. **Le Nettoyage en Place (NEP / CIP - Cleaning in Place) :** Séquences de lavage des cuves et tuyauteries (rinçage à l'eau, injection de soude acide, rinçage final) sans démontage.
 2. **Le contrôle des lots (norme ISA-88 Batch) :** Dosage précis d'ingrédients, suivi de recettes dynamiques et traçabilité ascendante/descendante des matières premières.
 
-Cette compétence guide l'agent Helios pour concevoir des programmes automates de lavage NEP robustes et des structures de traçabilité d'ingrédients.
+Cette compétence guide l'agent EVA pour concevoir des programmes automates de lavage NEP robustes et des structures de traçabilité d'ingrédients.
 
 ## Quand l'utiliser
 

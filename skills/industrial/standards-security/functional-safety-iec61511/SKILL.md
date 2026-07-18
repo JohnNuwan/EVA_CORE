@@ -2,11 +2,11 @@
 name: functional-safety-iec61511
 description: "Concevoir et vérifier des architectures de sécurité SIL conformes IEC 61508/61511 et EN 13849."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - iec-61508
       - iec-61511
@@ -277,7 +277,7 @@ TI max = 2 × PFDavg_cible / λDU = 2 × 0.01 / (1.5 × 10⁻⁷) = 133 333 h �
 // Exemple : Safe Stop F-FB in SCL (TIA Portal)
 FUNCTION_BLOCK FB_SafeStop
 TITLE := 'Safe Stop Control'
-AUTHOR : Actemium
+AUTHOR : EVA
 FAMILY : Safety
 VERSION : 1.0
 

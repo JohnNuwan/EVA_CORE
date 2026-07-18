@@ -2,10 +2,10 @@
 name: siemens-safety
 description: "Programmer et structurer les fonctions de sécurité Siemens Safety Integrated sous TIA Portal."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [siemens, safety, safety-integrated, tia-portal, failsafe, pl, sil]
     related_skills: [industrial-safety-sistema, siemens-scl, functional-safety-iec61511]
 ---

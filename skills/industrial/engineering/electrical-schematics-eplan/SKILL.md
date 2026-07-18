@@ -2,11 +2,11 @@
 name: electrical-schematics-eplan
 description: "Concevoir, analyser et vérifier des schémas électriques industriels (puissance, commande, distribution) sous EPLAN Electric P8 ou AutoCAD Electrical selon les normes IEC 60204-1."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [electrical, engineering, schematics, eplan, eplan-electric-p8, autocad-electrical, cad, iec-60204, iec-81346, wiring, control-panel, bom]
     related_skills: [electrical-cabinet-3d, cad-bom-automation, pid-instrumentation]
 ---

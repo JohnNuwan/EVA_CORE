@@ -2,11 +2,11 @@
 name: iso-13485-medical-devices
 description: "Implémenter un système de management qualité (SMQ) pour dispositifs médicaux conforme à ISO 13485 et FDA 21 CFR Part 820 (QSR)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-13485, medical-devices, fda-820, qsr, quality-management, ce-marking, mdr, sterilization, biocompatibility]
     related_skills: [gmp-pharmaceutical, iso-quality, iso-27001, industrial-risk-analysis-hazop]
     difficulty: advanced

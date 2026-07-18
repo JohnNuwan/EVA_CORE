@@ -2,8 +2,8 @@
 name: io-list-ingestion
 description: "Parser et ingérer des listes d'E/S de CAO électrique."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [eplan, cad, io-list, csv, excel, parsing, automation-engineering]

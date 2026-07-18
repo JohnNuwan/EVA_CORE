@@ -2,11 +2,11 @@
 name: ot-audit
 description: "Auditer et valider le style du code automate (SCL/L5X)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, code-audit, quality, plc, static-analysis]
     related_skills: [rockwell-studio5000, siemens-scl]
 ---
@@ -21,7 +21,7 @@ Le code d'automatisation industrielle régit des installations physiques critiqu
 
 À utiliser lorsque l'utilisateur demande :
 - D'auditer la qualité ou de relire du code Structured Text.
-- De valider la conformité aux standards de programmation Actemium.
+- De valider la conformité aux standards de programmation EVA.
 - D'analyser un commit Git contenant des modifications de logique PLC pour validation automatique (intégration continue CI/CD OT).
 
 ---
@@ -30,7 +30,7 @@ Le code d'automatisation industrielle régit des installations physiques critiqu
 
 L'agent doit analyser le code source ligne par ligne et s'assurer du respect des règles suivantes :
 
-### 1.1 Respect de la Nomenclature Actemium
+### 1.1 Respect de la Nomenclature EVA
 Vérifier que toutes les variables déclarées respectent les préfixes de portée :
 - `i_` ou `in_` : Paramètre d'entrée (lecture seule).
 - `q_` ou `out_` : Paramètre de sortie (écriture uniquement).
@@ -66,10 +66,10 @@ Les boucles dont la sortie dépend d'une condition dynamique doivent posséder u
 
 ## 2. Processus d'Audit Intégré à Git (CI/CD OT)
 
-Helios peut être configuré avec ses routines de webhooks pour intercepter chaque nouveau commit poussé dans le dépôt. Le processus automatique applique l'évaluation suivante :
+EVA peut être configuré avec ses routines de webhooks pour intercepter chaque nouveau commit poussé dans le dépôt. Le processus automatique applique l'évaluation suivante :
 
 ```
-Nouveau Commit Git ➔ Détection fichier automate (.scl/.L5X) ➔ Analyse statique par Helios (OT-Audit) ➔ Rapport de revue automatique
+Nouveau Commit Git ➔ Détection fichier automate (.scl/.L5X) ➔ Analyse statique par EVA (OT-Audit) ➔ Rapport de revue automatique
 ```
 
 L'agent compile les non-conformités sous la forme d'un tableau et évalue le code sur un score de 0 à 100. Tout score inférieur à 80 doit bloquer le déploiement ou marquer la Pull Request comme rejetée.

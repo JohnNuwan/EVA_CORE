@@ -2,11 +2,11 @@
 name: ignition-scada
 description: "Programmer en Jython et configurer Ignition SCADA."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [ignition, scada, jython, python-27, perspective, industrial-automation, tags-generation]
     related_skills: [simplify-code, plan, plc-connectivity]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 La plateforme industrielle **Ignition** par Inductive Automation repose sur un moteur de script utilisant **Jython** (Python s'exécutant sur la JVM Java). La syntaxe supportée par défaut est celle de **Python 2.7**.
 
-Cette compétence fournit à l'agent Helios les directives, conventions d'écriture et recettes de code indispensables pour :
+Cette compétence fournit à l'agent EVA les directives, conventions d'écriture et recettes de code indispensables pour :
 1. Écrire des scripts Jython performants et robustes.
 2. Interagir efficacement avec les tags (QualifiedValues) et les bases de données (Named Queries).
 3. Concevoir des scripts asynchrones pour éviter de bloquer l'IHM graphique.
@@ -45,7 +45,7 @@ Ignition exécutant Jython 2.7, l'agent doit proscrire les syntaxes exclusives �
   ```python
   from java.util import ArrayList
   list_java = ArrayList()
-  list_java.add("Actemium")
+  list_java.add("EVA")
   ```
 
 ### 2. Gestion des commandes par impulsions (Boutons Poussoirs IHM)
@@ -91,7 +91,7 @@ Les anciennes fonctions `system.tag.read` et `system.tag.write` sont obsolètes.
     write_status = system.tag.writeBlocking(paths, values)
     for idx, stat in enumerate(write_status):
         if not stat.isGood():
-            system.util.getLogger("Actemium_Ignition").warn("Erreur d'écriture sur le tag : " + paths[idx])
+            system.util.getLogger("EVA_Ignition").warn("Erreur d'écriture sur le tag : " + paths[idx])
     ```
 
 ### 3. Named Queries (Prévention des Injections SQL)
@@ -99,7 +99,7 @@ Ne jamais concaténer de chaînes pour composer des requêtes SQL. Toujours conf
 ```python
 # Appel d'une requête nommée paramétrée
 params = {"motorId": 12, "activeStatus": True}
-dataset = system.db.runNamedQuery("MonProjetActemium", "Moteurs/GetActiveLogs", params)
+dataset = system.db.runNamedQuery("MonProjetEVA", "Moteurs/GetActiveLogs", params)
 
 # Parcours propre du dataset Ignition
 for row in range(dataset.getRowCount()):

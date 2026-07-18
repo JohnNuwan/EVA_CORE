@@ -2,10 +2,10 @@
 name: hydraulic-industrial-standards
 description: "Concevoir, auditer et fiabiliser des systèmes hydrauliques industriels selon les exigences de sécurité, de propreté fluide et de maintenabilité."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, hydraulic, fluid-power, iso-4413, iso-4406, pressure, filtration, maintenance, safety]
     related_skills: [multi-sector-industrial-standards, electrical-schematics-eplan, process-chemical-water]
 ---

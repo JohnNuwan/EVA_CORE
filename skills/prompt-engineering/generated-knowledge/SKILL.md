@@ -2,11 +2,11 @@
 name: prompt-method-generated-knowledge
 description: "Générer des connaissances pertinentes avant de répondre pour améliorer la précision et la fiabilité des réponses."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, generated-knowledge, biblio-ia, methods, self-context, rag-alternative]
     related_skills: [python-pep8, simplify-code, plan, contextual-compression, prompt-chaining]
 ---

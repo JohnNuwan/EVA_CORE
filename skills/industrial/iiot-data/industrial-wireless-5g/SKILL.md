@@ -2,11 +2,11 @@
 name: industrial-wireless-5g
 description: "Concevoir des réseaux sans fil industriels incluant 5G privée, Wi-Fi 6E et WirelessHART."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - 5g-private
       - wi-fi-6e

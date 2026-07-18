@@ -2,11 +2,11 @@
 name: decarbonization-carbon-footprint
 description: "Utiliser quand l'utilisateur demande de concevoir ou de configurer des systèmes de management de l'énergie (ISO 50001) ou des calculs de bilan carbone industriel (Scopes 1, 2, 3) basés sur des capteurs physiques."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [decarbonization, carbon-footprint, energy-monitoring, iso-50001, sustainability]
     related_skills: [iso-energy, industrial-databases, industrial-reporting]
 ---

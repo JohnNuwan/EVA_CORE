@@ -2,11 +2,11 @@
 name: prompt-method-prompt-chaining
 description: "Décomposer une tâche complexe en une séquence de prompts spécialisés dont les sorties s'enchaînent."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, prompt-chaining, biblio-ia, methods, pipeline, orchestration]
     related_skills: [python-pep8, simplify-code, plan, generated-knowledge, delegate_task]
 ---

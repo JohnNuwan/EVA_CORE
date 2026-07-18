@@ -2,10 +2,10 @@
 name: beckhoff-twinsafe
 description: "Structurer les fonctions de sécurité Beckhoff TwinSAFE et les intégrer au motion EtherCAT."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [beckhoff, twinsafe, safety, ethercat, motion-safety, machine-safety]
     related_skills: [industrial-safety-sistema, beckhoff-twincat, drive-motion-control]
 ---

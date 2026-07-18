@@ -2,11 +2,11 @@
 name: plcopen-xml
 description: "Générer et structurer des fichiers d'échange PLCopen XML."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, plcopen, xml, codesys, twincat, iec61131-3]
     related_skills: [rockwell-studio5000, siemens-scl]
 ---
@@ -36,7 +36,7 @@ Un document PLCopen XML valide respecte l'arborescence racine `<project>` et doi
          xmlns:xhtml="http://www.w3.org/1999/xhtml" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://www.plcopen.org/xml/tc6_0201 tc6_0201.xsd">
-  <fileHeader companyName="Actemium" productName="Helios Agent" productVersion="1.0" creationDateTime="2026-06-17T12:00:00"/>
+  <fileHeader companyName="EVA" productName="EVA Agent" productVersion="1.0" creationDateTime="2026-06-17T12:00:00"/>
   <contentHeader name="Export_Universal">
     <coordinateInfo>
       <fbd><x>100</x><y>100</y></fbd>

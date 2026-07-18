@@ -2,11 +2,11 @@
 name: robotics-staubli
 description: "Utiliser quand l'utilisateur demande de programmer des robots Stäubli sous SRS (Stäubli Robotics Suite) en langage VAL 3, ou d'interfacer des contrôleurs CS8/CS9."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [staubli, robotics, val3, srs, industrial-robotics]
     related_skills: [industrial-protocols, ot-security]
 ---
@@ -48,7 +48,7 @@ Voici la structure standard d'un programme VAL 3 d'inspection avec prise de piè
 program start()
 begin
   // 1. Initialisations de la cellule
-  title("Controle Cellule Actemium");
+  title("Controle Cellule EVA");
   cls();
   putln("Demarrage de l'application...");
 

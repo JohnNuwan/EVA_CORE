@@ -2,11 +2,11 @@
 name: industrial-edge
 description: "Développer des scripts Edge et des flux Node-RED."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [edge, edge-computing, node-red, gateway, python, iot, industrial-automation]
     related_skills: [industrial-uns, plc-connectivity, industrial-protocols, opc-ua-scanner]
 ---
@@ -19,7 +19,7 @@ Le **Edge Computing** consiste à traiter les données directement au plus près
 
 Les passerelles Edge industrielles (ex: Siemens IOT2050, Raspberry Pi industriels, Advantech) exécutent souvent des applications conteneurisées (ex: Docker) combinant des scripts Python personnalisés et l'outil de programmation visuelle **Node-RED**.
 
-Cette compétence guide l'agent Helios pour développer des flux Node-RED et concevoir des scripts de traitement à la périphérie du réseau (Edge).
+Cette compétence guide l'agent EVA pour développer des flux Node-RED et concevoir des scripts de traitement à la périphérie du réseau (Edge).
 
 ## Quand l'utiliser
 
@@ -100,7 +100,7 @@ def process_sensor_value(current_value):
         }
         
         # Envoi au broker central
-        client.publish("actemium/edge/sensor1", json.dumps(payload))
+        client.publish("EVA/edge/sensor1", json.dumps(payload))
         
         # Mise à jour des états
         LAST_SENT_VALUE = current_value

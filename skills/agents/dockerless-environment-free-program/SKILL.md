@@ -2,10 +2,10 @@
 name: dockerless-environment-free-program
 description: "Vérifier la validité de correctifs de code sans environnement d'exécution (Dockerless) par analyse de preuves sémantiques."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, verification, static-analysis, dockerless, codegen]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

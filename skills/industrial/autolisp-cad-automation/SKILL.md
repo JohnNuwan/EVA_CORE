@@ -2,8 +2,8 @@
 name: autolisp-cad-automation
 description: "Développer en AutoLISP pour automatiser AutoCAD et la CAO."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows]
 metadata:
   tags: [autolisp, lisp, autocad, cad, electrical-drawings, dxf, dcl]
@@ -23,8 +23,8 @@ AutoLISP s'appuie sur le paradigme LISP. Tout code ou donnée est représenté s
 ### Syntaxe de base
 * **Définition de fonction/commande** : `defun` définit une fonction. Le préfixe `c:` rend la fonction appelable directement depuis la ligne de commande AutoCAD comme une commande native.
   ```lisp
-  (defun c:HelloActemium ()
-    (alert "Logiciel d'automatisation de BE Actemium actif.")
+  (defun c:HelloEVA ()
+    (alert "Logiciel d'automatisation de BE EVA actif.")
     (princ)
   )
   ```
@@ -130,7 +130,7 @@ Pour permettre au dessinateur-projeteur du bureau d'études de configurer les va
 ```text
 // Fichier config_bornes.dcl
 config_bornes : dialog {
-  label = "Configuration Reperage Actemium";
+  label = "Configuration Reperage EVA";
   : edit_box {
     label = "Prefixe Armoire :";
     key = "eb_prefix";

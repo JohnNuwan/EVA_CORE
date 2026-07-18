@@ -2,11 +2,11 @@
 name: hardware-security-firmware
 description: "Sécuriser les équipements et micrologiciels industriels embarqués : Secure Boot, racine de confiance (Root of Trust), module HSM/TPM, signatures de firmware, mises à jour OTA sécurisées, et déploiement des versions sécurisées des protocoles (OPC UA Security, Modbus/TCP Security, CIP Security)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [hardware-security, firmware, secure-boot, opc-ua-security, modbus-security, cip-security, cryptography, industrial-security, hsm, tpm, root-of-trust, iot-security, ota-update]
     related_skills: [ot-security, cybersecurity-iec62443, embedded-systems-firmware]
     difficulty: advanced

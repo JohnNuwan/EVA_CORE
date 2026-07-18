@@ -2,10 +2,10 @@
 name: industrial-network-ids
 description: "Concevoir et déployer des sondes de détection d'intrusions industrielles (IDS) via des filtres de paquets eBPF et l'analyse Modbus TCP."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, security, ids, ebpf, modbus, profinet]
     related_skills: [multi-vendor-industrial-automation, plc-scada-platform-standards]
 ---
@@ -86,5 +86,5 @@ char _license[] SEC("license") = "GPL";
 ## Liste de vérification (Checklist)
 - [ ] Confirmer que le verificateur de noyau eBPF accepte le code compile C.
 - [ ] Valider le filtrage du port Modbus TCP (502) et des paquets anormaux.
-- [ ] Configurer les maps eBPF de partage d'état pour transmettre les alertes à la CLI Helios.
+- [ ] Configurer les maps eBPF de partage d'état pour transmettre les alertes à la CLI EVA.
 - [ ] Mesurer l'empreinte mémoire et CPU sous forte charge de trafic réseau simulé.

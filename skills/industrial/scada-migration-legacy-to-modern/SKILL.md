@@ -2,10 +2,10 @@
 name: scada-migration-legacy-to-modern
 description: "Utiliser quand l'utilisateur doit cadrer une migration SCADA/HMI depuis une plateforme legacy vers un environnement moderne avec réduction du risque et non-régression."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [scada, migration, legacy, hmi, modernisation, non-regression, transition]
     related_skills: [ignition-scada, wincc-unified, scada-hmi-programming-languages]
 ---

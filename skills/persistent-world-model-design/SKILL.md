@@ -2,11 +2,11 @@
 name: persistent-world-model-design
 description: "Concevoir des modèles du monde persistants capables de maintenir un état global cohérent en l'absence d'observation directe."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [world-model, persistent-state, simulation, robotics, computer-vision, autonomous-systems]
     related_skills: [agentic-systems-design, spatial-decodable-image-generation, autonomous-agent-evolution-strategy]
 ---

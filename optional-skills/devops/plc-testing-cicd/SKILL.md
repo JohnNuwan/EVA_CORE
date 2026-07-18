@@ -2,7 +2,7 @@
 name: plc-testing-cicd
 description: "Concevoir des tests unitaires et pipelines CI/CD pour PLC."
 version: 1.0.0
-author: Actemium
+author: EVA
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
@@ -16,7 +16,7 @@ metadata:
 
 Le développement d'automatisme moderne intègre les méthodologies DevOps. L'automatisation des compilations, le versioning propre avec Git et l'exécution systématique de tests unitaires permettent de sécuriser le code avant le déploiement sur site. 
 
-Cette compétence guide l'agent Helios pour écrire des tests unitaires PLC (avec `TcUnit` sous TwinCAT), concevoir des scripts d'intégration fonctionnels (avec `PLCSIM Advanced` sous Siemens), et structurer des pipelines de CI/CD (GitLab CI, GitHub Actions) pour les projets d'automatisme.
+Cette compétence guide l'agent EVA pour écrire des tests unitaires PLC (avec `TcUnit` sous TwinCAT), concevoir des scripts d'intégration fonctionnels (avec `PLCSIM Advanced` sous Siemens), et structurer des pipelines de CI/CD (GitLab CI, GitHub Actions) pour les projets d'automatisme.
 
 ---
 

@@ -2,10 +2,10 @@
 name: agent-knowledge-gap-resolution
 description: "Combler les lacunes de connaissance par recherche web."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [agents, web-search, knowledge, behavior, browser]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

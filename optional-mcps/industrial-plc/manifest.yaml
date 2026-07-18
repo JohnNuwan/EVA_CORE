@@ -13,7 +13,7 @@ transport:
     - "-i"
     - "--rm"
     - "--network=host"
-    - "helios-industrial-plc-mcp:latest"
+    - "EVA-industrial-plc-mcp:latest"
 
 auth:
   type: none
@@ -21,4 +21,4 @@ auth:
 post_install: |
   Pour utiliser ce serveur MCP, vous devez d'abord construire l'image Docker locale :
     cd projects/mcp-industrial-plc
-    docker build -t helios-industrial-plc-mcp:latest .
+    docker build -t EVA-industrial-plc-mcp:latest .

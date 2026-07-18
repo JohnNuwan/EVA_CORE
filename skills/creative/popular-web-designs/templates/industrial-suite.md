@@ -1,6 +1,6 @@
 # Design System: Industrial Suite (Glow Dark & Orange Highlights)
 
-> **Helios Agent — Implementation Notes**
+> **EVA Agent — Implementation Notes**
 >
 > This design system is optimized for high-fidelity technical presentations, industrial dashboards (OT/IT showcases, cybersecurity compliance), and product landing pages. It builds upon the deep, precise aesthetics of Linear but incorporates warm industrial highlights and glowing gradients to prevent monotone fatigue.
 > 
@@ -64,7 +64,7 @@ import sys
 
 # 1. Define your centralized presentation data structure
 presentation_data = {
-    "name": "Helios DevAssiste",
+    "name": "EVA DevAssiste",
     "tagline": "L'agent autonome d'élite pour l'industrie 4.0...",
     "skills": [...]
 }
@@ -76,7 +76,7 @@ try:
 
     @app.route('/')
     def index():
-        return render_template('index.html', helios=presentation_data)
+        return render_template('index.html', EVA=presentation_data)
 
     if __name__ == '__main__':
         app.run(debug=True, port=5000)

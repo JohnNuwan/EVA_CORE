@@ -2,11 +2,11 @@
 name: machine-vision-industrial
 description: "Configurer et programmer des systèmes de vision industrielle pour le contrôle qualité."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - cognex
       - keyence

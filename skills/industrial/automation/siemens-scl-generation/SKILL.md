@@ -2,8 +2,8 @@
 name: siemens-scl-generation
 description: "Générer et structurer du code SCL Siemens."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [siemens, TIA-Portal, scl, plc, automation-engineering]

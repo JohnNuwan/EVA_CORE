@@ -2,10 +2,10 @@
 name: plc-backup-versioning-recovery
 description: "Utiliser quand l'utilisateur doit structurer sauvegarde, versionning, golden copy, restauration et reprise après incident pour automates, HMIs et SCADA."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [backup, versioning, recovery, plc, scada, hmi, disaster-recovery, golden-copy]
     related_skills: [iso-quality, industrial-cybersecurity-guidelines, industrial-maintenance-reliability]
 ---

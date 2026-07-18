@@ -2,10 +2,10 @@
 name: cleanroom-sterile-environments
 description: "Concevoir, auditer et maîtriser des environnements propres et stériles : zonage, HVAC, monitoring, flux et discipline d'exploitation."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, cleanroom, sterile, hvac, monitoring, gmp, pharma, medical, iso-14644]
     related_skills: [gmp-pharmaceutical, iso-13485-medical-devices, multi-sector-industrial-standards]
 ---

@@ -2,11 +2,11 @@
 name: prompt-method-graphrag
 description: "Effectuer des recherches sémantiques sur graphes."
 version: 1.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, graphrag, biblio-ia, methods]
     related_skills: [python-pep8, simplify-code, plan]
 ---

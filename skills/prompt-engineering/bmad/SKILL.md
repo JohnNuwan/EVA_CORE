@@ -2,11 +2,11 @@
 name: prompt-method-bmad
 description: "Appliquer la méthode de développement BMAD pour les agents."
 version: 1.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, bmad, biblio-ia, methods]
     related_skills: [python-pep8, simplify-code, plan]
 ---

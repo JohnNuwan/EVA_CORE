@@ -3,8 +3,8 @@ name: exploration-industry4-ai
 summary: "Guider l'exploration systématique des plateformes scientifiques (arXiv, Zenodo, OSF) pour identifier des articles pertinents sur l'Industrie 4.0, les agents IA, les workflows/pipelines et les algorithmes d'optimisation."
 description: "Fournit un protocole complet pour interroger les dépôts académiques majeurs, filtrer les résultats, évaluer la qualité des publications, et extraire des connaissances actionnables dans le domaine de l'Industrie 4.0, des systèmes multi-agents, des pipelines industriels et des algorithmes d'optimisation."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 category: research
 tags: [industrie-4.0, veille-scientifique, arXiv, Zenodo, OSF, digital-twin, optimisation]
@@ -362,7 +362,7 @@ def generer_fiche_technologie(article: dict, domaine: str) -> str:
 - Concept 1 : _[à extraire]_
 - Concept 2 : _[à extraire]_
 
-### Applicabilité dans Helios
+### Applicabilité dans EVA
 
 _[Analyse du potentiel d'intégration dans l'agent]_
 
@@ -382,4 +382,4 @@ _[Analyse du potentiel d'intégration dans l'agent]_
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

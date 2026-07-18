@@ -2,8 +2,8 @@
 name: memory-management-ai
 description: "Explorer les techniques avancées de gestion de la mémoire dans les systèmes d'intelligence artificielle pour des applications à long terme, incluant les mémoires vectorielles, graphiques et adaptatives."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [mémoire, RAG, vector-store, mémoire-graphique, consolidation, oubli-stratégique]
 keywords: [memory management, vector database, graph memory, memory consolidation, forgetting mechanism]
@@ -461,4 +461,4 @@ class MemoireRAG:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

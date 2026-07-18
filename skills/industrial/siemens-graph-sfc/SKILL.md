@@ -2,8 +2,8 @@
 name: siemens-graph-sfc
 description: "Programmer les séquences machine en Siemens S7-GRAPH et SFC."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [siemens, graph, s7-graph, sfc, grafcet, sequences, step-control, TIA-portal, interlocks, supervisions]
@@ -48,7 +48,7 @@ Le DB d'instance généré automatiquement pour un bloc S7-GRAPH contient des va
 En programmation structurée d'atelier, on écrit souvent un bloc SCL externe pour lire le statut d'un graphe GRAPH, remonter les temps de cycle ou forcer une transition en mode manuel.
 
 ```pascal
-FUNCTION_BLOCK "FB_Actemium_SequenceManager"
+FUNCTION_BLOCK "FB_EVA_SequenceManager"
 VAR_INPUT
     StartSequence : BOOL;
     StopSequence : BOOL;

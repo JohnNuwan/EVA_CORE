@@ -12,4 +12,4 @@ LLM Wiki 2.0 pattern defines a personal knowledge management system for AI agent
 ---
 
 ## Synthèse et Analyse
-L'intégration de cette recherche au sein de l'agent Helios permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.
+L'intégration de cette recherche au sein de l'agent EVA permet de tirer parti des avancées en matière de structures agentiques et d'optimisations des LLM pour améliorer l'efficacité des workflows.

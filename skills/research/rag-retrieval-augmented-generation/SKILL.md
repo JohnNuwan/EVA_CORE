@@ -2,8 +2,8 @@
 name: rag-retrieval-augmented-generation
 description: "Explorer les systèmes avancés de génération augmentée par récupération (RAG) — architectures, stratégies de chunking, indexation hybride, récupération multi-hop et alternatives comme HippoRAG2."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 tags: [RAG, retrieval, embedding, vector-database, hippoRAG, multi-hop, hybrid-search]
 keywords: [Retrieval Augmented Generation, RAG, embedding, chunking, hybrid search, dense retriever, sparse retriever]
@@ -541,4 +541,4 @@ class RAGAvecMemoire:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

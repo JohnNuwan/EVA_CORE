@@ -2,11 +2,11 @@
 name: iso-22716-cosmetics-gmp
 description: "Appliquer les Bonnes Pratiques de Fabrication des produits cosmétiques conformes à l'ISO 22716 et au Règlement Européen Cosmétiques (CE) N° 1223/2009."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-22716, cosmetics, gmp, cosmetovigilance, product-safety, cpnp, eu-cosmetics-regulation]
     related_skills: [gmp-pharmaceutical, iso-quality, iso-22000, industrial-risk-analysis-hazop]
     difficulty: intermediate

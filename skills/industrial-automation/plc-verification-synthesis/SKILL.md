@@ -2,10 +2,10 @@
 name: plc-verification-synthesis
 description: "Synthétiser et vérifier formellement du code PLC Structured Text (IEC 61131-3) via une boucle multi-agent de compilation."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, plc, structured-text, verification, synthesis]
     related_skills: [siemens-scl-expert, multi-vendor-industrial-automation]
 ---

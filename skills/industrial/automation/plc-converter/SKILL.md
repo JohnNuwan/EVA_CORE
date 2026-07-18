@@ -2,11 +2,11 @@
 name: plc-converter
 description: "Convertir bidirectionnellement du code Structured Text (ST/SCL) entre Rockwell, Siemens et CODESYS avec gestion des types, temporisateurs et AOI."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - industrial
       - automation

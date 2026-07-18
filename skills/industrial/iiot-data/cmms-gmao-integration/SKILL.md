@@ -2,8 +2,8 @@
 name: cmms-gmao-integration
 description: "Utiliser quand l'utilisateur demande d'interfacer des données automates (compteurs d'heures de marche, alarmes critiques) avec une GMAO (Maximo, Coswin) pour automatiser la maintenance."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [gmao, cmms, predictive-maintenance, maintenance-automation, industrial-databases]

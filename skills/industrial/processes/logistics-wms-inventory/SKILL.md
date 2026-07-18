@@ -2,12 +2,12 @@
 name: logistics-wms-inventory
 description: "Gérer et optimiser l'intralogistique d'entrepôt, intégrer les systèmes de gestion d'entrepôt (WMS / WES), structurer les stocks par analyse ABC et FIFO, concevoir les flux de picking efficaces, et implémenter la traçabilité automatique RFID/code-barres avec interfaçage ERP."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [logistics, wms, wes, inventory-management, picking, fifo, lifo, abc-analysis, rfid, barcode, supply-chain, warehouse-optimization, intralogistics, erp-integration]
-  helios:
+  EVA:
     related_skills: [supply-chain-planning-erp, agv-amr-fleet-management, oee-performance]
     difficulty: intermediate
     industry_sectors: [manufacturing, distribution, ecommerce, automotive, pharmaceutical, food-beverage, retail]

@@ -2,11 +2,11 @@
 name: schneider-unity
 description: "Programmer sous Control Expert et manipuler les fichiers XMY."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [schneider, unity-pro, control-expert, plc, st, m340, m580, industrial-automation, ddt, dfb, xmy]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ metadata:
 
 Le langage **Texte Structuré (ST)** y est privilégié pour l'implémentation de calculs complexes, de boucles et de blocs logiques algorithmiques. Control Expert utilise également un format d'exportation/importation standardisé basé sur le XML (fichiers `.XMY`) pour stocker et transférer les structures de données (DDT), les sections de code et les Blocs Fonctionnels Dérivés (DFB) créés par l'utilisateur.
 
-Cette compétence permet à l'agent Helios de générer du code ST valide pour Schneider Control Expert et de lire, analyser ou générer des fichiers XML d'importation `.XMY` conformes aux spécifications de l'éditeur.
+Cette compétence permet à l'agent EVA de générer du code ST valide pour Schneider Control Expert et de lire, analyser ou générer des fichiers XML d'importation `.XMY` conformes aux spécifications de l'éditeur.
 
 ## Quand l'utiliser
 
@@ -41,7 +41,7 @@ Le langage ST de Schneider Electric implémente la norme CEI 61131-3 avec les sp
 - Les variables locales, contrairement à TIA Portal (Siemens), ne portent **aucun préfixe** tel que `#`. Les noms de variables s'écrivent directement.
 - Les commentaires s'écrivent avec `(* commentaire *)` pour les blocs multi-lignes et `//` pour les lignes simples (supporté sur les versions récentes).
 
-### 2. Nommage standardisé Actemium
+### 2. Nommage standardisé EVA
 Pour différencier la portée des variables et maintenir un code propre :
 
 | Type de Variable | Préfixe | Exemple | Description |
@@ -150,7 +150,7 @@ Pour importer un DFB ou des variables dans Control Expert sans saisie manuelle, 
   <!-- En-tête officiel Control Expert -->
   <fileHeader company="Schneider Automation" product="Unity Pro" version="14.1"/>
   <contentHeader name="DFB_Valve_Control" version="1.0.0">
-    <comment>Contrôle de vanne standardisé Actemium</comment>
+    <comment>Contrôle de vanne standardisé EVA</comment>
   </contentHeader>
   
   <FBBlock nameType="DFB_Valve_Control" FBKind="UserAssociated">

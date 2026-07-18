@@ -53,7 +53,7 @@ def _fs_git_branch(cwd: str) -> str:
 - Candidate must `is_dir()` or it falls back silently.
 - `branch` = `git -C <cwd> branch --show-current`, 2 s timeout, `""` on failure.
 
-## Confirming tests (`tests/helios_cli/test_web_server_fs.py`)
+## Confirming tests (`tests/EVA_cli/test_web_server_fs.py`)
 
 - `test_fs_default_cwd_prefers_existing_terminal_cwd` (line 151): config `cwd`
   wins over `TERMINAL_CWD` and over the process CWD.

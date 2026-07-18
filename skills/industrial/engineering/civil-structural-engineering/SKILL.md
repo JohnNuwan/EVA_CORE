@@ -2,12 +2,12 @@
 name: civil-structural-engineering
 description: "Dimensionner les structures métalliques (charpentes, supports de tuyauterie, passerelles) et les dalles de fondation pour machines industrielles selon les Eurocodes."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [civil-engineering, structural, eurocodes, steel-structure, concrete, foundation, structural-analysis, buckling, steel-design]
-  helios:
+  EVA:
     related_skills: [fea-structural-analysis, cad-bom-automation, industrial-piping-vessels]
 ---
 
@@ -31,7 +31,7 @@ L'ensemble des calculs s'appuie sur les **Eurocodes**, le référentiel normatif
 | Structures mixtes acier-béton | EN 1994 | EC 4 |
 | Structures en aluminium | EN 1999 | EC 9 |
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié au dimensionnement, à la vérification ou à l'optimisation d'ouvrages de génie civil industriel.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié au dimensionnement, à la vérification ou à l'optimisation d'ouvrages de génie civil industriel.
 
 ---
 

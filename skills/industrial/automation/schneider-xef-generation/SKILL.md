@@ -2,8 +2,8 @@
 name: schneider-xef-generation
 description: "Générer et structurer des exports XML Schneider XEF."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [schneider, eco-struxure, control-expert, xef, plc, xml, automation-engineering]

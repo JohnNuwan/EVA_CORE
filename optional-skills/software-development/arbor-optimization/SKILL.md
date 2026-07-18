@@ -2,11 +2,11 @@
 name: arbor-optimization
 description: Optimisation autonome par arbre d'hypothèses.
 version: 1.0.0
-author: Helios Agent (inspired by RUC-NLPIR Arbor)
+author: EVA Agent (inspired by RUC-NLPIR Arbor)
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [autonomous-research, hypothesis-tree, optimization, delegation]
     related_skills: [subagent-driven-development, plan, systematic-debugging]
 ---

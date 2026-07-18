@@ -2,10 +2,10 @@
 name: industrial-pcap-troubleshooter
 description: "Expert en diagnostic réseau pour protocoles OT (Modbus TCP, PROFINET, EtherNet/IP)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, network, pcap, troubleshooting, modbus, profinet]
     related_skills: [multi-vendor-industrial-automation, plc-scada-platform-standards]
 ---

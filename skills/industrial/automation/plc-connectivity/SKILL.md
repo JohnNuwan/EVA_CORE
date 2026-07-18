@@ -2,8 +2,8 @@
 name: industrial-plc-connectivity
 description: "Écrire des scripts de connexion Snap7, pycomm3 et ADS."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [siemens, rockwell, ethernet-ip, s7-protocol, cip, serial, rs232, rs485, pycomm3, snap7, pylogix, pyserial, modbus-rtu, bacnet, canopen, pyvisa, opc-da, ads, industrial-automation]
@@ -16,7 +16,7 @@ metadata:
 
 L'acquisition de données à la source (le capteur, l'automate, la centrale de mesure ou l'instrumentation) nécessite d'utiliser des protocoles propriétaires, bas niveau ou spécialisés par domaine (GTB, automobile, laboratoire).
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'intégration robustes pour :
+Cette compétence guide l'agent EVA pour écrire des scripts d'intégration robustes pour :
 1. **Rockwell Automation** via EtherNet/IP (CIP) avec `pycomm3` ou `pylogix`.
 2. **Siemens S7** via S7 Protocol avec `python-snap7`.
 3. **Liaisons série (COM, RS-232, RS-485)** avec `pyserial`.
@@ -342,9 +342,9 @@ plc.close()
 
 ---
 
-## Nouveau : Outils Helios intégrés pour connectivité PLC temps réel
+## Nouveau : Outils EVA intégrés pour connectivité PLC temps réel
 
-Depuis juillet 2026, Helios Agent dispose d'**outils intégrés** pour la communication PLC en temps réel. Contrairement aux scripts standalone ci-dessus, ces outils s'appellent directement depuis l'agent via `registry.register()`.
+Depuis juillet 2026, EVA Agent dispose d'**outils intégrés** pour la communication PLC en temps réel. Contrairement aux scripts standalone ci-dessus, ces outils s'appellent directement depuis l'agent via `registry.register()`.
 
 ### Outils disponibles
 
@@ -377,7 +377,7 @@ Depuis juillet 2026, Helios Agent dispose d'**outils intégrés** pour la commun
 
 ### Quand utiliser quel outil
 
-- **Script autonome** → Utiliser les patterns `python-snap7` / `pylogix` / `pycomm3` ci-dessus (quand le code doit tourner sur une machine sans Helios ou dans un pipeline CI/CD).
+- **Script autonome** → Utiliser les patterns `python-snap7` / `pylogix` / `pycomm3` ci-dessus (quand le code doit tourner sur une machine sans EVA ou dans un pipeline CI/CD).
 - **Interaction agent temps réel** → Utiliser `plc_read` / `plc_write` / `plc_probe` (quand l'agent a besoin de lire/écrire pendant une conversation).
 - **Découverte réseau** → `plc_probe` en premier pour détecter le type, puis `plc_read` avec le bon `plc_type`.
 

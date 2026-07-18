@@ -2,8 +2,8 @@
 name: metaverse-industry-4-0
 version: 1.0.0
 description: "Explorer les applications du métavers pour connecter l'Industrie 4.0 et 5.0."
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 ---
 

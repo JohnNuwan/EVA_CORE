@@ -2,10 +2,10 @@
 name: phoenix-plcnext
 description: "Configurer PLCnext Engineer et concevoir des architectures PLCnext ouvertes et edge."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [plcnext, phoenix-contact, edge, software-defined-control, plcnext-engineer, virtual-plc, opc-ua, mqtt]
     related_skills: [industrial-protocols, industrial-communication-protocols, plcopen-xml, interoperability-of-industrial-systems]
 ---

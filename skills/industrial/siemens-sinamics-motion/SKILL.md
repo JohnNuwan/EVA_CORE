@@ -2,10 +2,10 @@
 name: siemens-sinamics-motion
 description: "Configurer et diagnostiquer les variateurs Siemens Sinamics et leurs intégrations motion."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [siemens, sinamics, motion, drive, profidrive, servo, axis]
     related_skills: [drive-motion-control, siemens-scl, siemens-safety]
 ---

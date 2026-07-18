@@ -2,11 +2,11 @@
 name: ot-security
 description: "Cybersécurité OT et résilience selon l'ISA/IEC 62443."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [security, ot-security, 62443, secrets, resilience, network, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 Le réseau de production (OT) a des priorités distinctes du réseau informatique (IT). En OT, la priorité absolue est la **Disponibilité** et la **Sécurité des personnes et équipements (Safety)**, suivies par l'Intégrité et la Confidentialité. Lors du développement d'applications ou de scripts d'interface avec des automates ou des supervisions, il est crucial d'appliquer les principes fondamentaux de la norme **ISA/IEC 62443** au niveau du code.
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'informatique industrielle hautement résilients aux pannes réseaux, et sécurisés contre les vulnérabilités courantes du monde OT.
+Cette compétence guide l'agent EVA pour écrire des scripts d'informatique industrielle hautement résilients aux pannes réseaux, et sécurisés contre les vulnérabilités courantes du monde OT.
 
 Le script d'assistance associé à cette compétence est disponible sous [ot_security_scanner.py](scripts/ot_security_scanner.py).
 
@@ -79,7 +79,7 @@ import time
 import logging
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("Actemium_OT_Monitor")
+logger = logging.getLogger("EVA_OT_Monitor")
 
 def communication_loop(plc_client):
     reconnect_delay = 5.0 # Attendre 5s avant de réessayer

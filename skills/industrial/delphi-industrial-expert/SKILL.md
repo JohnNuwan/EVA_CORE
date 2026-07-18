@@ -2,8 +2,8 @@
 name: delphi-industrial-expert
 description: "Expertise de niveau expert en maintenance, modernisation et intégration industrielle pour Delphi Object Pascal (VCL/FMX)."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 ---
 
 # Expert Delphi pour Systèmes Industriels

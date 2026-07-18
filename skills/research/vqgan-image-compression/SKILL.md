@@ -6,8 +6,8 @@ description: >-
   GAN) pour atteindre des bitrates aussi faibles que 0.04 bpp tout en
   maintenant une haute qualité perceptuelle.
 version: 2.0.0
-author: Helios Agent / Actemium
-license: Privée Actemium St-Étienne
+author: EVA Agent / EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 dependencies:
   - torch>=2.0
@@ -17,7 +17,7 @@ dependencies:
   - matplotlib>=3.7
   - lpips>=0.1.4
 metadata:
-  helios:
+  EVA:
     tags:
       - vqgan
       - vqvae

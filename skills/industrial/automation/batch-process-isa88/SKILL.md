@@ -2,11 +2,11 @@
 name: batch-process-isa88
 description: "Modéliser des recettes et des phases batch ISA-88."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [isa-88, batch, s88, recipe, phase-manager, plc, scl, structured-text, industrial-automation]
     related_skills: [siemens-scl, mes-integration, packml-isa-tr88, isa95-modelling, process-pharma, process-agrifood]
 ---
@@ -15,14 +15,14 @@ metadata:
 
 ## Vue d'ensemble
 
-La norme **ISA-88 (ANSI/ISA-88.01 / IEC 61512)** est le standard mondial pour le contrôle des procédés de fabrication par lots (batch). Elle est omniprésente dans les industries **agroalimentaire, pharmaceutique, chimique et cosmétique** — cœur de métier d'Actemium.
+La norme **ISA-88 (ANSI/ISA-88.01 / IEC 61512)** est le standard mondial pour le contrôle des procédés de fabrication par lots (batch). Elle est omniprésente dans les industries **agroalimentaire, pharmaceutique, chimique et cosmétique** — cœur de métier d'EVA.
 
 ISA-88 sépare strictement :
 - Le **modèle physique** (Cellule de procédé → Unité → Module d'équipement → Module de contrôle).
 - Le **modèle procédural** (Procédure → Procédure d'unité → Opération → Phase).
 - Le **modèle de recette** (Header, Formula, Equipment Requirements, Procedure).
 
-Cette compétence guide l'agent Helios pour modéliser des procédures batch, concevoir des machines d'état de phases, et structurer des recettes conformes à ISA-88.
+Cette compétence guide l'agent EVA pour modéliser des procédures batch, concevoir des machines d'état de phases, et structurer des recettes conformes à ISA-88.
 
 ## Quand l'utiliser
 
@@ -227,7 +227,7 @@ Une recette batch se décompose en Header, Formula et Procedure :
   "header": {
     "name": "Yaourt Nature 500g",
     "version": "2.1",
-    "author": "Actemium Process",
+    "author": "EVA Process",
     "product_code": "YN500",
     "batch_size": {"value": 5000, "unit": "kg"},
     "equipment_class": "Cuve de Maturation"
@@ -292,7 +292,7 @@ Une recette batch se décompose en Header, Formula et Procedure :
 
 ---
 
-## 4. Intégration avec le Projet Automate Actemium
+## 4. Intégration avec le Projet Automate EVA
 
 Le Projet Automate génère des blocs fonctionnels (FB) par catégorie d'organe via des templates Jinja2. Le pattern de génération peut être étendu pour produire des blocs de phases ISA-88 :
 

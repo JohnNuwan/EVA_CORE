@@ -2,11 +2,11 @@
 name: siemens-audit
 description: "Extraire des données d'audit Siemens à partir de PDF."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial-automation, siemens, audit, pdf-parsing, data-extraction, python, pypdf, eph, external-exchanges, ids]
     related_skills: [industrial-documents, automation-linter, plc-diagnostic]
 ---

@@ -2,11 +2,11 @@
 name: embedded-systems-firmware
 description: "Développer du firmware pour systèmes embarqués industriels sur microcontrôleurs (STM32, ESP32) en C/C++, configurer les périphériques matériels (HAL, timers, interruptions) et les bus de communication (I2C, SPI, CAN)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [embedded, firmware, microcontroller, stm32, esp32, c-plus-plus, spi, i2c, can-bus, rtos, freertos, hal, cmake]
     related_skills: [pcb-design-altium, pid-tuning-control, electrical-schematics-eplan]
 ---

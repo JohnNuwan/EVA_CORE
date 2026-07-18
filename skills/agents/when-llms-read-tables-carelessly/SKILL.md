@@ -2,10 +2,10 @@
 name: when-llms-read-tables-carelessly
 description: "Réduction des erreurs de données tabulaires (DRE) en IA."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: research
     tags: [ai, agents, tables, data-referencing, dre, rejection-sampling, alignment]
     related_skills: [experiential-self-improvement, agent-workflow-memory]

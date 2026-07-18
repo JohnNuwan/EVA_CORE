@@ -2,11 +2,11 @@
 name: prompt-method-contextual-compression
 description: "Réduire la taille du contexte d'un document long en n'en conservant que les informations pertinentes pour une question cible."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, contextual-compression, biblio-ia, methods, document-processing, rag-optimization]
     related_skills: [python-pep8, simplify-code, plan, generated-knowledge, prompt-chaining]
 ---

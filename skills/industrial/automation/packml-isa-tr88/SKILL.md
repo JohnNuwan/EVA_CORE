@@ -2,11 +2,11 @@
 name: packml-isa-tr88
 description: "Implémenter des machines d'état PackML en SCL/ST."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [packml, isa-tr88, state-machine, plc, scl, structured-text, oem, industrial-automation]
     related_skills: [siemens-scl, batch-process-isa88, mes-integration, oee-performance, rockwell-studio5000]
 ---
@@ -22,7 +22,7 @@ PackML normalise :
 2. **Les tags d'interface standardisés** (PackTags) pour l'échange de données entre la machine et le système de supervision/MES.
 3. **Le calcul de TRS/OEE** directement depuis les compteurs PackML.
 
-Pour un intégrateur comme Actemium, PackML garantit l'interopérabilité entre les machines de différents OEM sur une même ligne de production.
+Pour un intégrateur comme EVA, PackML garantit l'interopérabilité entre les machines de différents OEM sur une même ligne de production.
 
 ## Quand l'utiliser
 

@@ -1,7 +1,7 @@
-# Patterns de requêtes RAG Actemium
+# Patterns de requêtes RAG EVA
 
 Questions efficaces :
-- "Quel standard Actemium existe pour ... ?"
+- "Quel standard EVA existe pour ... ?"
 - "Quels documents internes couvrent ... ?"
 - "Quelles conventions de nommage / architecture sont citées pour ... ?"
 - "Quels écarts ou alertes les documents internes mentionnent-ils sur ... ?"

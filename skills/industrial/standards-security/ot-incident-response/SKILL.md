@@ -2,11 +2,11 @@
 name: ot-incident-response
 description: "Répondre aux incidents de cybersécurité dans les environnements OT industriels."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - ot-incident-response
       - dfir-ot

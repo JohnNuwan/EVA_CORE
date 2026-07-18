@@ -2,10 +2,10 @@
 name: ot-security-skill-map
 description: "Utiliser quand il faut orienter rapidement vers la bonne skill OT security/cyber parmi audit, architecture, incident, gouvernance et conformité."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ot-security, iec62443, incident-response, audit, skill-map, governance]
     related_skills: [ot-security, cybersecurity-iec62443, ot-cybersecurity-audit-playbook, ot-incident-response, industrial-cybersecurity-guidelines, iso-27001]
 ---

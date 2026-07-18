@@ -2,10 +2,10 @@
 name: robot-hand-design-from-demonstrations
 description: "Utiliser quand l'utilisateur veut transformer des démonstrations humaines en exigences de conception, d'optimisation et de validation pour une main robotique, plutôt que produire seulement un résumé académique."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [robotics, dexterous-hand, imitation-learning, reinforcement-learning, additive-manufacturing, grasping]
     related_skills: [robotics-abb, robot-programming-languages, ai-industrial-vision, predictive-maintenance-ml]
 ---

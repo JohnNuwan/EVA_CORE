@@ -2,10 +2,10 @@
 name: robot-safety-cell-design
 description: "Concevoir la sécurité d'une cellule robotisée : modes, zones, interverrouillages et resets."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [robotics, safety, cell, interlocks, reset, fences]
     related_skills: [robot-plc-standard-interface, robotics-abb, robotics-fanuc, robotics-kuka, robotics-staubli]
 ---

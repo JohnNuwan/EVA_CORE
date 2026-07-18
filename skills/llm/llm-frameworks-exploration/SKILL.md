@@ -2,11 +2,11 @@
 name: llm-frameworks-exploration
 description: "Explorer, déployer et intégrer des modèles de langage (LLM) dans des applications industrielles : génération, synthèse, RAG et automatisation."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [llm, gpt, bert, bloom, mistral, huggingface, langchain, nlp, foundation-models]
     related_skills: [rag-retrieval-augmented-generation, ai-foundations-exploration, prompt-engineering, arxiv]
 ---

@@ -1,28 +1,28 @@
 ---
-name: helios-repo-extension-patterns
-description: "Guide pour étendre le dépôt Helios via des MCP et plugins."
+name: EVA-repo-extension-patterns
+description: "Guide pour étendre le dépôt EVA via des MCP et plugins."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
-    tags: [helios, repo, mcp, plugins, skills, extension, contribution]
-    related_skills: [helios-agent, helios-agent-mcp-development, helios-agent-skill-authoring]
+  EVA:
+    tags: [EVA, repo, mcp, plugins, skills, extension, contribution]
+    related_skills: [EVA-agent, EVA-agent-mcp-development, EVA-agent-skill-authoring]
 ---
 
-# Helios Repo Extension Patterns
+# EVA Repo Extension Patterns
 
 ## Vue d'ensemble
 
-Cette compétence capture les patterns concrets pour étendre le dépôt Helios sans gonfler le noyau : ajouter d'abord des serveurs MCP et des plugins, puis compléter par des skills ciblées. Elle est utile lorsqu'un besoin révèle un trou de couverture outillée et qu'il faut enrichir la collection proprement, de manière reproductible.
+Cette compétence capture les patterns concrets pour étendre le dépôt EVA sans gonfler le noyau : ajouter d'abord des serveurs MCP et des plugins, puis compléter par des skills ciblées. Elle est utile lorsqu'un besoin révèle un trou de couverture outillée et qu'il faut enrichir la collection proprement, de manière reproductible.
 
 ## Quand l'utiliser
 
 À utiliser lorsque l'utilisateur demande de :
-- combler des manques de capabilities dans Helios ;
+- combler des manques de capabilities dans EVA ;
 - ajouter plusieurs intégrations métier en lot ;
 - créer des serveurs MCP repo-local ;
-- ajouter un plugin Helios avec tools ou hooks ;
+- ajouter un plugin EVA avec tools ou hooks ;
 - compléter ensuite la bibliothèque de skills pour la partie méthodologie.
 
 Ne pas utiliser pour :
@@ -85,10 +85,10 @@ Une fois les MCPs/plugins ajoutés, compléter avec des skills de classe :
 
 ## Pattern IDE Extension (VS Code)
 
-Helios expose déjà un adapteur ACP (`acp_adapter/`) implémentant le protocole Agent Communication Protocol — le même standard utilisé par Claude Code et Codex pour l'intégration IDE. L'éditeur Zed s'y connecte nativement. Pour ajouter le support VS Code :
+EVA expose déjà un adapteur ACP (`acp_adapter/`) implémentant le protocole Agent Communication Protocol — le même standard utilisé par Claude Code et Codex pour l'intégration IDE. L'éditeur Zed s'y connecte nativement. Pour ajouter le support VS Code :
 
 ### Architecture
-- **Processus enfant :** `helios-acp` (Python) spawné par l'extension VS Code (TypeScript)
+- **Processus enfant :** `EVA-acp` (Python) spawné par l'extension VS Code (TypeScript)
 - **Transport :** JSON-RPC sur stdin/stdout (stdio)
 - **Dépendance :** `agent-client-protocol==0.9.0` (extra `acp` de pyproject.toml)
 
@@ -98,7 +98,7 @@ extensions/vscode/
 ├── package.json           # Manifest VS Code (activationEvents, contributes, keybindings)
 ├── tsconfig.json
 ├── src/
-│   ├── extension.ts       # Point d'entrée : activation, spawn helios-acp
+│   ├── extension.ts       # Point d'entrée : activation, spawn EVA-acp
 │   ├── acpClient.ts       # Client ACP stdio (JSON-RPC)
 │   ├── chatPanel.ts       # Webview React/Vue pour le chat
 │   ├── inlineEdit.ts      # Gestion des éditions inline avec diff preview
@@ -110,7 +110,7 @@ extensions/vscode/
 - **Chat panel** avec streaming temps réel, rendu Markdown, affichage outils
 - **Contexte éditeur** automatique : fichier courant + sélection → pièce jointe ACP
 - **Inline edit** : diff preview avant application via `WorkspaceEdit`
-- **Diagnostics** : résultats d'analyse Helios → panneau "Problems" VS Code
+- **Diagnostics** : résultats d'analyse EVA → panneau "Problems" VS Code
 - **Modes de permission** : Default / Accept Edits / Don't Ask (déjà dans l'ACP)
 
 ### Plan détaillé
@@ -118,7 +118,7 @@ Voir `references/ide-extension-blueprint.md` pour le plan complet en 3 phases (8
 
 ## Pattern Amélioration TUI
 
-La TUI Helios utilise une architecture Node.js (Ink/React) ↔ Python (tui_gateway) en JSON-RPC. Pour ajouter des fonctionnalités de type Claude Code :
+La TUI EVA utilise une architecture Node.js (Ink/React) ↔ Python (tui_gateway) en JSON-RPC. Pour ajouter des fonctionnalités de type Claude Code :
 
 ### Gaps prioritaires
 1. **Visualisation contexte (`/context`)** — grille colorée token usage par catégorie
@@ -151,7 +151,7 @@ Cette étape évite de s'arrêter après la seule création de nouvelles skills 
 
 ## Piège important sur les chemins
 
-Dans ce dépôt, lors d'écritures de fichiers via les outils Helios, préférer des chemins explicitement ancrés au dépôt avec un préfixe `./` quand on crée des fichiers repo-relatifs. Cela évite les résolutions ambiguës qui peuvent créer des doublons de dossiers au mauvais endroit lors d'ajouts en lot.
+Dans ce dépôt, lors d'écritures de fichiers via les outils EVA, préférer des chemins explicitement ancrés au dépôt avec un préfixe `./` quand on crée des fichiers repo-relatifs. Cela évite les résolutions ambiguës qui peuvent créer des doublons de dossiers au mauvais endroit lors d'ajouts en lot.
 
 ## Pièges Courants (Common Pitfalls)
 

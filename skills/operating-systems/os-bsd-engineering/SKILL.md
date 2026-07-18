@@ -2,12 +2,12 @@
 name: os-bsd-engineering
 description: "Administrer et sécuriser les systèmes BSD (FreeBSD, OpenBSD), configurer l'isolation par Jails, paramétrer le pare-feu PF (Packet Filter), et intégrer le stockage ZFS."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [bsd, freebsd, openbsd, jails, pf, zfs, security, firewall]
-  helios:
+  EVA:
     related_skills: [os-linux-admin, os-solaris-engineering]
 ---
 
@@ -63,12 +63,12 @@ Les Jails permettent d'isoler un processus et ses sous-processus dans un environ
 # Exemple de création simplifiée de Jail sous FreeBSD (via l'outil iocage)
 # 1. Télécharger la version de base de FreeBSD
 sudo iocage fetch
-# 2. Créer une nouvelle Jail nommée "actemium_web"
-sudo iocage create -r 13.2-RELEASE -n actemium_web ip4_addr="em1|192.168.1.50/24"
+# 2. Créer une nouvelle Jail nommée "EVA_web"
+sudo iocage create -r 13.2-RELEASE -n EVA_web ip4_addr="em1|192.168.1.50/24"
 # 3. Démarrer la Jail
-sudo iocage start actemium_web
+sudo iocage start EVA_web
 # 4. Ouvrir une console interactive dans la Jail
-sudo iocage console actemium_web
+sudo iocage console EVA_web
 ```
 
 ## Pièges Courants (Common Pitfalls) (Pièges Courants)

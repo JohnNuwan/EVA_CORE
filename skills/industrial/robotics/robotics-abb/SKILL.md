@@ -2,8 +2,8 @@
 name: robotics-abb
 description: "Générer et programmer du code robotique ABB RAPID."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [abb, rapid, robot, trajectory, industrial-robotics, automation, external-axes]

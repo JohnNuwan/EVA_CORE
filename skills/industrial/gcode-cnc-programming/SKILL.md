@@ -2,8 +2,8 @@
 name: gcode-cnc-programming
 description: "Programmer en G-Code pour les machines CNC."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [gcode, cnc, milling, turning, sinumerik, fanuc, machining, iso6983, macro-b]
@@ -22,7 +22,7 @@ En production, tout programme CNC doit impérativement démarrer par une séquen
 
 ```text
 %
-O2001 (ACTEMIUM - INITIALISATION SECURITE CNC)
+O2001 (EVA - INITIALISATION SECURITE CNC)
 N10 G90 G21 G40 G80 G49 G17 G94 (Modes absolus, métriques, annulations)
 ```
 * **G90** : Mode de coordonnées absolu.

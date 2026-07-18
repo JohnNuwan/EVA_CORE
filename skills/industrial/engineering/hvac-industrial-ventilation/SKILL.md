@@ -2,12 +2,12 @@
 name: hvac-industrial-ventilation
 description: "Concevoir des systèmes de Génie Climatique (CVC/HVAC) industriels, dimensionner les réseaux aérauliques et centrales de traitement d'air (CTA), et concevoir des salles propres (salles blanches ISO 14644)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [hvac, cvc, ventilation, cleanroom, air-handling-unit, psychrometric, filtration, iso-14644, aeraulic]
-  helios:
+  EVA:
     related_skills: [cfd-fluid-dynamics, process-pharma, pid-instrumentation]
 ---
 
@@ -19,7 +19,7 @@ Cette compétence guide la conception, le calcul et l'optimisation des systèmes
 
 Les systèmes HVAC industriels diffèrent fondamentalement du génie climatique tertiaire par la puissance installée, la complexité des traitements d'air (filtration multi-étages, contrôle d'humidité, cascade de pression), et les exigences réglementaires spécifiques à chaque secteur : pharmacie (BPF), microélectronique (contamination particulaire), agroalimentaire (maîtrise des atmosphères), chimie (captation de polluants dangereux).
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la conception, au dimensionnement, à l'optimisation ou au diagnostic de systèmes HVAC industriels ou de salles propres.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la conception, au dimensionnement, à l'optimisation ou au diagnostic de systèmes HVAC industriels ou de salles propres.
 
 ---
 

@@ -1,22 +1,22 @@
 ---
-name: helios-web-backend-internals
+name: EVA-web-backend-internals
 description: >-
-  Investigate and explain how the Helios web dashboard / file-browser
+  Investigate and explain how the EVA web dashboard / file-browser
   (web/server/web_server.py) determines filesystem paths, the default working
   directory, config precedence, and related /api/fs/* behavior. Use when the
   user asks "where is X", "what is my default workspace/CWD", "why does the
   terminal open in the wrong directory", or "how is Y path resolved" in the
-  Helios backend.
+  EVA backend.
 ---
 
-# Helios Web Backend — Path & Default-CWD Resolution
+# EVA Web Backend — Path & Default-CWD Resolution
 
 ## When to use
 
 - "Where is the default workspace / CWD in the web UI?"
 - "How does the file browser decide its starting directory?"
 - "Why is my terminal opening in the wrong folder?"
-- "How is `<some path | config>` determined in the Helios backend?"
+- "How is `<some path | config>` determined in the EVA backend?"
 - Tracing any `/api/fs/*` endpoint behavior.
 
 ## Key source files
@@ -27,7 +27,7 @@ description: >-
   `web/vue-client/src/views/Chat.vue` both call `GET /api/fs/default-cwd` on
   load to seed the file tree / terminal start directory.
 - Config loader: `load_config()` (reads `config.yaml`).
-- Tests that pin the intended behavior: `tests/helios_cli/test_web_server_fs.py`.
+- Tests that pin the intended behavior: `tests/EVA_cli/test_web_server_fs.py`.
 
 ## How the default working directory is resolved
 
@@ -68,35 +68,35 @@ is bridged into `TERMINAL_CWD` at process startup, which is why a live
 `TERMINAL_CWD` is usually present even when config only has a placeholder:
 
 - **Default when no `config.yaml` exists.** `load_config()` (reads
-  `~/.helios/config.yaml`) falls back to `DEFAULT_CONFIG`, where
-  `terminal.cwd = "."` (`helios_cli/config.py`, ~line 964-967). The `"."`
+  `~/.EVA/config.yaml`) falls back to `DEFAULT_CONFIG`, where
+  `terminal.cwd = "."` (`EVA_cli/config.py`, ~line 964-967). The `"."`
   sentinel is treated as unset, so the resolver falls through to
   `TERMINAL_CWD` / process CWD.
-- **CLI bridge (`helios_cli/cli.py`, ~line 593-640).** For
+- **CLI bridge (`EVA_cli/cli.py`, ~line 593-640).** For
   `terminal.backend: local` it forces `terminal.cwd = os.getcwd()`
   (~line 596-598) and then exports it to the `TERMINAL_CWD` env var via the
   `env_mappings` dict (`"cwd": "TERMINAL_CWD"`, ~line 604). So when running
   locally, `TERMINAL_CWD` becomes the launch directory.
 - **Gateway bridge (`gateway/run.py`, ~line 1337-1345).** Reads `TERMINAL_CWD`;
   if it is empty or a sentinel (`.`/`auto`/`cwd`), it defaults to
-  `MESSAGING_CWD` or the home directory. A `_HELIOS_GATEWAY` marker prevents the
+  `MESSAGING_CWD` or the home directory. A `_EVA_GATEWAY` marker prevents the
   CLI bridge from clobbering a value already set correctly by the gateway.
 - **Web server launch chain.** `GET /api/fs/*` is served by
   `web/server/web_server.py` (the FastAPI `app`). It is started **in-process**
-  by `helios_cli/web_server.start_server` (which does `from web.server import
-  web_server` at `helios_cli/web_server.py:12`), invoked from the dashboard
-  command (`helios_cli/main.py:10178`). There is **no `os.chdir`** on that
-  path, so the backend's `Path.cwd()` = the launch directory of the `helios`
+  by `EVA_cli/web_server.start_server` (which does `from web.server import
+  web_server` at `EVA_cli/web_server.py:12`), invoked from the dashboard
+  command (`EVA_cli/main.py:10178`). There is **no `os.chdir`** on that
+  path, so the backend's `Path.cwd()` = the launch directory of the `EVA`
   CLI — exactly what the local-backend bridge pushes into `TERMINAL_CWD`.
 
 ### How to check the live values (the four the user usually asks)
 
 1. `os.environ.get("TERMINAL_CWD")` → `echo $TERMINAL_CWD` (the web server
-   inherits this from the launching `helios` process).
-2. `terminal.cwd` in config.yaml → if no `~/.helios/config.yaml` exists, it is
+   inherits this from the launching `EVA` process).
+2. `terminal.cwd` in config.yaml → if no `~/.EVA/config.yaml` exists, it is
    the `DEFAULT_CONFIG` `"."` placeholder (effectively unset). Inspect
-   `DEFAULT_CONFIG["terminal"]["cwd"]` in `helios_cli/config.py`.
-3. Process CWD of the web server → launch directory of the `helios` CLI
+   `DEFAULT_CONFIG["terminal"]["cwd"]` in `EVA_cli/config.py`.
+3. Process CWD of the web server → launch directory of the `EVA` CLI
    (no chdir on the launch path); equals `os.getcwd()` at startup.
 4. Relative position of any top-level folder (e.g. `output/`) → confirm with a
    terminal `ls -la` / `find . -maxdepth N` — `search_files` is unreliable for
@@ -109,10 +109,10 @@ is in `references/cwd_bridge_and_launch.md`.
 
 1. Grep the backend for the route string (e.g. `search_files` pattern
    `default-cwd`) to find the handler and the `_fs_*` helpers it calls.
-2. Read the helper(s), not the route body — Helios routes delegate to private
+2. Read the helper(s), not the route body — EVA routes delegate to private
    `_fs_*` functions where the precedence and guards actually live.
 3. Confirm the intended contract with the tests under
-   `tests/helios_cli/test_web_server_fs.py` (e.g. `test_fs_default_cwd_*`
+   `tests/EVA_cli/test_web_server_fs.py` (e.g. `test_fs_default_cwd_*`
    encode config > env > process CWD and the invalid-path fallback).
 
 ## Pitfalls

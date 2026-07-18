@@ -2,7 +2,7 @@
 
 ## Pourquoi convertir ?
 
-Les projets Courbon/Actemium utilisent **1 FCT = 1 programme** (pas 1 zone = 1 fichier).
+Les projets Courbon/EVA utilisent **1 FCT = 1 programme** (pas 1 zone = 1 fichier).
 Un projet correct contient 40-60 FCT, pas 9 fichiers zone.
 
 ## Scénario 1 : Projet zone-based (ma V1)

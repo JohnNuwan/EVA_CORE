@@ -2,12 +2,12 @@
 name: os-rhel-engineering
 description: "Administrer et optimiser des serveurs Red Hat Enterprise Linux (RHEL), configurer les politiques SELinux, gérer les abonnements, administrer le pare-feu firewalld et déployer des configurations automatisées."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux]
 metadata:
   tags: [rhel, redhat, selinux, dnf, firewalld, ansible, system-ops]
-  helios:
+  EVA:
     related_skills: [os-linux-admin, os-suse-engineering]
 ---
 

@@ -2,10 +2,10 @@
 name: perceptionrubrics-calibrating
 description: "Calibrer et évaluer les modèles d'IA par audits sémantiques atomiques (rubriques Must-Right / Easy-Wrong) et score binaire à porte logique (Gated Scoring)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

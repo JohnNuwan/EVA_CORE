@@ -2,11 +2,11 @@
 name: python-pep572-pep634
 description: "Utiliser l'opérateur Walrus et le Pattern Matching."
 version: 1.0.0
-author: Helios Agent (adapté de obra/superpowers)
-license: Privée Actemium St-Étienne
+author: EVA Agent (adapté de obra/superpowers)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [python, pep572, pep634, walrus-operator, pattern-matching]
     related_skills: [python-pep8, python-pep257, python-pep20, simplify-code]
 ---

@@ -31,14 +31,14 @@ Ce pack expert complète la skill `ignition-scada` avec une architecture de proj
 
 ### 2.1 Gabarit de logger
 ```python
-logger = system.util.getLogger("Actemium.Ignition")
+logger = system.util.getLogger("EVA.Ignition")
 logger.info("Initialisation du module moteur")
 ```
 
 ### 2.2 Gabarit de fonction réutilisable
 ```python
 def write_device_command(tag_paths, values):
-    logger = system.util.getLogger("Actemium.Ignition")
+    logger = system.util.getLogger("EVA.Ignition")
     results = system.tag.writeBlocking(tag_paths, values)
     for idx in range(len(results)):
         if not results[idx].isGood():
@@ -96,7 +96,7 @@ def pulse_start(base_path):
 ```python
 def get_active_events(line_id):
     params = {"lineId": line_id}
-    return system.db.runNamedQuery("ActemiumProject", "Events/GetActive", params)
+    return system.db.runNamedQuery("EVAProject", "Events/GetActive", params)
 ```
 
 ## 6. Asynchronisme et expérience opérateur

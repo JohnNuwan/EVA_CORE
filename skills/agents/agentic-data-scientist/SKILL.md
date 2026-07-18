@@ -2,10 +2,10 @@
 name: agentic-data-scientist
 description: "Concevoir des jeux de données d'entraînement synthétiques par boucle agentique fermée (Agentic Self-Instruct)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, synthetic-data, self-instruct, autodata, evaluation]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

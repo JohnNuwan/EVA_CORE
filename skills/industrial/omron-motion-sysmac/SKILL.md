@@ -2,10 +2,10 @@
 name: omron-motion-sysmac
 description: "Structurer les axes et la logique motion Omron dans Sysmac Studio."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [omron, motion, sysmac, axis, servo, ethercat]
     related_skills: [drive-motion-control, omron-sysmac, omron-safety]
 ---

@@ -2,11 +2,11 @@
 name: industry40-digital-transformation
 description: "Auditer la maturité numérique et planifier l’I4.0."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industry40, digital-transformation, maturity-index, smart-factory, industrial-engineering]
     related_skills: [isa95-modelling, industrial-uns, oee-performance, mes-integration]
 ---

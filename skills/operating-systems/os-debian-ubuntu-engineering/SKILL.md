@@ -2,12 +2,12 @@
 name: os-debian-ubuntu-engineering
 description: "Administrer et optimiser Debian et Ubuntu Server, configurer le gestionnaire de paquets APT, paramétrer le réseau avec Netplan, sécuriser via AppArmor et automatiser les installations."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux]
 metadata:
   tags: [debian, ubuntu, apt, netplan, apparmor, autoinstall, system-ops]
-  helios:
+  EVA:
     related_skills: [os-linux-admin, os-rhel-engineering]
 ---
 

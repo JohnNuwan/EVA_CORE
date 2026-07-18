@@ -2,11 +2,11 @@
 name: materials-selection-metallurgy
 description: "Sélectionner les matériaux industriels (aciers, inox, alliages d'aluminium, plastiques) selon les contraintes de fonctionnement (corrosion, usure, température) et préconiser les traitements thermiques."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [materials, metallurgy, steel, corrosion, heat-treatment, mechanical-engineering, industrial-materials, material-science]
     related_skills: [fea-structural-analysis, cad-bom-automation, industrial-piping-vessels]
 ---
@@ -19,7 +19,7 @@ Cette compétence guide la sélection rationnelle des matériaux métalliques et
 
 Le processus de sélection doit concilier des **propriétés mécaniques** (limite d'élasticité $R_e$, résistance à la traction $R_m$, ténacité $K_{IC}$, dureté), des **propriétés physiques** (densité $\rho$, conductivité thermique $\lambda$, coefficient de dilatation $\alpha$), des **contraintes environnementales** (résistance à la corrosion chimique, tenue en température, abrasion, fatigue), et des **critères de fabricabilité** (usinabilité, soudabilité, formabilité) — le tout sous contrainte de **coût** et de **disponibilité** sur le marché.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la spécification, l'analyse, le diagnostic ou l'optimisation du choix de matériaux dans un contexte industriel.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la spécification, l'analyse, le diagnostic ou l'optimisation du choix de matériaux dans un contexte industriel.
 
 ---
 

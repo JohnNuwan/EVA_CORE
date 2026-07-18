@@ -2,11 +2,11 @@
 name: pid-tuning-control
 description: "Modéliser des systèmes asservis, paramétrer et optimiser des boucles de régulation industrielles (PID, cascade, feedforward, split-range) et appliquer les méthodes de réglage théoriques et empiriques."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [control, automation, pid, tuning, regulation, feedforward, ziegler-nichols, cohen-coon, lambda-tuning, industrial-control, dcs, plc]
     related_skills: [pid-instrumentation, embedded-systems-firmware]
 ---

@@ -2,10 +2,10 @@
 name: multi-constructor-standard-library
 description: "Standardiser des patterns automates multi-constructeurs pour moteurs, vannes, analogiques et échanges SCADA."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [plc, standard-library, multi-constructor, motor, valve, analog, scada, reusable-patterns]
     related_skills: [industrial-generator, siemens-scl, rockwell-studio5000, schneider-unity, beckhoff-twincat, wago-codesys]
 ---

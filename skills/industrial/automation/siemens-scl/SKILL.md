@@ -2,11 +2,11 @@
 name: siemens-scl
 description: "Générer, optimiser et déboguer du code Siemens SCL."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [siemens, scl, tia-portal, plc, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 Le Structured Control Language (SCL) est un langage textuel de haut niveau basé sur le Pascal, défini dans la norme CEI 61131-3 (Structured Text). Il est particulièrement adapté pour le traitement de données complexes, les calculs mathématiques, les algorithmes de tri et la manipulation de tableaux dans les automates Siemens (S7-1200, S7-1500, S7-300 et S7-400).
 
-Cette compétence aide l'agent Helios à concevoir du code SCL propre, modulaire, optimisé pour TIA Portal, et conforme aux bonnes pratiques industrielles et aux standards Actemium.
+Cette compétence aide l'agent EVA à concevoir du code SCL propre, modulaire, optimisé pour TIA Portal, et conforme aux bonnes pratiques industrielles et aux standards EVA.
 
 ## Quand l'utiliser
 
@@ -50,7 +50,7 @@ Pour les automates S7-1200 et S7-1500, toujours privilégier l'accès optimisé 
 
 ### 3. Standards de Nommage des Variables
 
-Respecter le standard de nommage Actemium pour différencier la portée et le type de variable :
+Respecter le standard de nommage EVA pour différencier la portée et le type de variable :
 
 | Type de Variable | Préfixe | Exemple | Description |
 | :--- | :--- | :--- | :--- |
@@ -70,7 +70,7 @@ Respecter le standard de nommage Actemium pour différencier la portée et le ty
 Voici le squelette d'un Function Block (FB) standard incluant les déclarations de variables et la logique :
 
 ```scl
-FUNCTION_BLOCK "FB_Actemium_ControlMotor"
+FUNCTION_BLOCK "FB_EVA_ControlMotor"
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
    VAR_INPUT

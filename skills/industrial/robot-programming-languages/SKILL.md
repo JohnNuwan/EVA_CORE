@@ -2,10 +2,10 @@
 name: robot-programming-languages
 description: "Structurer les langages de programmation robot rencontrés en industrie : RAPID, TP, Karel, KRL, VAL 3 et leurs usages professionnels."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, robotics, programming-languages, rapid, tp, karel, krl, val3]
     related_skills: [industrial-programming-languages, robotics-abb, robotics-fanuc, robotics-kuka, robotics-staubli, robot-plc-standard-interface]
 ---

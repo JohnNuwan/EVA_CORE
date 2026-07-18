@@ -2,10 +2,10 @@
 name: industrial-ai-pipeline
 description: "Pipeline IA réutilisable pour données industrielles."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: production
     tags: [industrial-ai, pipeline, plc, s7-communication, scl, grafana, api-integration]
     related_skills: [siemens-scl-expert, opc-ua-nodeset-architect]

@@ -18,7 +18,7 @@ Sans contexte, un LLM standard génère du code hybride invalide sur toutes les 
 
 ## 2. Architecture du Système RAG Local Industriel
 
-Afin de préserver la confidentialité des savoir-faire industriels, le moteur de génération doit s'exécuter en local ou sur site (on-premise). La base de connaissances vectorielle stocke les manuels techniques et les guides de standardisation de l'entreprise (ex: standard Actemium).
+Afin de préserver la confidentialité des savoir-faire industriels, le moteur de génération doit s'exécuter en local ou sur site (on-premise). La base de connaissances vectorielle stocke les manuels techniques et les guides de standardisation de l'entreprise (ex: standard EVA).
 
 ```
    [ Requête utilisateur ]

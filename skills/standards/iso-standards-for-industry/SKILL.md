@@ -2,11 +2,11 @@
 name: iso-standards-for-industry
 description: "Comprendre, implémenter et certifier les normes ISO (9001, 14001, 45001, 50001) dans les environnements industriels et de production."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso, standards, quality, environment, safety, energy, certification, compliance]
     related_skills: [combining-industry40-security-iso, industrial-cybersecurity-guidelines, iso-standards-for-industry]
 ---

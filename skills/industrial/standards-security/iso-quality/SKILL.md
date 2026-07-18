@@ -2,11 +2,11 @@
 name: iso-quality
 description: "Appliquer les processus de gestion de versions du code automate, de gestion du changement en environnement OT (OT Change Management), et documenter les essais qualité (FAT/SAT) conformes à l'ISO 9001 pour les projets d'automatisation industrielle."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [quality, iso-9001, change-management, versioning, octoplant, fat, sat, testing, industrial-automation, plc-versioning, git-lfs, cmms]
     related_skills: [simplify-code, plan, industrial-maintenance-reliability]
     difficulty: intermediate
@@ -33,7 +33,7 @@ La qualité logicielle en OT repose sur trois exigences fondamentales :
 2. **Le cycle de test formel** : Réaliser des essais en plateforme de simulation (**FAT** — Factory Acceptance Test) puis des essais de mise en service sur site (**SAT** — Site Acceptance Test ou **CAT** — Commissioning Acceptance Test).
 3. **Le suivi du changement (OT Change Management)** : Documenter chaque modification post-mise en service pour éviter les dérives et garantir que les modifications sont validées, testées, approuvées et documentées.
 
-Cette compétence guide l'agent Helios pour structurer, documenter et tester ses développements industriels conformément à ces exigences qualité.
+Cette compétence guide l'agent EVA pour structurer, documenter et tester ses développements industriels conformément à ces exigences qualité.
 
 ## Quand l'utiliser
 

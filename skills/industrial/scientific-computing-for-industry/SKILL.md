@@ -2,10 +2,10 @@
 name: scientific-computing-for-industry
 description: "Structurer les langages et frameworks de calcul scientifique et d’intégration utiles en industrie : Python, NumPy, Pandas, Jupyter, Julia, JAX, Jython, Cython et Rust scientifique."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, scientific-computing, python, julia, jax, jython, cython, rust, optimization, simulation]
     related_skills: [industrial-programming-languages, data-analysis-exploration, jupyter-live-kernel, scada-scripting-jython]
 ---

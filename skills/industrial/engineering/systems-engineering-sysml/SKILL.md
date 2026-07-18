@@ -2,11 +2,11 @@
 name: systems-engineering-sysml
 description: "Appliquer l'ingénierie des systèmes et la modélisation SysML pour structurer le cycle en V d'un système complexe (analyse fonctionnelle, exigences, architecture logique et physique)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [systems-engineering, mbse, sysml, architecture, requirements, v-cycle, modeling, capella, cameo]
     related_skills: [industry40-digital-transformation, cad-bom-automation, engineering-project-management]
 ---
@@ -28,7 +28,7 @@ Le MBSE repose sur l'utilisation d'un **langage de modélisation** commun (SysML
 
 Cette approche s'oppose à l'ingénierie documentaire traditionnelle (documents Word, tableaux Excel) où la cohérence entre les vues est manuelle et sujette aux erreurs.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la modélisation système, l'analyse d'exigences, la conception architecturale ou la documentation structurée d'un système industriel.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la modélisation système, l'analyse d'exigences, la conception architecturale ou la documentation structurée d'un système industriel.
 
 ---
 

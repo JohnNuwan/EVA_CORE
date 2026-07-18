@@ -2,11 +2,11 @@
 name: multi-agent-systems-exploration
 description: "Explorer, concevoir et implémenter des systèmes multi-agents (MAS) pour l'automatisation industrielle distribuée et la coordination de production en Industrie 4.0."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [agents, multi-agents, mas, coordination, spade, jade, production, distributed, industry4]
     related_skills: [agentic-systems-design, multi-agent-orchestration, autonomous-agent-evolution-strategy, multi-agent-reinforcement-learning]
 ---

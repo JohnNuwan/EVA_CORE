@@ -2,11 +2,11 @@
 name: prompt-method-analogical
 description: "Résoudre des problèmes nouveaux en identifiant des analogies avec des situations connues et en transposant leurs solutions."
 version: 2.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, analogical, biblio-ia, methods, reasoning, creative-problem-solving]
     related_skills: [python-pep8, simplify-code, plan, step-back, generated-knowledge]
 ---

@@ -2,8 +2,8 @@
 name: plc-instruction-list
 description: "Programmer en Liste d'Instructions (IL/AWL) pour PLCs."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [il, awl, stl, plc, siemens, s7-300, s7-400, legacy, assembler, migration]

@@ -2,11 +2,11 @@
 name: industrial-audit
 description: "Faire un audit de spécifications EPH à partir de PDF."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, audit, siemens, eph, em, pdf, layout-preservation]
     related_skills: [virtual-commissioning, isa95-modelling, plc-connectivity]
 ---
@@ -63,8 +63,8 @@ L'affectation d'une instance à son automate physique est résolue de manière h
 
 ## Utilisation et Commandes
 
-**INSTRUCTION CRITIQUE POUR L'AGENT HELIOS :**
-INSTRUCTION CRITIQUE POUR L'AGENT HELIOS :\n- Lorsque l'environnement `.venv` est valide, privilégier l'exécution directe sous Git Bash ou une autre interface de terminal compatible Windows.\n- Si la commande inclut un timeout supérieur à 600 secondes, utilisez impérativement un processus en tâche de fond avec `background=true` et `notify_on_complete=true`.\n- Normalisez tous les chemins de fichier en utilisant `os.path.normpath()` avant leur usage et vérifiez qu'ils ne contiennent pas d'espaces non échappés dans les motifs ou arguments.\n- Ajoutez des validations préalables pour s'assurer de l'existence des fichiers nécessaires (`audit_pdf.py`, dossier source PDF) avant exécution.
+**INSTRUCTION CRITIQUE POUR L'AGENT EVA :**
+INSTRUCTION CRITIQUE POUR L'AGENT EVA :\n- Lorsque l'environnement `.venv` est valide, privilégier l'exécution directe sous Git Bash ou une autre interface de terminal compatible Windows.\n- Si la commande inclut un timeout supérieur à 600 secondes, utilisez impérativement un processus en tâche de fond avec `background=true` et `notify_on_complete=true`.\n- Normalisez tous les chemins de fichier en utilisant `os.path.normpath()` avant leur usage et vérifiez qu'ils ne contiennent pas d'espaces non échappés dans les motifs ou arguments.\n- Ajoutez des validations préalables pour s'assurer de l'existence des fichiers nécessaires (`audit_pdf.py`, dossier source PDF) avant exécution.
 - N'écrivez jamais votre propre script d'audit et n'utilisez pas d'outil de modification système pour désactiver les scripts existants. Utilisez toujours le script batch [audit.bat](scripts/audit.bat) qui pilote l'ensemble. 
 
 Pour exécuter le script de manière sécurisée et asynchrone dans votre processus, utilisez l'appel Python suivant :

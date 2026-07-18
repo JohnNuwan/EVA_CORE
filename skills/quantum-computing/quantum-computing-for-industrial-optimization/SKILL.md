@@ -2,11 +2,11 @@
 name: quantum-computing-for-industrial-optimization
 description: "Exploiter l'informatique quantique (QAOA, recuit quantique) pour résoudre des problèmes d'optimisation industrielle complexes : ordonnancement, logistique, allocation de ressources et énergie."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [quantum, quantum-computing, qaoa, annealing, optimization, scheduling, logistics, industry40]
     related_skills: [optimization-algorithms-industry4, algorithms-optimization-industry4, ai-optimization-techniques]
 ---

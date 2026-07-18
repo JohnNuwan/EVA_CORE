@@ -50,7 +50,7 @@ Smart Permissions ─│  │  Risk-based auto-approval │
 
 ## Articles Anthropic clés (2025-2026)
 
-| Date | Titre | Pertinence Helios |
+| Date | Titre | Pertinence EVA |
 |---|---|---|
 | Avr 2026 | Scaling Managed Agents: Decoupling brain from hands | `agent/brain_hands.py` |
 | Mar 2026 | Harness design for long-running apps | `agent/harness.py` |

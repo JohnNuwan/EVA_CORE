@@ -2,11 +2,11 @@
 name: industrial-analytics-grafana
 description: "Utiliser quand l'utilisateur demande de configurer, optimiser ou concevoir des tableaux de bord Grafana reliés à des bases temporelles (InfluxDB, TimescaleDB, Prometheus) pour monitorer des équipements industriels."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [grafana, influxdb, timescaledb, dashboards, industrial-analytics]
     related_skills: [industrial-databases, industrial-edge, oee-performance]
 ---

@@ -2,11 +2,11 @@
 name: historian-timeseries
 description: "Historiser des données industrielles dans des TSDB."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [historian, influxdb, timescaledb, tsdb, time-series, telegraf, flux, grafana, industrial-automation]
     related_skills: [industrial-edge, opc-ua-scanner, industrial-analytics-grafana, energy-monitoring, predictive-maintenance]
 ---
@@ -21,7 +21,7 @@ Les solutions d'historisation industrielle se répartissent en deux familles :
 1. **Historiens propriétaires** : Aveva (OSIsoft) PI System, GE Proficy Historian, Siemens WinCC Historian.
 2. **Bases de données temporelles open-source (TSDB)** : InfluxDB, TimescaleDB, QuestDB, VictoriaMetrics.
 
-Cette compétence guide l'agent Helios pour configurer des pipelines d'historisation industrielle complets, depuis la collecte OPC-UA/Modbus jusqu'à la visualisation Grafana.
+Cette compétence guide l'agent EVA pour configurer des pipelines d'historisation industrielle complets, depuis la collecte OPC-UA/Modbus jusqu'à la visualisation Grafana.
 
 Le script d'assistance associé à cette compétence est disponible sous [historian_ingester.py](scripts/historian_ingester.py).
 
@@ -89,7 +89,7 @@ cmd = [
     "--opcua-url", "opc.tcp://localhost:4840",
     "--influx-url", "http://localhost:8086",
     "--influx-token", "my-super-secret-token-12345",
-    "--influx-org", "Actemium",
+    "--influx-org", "EVA",
     "--influx-bucket", "telemetry_raw",
     "--cache-db", "skills/industrial/iiot-data/historian-timeseries/scripts/historian_cache.db",
     "--interval", "2.0", # Lecture toutes les 2 secondes

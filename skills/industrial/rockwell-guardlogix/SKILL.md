@@ -2,10 +2,10 @@
 name: rockwell-guardlogix
 description: "Structurer les fonctions de sécurité Rockwell GuardLogix et les échanges sûrs avec la logique standard."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [rockwell, guardlogix, safety, logix, pl, sil, machine-safety]
     related_skills: [industrial-safety-sistema, rockwell-studio5000, functional-safety-iec61511]
 ---

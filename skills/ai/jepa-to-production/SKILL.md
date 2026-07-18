@@ -2,10 +2,10 @@
 name: jepa-to-production
 description: "Mise en production de modèles EB-JEPA avec Docker."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: production
     tags: [jepa, docker, deployment, production, testing]
     related_skills: [jepa-joint-embedding-predictive, industrial-ai-pipeline]

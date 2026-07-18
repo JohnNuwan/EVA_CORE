@@ -2,8 +2,8 @@
 name: iso-55001
 description: "Utiliser quand l'utilisateur demande de concevoir, documenter ou de structurer des plans de gestion des actifs physiques (Asset Management) industriels selon la norme ISO 55001 (cycles de vie, maintenance, criticité des machines)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [iso-55001, asset-management, maintenance-strategy, lifecycle-optimization, industrial-standards]

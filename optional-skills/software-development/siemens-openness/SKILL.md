@@ -2,7 +2,7 @@
 name: siemens-openness
 description: "Automatiser TIA Portal avec Openness via C# et Python."
 version: 1.0.0
-author: Actemium
+author: EVA
 license: MIT
 platforms: [windows]
 metadata:
@@ -16,7 +16,7 @@ metadata:
 
 **TIA Portal Openness** est l'interface de programmation d'application (API) fournie par Siemens pour automatiser les tâches d'ingénierie dans l'environnement TIA Portal. Elle permet de créer ou de modifier des projets, de générer du matériel, d'importer/exporter des blocs de code SCL/LAD/FBD au format XML, et de générer automatiquement des tables de variables API.
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'automatisation en Python exploitant Openness à l'aide de la bibliothèque `pythonnet` (qui permet d'appeler les DLLs .NET de Siemens directement en Python).
+Cette compétence guide l'agent EVA pour écrire des scripts d'automatisation en Python exploitant Openness à l'aide de la bibliothèque `pythonnet` (qui permet d'appeler les DLLs .NET de Siemens directement en Python).
 
 ---
 

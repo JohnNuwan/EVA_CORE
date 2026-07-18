@@ -1,6 +1,6 @@
 # Méthodologie : Recherche Open-Source sur GitHub pour Amélioration d'Agent
 
-> Session : Juillet 2026 — Découverte de projets open-source pour enrichir les capacités d'Helios Agent.
+> Session : Juillet 2026 — Découverte de projets open-source pour enrichir les capacités d'EVA Agent.
 > Méthode : Systematic multi-category GitHub API search + structuration en fichier .md.
 
 ## Vue d'ensemble
@@ -13,7 +13,7 @@ Contrairement à la recherche concurrentielle (qui compare des produits), cette 
 
 **IMPORTANT** — Avant toute analyse détaillée, filtrer les projets par licence.
 
-Pour un agent sous licence propriétaire (Actemium), ne garder QUE les licences permissives :
+Pour un agent sous licence propriétaire (EVA), ne garder QUE les licences permissives :
 
 | Licence | Statut | Compatible propriétaire |
 |---------|--------|------------------------|
@@ -142,9 +142,9 @@ Terminer par un **Top 10 synthétique** (projets avec le plus fort impact potent
 
 Après sélection des projets, **ne pas tout importer en bloc**. Pour chaque projet retenu :
 
-1. **Analyser le codebase Helios** — comprendre la structure existante (tools/, registry, config)
+1. **Analyser le codebase EVA** — comprendre la structure existante (tools/, registry, config)
 2. **Extraire les parties utiles** — pas le projet complet, seulement les fonctions/classes pertinentes
-3. **Adapter au pattern Helios** — registry.register(), schemas JSON, handlers, check_fn optionnelle
+3. **Adapter au pattern EVA** — registry.register(), schemas JSON, handlers, check_fn optionnelle
 4. **Tester** — `python3 -c "from tools.module import *"`, vérifier l'enregistrement dans `get_all_tool_names()`
 5. **Documenter** — fichier dans output/docs/ avec l'arborescence créée
 
@@ -178,6 +178,6 @@ skills/imported/  → skills portés depuis l'écosystème
 
 ## Exemple concret
 
-Voir `output/docs/projets_open_source_pour_helios.md` pour le résultat complet de l'application de cette méthode (15 catégories, ~80 projets, Top 10 priorisé, toutes licences permissives).
+Voir `output/docs/projets_open_source_pour_EVA.md` pour le résultat complet de l'application de cette méthode (15 catégories, ~80 projets, Top 10 priorisé, toutes licences permissives).
 
-Voir `output/docs/integration_10_projets.md` pour l'intégration réelle de 10 projets dans Helios (19 nouveaux outils, 14 fichiers).
+Voir `output/docs/integration_10_projets.md` pour l'intégration réelle de 10 projets dans EVA (19 nouveaux outils, 14 fichiers).

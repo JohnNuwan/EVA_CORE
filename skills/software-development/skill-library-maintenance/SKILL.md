@@ -1,20 +1,20 @@
 ---
 name: skill-library-maintenance
-description: "Use when auditing, expanding, and strengthening a Helios skill/MCP/plugin library as a reusable capability collection rather than doing one-off edits."
+description: "Use when auditing, expanding, and strengthening a EVA skill/MCP/plugin library as a reusable capability collection rather than doing one-off edits."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [skills, mcp, plugins, library-maintenance, curation, capability-design]
-    related_skills: [helios-agent-skill-authoring, plan, requesting-code-review]
+    related_skills: [EVA-agent-skill-authoring, plan, requesting-code-review]
 ---
 
 # Skill Library Maintenance
 
 ## Vue d'ensemble
 
-Cette compétence sert à maintenir une bibliothèque Helios comme une collection de capacités réutilisables, pas comme une accumulation de micro-skills liées à une seule session. Elle couvre l'audit de la collection, la priorisation des écarts, l'amélioration des umbrellas existantes, l'ajout de support files utiles, et l'extension de la surface MCP/plugin quand cela apporte plus de valeur qu'une simple réécriture de SKILL.md.
+Cette compétence sert à maintenir une bibliothèque EVA comme une collection de capacités réutilisables, pas comme une accumulation de micro-skills liées à une seule session. Elle couvre l'audit de la collection, la priorisation des écarts, l'amélioration des umbrellas existantes, l'ajout de support files utiles, et l'extension de la surface MCP/plugin quand cela apporte plus de valeur qu'une simple réécriture de SKILL.md.
 
 Elle est particulièrement adaptée quand l'utilisateur demande de "faire le tour" d'une collection, corriger ses points faibles, enrichir les capacités, ou industrialiser une base de skills orientée métier.
 

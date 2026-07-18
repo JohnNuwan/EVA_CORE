@@ -2,11 +2,11 @@
 name: cybersecurity-iec62443
 description: "Auditer, segmenter et durcir les réseaux OT (Operational Technology) selon la norme IEC 62443 : zones et conduits, niveaux de sécurité SL, durcissement d'automates Siemens/Rockwell/Schneider, audit réseau non-intrusif, et conformité réglementaire."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [cybersecurity, iec-62443, ot-security, hardening, firewall, vlan, network-audit, industrial-automation, scada-security, plc-security, zone-conduit, purdue-model]
     related_skills: [ot-security, industrial-networks-ot, hardware-security-firmware, isa95-modelling, iso-27001]
     difficulty: advanced
@@ -35,7 +35,7 @@ Les spécificités OT qui compliquent la sécurité :
 - Impossibilité d'appliquer des correctifs de sécurité (patch) sans arrêt de production.
 - Protocoles industriels historiquement non sécurisés (Modbus, Profibus, CIP).
 
-Cette compétence fournit à l'agent Helios des outils **opérationnels** pour :
+Cette compétence fournit à l'agent EVA des outils **opérationnels** pour :
 1. Réaliser un **audit réseau OT non-intrusif** (scan Nmap adapté aux équipements industriels).
 2. Appliquer des **guides de durcissement (hardening)** pour automates Siemens, Rockwell et Schneider.
 3. Concevoir une **segmentation réseau en Zones et Conduits** conforme à IEC 62443-3-2.

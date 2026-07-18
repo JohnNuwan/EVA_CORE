@@ -2,11 +2,11 @@
 name: industrial-network-design
 description: "Concevoir, dimensionner et diagnostiquer les réseaux Ethernet industriels."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - profinet
       - profinet-irt

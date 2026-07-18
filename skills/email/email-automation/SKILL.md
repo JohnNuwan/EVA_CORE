@@ -2,11 +2,11 @@
 name: email-automation
 description: "Automatiser l'envoi, la réception, le filtrage et l'analyse d'emails avec Python. Gestion des pièces jointes, templates HTML, protocoles SMTP/IMAP et OAuth2."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - email
       - smtp
@@ -88,10 +88,10 @@ Les identifiants SMTP/IMAP ne doivent jamais être codés en dur. Utiliser un fi
 # .env (NE PAS COMMITTER)
 SMTP_SERVER=smtp.office365.com
 SMTP_PORT=587
-SMTP_USER=automation@actemium.com
+SMTP_USER=automation@EVA.com
 SMTP_PASS=xxxxxxxxxxxxxxxxxxxx
 IMAP_SERVER=outlook.office365.com
-IMAP_USER=automation@actemium.com
+IMAP_USER=automation@EVA.com
 IMAP_PASS=xxxxxxxxxxxxxxxxxxxx
 ```
 
@@ -100,7 +100,7 @@ IMAP_PASS=xxxxxxxxxxxxxxxxxxxx
 ```powershell
 # Stockage dans Windows Credential Manager
 Add-Type -AssemblyName System.Web
-$cred = New-Object System.Management.Automation.PSCredential("automation@actemium.com", (ConvertTo-SecureString "MonMotDePasse" -AsPlainText -Force))
+$cred = New-Object System.Management.Automation.PSCredential("automation@EVA.com", (ConvertTo-SecureString "MonMotDePasse" -AsPlainText -Force))
 $cred | Export-Clixml -Path "$env:USERPROFILE\email_credentials.xml"
 ```
 
@@ -183,7 +183,7 @@ def send_email(
     # Construction du message multipart
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
-    msg["From"] = formataddr(("Automation Actemium", creds["smtp_user"]))
+    msg["From"] = formataddr(("Automation EVA", creds["smtp_user"]))
     msg["To"] = ", ".join(to_email if isinstance(to_email, list) else [to_email])
     msg["Date"] = formatdate(localtime=True)
 
@@ -270,7 +270,7 @@ def build_production_report_html(machine: str, metrics: dict) -> str:
      if any(v < 0 for v in metrics.values()) else ""}
   </div>
   <div class="footer">
-    Rapport généré automatiquement par Helios Agent - Actemium
+    Rapport généré automatiquement par EVA Agent - EVA
   </div>
 </div>
 </body>

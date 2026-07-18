@@ -2,10 +2,10 @@
 name: electrical-distribution-protection
 description: "Structurer la distribution électrique industrielle, la coordination des protections, les sélectivités et la conformité basse tension."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, electrical, distribution, protection, selectivity, low-voltage, iec-60204, iec-61439]
     related_skills: [electrical-schematics-eplan, emc-protection-grounding, multi-sector-industrial-standards]
 ---

@@ -2,11 +2,11 @@
 name: alarm-rationalization
 description: "Analyser et rationaliser les alarmes selon ISA-18.2."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [alarm-management, isa-18-2, iec-62682, rationalization, scada, hmi, industrial-automation]
     related_skills: [ignition-scada, siemens-audit, industrial-diagnostic, oee-performance]
 ---
@@ -19,7 +19,7 @@ La **gestion des alarmes** est un enjeu critique dans les usines modernes. Un op
 
 La norme **ISA-18.2 / IEC 62682** définit le cycle de vie complet de la gestion des alarmes : identification, rationalisation, conception, implémentation, exploitation, surveillance et audit.
 
-Cette compétence guide l'agent Helios pour :
+Cette compétence guide l'agent EVA pour :
 1. Analyser des **historiques d'alarmes** exportés depuis WinCC, Ignition ou Wonderware.
 2. Calculer les **KPIs d'alarmes ISA-18.2** (alarmes/heure/opérateur, standing alarms, chattering).
 3. Produire une **matrice de rationalisation** (priorité, conséquence, action requise, délai de réponse).
@@ -164,7 +164,7 @@ Chaque alarme doit être évaluée selon la grille suivante pour déterminer sa 
 
 ## 4. Intégration avec le Projet Automate (Générateur AWL/SCL)
 
-Le Projet Automate Actemium génère un fichier `DBLoad.csv` contenant la liste de tous les défauts par catégorie d'organe. Ce fichier peut être utilisé comme **base de rationalisation** :
+Le Projet Automate EVA génère un fichier `DBLoad.csv` contenant la liste de tous les défauts par catégorie d'organe. Ce fichier peut être utilisé comme **base de rationalisation** :
 
 ```python
 import csv

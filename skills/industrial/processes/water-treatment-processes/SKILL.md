@@ -2,12 +2,12 @@
 name: water-treatment-processes
 description: "Concevoir, dimensionner et piloter des procédés de traitement d'eau industrielle (filtration, osmose inverse, déminéralisation, adoucissement, désinfection UV) et gérer les stations d'épuration (STEP) pour effluents industriels."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [water-treatment, step, osmosis, filtration, effluents, chemical-processes, demineralization, softening, reverse-osmosis, water-quality, coagulation, floculation]
-  helios:
+  EVA:
     related_skills: [pid-instrumentation, process-chemical-water, industrial-maintenance-preventive]
     difficulty: intermediate
     industry_sectors: [chemical, pharmaceutical, food-beverage, energy, paper, metallurgy, semiconductor]

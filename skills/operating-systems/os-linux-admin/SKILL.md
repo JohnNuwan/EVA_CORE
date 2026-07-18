@@ -2,11 +2,11 @@
 name: os-linux-admin
 description: "Administrer les systèmes Linux, gérer les utilisateurs/permissions, configurer systemd (services, timers), administrer les volumes de stockage avec LVM et concevoir des scripts d'automatisation Bash avancés."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux]
 metadata:
-  helios:
+  EVA:
     tags: [linux, bash, systemd, lvm, administration, scripting, sysctl, storage]
     related_skills: [os-rhel-engineering, os-debian-ubuntu-engineering]
 ---
@@ -33,7 +33,7 @@ Définit comment le script de sauvegarde doit être exécuté :
 
 ```ini
 [Unit]
-Description=Service de sauvegarde automatique Actemium
+Description=Service de sauvegarde automatique EVA
 After=network.target
 
 [Service]
@@ -51,7 +51,7 @@ Planifie le déclenchement du service toutes les nuits à 2 heures du matin :
 
 ```ini
 [Unit]
-Description=Planificateur de la sauvegarde automatique Actemium
+Description=Planificateur de la sauvegarde automatique EVA
 
 [Timer]
 OnCalendar=*-*-* 02:00:00

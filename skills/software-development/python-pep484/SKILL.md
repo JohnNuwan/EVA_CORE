@@ -2,11 +2,11 @@
 name: python-pep484
 description: "Appliquer le typage statique selon la PEP 484 en Python."
 version: 1.0.0
-author: Helios Agent (adapté de obra/superpowers)
-license: Privée Actemium St-Étienne
+author: EVA Agent (adapté de obra/superpowers)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [python, pep484, typing, mypy, static-analysis]
     related_skills: [python-pep8, python-pep257, python-pep20, simplify-code]
 ---
@@ -26,7 +26,7 @@ Cette compétence détaille l'utilisation des annotations de type (Type Hints) i
     ```python
     retry_count: int = 3
     timeout_seconds: float = 30.5
-    agent_name: str = "Helios"
+    agent_name: str = "EVA"
     ```
 *   **Fonctions :** Indiquez le type des arguments après deux-points, et le type de retour après la flèche `->` :
     ```python

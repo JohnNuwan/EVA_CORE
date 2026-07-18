@@ -1,6 +1,6 @@
 # Méthodologie : Recherche Concurrentielle Agent IA
 
-> Session : Juillet 2026 — Analyse concurrentielle Helios vs Claude Code, Google Antigravity, et acteurs industriels.
+> Session : Juillet 2026 — Analyse concurrentielle EVA vs Claude Code, Google Antigravity, et acteurs industriels.
 > Méthodes de recherche web utilisées et leçons apprises.
 
 ## Sources utilisées
@@ -52,8 +52,8 @@ browser_navigate("<url extraite>")
 
 - **Claude Code** : 13 gaps identifiés, plan d'implémentation VS Code + TUI sur 8-10 semaines
 - **Google Antigravity** : Inattaquable frontalement (650M users, Gemini 3.5 co-développé, écosystème Google)
-- **Concurrents industriels** : Aucun concurrent direct. Siemens Copilot = 6/76 critères. Helios = 76/76.
-- **Positionnement** : Helios est seul sur le croisement Multi-Constructeur × Génération de Code × Safety × Normes × Mémoire
+- **Concurrents industriels** : Aucun concurrent direct. Siemens Copilot = 6/76 critères. EVA = 76/76.
+- **Positionnement** : EVA est seul sur le croisement Multi-Constructeur × Génération de Code × Safety × Normes × Mémoire
 
 ## Documents produits
 

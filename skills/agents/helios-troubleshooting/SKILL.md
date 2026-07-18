@@ -1,23 +1,23 @@
 ---
-name: helios-troubleshooting
+name: EVA-troubleshooting
 description: "Diagnostic des blocages M2A, configuration et lenteurs."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: production
     tags: [troubleshooting, debug, config, m2a-bypass, lockfile]
-    related_skills: [helios-agent, helios-agent-mcp-development]
+    related_skills: [EVA-agent, EVA-agent-mcp-development]
 ---
 
-# Guide de Diagnostic et Dépannage Helios
+# Guide de Diagnostic et Dépannage EVA
 
 ## Rôle et Identité
-Vous êtes un ingénieur support senior et un expert système de l'infrastructure de l'agent Helios. Votre rôle est de diagnostiquer et résoudre les dysfonctionnements de démarrage, de droits d'accès (M2A), de verrous de base de données (SQLite) et de latence de l'agent.
+Vous êtes un ingénieur support senior et un expert système de l'infrastructure de l'agent EVA. Votre rôle est de diagnostiquer et résoudre les dysfonctionnements de démarrage, de droits d'accès (M2A), de verrous de base de données (SQLite) et de latence de l'agent.
 
 ## Vue d'ensemble
-L'agent Helios est un noyau multi-interface qui dépend fortement de verrous exclusifs (lockfiles et verrous SQLite concurrents) et de politiques de sécurité d'exécution (M2A). Ce guide détaille les procédures opérationnelles pour diagnostiquer et corriger les blocages systèmes.
+L'agent EVA est un noyau multi-interface qui dépend fortement de verrous exclusifs (lockfiles et verrous SQLite concurrents) et de politiques de sécurité d'exécution (M2A). Ce guide détaille les procédures opérationnelles pour diagnostiquer et corriger les blocages systèmes.
 
 ---
 
@@ -28,15 +28,15 @@ Le protocole **Model-to-Agent (M2A)** intercepte par défaut toute action critiq
 ### A. Le mode YOLO (Auto-Approbation)
 *   **Via la session (recommandé)** :
     ```bash
-    export HELIOS_YOLO_MODE=1
+    export EVA_YOLO_MODE=1
     ```
 *   **Via le lancement de la commande CLI** :
     ```bash
-    helios --yolo
+    EVA --yolo
     ```
 
 ### B. Configuration de bypass dans `config.yaml`
-Pour désactiver de manière permanente l'interception M2A, modifiez le fichier de configuration de l'instance (`~/.helios/config.yaml`) :
+Pour désactiver de manière permanente l'interception M2A, modifiez le fichier de configuration de l'instance (`~/.EVA/config.yaml`) :
 ```yaml
 agent:
   m2a_enabled: false
@@ -78,7 +78,7 @@ et `terminal` sans mention d'output restent bloqués.
 Lorsqu'un test unitaire ou un processus concurrent crashe, un verrou exclusif peut rester actif sur le fichier `state.db`.
 
 ```
-[Lancement de helios] ──► Tentative d'ouverture de state.db
+[Lancement de EVA] ──► Tentative d'ouverture de state.db
                                 │
     ┌───────────────────────────┴───────────────────────────┐
     ▼ (Verrou Libre)                                        ▼ (Verrou Actif / Processus Zombie)
@@ -99,7 +99,7 @@ import os
 import sys
 import psutil
 
-class HeliosCleanupUtility:
+class EVACleanupUtility:
     """Outil d'administration et de déverrouillage de la base SQLite state.db."""
 
     @staticmethod
@@ -128,20 +128,20 @@ class HeliosCleanupUtility:
         print(f"Opération de nettoyage terminée. {killed_count} processus arrêtés.")
 
 if __name__ == "__main__":
-    HeliosCleanupUtility.kill_stale_python_processes()
+    EVACleanupUtility.kill_stale_python_processes()
 ```
 
 ---
 
 ## 4. Pièges Courants (Common Pitfalls)
 *   **Arrêt brutal de l'IDE** : Lancer un `taskkill /f /im python.exe` sans exclure son propre PID de conteneur, ce qui tue la session d'édition en cours. Toujours utiliser un filtrage précis de PID.
-*   **Corruptions de Base de Données** : Supprimer manuellement `state.db` au lieu de tenter un `helios sessions repair` en cas de corruption d'index.
+*   **Corruptions de Base de Données** : Supprimer manuellement `state.db` au lieu de tenter un `EVA sessions repair` en cas de corruption d'index.
 
 ---
 
 ## 5. Liste de vérification (Checklist)
 - [ ] Vérifier la présence de processus Python zombies avec `psutil`.
 - [ ] Libérer la base `state.db` en arrêtant les processus concurrents.
-- [ ] S'assurer que les variables d'environnement (`HELIOS_YOLO_MODE`) sont correctement propagées.
+- [ ] S'assurer que les variables d'environnement (`EVA_YOLO_MODE`) sont correctement propagées.
 - [ ] Valider l'accès en écriture dans le répertoire `/output`.
-- [ ] Lancer `helios doctor --fix` en cas d'incohérences persistantes de configuration.
+- [ ] Lancer `EVA doctor --fix` en cas d'incohérences persistantes de configuration.

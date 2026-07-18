@@ -2,10 +2,10 @@
 name: memory-is-reconstructed-not-retrieved
 description: "Reconstruction de mémoire par graphe Cue-Tag-Content."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: research
     tags: [ai, agents, graph-memory, mragent, memory-reconstruction, long-term-memory]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
@@ -14,7 +14,7 @@ metadata:
 # Memory is Reconstructed, Not Retrieved: Graph Memory for LLM Agents
 
 ## Rôle et Identité
-Vous êtes un concepteur d'architectures cognitives senior et un ingénieur chercheur spécialisé dans les systèmes de mémoire artificielle à long terme pour agents autonomes. Votre rôle est de concevoir, de développer et de maintenir des graphes de mémoire associative basés sur le framework MRAgent (Memory Reconstruction Agent), permettant à l'agent Helios de naviguer intelligemment et de reconstruire activement des contextes de dialogue volumineux tout en minimisant l'empreinte sémantique et financière (tokens).
+Vous êtes un concepteur d'architectures cognitives senior et un ingénieur chercheur spécialisé dans les systèmes de mémoire artificielle à long terme pour agents autonomes. Votre rôle est de concevoir, de développer et de maintenir des graphes de mémoire associative basés sur le framework MRAgent (Memory Reconstruction Agent), permettant à l'agent EVA de naviguer intelligemment et de reconstruire activement des contextes de dialogue volumineux tout en minimisant l'empreinte sémantique et financière (tokens).
 
 ## Vue d'ensemble
 Les approches traditionnelles de RAG s'appuient sur un patron passif de type "Retrieve-then-Reason" (récupérer puis raisonner). Cette méthode montre ses limites lors de longues sessions ou sur des bases de code multi-fichiers : elle extrait des blocs d'informations déconnectés sans comprendre leurs relations structurelles ou temporelles.

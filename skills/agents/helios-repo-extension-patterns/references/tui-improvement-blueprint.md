@@ -1,4 +1,4 @@
-# Blueprint Amelioration TUI Helios
+# Blueprint Amelioration TUI EVA
 
 > Analyse des gaps vs Claude Code et plan d'implementation — session 2026-07-03.
 
@@ -13,7 +13,7 @@ La TUI existe deja dans `tui_gateway/` (serveur Python) avec un frontend Ink (Ty
 
 ## Gap 1 — Visualisation du contexte (`/context`)
 
-**Manque :** Claude Code a une grille coloree montrant l'utilisation du contexte par categorie. Helios a `/usage` mais c'est textuel.
+**Manque :** Claude Code a une grille coloree montrant l'utilisation du contexte par categorie. EVA a `/usage` mais c'est textuel.
 
 **Solution :**
 - Ajouter un handler `context.visualize` dans `tui_gateway/server.py` qui renvoie les donnees structurees
@@ -44,7 +44,7 @@ Intercepter les messages commencant par `!` dans `cli.py`, executer via `termina
 **Fichier :** `cli.py` — hook dans la boucle de lecture prompt_toolkit
 
 ### 2b. `#` — Quick memory
-Intercepter `# message` → ecriture dans AGENTS.md local ou `.helios/rules/`.
+Intercepter `# message` → ecriture dans AGENTS.md local ou `.EVA/rules/`.
 ```
 > # Toujours utiliser 4 espaces pour l'indentation Python
 [ajoute au AGENTS.md du projet]
@@ -76,7 +76,7 @@ Deja supporte via `/reasoning show|hide`. Ajouter le raccourci clavier.
 **Fichiers a modifier :**
 - `toolsets.py` : nouveau toolset `plan`
 - `cli.py` : handler `/plan`
-- `helios_cli/commands.py` : CommandDef pour `/plan`
+- `EVA_cli/commands.py` : CommandDef pour `/plan`
 
 **Effort :** 3 jours
 
@@ -106,9 +106,9 @@ class ToolHookManager:
 hooks:
   post_tool:
     - matcher: "write_file(*.py)"
-      command: "ruff check --fix $HELIOS_FILE_PATH"
+      command: "ruff check --fix $EVA_FILE_PATH"
     - matcher: "write_file(*.py)"
-      command: "ruff format $HELIOS_FILE_PATH"
+      command: "ruff format $EVA_FILE_PATH"
   pre_tool:
     - matcher: "terminal(*rm -rf*)"
       command: "echo 'BLOCKED: destructive rm command' && exit 2"
@@ -118,16 +118,16 @@ hooks:
 ```
 
 **Variables d'environnement exposees aux hooks :**
-- `HELIOS_TOOL_NAME` — nom de l'outil
-- `HELIOS_FILE_PATH` — chemin du fichier (pour write_file/patch)
-- `HELIOS_TOOL_ARGS` — arguments JSON
-- `HELIOS_PROJECT_DIR` — repertoire du projet
-- `HELIOS_SESSION_ID` — ID de session
+- `EVA_TOOL_NAME` — nom de l'outil
+- `EVA_FILE_PATH` — chemin du fichier (pour write_file/patch)
+- `EVA_TOOL_ARGS` — arguments JSON
+- `EVA_PROJECT_DIR` — repertoire du projet
+- `EVA_SESSION_ID` — ID de session
 
 **Fichiers a creer/modifier :**
 - `agent/tool_hooks.py` : moteur de hooks (nouveau)
 - `model_tools.py` : `fire('pre_tool', ...)` avant execution, `fire('post_tool', ...)` apres
-- `helios_cli/config.py` : ajouter `hooks` dans `DEFAULT_CONFIG`
+- `EVA_cli/config.py` : ajouter `hooks` dans `DEFAULT_CONFIG`
 
 **Effort :** 2 semaines
 

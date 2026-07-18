@@ -2,10 +2,10 @@
 name: personalization-as-inverse-planning-learning-latent-design-intents-for-agentic-slide-generation-via-structural-denoising
 description: "Gère Personalization as Inverse Planning."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---

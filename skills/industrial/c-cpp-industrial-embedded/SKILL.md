@@ -2,8 +2,8 @@
 name: c-cpp-industrial-embedded
 description: "Programmer en C et C++ pour l'embarqué et le temps réel."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [c, cpp, embedded, realtime, plcnext, twincat, ethercat, profinet, fieldbus, cross-compilation]
@@ -83,7 +83,7 @@ Les composants C++ PLCnext s'interfacent avec le Global Data Space (GDS).
 #include "Arp/System/Commons/Logging.h"
 #include "Arp/Plc/Commons/Domain/ComponentBase.h"
 
-namespace Actemium {
+namespace EVA {
 
 class MainPlcComponent : public Arp::Plc::Commons::Domain::ComponentBase
 {
@@ -117,7 +117,7 @@ public:
     }
 };
 
-} // namespace Actemium
+} // namespace EVA
 ```
 
 ---

@@ -2,10 +2,10 @@
 name: industrial-monitoring-stack
 description: "Use when designing or implementing the technical monitoring stack for PLCs, robots, historians, alerting, and industrial dashboards."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, monitoring, opc-ua, modbus, historian, dashboard, alerting, maintenance, oee]
     related_skills: [opc-ua-scanner, historian-timeseries, industrial-analytics-grafana, plc-diagnostic, industrial-protocols, oee-performance, predictive-maintenance, energy-monitoring]
 ---
@@ -25,7 +25,7 @@ Elle s'applique aux environnements mêlant PLC, robots, variateurs, compteurs d'
 - de définir quels tags lire, à quelle fréquence et pour quel usage ;
 - de bâtir une chaîne PLC/robot → collecteur → historian → dashboard ;
 - de structurer alertes, diagnostics et KPIs à partir des données terrain ;
-- de standardiser une approche Actemium réutilisable sur plusieurs projets.
+- de standardiser une approche EVA réutilisable sur plusieurs projets.
 
 Ne pas utiliser pour :
 - un seul script de test protocolaire sans architecture globale ;

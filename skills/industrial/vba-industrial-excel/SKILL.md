@@ -2,8 +2,8 @@
 name: vba-industrial-excel
 description: "Scripter en VBA pour automatiser l'ingénierie sous Excel."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows]
 metadata:
   tags: [vba, excel, scripting, automation, engineering, import-export, tia-portal, studio-5000, macros]
@@ -66,7 +66,7 @@ Public Sub ExportSiemensXml()
     xmlDoc.appendChild root
     
     Set tagTable = xmlDoc.createElement("PlcTagTable")
-    tagTable.setAttribute "Name", "Import_Excel_Actemium"
+    tagTable.setAttribute "Name", "Import_Excel_EVA"
     root.appendChild tagTable
     
     Set tagsNode = xmlDoc.createElement("Tags")
@@ -89,7 +89,7 @@ Public Sub ExportSiemensXml()
     tagsNode.appendChild tagNode
     
     ' Sauvegarde sur disque
-    xmlDoc.Save "C:\Actemium\Exports\siemens_tags.xml"
+    xmlDoc.Save "C:\EVA\Exports\siemens_tags.xml"
 End Sub
 ```
 
@@ -109,7 +109,7 @@ Public Sub GenererCsvRockwell()
     Dim DataType As String
     Dim Description As String
     
-    FilePath = "C:\Actemium\Exports\rockwell_tags.csv"
+    FilePath = "C:\EVA\Exports\rockwell_tags.csv"
     FileNum = FreeFile
     
     Open FilePath For Output As #FileNum

@@ -2,13 +2,13 @@
 name: autonomous-agent-evolution-strategy
 description: "Définir et exécuter une stratégie d'évolution des capacités des agents autonomes : outils, protocoles MCP, compétences, algorithmes et frameworks d'adaptation."
 version: 1.1.0
-author: Helios Agent / Actemium
-license: Privée Actemium St-Étienne
+author: EVA Agent / EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [agents, evolution, mcp, tools, algorithms, autonomy, capabilities]
-    related_skills: [agentic-systems-design, multi-agent-systems-exploration, helios-agent, helios-agent-mcp-development]
+    related_skills: [agentic-systems-design, multi-agent-systems-exploration, EVA-agent, EVA-agent-mcp-development]
 ---
 
 # Stratégie d'Évolution des Agents Autonomes

@@ -2,11 +2,11 @@
 name: automation-linter
 description: "Valider les fichiers AWL, L5X, ST et Siemens SCL."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial-automation, plc, siemens, rockwell, lint, quality, python, static-analysis, code-review, awl, scl, structured-text, l5x]
     related_skills: [siemens-audit, plc-diagnostic, omron-sysmac, plc-converter]
 ---

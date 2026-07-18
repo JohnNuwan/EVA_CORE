@@ -2,10 +2,10 @@
 name: fat-sat-iq-oq-pq-automation
 description: "Utiliser quand l'utilisateur doit structurer des validations FAT/SAT ou qualification IQ/OQ/PQ avec traçabilité exigences↔tests↔preuves pour projets d'automatisme."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [fat, sat, iq, oq, pq, validation, qualification, tests, tracabilite]
     related_skills: [iso-quality, process-pharma, industrial-audit]
 ---

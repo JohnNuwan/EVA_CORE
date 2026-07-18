@@ -2,11 +2,11 @@
 name: industry-4-0-advanced-architecture
 description: "Concevoir et implémenter des architectures avancées Industrie 4.0 : IoT industriel, jumeaux numériques, MES/ERP intégrés et maintenance prédictive."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industry40, iot, digital-twin, mes, erp, smart-factory, automation, architecture]
     related_skills: [industry4-workflows-pipelines, interoperability-of-industrial-systems, industrial-communication-protocols]
 ---
@@ -83,7 +83,7 @@ def on_message(client, userdata, msg):
 
 client = mqtt.Client()
 client.on_message = on_message
-client.connect("broker.actemium.local", 1883, 60)
+client.connect("broker.EVA.local", 1883, 60)
 client.subscribe("factory/line1/sensors/#")
 client.loop_forever()
 ```

@@ -2,11 +2,11 @@
 name: industrial-cybersecurity-guidelines
 description: "Sécuriser les réseaux industriels et les systèmes OT/IT connectés : segmentation IEC 62443, authentification forte, monitoring IDS/IPS, plans de réponse aux incidents."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [security, ot, cybersecurity, iec62443, nist, iso27001, ids, ips, scada, industrial]
     related_skills: [combining-industry40-security-iso, iso-standards-for-industry, cybersecurity-iec62443]
 ---

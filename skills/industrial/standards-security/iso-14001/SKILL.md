@@ -2,11 +2,11 @@
 name: iso-14001
 description: "Concevoir, documenter et auditer un système de management environnemental (SME) conforme à la norme ISO 14001 : analyse environnementale, conformité réglementaire ICPE, gestion des déchets industriels, réduction de l'empreinte carbone/eau, préparation aux situations d'urgence."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-14001, environmental-management, sme, sustainability, industrial-standards, icpe, waste-management, decarbonization, water-footprint, environmental-audit, greenhouse-gas]
     related_skills: [decarbonization-carbon-footprint, iso-energy, water-treatment-processes]
     difficulty: intermediate

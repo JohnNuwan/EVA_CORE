@@ -2,11 +2,11 @@
 name: predictive-maintenance
 description: "Analyser des capteurs et détecter des anomalies."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [predictive-maintenance, machine-learning, vibration-analysis, fft, anomaly-detection, python]
     related_skills: [digital-twins, industrial-edge, oee-performance, industrial-analytics-grafana]
 ---
@@ -53,7 +53,7 @@ Cet exemple montre comment développer un modèle de classification supervisé p
 
 La **maintenance prédictive** consiste à anticiper les pannes des machines industrielles en analysant en temps réel leurs indicateurs physiques (vibrations, température, courant consommé). Contrairement à la maintenance préventive (qui se base sur un calendrier fixe), la maintenance prédictive réagit à la dégradation réelle des performances de la machine.
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'analyse de données de capteurs, notamment :
+Cette compétence guide l'agent EVA pour écrire des scripts d'analyse de données de capteurs, notamment :
 - L'analyse fréquentielle de signaux vibratoires (Transformée de Fourier Rapide - FFT) avec `scipy`.
 - La détection d'anomalies de comportement avec l'algorithme `Isolation Forest` de `scikit-learn`.
 

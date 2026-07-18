@@ -2,11 +2,11 @@
 name: energy-monitoring
 description: "Collecter des données énergétiques et calculer des KPIs."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [energy, iso-50001, power-metering, modbus, grafana, influxdb, enpi, industrial-automation]
     related_skills: [plc-connectivity, industrial-edge, industrial-analytics-grafana, oee-performance]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 La **gestion énergétique industrielle** consiste à mesurer, surveiller et optimiser la consommation d'énergie (électricité, gaz, eau, air comprimé, vapeur) d'un site de production. La norme **ISO 50001** fournit le cadre méthodologique pour un Système de Management de l'Énergie (SMÉ) structuré.
 
-Cette compétence guide l'agent Helios pour :
+Cette compétence guide l'agent EVA pour :
 1. Collecter des données de compteurs d'énergie via **Modbus TCP** (Schneider PM5xxx, Siemens PAC3200, Janitza UMG).
 2. Calculer les **indicateurs de performance énergétique (EnPI)** : kWh/tonne, kWh/pièce, coût/lot.
 3. Concevoir des **dashboards Grafana** de suivi énergétique temps réel alimentés par InfluxDB.

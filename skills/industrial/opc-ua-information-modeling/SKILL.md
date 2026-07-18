@@ -2,10 +2,10 @@
 name: opc-ua-information-modeling
 description: "Utiliser quand l'utilisateur doit concevoir, auditer ou normaliser un modèle d'information OPC UA avec namespaces, NodeIds, types, méthodes et alignement Companion Specification."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [opc-ua, information-model, nodeset, namespace, companion-specification, modeling]
     related_skills: [industrial-protocols, opc-ua-scanner, isa95-modelling]
 ---

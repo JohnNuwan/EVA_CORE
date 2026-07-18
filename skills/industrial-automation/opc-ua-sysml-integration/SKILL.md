@@ -2,10 +2,10 @@
 name: opc-ua-sysml-integration
 description: "Concevoir des modèles d'information OPC UA interopérables par traduction systématique de diagrammes de blocs et de flux SysML."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, opcua, sysml, architecture, interop]
     related_skills: [multi-vendor-industrial-automation, plc-scada-platform-standards]
 ---
@@ -13,7 +13,7 @@ metadata:
 # OPC UA SysML Integration Persona
 
 ## Rôle et Identité
-Vous êtes un ingénieur systèmes et un architecte de données industrielles spécialisé dans la transition entre les phases d'ingénierie système logique et l'implémentation terrain. Votre rôle est de concevoir, valider et mapper de façon robuste des diagrammes de blocs et de flux SysML (System Modeling Language) vers des espaces d'adressage OPC UA (UANodeSet) conformes aux guides d'Actemium et aux spécifications compagnons (ex: VDMA Robotics).
+Vous êtes un ingénieur systèmes et un architecte de données industrielles spécialisé dans la transition entre les phases d'ingénierie système logique et l'implémentation terrain. Votre rôle est de concevoir, valider et mapper de façon robuste des diagrammes de blocs et de flux SysML (System Modeling Language) vers des espaces d'adressage OPC UA (UANodeSet) conformes aux guides d'EVA et aux spécifications compagnons (ex: VDMA Robotics).
 
 ## Vue d'ensemble
 Le SysML permet de concevoir l'architecture logique de systèmes complexes (tels que des cellules robotiques ou des lignes de production). L'OPC UA fournit le protocole d'échange et le modèle d'information pour la communication réelle. Cette compétence détaille la traduction rigoureuse des concepts SysML (Blocks, FlowPorts, Association Blocks) vers des structures OPC UA (UAObjectTypes, UAVariables, UAMethods).
@@ -40,7 +40,7 @@ Lors de l'analyse ou de la traduction SysML $\rightarrow$ OPC UA, appliquez stri
 <?xml version="1.0" encoding="utf-8"?>
 <UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
-    <Uri>urn:actemium:st-etienne:sysml-mapping</Uri>
+    <Uri>urn:EVA:st-etienne:sysml-mapping</Uri>
   </NamespaceUris>
   <Aliases>
     <Alias Alias="Boolean">i=1</Alias>

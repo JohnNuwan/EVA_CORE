@@ -1,29 +1,29 @@
 ---
-name: helios-agent-skill-authoring
+name: EVA-agent-skill-authoring
 description: "Rédiger une compétence (SKILL.md) dans le dépôt."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
-    tags: [skills, authoring, helios-agent, conventions, skill-md]
+  EVA:
+    tags: [skills, authoring, EVA-agent, conventions, skill-md]
     related_skills: [plan, requesting-code-review]
 ---
 
-# Création de Compétences pour l'Agent Helios (dans le dépôt)
+# Création de Compétences pour l'Agent EVA (dans le dépôt)
 
 ## Vue d'ensemble
 
 Le fichier de compétence `SKILL.md` peut résider à deux emplacements distincts :
 
-1. **Local utilisateur :** `~/.helios/skills/<categorie>/<nom>/SKILL.md` — personnel, non partagé. Il se crée via `skill_manage(action='create')`.
+1. **Local utilisateur :** `~/.EVA/skills/<categorie>/<nom>/SKILL.md` — personnel, non partagé. Il se crée via `skill_manage(action='create')`.
 2. **Dans le dépôt (concerne cette compétence) :** `skills/<categorie>/<nom>/SKILL.md` — versionné sous Git et distribué avec le paquet. Utilisez `write_file` puis `git add`. L'outil `skill_manage(action='create')` ne cible pas cette arborescence.
 
 ## Quand l'utiliser
 
 - L'utilisateur vous demande d'ajouter une compétence « dans cette branche / ce dépôt / ce commit ».
-- Vous enregistrez un flux de travail (workflow) réutilisable destiné à être distribué avec l'agent Helios.
+- Vous enregistrez un flux de travail (workflow) réutilisable destiné à être distribué avec l'agent EVA.
 - Vous modifiez une compétence existante sous `skills/` (utilisez un patch pour les corrections mineures, et `write_file` pour une réécriture complète ; `skill_manage` fonctionne pour modifier une compétence du dépôt, mais pas pour la créer).
 
 ## En-tête YAML (Frontmatter) Requis
@@ -44,10 +44,10 @@ Modèle de structure partagé par l'ensemble des compétences sous `skills/softw
 name: nom-de-ma-competence         # minuscules, tirets, ≤ 64 caractères (MAX_NAME_LENGTH)
 description: Use when <declencheur>. <comportement en une ligne>.
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [mots, cles, descriptifs]
     related_skills: [autre-competence, encore-une-autre]
 ---
@@ -83,7 +83,7 @@ Un ou deux paragraphes : quoi et pourquoi.
 ## <Sections thématiques spécifiques à la compétence>
 - Tableaux de référence rapide.
 - Blocs de code contenant les commandes exactes.
-- Recettes spécifiques à Helios (tests via scripts/run_tests.sh, chemins ui-tui, etc.).
+- Recettes spécifiques à EVA (tests via scripts/run_tests.sh, chemins ui-tui, etc.).
 
 ## Pièges Courants (Common Pitfalls)
 Liste numérotée des erreurs fréquentes et de leurs corrections.
@@ -132,7 +132,7 @@ Sélectionnez la catégorie existante la plus proche. Évitez de créer de nouve
 
 ## Références Croisées entre Compétences
 
-La section `metadata.helios.related_skills` regroupe les compétences des deux répertoires (celui du dépôt `skills/` et celui de l'utilisateur `~/.helios/skills/`) lors du chargement. Vous pouvez faire référence à une compétence locale à l'utilisateur depuis une compétence du dépôt, mais celle-ci ne se résoudra pas pour les autres développeurs clonant le projet. Privilégiez les références vers d'autres compétences du dépôt. Si une compétence fréquemment référencée n'existe que dans `~/.helios/skills/`, envisagez de la déplacer dans le dépôt.
+La section `metadata.EVA.related_skills` regroupe les compétences des deux répertoires (celui du dépôt `skills/` et celui de l'utilisateur `~/.EVA/skills/`) lors du chargement. Vous pouvez faire référence à une compétence locale à l'utilisateur depuis une compétence du dépôt, mais celle-ci ne se résoudra pas pour les autres développeurs clonant le projet. Privilégiez les références vers d'autres compétences du dépôt. Si une compétence fréquemment référencée n'existe que dans `~/.EVA/skills/`, envisagez de la déplacer dans le dépôt.
 
 ## Modification de Compétences Existantes du Dépôt
 
@@ -143,7 +143,7 @@ La section `metadata.helios.related_skills` regroupe les compétences des deux r
 
 ## Pièges Courants (Common Pitfalls)
 
-1. **Utiliser `skill_manage(action='create')` pour une compétence du dépôt.** Cela écrit dans le répertoire utilisateur `~/.helios/skills/` au lieu du dépôt. Utilisez `write_file` pour créer une compétence dans le dépôt.
+1. **Utiliser `skill_manage(action='create')` pour une compétence du dépôt.** Cela écrit dans le répertoire utilisateur `~/.EVA/skills/` au lieu du dépôt. Utilisez `write_file` pour créer une compétence dans le dépôt.
 
 2. **Présence d'espaces avant `---`.** Le validateur vérifie `content.startswith("---")` ; toute ligne vide ou caractère BOM en tout début de fichier invalidera la compétence.
 
@@ -159,9 +159,9 @@ La section `metadata.helios.related_skills` regroupe les compétences des deux r
 
 ## Liste de vérification (Checklist)
 
-- [ ] Le fichier est situé sous `skills/<categorie>/<nom>/SKILL.md` (et non dans `~/.helios/skills/`).
+- [ ] Le fichier est situé sous `skills/<categorie>/<nom>/SKILL.md` (et non dans `~/.EVA/skills/`).
 - [ ] L'en-tête commence au premier octet par `---` et se ferme par `\n---\n`.
-- [ ] Les champs `name`, `description`, `version`, `author`, `license` et `metadata.helios.{tags, related_skills}` sont tous définis.
+- [ ] Les champs `name`, `description`, `version`, `author`, `license` et `metadata.EVA.{tags, related_skills}` sont tous définis.
 - [ ] Le nom fait au maximum 64 caractères, en minuscules avec des tirets.
 - [ ] La description fait au maximum 1024 caractères et débute par « Use when ... ».
 - [ ] La taille totale du fichier est inférieure à 100 000 caractères (idéalement entre 8 000 et 15 000).

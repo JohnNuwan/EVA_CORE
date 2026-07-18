@@ -2,8 +2,8 @@
 name: industrial-protocols
 description: "Programmer sous protocoles OPC-UA, Modbus-TCP et MQTT."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [opc-ua, modbus, mqtt, sparkplug-b, pycomm3, pymodbus, asyncua, industrial-automation]
@@ -16,7 +16,7 @@ metadata:
 
 L'informatique industrielle (OT) repose sur des protocoles de communication standardisés pour faire communiquer les automates, les capteurs, les IHM et les systèmes informatiques (SCADA, MES, Cloud). 
 
-Cette compétence guide l'agent Helios pour écrire des scripts d'intégration robustes en Python pour collecter et distribuer des données en temps réel en utilisant :
+Cette compétence guide l'agent EVA pour écrire des scripts d'intégration robustes en Python pour collecter et distribuer des données en temps réel en utilisant :
 - **OPC-UA** (Unified Architecture) via `asyncua`.
 - **Modbus-TCP** via `pymodbus`.
 - **MQTT / Sparkplug B** via `paho-mqtt` pour les architectures IIoT.

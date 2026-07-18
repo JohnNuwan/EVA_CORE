@@ -217,6 +217,6 @@ END_FUNCTION
 
 ## 9. Cas d'usage où charger ce pack
 - Conception d'un FB moteur/vanne/pompe.
-- Standardisation d'une bibliothèque Actemium Siemens.
+- Standardisation d'une bibliothèque EVA Siemens.
 - Audit de séquenceur TIA Portal.
 - Préparation d'une interface Ignition/WinCC vers automate Siemens.

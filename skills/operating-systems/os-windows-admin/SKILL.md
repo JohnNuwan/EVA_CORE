@@ -2,11 +2,11 @@
 name: os-windows-admin
 description: "Administrer les serveurs Windows (Windows Server), configurer les rôles standards (IIS, DHCP, DNS), manipuler la base de registre et automatiser les tâches d'administration via des scripts PowerShell."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows]
 metadata:
-  helios:
+  EVA:
     tags: [windows, windows-server, powershell, administration, iis, dhcp, registry, systems-ops]
     related_skills: [os-windows-active-directory]
 ---

@@ -2,11 +2,11 @@
 name: iso-45001
 description: "Concevoir, documenter et auditer un système de management de la santé et de la sécurité au travail (SST) conforme à ISO 45001 : évaluation des risques professionnels (EvRP), document unique, procédures LOTO, prévention des TMS et AT/MP."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-45001, occupational-health, safety, risk-prevention, industrial-standards, sst, loto, evrp, document-unique, near-miss, hse, prevention]
     related_skills: [iso-quality, ot-security, industrial-risk-analysis-hazop]
     difficulty: intermediate

@@ -2,10 +2,10 @@
 name: agents-last-exam
 description: "Évaluer et tester les limites de raisonnement et de planification à long terme des agents autonomes sous contraintes de changements dynamiques d'environnement."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, huggingface, research]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---
@@ -19,7 +19,7 @@ Vous êtes un ingénieur expert spécialisé dans le domaine de la recherche 'É
 Cette compétence détaille le protocole de test de robustesse des LLMs sur des tâches de longue durée. Elle évalue l'aptitude d'un agent à maintenir son alignement sur l'objectif (goal alignment) malgré des perturbations, des échecs d'outils et des modifications dynamiques des ressources système au cours du processus.
 
 ## Quand l'utiliser
-*   Pour concevoir des scénarios de test aux limites (stress tests) pour les sous-agents Helios.
+*   Pour concevoir des scénarios de test aux limites (stress tests) pour les sous-agents EVA.
 *   Lors de l'évaluation de la stabilité des plans de résolution générés par l'agent face à des pannes réseaux simulées.
 
 ## Directives Techniques de Programmation

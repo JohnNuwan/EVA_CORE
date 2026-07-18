@@ -5,8 +5,8 @@ description: >-
   Implémenter des techniques de calcul variationnel pour optimiser des systèmes
   dynamiques dans l'IA, la robotique et le contrôle optimal.
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 dependencies:
   - numpy>=1.24
@@ -14,7 +14,7 @@ dependencies:
   - matplotlib>=3.7
   - sympy>=1.12
 metadata:
-  helios:
+  EVA:
     tags:
       - calculus-of-variations
       - euler-lagrange

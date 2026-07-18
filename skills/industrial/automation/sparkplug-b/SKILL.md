@@ -2,11 +2,11 @@
 name: sparkplug-b
 description: "Implémenter et configurer des architectures Sparkplug B."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [mqtt, sparkplug-b, uns, iiot, industrial-automation, protobuf, edge-computing, tahu, scada, mqtt-sparkplug]
     related_skills: [industrial-protocols, industrial-uns, industrial-edge, opc-ua-scanner, plc-diagnostic]
 ---

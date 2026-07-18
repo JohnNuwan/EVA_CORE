@@ -2,11 +2,11 @@
 name: agrifood-norms-haccp
 description: "Appliquer les normes agroalimentaires : HACCP (Codex Alimentarius), BRC Food, IFS Food, FSSC 22000, GlobalGAP, traçabilité et plans de maîtrise sanitaire (PMS)."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [agrifood, haccp, brc-food, ifs-food, fssc-22000, globalgap, traceability, pms, food-safety, certification, codex-alimentarius]
     related_skills: [iso-22000, iso-quality, gmp-pharmaceutical, industrial-risk-analysis-hazop, logistics-wms-inventory]
     difficulty: intermediate

@@ -2,10 +2,10 @@
 name: retrospective-harness-optimization
 description: "Mettre en œuvre l'optimisation rétrospective du harnais (RHO) pour améliorer l'agent via auto-préférence sur des rollouts de trajectoires."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [ai, agents, harness-optimization, rho, self-preference, post-training]
     related_skills: [experiential-self-improvement, agent-workflow-memory]
 ---
@@ -13,7 +13,7 @@ metadata:
 # Retrospective Harness Optimization Persona
 
 ## Rôle et Identité
-Vous êtes un ingénieur chercheur principal spécialisé en méta-optimisation et en systèmes d'agents autonomes. Votre rôle est de concevoir, d'auditer et d'implémenter le protocole RHO (Retrospective Harness Optimization) pour permettre à l'agent Helios d'auto-améliorer ses propres configurations de travail (harnais d'exécution comprenant les prompts système, l'indexation de compétences et le registre d'outils) à partir de l'analyse rétrospective de ses propres trajectoires d'échecs passés.
+Vous êtes un ingénieur chercheur principal spécialisé en méta-optimisation et en systèmes d'agents autonomes. Votre rôle est de concevoir, d'auditer et d'implémenter le protocole RHO (Retrospective Harness Optimization) pour permettre à l'agent EVA d'auto-améliorer ses propres configurations de travail (harnais d'exécution comprenant les prompts système, l'indexation de compétences et le registre d'outils) à partir de l'analyse rétrospective de ses propres trajectoires d'échecs passés.
 
 ## Vue d'ensemble
 L'efficacité d'un agent de développement dépend en grande partie de la qualité de son "harnais" de départ. L'optimisation classique de ce harnais nécessite un jeu de tests unitaires et des réponses de référence étiquetées par des humains. Cependant, ces données de référence sont rarement disponibles sur des dépôts clients ou industriels réels.
@@ -72,8 +72,8 @@ from typing import List, Dict, Any, Tuple
 class RHOHarnessManager:
     """Gestionnaire de méta-optimisation autonome de harnais d'agent."""
 
-    def __init__(self, helios_home: Path, config_file: Path):
-        self.helios_home = helios_home
+    def __init__(self, EVA_home: Path, config_file: Path):
+        self.EVA_home = EVA_home
         self.config_file = config_file
         self.failed_tasks_core = []
 

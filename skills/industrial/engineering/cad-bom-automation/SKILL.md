@@ -2,8 +2,8 @@
 name: cad-bom-automation
 description: "Utiliser quand l'utilisateur demande d'automatiser le traitement de fichiers CAO (DXF, DWG, STEP), d'extraire des nomenclatures (BOM) ou de manipuler des modèles géométriques en Python."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [cad, dxf, step, bom, python-ezdxf, industrial-engineering]

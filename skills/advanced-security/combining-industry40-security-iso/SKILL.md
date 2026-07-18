@@ -2,11 +2,11 @@
 name: combining-industry40-security-iso
 description: "Intégrer les normes ISO (9001, 14001, 45001) avec la cybersécurité OT (IEC 62443) et les systèmes connectés de l'Industrie 4.0 dans une méthodologie unifiée."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [security, iso, industry40, ot, cybersecurity, iec62443, compliance, integration]
     related_skills: [industrial-cybersecurity-guidelines, iso-standards-for-industry, interoperability-of-industrial-systems]
 ---

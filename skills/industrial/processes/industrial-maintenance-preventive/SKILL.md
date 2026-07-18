@@ -2,12 +2,12 @@
 name: industrial-maintenance-preventive
 description: "Planifier et exécuter les opérations de maintenance préventive et corrective sur les équipements industriels, mener des diagnostics physiques (analyse vibratoire, thermographie infrarouge, ultrasons) et résoudre les pannes selon une approche systématique."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [maintenance, preventive-maintenance, corrective-maintenance, troubleshooting, vibration-analysis, thermography, diagnostics, cmms, gmao, lubrication, loto]
-  helios:
+  EVA:
     related_skills: [cmms-gmao-integration, industrial-maintenance-reliability, oee-performance]
     difficulty: intermediate
     industry_sectors: [manufacturing, chemical, pharmaceutical, energy, food-beverage, automotive]

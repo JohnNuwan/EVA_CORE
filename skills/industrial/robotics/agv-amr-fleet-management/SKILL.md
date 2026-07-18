@@ -2,12 +2,12 @@
 name: agv-amr-fleet-management
 description: "Coordonner des flottes de robots mobiles (AGV/AMR), configurer les règles de trafic, gérer l'évitement de collisions et de blocages, et intégrer le gestionnaire de flotte aux WMS/MES."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [agv, amr, fleet-management, mobile-robotics, vda-5050, navigation, logistics, robotics]
-  helios:
+  EVA:
     related_skills: [logistics-wms-inventory, cobot-human-collaboration]
 ---
 

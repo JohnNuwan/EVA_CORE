@@ -2,10 +2,10 @@
 name: mitsubishi-gx-works3
 description: "Programmer les automates Mitsubishi MELSEC avec MELSOFT GX Works3 et motion intégré."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [mitsubishi, melsec, gx-works3, iq-r, iq-f, mx-controller, motion, fa]
     related_skills: [drive-motion-control, industrial-protocols, plc-converter, industrial-communication-protocols]
 ---

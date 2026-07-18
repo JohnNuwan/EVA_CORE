@@ -2,10 +2,10 @@
 name: industrial-ebpf-diagnostics
 description: "Diagnostic réseau et filtrage de paquets OT via eBPF."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     maturity: pilot
     tags: [ebpf, kernel, networking, ot-security, modbus-tcp, bcc, python]
     related_skills: [low-level-assembly-optimization, industrial-ai-pipeline]

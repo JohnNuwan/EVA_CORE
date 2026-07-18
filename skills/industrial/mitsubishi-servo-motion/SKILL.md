@@ -2,10 +2,10 @@
 name: mitsubishi-servo-motion
 description: "Structurer les axes servo Mitsubishi et leur intégration dans les projets GX Works3."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [mitsubishi, servo, motion, gx-works3, axis, melsec]
     related_skills: [drive-motion-control, mitsubishi-gx-works3]
 ---

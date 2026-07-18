@@ -2,11 +2,11 @@
 name: isa95-modelling
 description: "Modéliser les données et les UNS selon la norme ISA-95."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [isa-95, data-modelling, industrial-standards, enterprise-architecture]
     related_skills: [industrial-uns, mes-integration, industrial-databases]
 ---
@@ -63,12 +63,12 @@ Le Unified Namespace est un hub de données centralisé où toutes les informati
 ```
 
 ### Exemple 1 : Secteur Agroalimentaire (Brasserie)
-- **Topic :** `Actemium/Lyon/Brassage/Cuve_Matiere_01/Agitateur/Speed_RPM`
-- **Topic :** `Actemium/Lyon/Conditionnement/Ligne_Emballage_02/Remplisseuse/Total_Count`
+- **Topic :** `EVA/Lyon/Brassage/Cuve_Matiere_01/Agitateur/Speed_RPM`
+- **Topic :** `EVA/Lyon/Conditionnement/Ligne_Emballage_02/Remplisseuse/Total_Count`
 
 ### Exemple 2 : Secteur Traitement de l'Eau (Chimique)
-- **Topic :** `Actemium/Paris/Decantation/Bassin_01/Vanne_Entree/State_Opened`
-- **Topic :** `Actemium/Paris/Filtration/Filtre_Charbon/Pression_Delta/Value_Bar`
+- **Topic :** `EVA/Paris/Decantation/Bassin_01/Vanne_Entree/State_Opened`
+- **Topic :** `EVA/Paris/Filtration/Filtre_Charbon/Pression_Delta/Value_Bar`
 
 ---
 
@@ -137,7 +137,7 @@ def validate_b2mml_material_payload(payload_json: str) -> bool:
 # --- EXEMPLES DE TESTS ---
 if __name__ == "__main__":
     # Test Topic UNS
-    topic_ok = "Actemium/Lyon/Brassage/Cuve01/Agitateur/Speed_RPM"
+    topic_ok = "EVA/Lyon/Brassage/Cuve01/Agitateur/Speed_RPM"
     result = validate_uns_topic(topic_ok)
     print(f"Validation topic OK : {result}")
 
@@ -166,10 +166,10 @@ if __name__ == "__main__":
     *   *Erreur :* Publier toutes les variables en vrac sous un topic plat comme `usine/capteurs/T_01`. Les applications consommatrices doivent maintenir des tables de correspondances manuelles fastidieuses pour localiser l'équipement.
     *   *Correction :* Structurer chaque variable dans l'arborescence hiérarchique complète pour lui donner un contexte géographique et fonctionnel auto-déclaratif.
 2.  **Modélisation orientée protocole au lieu de fonction :**
-    *   *Erreur :* Utiliser le nom de la passerelle de communication ou du protocole dans le topic UNS (ex: `Actemium/Site/Kepware_OPC/Modbus_Driver/Variable`).
+    *   *Erreur :* Utiliser le nom de la passerelle de communication ou du protocole dans le topic UNS (ex: `EVA/Site/Kepware_OPC/Modbus_Driver/Variable`).
     *   *Correction :* Le Unified Namespace doit modéliser la fonction et la hiérarchie physique réelle des équipements de l'usine, indépendamment de la tuyauterie informatique utilisée pour acheminer la donnée.
 3.  **Inversion des niveaux de hiérarchie :**
-    *   *Erreur :* Intervertir les niveaux, par exemple positionner l'équipement parent avant la zone (`Actemium/Site/Cuve01/Brassage/...`).
+    *   *Erreur :* Intervertir les niveaux, par exemple positionner l'équipement parent avant la zone (`EVA/Site/Cuve01/Brassage/...`).
     *   *Correction :* Rédiger et publier un document de taxonomie d'entreprise strict dès le début du projet, validé par toutes les équipes (Automatisme, Supervision, DSI).
 
 ---

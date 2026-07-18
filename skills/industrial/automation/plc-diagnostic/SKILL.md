@@ -2,11 +2,11 @@
 name: plc-diagnostic
 description: "Diagnostiquer l'état CPU et le tampon d'un automate."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [industrial, diagnostic, plc, cpu-status, cycle-time, snap7, pylogix, troubleshooting, siemens, rockwell, s7-1500, controllogix, tampon-diagnostic]
     related_skills: [plc-connectivity, opc-ua-scanner, ot-security, siemens-audit, automation-linter]
 ---
@@ -17,7 +17,7 @@ metadata:
 
 Le **diagnostic à distance d'un automate programmable (PLC)** est une étape de dépannage cruciale en informatique industrielle. Lors d'un dysfonctionnement d'usine (arrêt de production, surchauffe CPU, perte de communication, erreur d'adressage mémoire), l'extraction en temps réel des indicateurs CPU et la lecture du **tampon de diagnostic (Diagnostic Buffer)** permettent d'isoler rapidement le défaut.
 
-Cette compétence fournit à l'agent Helios les directives et commandes pour interroger un automate **Siemens** (S7-300/400/1200/1500) ou **Rockwell** (ControlLogix/CompactLogix) et en extraire un bilan de santé matériel et logiciel structuré.
+Cette compétence fournit à l'agent EVA les directives et commandes pour interroger un automate **Siemens** (S7-300/400/1200/1500) ou **Rockwell** (ControlLogix/CompactLogix) et en extraire un bilan de santé matériel et logiciel structuré.
 
 ### Indicateurs clés extraits
 

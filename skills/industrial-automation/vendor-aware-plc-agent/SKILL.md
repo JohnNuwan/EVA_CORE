@@ -2,10 +2,10 @@
 name: vendor-aware-plc-agent
 description: "Concevoir du code PLC conforme aux bibliothèques constructeurs via RAG sémantique pour Siemens SCL et Rockwell L5X."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, plc, rag, vendor-guidelines, siemens, rockwell]
     related_skills: [siemens-scl-expert, multi-vendor-industrial-automation]
 ---

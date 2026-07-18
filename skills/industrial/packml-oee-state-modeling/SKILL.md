@@ -2,10 +2,10 @@
 name: packml-oee-state-modeling
 description: "Utiliser quand l'utilisateur doit relier les états machine PackML à un modèle OEE/TRS robuste pour supervision, historisation et MES."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [packml, oee, trs, state-model, mes, supervision, historisation]
     related_skills: [packml-isa-tr88, oee-performance, mes-integration]
 ---

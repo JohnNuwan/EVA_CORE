@@ -2,10 +2,10 @@
 name: pilz-safety
 description: "Concevoir et documenter les architectures de sécurité machine de type Pilz et leurs fonctions opératoires."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [pilz, safety, machine-safety, pl, sil, reset, interlock]
     related_skills: [industrial-safety-sistema, functional-safety-iec61511, iso-safety]
 ---

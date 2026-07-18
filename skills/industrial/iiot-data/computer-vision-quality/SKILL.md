@@ -2,11 +2,11 @@
 name: computer-vision-quality
 description: "Utiliser quand l'utilisateur demande d'implémenter ou d'optimiser des scripts de vision par ordinateur à l'Edge (OpenCV, TensorFlow/PyTorch) pour des applications industrielles de contrôle qualité, comptage ou de tri."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [computer-vision, opencv, tensorflow-lite, edge-computing, quality-control]
     related_skills: [industrial-edge, industrial-protocols]
 ---

@@ -2,11 +2,11 @@
 name: delphi-industrial-programming
 description: Expertise en maintenance, analyse et développement Delphi (Object Pascal) en milieu industriel.
 version: 1.0.0
-author: Actemium
-license: Privée Actemium
+author: EVA
+license: Privée EVA
 platforms: [windows]
 metadata:
-  helios:
+  EVA:
     tags: [delphi, object-pascal, vcl, industrial, legacy, maintenance]
 ---
 

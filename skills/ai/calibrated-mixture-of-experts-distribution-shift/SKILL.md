@@ -2,11 +2,11 @@
 name: calibrated-mixture-of-experts-distribution-shift
 description: "Implémenter et calibrer des modèles Mixture-of-Experts (MoE) robustes aux changements de distribution, avec routage dur/doux et rééquilibrage adverse."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [mixture-of-experts, moe, calibration, distribution-shift, machine-learning, deep-learning, routing]
     related_skills: [ai-foundations-exploration, ai-optimization-techniques, llm-frameworks-exploration]
 ---

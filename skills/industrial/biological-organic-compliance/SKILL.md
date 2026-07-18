@@ -2,10 +2,10 @@
 name: biological-organic-compliance
 description: "Concevoir, auditer et sécuriser la conformité biologique/organic : séparation des flux, traçabilité, intrants autorisés et maintien de certification."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, organic, biological, certification, traceability, agrifood, compliance, segregation]
     related_skills: [agrifood-norms-haccp, iso-22000, multi-sector-industrial-standards]
 ---

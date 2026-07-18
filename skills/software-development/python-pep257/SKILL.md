@@ -2,11 +2,11 @@
 name: python-pep257
 description: "Rédiger des docstrings PEP 257 au format Google Style."
 version: 1.0.0
-author: Helios Agent (adapté de obra/superpowers)
-license: Privée Actemium St-Étienne
+author: EVA Agent (adapté de obra/superpowers)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [python, pep257, docstrings, google-style, documentation]
     related_skills: [python-pep8, python-pep484, python-pep20, simplify-code]
 ---

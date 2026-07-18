@@ -2,8 +2,8 @@
 name: lua-industrial-iot
 description: "Scripter en Lua pour les passerelles IoT et Kepware."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, windows]
 metadata:
   tags: [lua, iot, gateway, kepware, embedded, scripting, edge, network-monitoring]
@@ -127,6 +127,6 @@ local _, code = http.request{
 
 if code ~= 200 then
     -- Échec d'envoi réseau : journalisation en mémoire locale locale ou syslog
-    os.execute("logger -t ActemiumIoT 'Echec envoi diagnostics WAN'")
+    os.execute("logger -t EVAIoT 'Echec envoi diagnostics WAN'")
 end
 ```

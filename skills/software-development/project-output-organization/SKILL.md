@@ -2,11 +2,11 @@
 name: project-output-organization
 description: "Organiser la sortie des projets, scripts et fichiers dans une arborescence standardisée pour une gestion professionnelle et maintenable."
 version: 1.1.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [organization, output, files, projects, directory-structure, best-practices, clean-code]
     related_skills: [plan, simplify-code, python-pep8]
 ---
@@ -69,7 +69,7 @@ output/
 |:---|:---|:---|
 | **Scripts** | `snake_case` descriptif | `geolocation_phone.py` |
 | **Rapports** | `kebab-case` avec date | `audit-securite-2026-06.md` |
-| **Assets** | `snake_case` court | `logo_actemium.png` |
+| **Assets** | `snake_case` court | `logo_EVA.png` |
 | **Templates** | `snake_case` avec suffixe `.template` | `config.template.yaml` |
 | **Données** | `snake_case` avec date si temporel | `sensor_data_2026-06.csv` |
 

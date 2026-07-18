@@ -2,10 +2,10 @@
 name: scada-hmi-programming-languages
 description: "Structurer les langages de scripting SCADA/HMI : Jython, SQL, JavaScript web HMI, VB/VBScript legacy, expressions et logique de supervision."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, scada, hmi, jython, sql, javascript, vbscript, ignition, wincc]
     related_skills: [scada-scripting-jython, ignition-scada, industrial-reporting, industrial-databases]
 ---

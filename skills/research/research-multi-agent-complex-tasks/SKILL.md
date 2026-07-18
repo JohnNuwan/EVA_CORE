@@ -2,8 +2,8 @@
 name: research-multi-agent-complex-tasks
 description: "Stratégies avancées pour rechercher, analyser et synthétiser la littérature académique sur les systèmes multi-agents appliqués à la planification et l'exécution de tâches complexes."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 platforms: [linux, windows, macos]
 tags: [multi-agent systems, task planning, arxiv, collaboration, complex tasks, planification, recherche-académique]
 keywords: [multi-agent, task decomposition, collaborative planning, complex task execution, literature survey]
@@ -355,7 +355,7 @@ echo -e "\n---\n_Veille générée le $(date)_" >> "$RAPPORT"
 
 ### 4.2 Configuration cron
 
-Ajoutez cette tâche au planificateur Helios ou au cron système :
+Ajoutez cette tâche au planificateur EVA ou au cron système :
 
 ```yaml
 # Exemple de configuration cron pour la veille MAS
@@ -437,4 +437,4 @@ veille_mas_hebdo:
 
 ---
 
-*Documentation maintenue par Helios Agent — Dernière mise à jour : 2025*
+*Documentation maintenue par EVA Agent — Dernière mise à jour : 2025*

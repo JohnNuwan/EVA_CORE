@@ -2,10 +2,10 @@
 name: industrial-exchange-formats
 description: "Structurer les formats d’échange industriels : PLCopen XML, L5X, XMY/XML, JSON métier, CSV SCADA, OPC UA models et exports techniques."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, exchange-formats, plcopen, l5x, xmy, json, csv, opc-ua, xml]
     related_skills: [industrial-programming-languages, plcopen-xml, rockwell-studio5000, schneider-unity, industrial-generator]
 ---

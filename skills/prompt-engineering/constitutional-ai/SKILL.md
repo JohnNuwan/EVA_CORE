@@ -2,11 +2,11 @@
 name: prompt-method-constitutional-ai
 description: "Garantir des réponses éthiques et conformes."
 version: 1.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, constitutional-ai, biblio-ia, methods]
     related_skills: [python-pep8, simplify-code, plan]
 ---

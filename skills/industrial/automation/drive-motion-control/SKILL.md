@@ -2,11 +2,11 @@
 name: drive-motion-control
 description: "Configurer et programmer des variateurs de vitesse, servodrives et axes motion."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - vfd
       - variable-frequency-drive

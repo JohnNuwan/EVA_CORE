@@ -2,10 +2,10 @@
 name: robot-monitoring-maintenance
 description: "Use when monitoring industrial robots through PLC interfaces, cell states, fault tracking, cycle metrics, and maintenance-oriented dashboards."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [robotics, monitoring, maintenance, plc, handshake, dashboard, diagnostics]
     related_skills: [robot-plc-standard-interface, industrial-monitoring-stack, robotics-abb, robotics-fanuc, robotics-kuka, robotics-staubli]
 ---

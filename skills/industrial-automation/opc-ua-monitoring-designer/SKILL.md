@@ -2,10 +2,10 @@
 name: opc-ua-monitoring-designer
 description: "Concevoir des architectures d'espace d'adressage OPC UA pour la supervision industrielle en intégrant les métadonnées de capteurs."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, automation, opcua, monitoring, scada, sensors]
     related_skills: [multi-vendor-industrial-automation, plc-scada-platform-standards]
 ---
@@ -40,7 +40,7 @@ Lors de la conception de nœuds d'acquisition analogique, respectez les règles 
 <?xml version="1.0" encoding="utf-8"?>
 <UANodeSet xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
-    <Uri>urn:actemium:st-etienne:monitoring</Uri>
+    <Uri>urn:EVA:st-etienne:monitoring</Uri>
   </NamespaceUris>
   <Aliases>
     <Alias Alias="EURange">i=100</Alias>

@@ -2,8 +2,8 @@
 name: csharp-dotnet-industrial
 description: "Développer en C# pour l'intégration MES et les HMIs Windows."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux]
 metadata:
   tags: [csharp, dotnet, opc-ua, ads, mes, snap7, plctag, wpf, mvvm, database, industrial-integration]
@@ -28,13 +28,13 @@ using Opc.Ua;
 using Opc.Ua.Client;
 using Opc.Ua.Configuration;
 
-public class ActemiumOpcClient
+public class EVAOpcClient
 {
     private Session _session;
     private readonly string _endpointUrl;
     private readonly ApplicationConfiguration _config;
 
-    public ActemiumOpcClient(string endpointUrl)
+    public EVAOpcClient(string endpointUrl)
     {
         _endpointUrl = endpointUrl;
         _config = CreateOpcConfiguration();
@@ -44,7 +44,7 @@ public class ActemiumOpcClient
     {
         var config = new ApplicationConfiguration()
         {
-            ApplicationName = "Actemium.OpcClient",
+            ApplicationName = "EVA.OpcClient",
             ApplicationType = ApplicationType.Client,
             ApplicationConfiguration = new ClientConfiguration { DefaultSessionTimeout = 60000 },
             SecurityConfiguration = new SecurityConfiguration
@@ -69,7 +69,7 @@ public class ActemiumOpcClient
             try
             {
                 Console.WriteLine($"Connexion à {_endpointUrl}...");
-                _session = await Session.Create(_config, endpoint, false, "ActemiumSession", 60000, null, null);
+                _session = await Session.Create(_config, endpoint, false, "EVASession", 60000, null, null);
                 _session.KeepAlive += OnSessionKeepAlive;
                 Console.WriteLine("Connecté avec succès au serveur OPC UA !");
                 break;
@@ -205,7 +205,7 @@ public class MainViewModel : INotifyPropertyChanged
     }
 
     // Boucle d'acquisition asynchrone lancée au démarrage de la fenêtre
-    public async Task StartAcquisitionLoopAsync(ActemiumOpcClient client, CancellationToken ct)
+    public async Task StartAcquisitionLoopAsync(EVAOpcClient client, CancellationToken ct)
     {
         StatutConnexion = "En cours de connexion...";
         await client.ConnectAsync(ct);

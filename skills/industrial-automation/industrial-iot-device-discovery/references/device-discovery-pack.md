@@ -28,7 +28,7 @@ Le flux de découverte dynamique s'établit de la manière suivante :
 ### Source : Thing Description (WoT) en JSON
 ```json
 {
-  "id": "urn:actemium:sensor:temp123",
+  "id": "urn:EVA:sensor:temp123",
   "title": "Smart Temperature Sensor",
   "properties": {
     "temperature": {

@@ -2,11 +2,11 @@
 name: industrial-reporting
 description: "Utiliser quand l'utilisateur demande de générer ou d'automatiser la création de rapports de production, bilans de poste ou bilans qualité aux formats Excel et PDF."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [excel, pdf, openpyxl, reportlab, reporting, mes, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -17,8 +17,8 @@ metadata:
 
 Les rapports de production (bilans de poste, bilans de nettoyage CIP, suivis de consommation d'énergie, synthèses de défauts) sont indispensables pour le suivi opérationnel. L'automatisation de ces rapports permet de faire le pont entre l'OT (les données de l'atelier) et l'IT (les managers de production).
 
-Cette compétence guide l'agent Helios pour concevoir des scripts de génération de rapports fiables, automatisés et bien présentés en utilisant :
-- **openpyxl :** Pour injecter des données calculées dans des modèles de fichiers Excel prédéfinis contenant déjà les styles graphiques d'Actemium ou du client final.
+Cette compétence guide l'agent EVA pour concevoir des scripts de génération de rapports fiables, automatisés et bien présentés en utilisant :
+- **openpyxl :** Pour injecter des données calculées dans des modèles de fichiers Excel prédéfinis contenant déjà les styles graphiques d'EVA ou du client final.
 - **ReportLab :** Pour générer des fichiers PDF bruts dynamiques et infalsifiables.
 
 ## Quand l'utiliser
@@ -47,7 +47,7 @@ def generate_production_report(template_path: str, output_path: str, batch_data:
     sheet = wb.active # Ou wb['NomFeuille']
     
     # Écrire des informations d'en-tête
-    sheet['B3'] = "Actemium Production System"
+    sheet['B3'] = "EVA Production System"
     sheet['B4'] = "Lot N°: " + batch_data[0]['lot_number']
     
     # Remplir le tableau des mesures à partir de la ligne 8
@@ -90,7 +90,7 @@ def build_pdf_report(filename: str, report_title: str, table_data: list):
     story.append(Spacer(1, 20)) # Espacement vertical
     
     # Ajout d'un paragraphe descriptif
-    desc = "Ce document contient le bilan de fonctionnement généré automatiquement par le système Helios."
+    desc = "Ce document contient le bilan de fonctionnement généré automatiquement par le système EVA."
     story.append(Paragraph(desc, body_style))
     story.append(Spacer(1, 15))
     
@@ -99,7 +99,7 @@ def build_pdf_report(filename: str, report_title: str, table_data: list):
     
     # Application de styles au tableau
     t.setStyle(TableStyle([
-        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#1E3D59')), # Couleur Actemium
+        ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#1E3D59')), # Couleur EVA
         ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
         ('ALIGN', (0,0), (-1,-1), 'CENTER'),
         ('BOTTOMPADDING', (0,0), (-1,0), 8),

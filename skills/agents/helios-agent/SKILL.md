@@ -1,56 +1,56 @@
 ---
-name: helios-agent
-description: "Configure, extend, or contribute to Helios Agent."
+name: EVA-agent
+description: "Configure, extend, or contribute to EVA Agent."
 version: 2.1.0
-author: Helios Agent + Teknium
-license: Privée Actemium St-Étienne
+author: EVA Agent + Teknium
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
-    tags: [helios, setup, configuration, multi-agent, spawning, cli, gateway, development]
-    homepage: https://github.com/Actemium/helios-agent
+  EVA:
+    tags: [EVA, setup, configuration, multi-agent, spawning, cli, gateway, development]
+    homepage: https://github.com/EVA/EVA-agent
     related_skills: [claude-code, codex, opencode]
 ---
 
-# Helios Agent
+# EVA Agent
 
-Helios Agent is an open-source AI agent framework by Actemium that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. Helios works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
+EVA Agent is an open-source AI agent framework by EVA that runs in your terminal, messaging platforms, and IDEs. It belongs to the same category as Claude Code (Anthropic), Codex (OpenAI), and OpenClaw — autonomous coding and task-execution agents that use tool calling to interact with your system. EVA works with any LLM provider (OpenRouter, Anthropic, OpenAI, DeepSeek, local models, and 15+ others) and runs on Linux, macOS, and WSL.
 
-What makes Helios different:
+What makes EVA different:
 
-- **Self-improving through skills** — Helios learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
+- **Self-improving through skills** — EVA learns from experience by saving reusable procedures as skills. When it solves a complex problem, discovers a workflow, or gets corrected, it can persist that knowledge as a skill document that loads into future sessions. Skills accumulate over time, making the agent better at your specific tasks and environment.
 - **Persistent memory across sessions** — remembers who you are, your preferences, environment details, and lessons learned. Pluggable memory backends (built-in, Honcho, Mem0, and more) let you choose how memory works.
 - **Multi-platform gateway** — the same agent runs on Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, and 10+ other platforms with full tool access, not just chat.
 - **Provider-agnostic** — swap models and providers mid-workflow without changing anything else. Credential pools rotate across multiple API keys automatically.
-- **Profiles** — run multiple independent Helios instances with isolated configs, sessions, skills, and memory.
+- **Profiles** — run multiple independent EVA instances with isolated configs, sessions, skills, and memory.
 - **Extensible** — plugins, MCP servers, custom tools, webhook triggers, cron scheduling, and the full Python ecosystem.
 
-People use Helios for software development, research, system administration, data analysis, content creation, home automation, and anything else that benefits from an AI agent with persistent context and full system access.
+People use EVA for software development, research, system administration, data analysis, content creation, home automation, and anything else that benefits from an AI agent with persistent context and full system access.
 
-**This skill helps you work with Helios Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
+**This skill helps you work with EVA Agent effectively** — setting it up, configuring features, spawning additional agent instances, troubleshooting issues, finding the right commands and settings, and understanding how the system works when you need to extend or contribute to it.
 
-**Docs:** https://helios-agent.actemium.com/docs/
+**Docs:** https://EVA-agent.EVA.com/docs/
 
 ## Quick Start
 
 ```bash
 # Install
-curl -fsSL https://helios-agent.actemium.com/install.sh | bash
+curl -fsSL https://EVA-agent.EVA.com/install.sh | bash
 
 # Interactive chat (default)
-helios
+EVA
 
 # Single query
-helios chat -q "What is the capital of France?"
+EVA chat -q "What is the capital of France?"
 
 # Setup wizard
-helios setup
+EVA setup
 
 # Change model/provider
-helios model
+EVA model
 
 # Check health
-helios doctor
+EVA doctor
 ```
 
 ---
@@ -60,7 +60,7 @@ helios doctor
 ### Global Flags
 
 ```
-helios [flags] [command]
+EVA [flags] [command]
 
   --version, -V             Show version
   --resume, -r SESSION      Resume session by ID or title
@@ -77,7 +77,7 @@ No subcommand defaults to `chat`.
 ### Chat
 
 ```
-helios chat [flags]
+EVA chat [flags]
   -q, --query TEXT          Single query, non-interactive
   -m, --model MODEL         Model (e.g. anthropic/claude-sonnet-4)
   -t, --toolsets LIST       Comma-separated toolsets
@@ -91,146 +91,146 @@ helios chat [flags]
 ### Configuration
 
 ```
-helios setup [section]      Interactive wizard (model|terminal|gateway|tools|agent)
-helios model                Interactive model/provider picker
-helios config               View current config
-helios config edit          Open config.yaml in $EDITOR
-helios config set KEY VAL   Set a config value
-helios config path          Print config.yaml path
-helios config env-path      Print .env path
-helios config check         Check for missing/outdated config
-helios config migrate       Update config with new options
-helios auth                 Interactive credential manager
-helios auth add PROVIDER    Add OAuth or API-key credential (e.g. nous, openai-codex, qwen-oauth)
-helios auth list            List stored credentials
-helios auth remove PROVIDER Remove a stored credential
-helios doctor [--fix]       Check dependencies and config
-helios status [--all]       Show component status
+EVA setup [section]      Interactive wizard (model|terminal|gateway|tools|agent)
+EVA model                Interactive model/provider picker
+EVA config               View current config
+EVA config edit          Open config.yaml in $EDITOR
+EVA config set KEY VAL   Set a config value
+EVA config path          Print config.yaml path
+EVA config env-path      Print .env path
+EVA config check         Check for missing/outdated config
+EVA config migrate       Update config with new options
+EVA auth                 Interactive credential manager
+EVA auth add PROVIDER    Add OAuth or API-key credential (e.g. nous, openai-codex, qwen-oauth)
+EVA auth list            List stored credentials
+EVA auth remove PROVIDER Remove a stored credential
+EVA doctor [--fix]       Check dependencies and config
+EVA status [--all]       Show component status
 ```
 
 ### Tools & Skills
 
 ```
-helios tools                Interactive tool enable/disable (curses UI)
-helios tools list           Show all tools and status
-helios tools enable NAME    Enable a toolset
-helios tools disable NAME   Disable a toolset
+EVA tools                Interactive tool enable/disable (curses UI)
+EVA tools list           Show all tools and status
+EVA tools enable NAME    Enable a toolset
+EVA tools disable NAME   Disable a toolset
 
-helios skills list          List installed skills
-helios skills search QUERY  Search the skills hub
-helios skills install ID    Install a skill (ID can be a hub identifier OR a direct https://…/SKILL.md URL; pass --name to override when frontmatter has no name)
-helios skills inspect ID    Preview without installing
-helios skills config        Enable/disable skills per platform
-helios skills check         Check for updates
-helios skills update        Update outdated skills
-helios skills uninstall N   Remove a hub skill
-helios skills publish PATH  Publish to registry
-helios skills browse        Browse all available skills
-helios skills tap add REPO  Add a GitHub repo as skill source
+EVA skills list          List installed skills
+EVA skills search QUERY  Search the skills hub
+EVA skills install ID    Install a skill (ID can be a hub identifier OR a direct https://…/SKILL.md URL; pass --name to override when frontmatter has no name)
+EVA skills inspect ID    Preview without installing
+EVA skills config        Enable/disable skills per platform
+EVA skills check         Check for updates
+EVA skills update        Update outdated skills
+EVA skills uninstall N   Remove a hub skill
+EVA skills publish PATH  Publish to registry
+EVA skills browse        Browse all available skills
+EVA skills tap add REPO  Add a GitHub repo as skill source
 ```
 
 ### MCP Servers
 
 ```
-helios mcp serve            Run Helios as an MCP server
-helios mcp add NAME         Add an MCP server (--url or --command)
-helios mcp remove NAME      Remove an MCP server
-helios mcp list             List configured servers
-helios mcp test NAME        Test connection
-helios mcp configure NAME   Toggle tool selection
+EVA mcp serve            Run EVA as an MCP server
+EVA mcp add NAME         Add an MCP server (--url or --command)
+EVA mcp remove NAME      Remove an MCP server
+EVA mcp list             List configured servers
+EVA mcp test NAME        Test connection
+EVA mcp configure NAME   Toggle tool selection
 ```
 
 How the built-in MCP client connects servers (stdio/HTTP), auto-discovers
 their tools, and exposes them as first-class tools, plus catalog install
-(`helios mcp install <name>`): `skill_view(name="helios-agent", file_path="references/native-mcp.md")`.
+(`EVA mcp install <name>`): `skill_view(name="EVA-agent", file_path="references/native-mcp.md")`.
 
 ### Gateway (Messaging Platforms)
 
 ```
-helios gateway run          Start gateway foreground
-helios gateway install      Install as background service
-helios gateway start/stop   Control the service
-helios gateway restart      Restart the service
-helios gateway status       Check status
-helios gateway setup        Configure platforms
+EVA gateway run          Start gateway foreground
+EVA gateway install      Install as background service
+EVA gateway start/stop   Control the service
+EVA gateway restart      Restart the service
+EVA gateway status       Check status
+EVA gateway setup        Configure platforms
 ```
 
 Supported platforms: Telegram, Discord, Slack, WhatsApp, Signal, Email, SMS, Matrix, Mattermost, Home Assistant, DingTalk, Feishu, WeCom, BlueBubbles (iMessage), Weixin (WeChat), API Server, Webhooks. Open WebUI connects via the API Server adapter.
 
-Platform docs: https://helios-agent.actemium.com/docs/user-guide/messaging/
+Platform docs: https://EVA-agent.EVA.com/docs/user-guide/messaging/
 
 ### Sessions
 
 ```
-helios sessions list        List recent sessions
-helios sessions browse      Interactive picker
-helios sessions export OUT  Export to JSONL
-helios sessions rename ID T Rename a session
-helios sessions delete ID   Delete a session
-helios sessions prune       Clean up old sessions (--older-than N days)
-helios sessions stats       Session store statistics
+EVA sessions list        List recent sessions
+EVA sessions browse      Interactive picker
+EVA sessions export OUT  Export to JSONL
+EVA sessions rename ID T Rename a session
+EVA sessions delete ID   Delete a session
+EVA sessions prune       Clean up old sessions (--older-than N days)
+EVA sessions stats       Session store statistics
 ```
 
 ### Cron Jobs
 
 ```
-helios cron list            List jobs (--all for disabled)
-helios cron create SCHED    Create: '30m', 'every 2h', '0 9 * * *'
-helios cron edit ID         Edit schedule, prompt, delivery
-helios cron pause/resume ID Control job state
-helios cron run ID          Trigger on next tick
-helios cron remove ID       Delete a job
-helios cron status          Scheduler status
+EVA cron list            List jobs (--all for disabled)
+EVA cron create SCHED    Create: '30m', 'every 2h', '0 9 * * *'
+EVA cron edit ID         Edit schedule, prompt, delivery
+EVA cron pause/resume ID Control job state
+EVA cron run ID          Trigger on next tick
+EVA cron remove ID       Delete a job
+EVA cron status          Scheduler status
 ```
 
 ### Webhooks
 
 ```
-helios webhook subscribe N  Create route at /webhooks/<name>
-helios webhook list         List subscriptions
-helios webhook remove NAME  Remove a subscription
-helios webhook test NAME    Send a test POST
+EVA webhook subscribe N  Create route at /webhooks/<name>
+EVA webhook list         List subscriptions
+EVA webhook remove NAME  Remove a subscription
+EVA webhook test NAME    Send a test POST
 ```
 
 Full setup, route config, payload templating, and event-driven agent-run
-patterns: `skill_view(name="helios-agent", file_path="references/webhooks.md")`.
+patterns: `skill_view(name="EVA-agent", file_path="references/webhooks.md")`.
 
 ### Profiles
 
 ```
-helios profile list         List all profiles
-helios profile create NAME  Create (--clone, --clone-all, --clone-from)
-helios profile use NAME     Set sticky default
-helios profile delete NAME  Delete a profile
-helios profile show NAME    Show details
-helios profile alias NAME   Manage wrapper scripts
-helios profile rename A B   Rename a profile
-helios profile export NAME  Export to tar.gz
-helios profile import FILE  Import from archive
+EVA profile list         List all profiles
+EVA profile create NAME  Create (--clone, --clone-all, --clone-from)
+EVA profile use NAME     Set sticky default
+EVA profile delete NAME  Delete a profile
+EVA profile show NAME    Show details
+EVA profile alias NAME   Manage wrapper scripts
+EVA profile rename A B   Rename a profile
+EVA profile export NAME  Export to tar.gz
+EVA profile import FILE  Import from archive
 ```
 
 ### Credential Pools
 
 ```
-helios auth add             Interactive credential wizard
-helios auth list [PROVIDER] List pooled credentials
-helios auth remove P INDEX  Remove by provider + index
-helios auth reset PROVIDER  Clear exhaustion status
+EVA auth add             Interactive credential wizard
+EVA auth list [PROVIDER] List pooled credentials
+EVA auth remove P INDEX  Remove by provider + index
+EVA auth reset PROVIDER  Clear exhaustion status
 ```
 
 ### Other
 
 ```
-helios insights [--days N]  Usage analytics
-helios update               Update to latest version
-helios pairing list/approve/revoke  DM authorization
-helios plugins list/install/remove  Plugin management
-helios honcho setup/status  Honcho memory integration (requires honcho plugin)
-helios memory setup/status/off  Memory provider config
-helios completion bash|zsh  Shell completions
-helios acp                  ACP server (IDE integration)
-helios claw migrate         Migrate from OpenClaw
-helios uninstall            Uninstall Helios
+EVA insights [--days N]  Usage analytics
+EVA update               Update to latest version
+EVA pairing list/approve/revoke  DM authorization
+EVA plugins list/install/remove  Plugin management
+EVA honcho setup/status  Honcho memory integration (requires honcho plugin)
+EVA memory setup/status/off  Memory provider config
+EVA completion bash|zsh  Shell completions
+EVA acp                  ACP server (IDE integration)
+EVA claw migrate         Migrate from OpenClaw
+EVA uninstall            Uninstall EVA
 ```
 
 ---
@@ -239,8 +239,8 @@ helios uninstall            Uninstall Helios
 
 Type these during an interactive chat session. New commands land fairly
 often; if something below looks stale, run `/help` in-session for the
-authoritative list or see the [live slash commands reference](https://helios-agent.actemium.com/docs/reference/slash-commands).
-The registry of record is `helios_cli/commands.py` — every consumer
+authoritative list or see the [live slash commands reference](https://EVA-agent.EVA.com/docs/reference/slash-commands).
+The registry of record is `EVA_cli/commands.py` — every consumer
 (autocomplete, Telegram menu, Slack mapping, `/help`) derives from it.
 
 ### Session Control
@@ -253,13 +253,13 @@ The registry of record is `helios_cli/commands.py` — every consumer
 /compress            Manually compress context
 /stop                Kill background processes
 /rollback [N]        Restore filesystem checkpoint
-/snapshot [sub]      Create or restore state snapshots of Helios config/state (CLI)
+/snapshot [sub]      Create or restore state snapshots of EVA config/state (CLI)
 /background <prompt> Run prompt in background
 /queue <prompt>      Queue for next turn
 /steer <prompt>      Inject a message after the next tool call without interrupting
 /agents (/tasks)     Show active agents and running tasks
 /resume [name]       Resume a named session
-/goal [text|sub]     Set a standing goal Helios works on across turns until achieved
+/goal [text|sub]     Set a standing goal EVA works on across turns until achieved
                      (subcommands: status, pause, resume, clear)
 /redraw              Force a full UI repaint (CLI)
 ```
@@ -273,7 +273,7 @@ The registry of record is `helios_cli/commands.py` — every consumer
 /verbose             Cycle: off → new → all → verbose
 /voice [on|off|tts]  Voice mode
 /yolo                Toggle approval bypass
-/busy [sub]          Control what Enter does while Helios is working (CLI)
+/busy [sub]          Control what Enter does while EVA is working (CLI)
                      (subcommands: queue, steer, interrupt, status)
 /indicator [style]   Pick the TUI busy-indicator style (CLI)
                      (styles: kaomoji, emoji, unicode, ascii)
@@ -288,7 +288,7 @@ The registry of record is `helios_cli/commands.py` — every consumer
 /toolsets            List toolsets (CLI)
 /skills              Search/install skills (CLI)
 /skill <name>        Load a skill into session
-/reload-skills       Re-scan ~/.helios/skills/ for added/removed skills
+/reload-skills       Re-scan ~/.EVA/skills/ for added/removed skills
 /reload              Reload .env variables into the running session (CLI)
 /reload-mcp          Reload MCP servers
 /cron                Manage cron jobs (CLI)
@@ -303,7 +303,7 @@ The registry of record is `helios_cli/commands.py` — every consumer
 /deny                Deny a pending command (gateway)
 /restart             Restart gateway (gateway)
 /sethome             Set current chat as home channel (gateway)
-/update              Update Helios to latest (gateway)
+/update              Update EVA to latest (gateway)
 /topic [sub]         Enable or inspect Telegram DM topic sessions (gateway)
 /platforms (/gateway) Show platform connection status (gateway)
 ```
@@ -342,21 +342,21 @@ The registry of record is `helios_cli/commands.py` — every consumer
 ## Key Paths & Config
 
 ```
-~/.helios/config.yaml       Main configuration
-~/.helios/.env              API keys and secrets (under $HELIOS_HOME if set)
-$HELIOS_HOME/skills/        Installed skills
-~/.helios/sessions/         Gateway routing index, request dumps, *.jsonl transcripts (and optional per-session JSON snapshots when sessions.write_json_snapshots: true)
-~/.helios/state.db          Canonical session store (SQLite + FTS5)
-~/.helios/logs/             Gateway and error logs
-~/.helios/auth.json         OAuth tokens and credential pools
-~/.helios/helios-agent/     Source code (if git-installed)
+~/.EVA/config.yaml       Main configuration
+~/.EVA/.env              API keys and secrets (under $EVA_HOME if set)
+$EVA_HOME/skills/        Installed skills
+~/.EVA/sessions/         Gateway routing index, request dumps, *.jsonl transcripts (and optional per-session JSON snapshots when sessions.write_json_snapshots: true)
+~/.EVA/state.db          Canonical session store (SQLite + FTS5)
+~/.EVA/logs/             Gateway and error logs
+~/.EVA/auth.json         OAuth tokens and credential pools
+~/.EVA/EVA-agent/     Source code (if git-installed)
 ```
 
-Profiles use `~/.helios/profiles/<name>/` with the same layout.
+Profiles use `~/.EVA/profiles/<name>/` with the same layout.
 
 ### Config Sections
 
-Edit with `helios config edit` or `helios config set section.key value`.
+Edit with `EVA config edit` or `EVA config set section.key value`.
 
 | Section | Key options |
 |---------|-------------|
@@ -372,18 +372,18 @@ Edit with `helios config edit` or `helios config set section.key value`.
 | `delegation` | `model`, `provider`, `base_url`, `api_key`, `max_iterations` (50), `reasoning_effort` |
 | `checkpoints` | `enabled`, `max_snapshots` (50) |
 
-Full config reference: https://helios-agent.actemium.com/docs/user-guide/configuration
+Full config reference: https://EVA-agent.EVA.com/docs/user-guide/configuration
 
 ### Providers
 
-20+ providers supported. Set via `helios model` or `helios setup`.
+20+ providers supported. Set via `EVA model` or `EVA setup`.
 
 | Provider | Auth | Key env var |
 |----------|------|-------------|
 | OpenRouter | API key | `OPENROUTER_API_KEY` |
 | Anthropic | API key | `ANTHROPIC_API_KEY` |
-| Nous Portal | OAuth | `helios auth` |
-| OpenAI Codex | OAuth | `helios auth` |
+| Nous Portal | OAuth | `EVA auth` |
+| OpenAI Codex | OAuth | `EVA auth` |
 | GitHub Copilot | Token | `COPILOT_GITHUB_TOKEN` |
 | Google Gemini | API key | `GOOGLE_API_KEY` or `GEMINI_API_KEY` |
 | DeepSeek | API key | `DEEPSEEK_API_KEY` |
@@ -398,15 +398,15 @@ Full config reference: https://helios-agent.actemium.com/docs/user-guide/configu
 | Kilo Code | API key | `KILOCODE_API_KEY` |
 | OpenCode Zen | API key | `OPENCODE_ZEN_API_KEY` |
 | OpenCode Go | API key | `OPENCODE_GO_API_KEY` |
-| Qwen OAuth | OAuth | `helios auth add qwen-oauth` |
+| Qwen OAuth | OAuth | `EVA auth add qwen-oauth` |
 | Custom endpoint | Config | `model.base_url` + `model.api_key` in config.yaml |
 | GitHub Copilot ACP | External | `COPILOT_CLI_PATH` or Copilot CLI |
 
-Full provider docs: https://helios-agent.actemium.com/docs/integrations/providers
+Full provider docs: https://EVA-agent.EVA.com/docs/integrations/providers
 
 ### Toolsets
 
-Enable/disable via `helios tools` (interactive) or `helios tools enable/disable NAME`.
+Enable/disable via `EVA tools` (interactive) or `EVA tools enable/disable NAME`.
 
 | Toolset | What it provides |
 |---------|-----------------|
@@ -441,7 +441,7 @@ Enable/disable via `helios tools` (interactive) or `helios tools enable/disable 
 | `rl` | Reinforcement learning tools (off by default) |
 | `moa` | Mixture of Agents (off by default) |
 
-Full enumeration lives in `toolsets.py` as the `TOOLSETS` dict; `_HELIOS_CORE_TOOLS` is the default bundle most platforms inherit from.
+Full enumeration lives in `toolsets.py` as the `TOOLSETS` dict; `_EVA_CORE_TOOLS` is the default bundle most platforms inherit from.
 
 Tool changes take effect on `/reset` (new session). They do NOT apply mid-conversation to preserve prompt caching.
 
@@ -449,21 +449,21 @@ Tool changes take effect on `/reset` (new session). They do NOT apply mid-conver
 
 ## Security & Privacy Toggles
 
-Common "why is Helios doing X to my output / tool calls / commands?" toggles — and the exact commands to change them. Most of these need a fresh session (`/reset` in chat, or start a new `helios` invocation) because they're read once at startup.
+Common "why is EVA doing X to my output / tool calls / commands?" toggles — and the exact commands to change them. Most of these need a fresh session (`/reset` in chat, or start a new `EVA` invocation) because they're read once at startup.
 
 ### Secret redaction in tool output
 
 Secret redaction is **on by default** — tool output (terminal stdout, `read_file`, web content, subagent summaries, etc.) is scanned for strings that look like API keys, tokens, and secrets before it enters the conversation context and logs. Leave it enabled for normal use:
 
 ```bash
-helios config set security.redact_secrets true       # keep enabled globally
+EVA config set security.redact_secrets true       # keep enabled globally
 ```
 
-**Restart required.** `security.redact_secrets` is snapshotted at import time — toggling it mid-session (e.g. via `export HELIOS_REDACT_SECRETS=false` from a tool call) will NOT take effect for the running process. Tell the user to change it in config from a terminal, then start a new session. This is deliberate — it prevents an LLM from flipping the toggle on itself mid-task.
+**Restart required.** `security.redact_secrets` is snapshotted at import time — toggling it mid-session (e.g. via `export EVA_REDACT_SECRETS=false` from a tool call) will NOT take effect for the running process. Tell the user to change it in config from a terminal, then start a new session. This is deliberate — it prevents an LLM from flipping the toggle on itself mid-task.
 
 Disable only when you deliberately need raw credential-like strings for debugging or redactor development:
 ```bash
-helios config set security.redact_secrets false
+EVA config set security.redact_secrets false
 ```
 
 ### PII redaction in gateway messages
@@ -471,36 +471,36 @@ helios config set security.redact_secrets false
 Separate from secret redaction. When enabled, the gateway hashes user IDs and strips phone numbers from the session context before it reaches the model:
 
 ```bash
-helios config set privacy.redact_pii true    # enable
-helios config set privacy.redact_pii false   # disable (default)
+EVA config set privacy.redact_pii true    # enable
+EVA config set privacy.redact_pii false   # disable (default)
 ```
 
 ### Command approval prompts
 
-By default (`approvals.mode: manual`), Helios prompts the user before running shell commands flagged as destructive (`rm -rf`, `git reset --hard`, etc.). The modes are:
+By default (`approvals.mode: manual`), EVA prompts the user before running shell commands flagged as destructive (`rm -rf`, `git reset --hard`, etc.). The modes are:
 
 - `manual` — always prompt (default)
 - `smart` — use an auxiliary LLM to auto-approve low-risk commands, prompt on high-risk
 - `off` — skip all approval prompts (equivalent to `--yolo`)
 
 ```bash
-helios config set approvals.mode smart       # recommended middle ground
-helios config set approvals.mode off         # bypass everything (not recommended)
+EVA config set approvals.mode smart       # recommended middle ground
+EVA config set approvals.mode off         # bypass everything (not recommended)
 ```
 
 Per-invocation bypass without changing config:
-- `helios --yolo …`
-- `export HELIOS_YOLO_MODE=1`
+- `EVA --yolo …`
+- `export EVA_YOLO_MODE=1`
 
 Note: YOLO / `approvals.mode: off` does NOT turn off secret redaction. They are independent.
 
 ### Shell hooks allowlist
 
-Some shell-hook integrations require explicit allowlisting before they fire. Managed via `~/.helios/shell-hooks-allowlist.json` — prompted interactively the first time a hook wants to run.
+Some shell-hook integrations require explicit allowlisting before they fire. Managed via `~/.EVA/shell-hooks-allowlist.json` — prompted interactively the first time a hook wants to run.
 
 ### Disabling the web/browser/image-gen tools
 
-To keep the model away from network or media tools entirely, open `helios tools` and toggle per-platform. Takes effect on next session (`/reset`). See the Tools & Skills section above.
+To keep the model away from network or media tools entirely, open `EVA tools` and toggle per-platform. Takes effect on next session (`/reset`). See the Tools & Skills section above.
 
 ---
 
@@ -540,13 +540,13 @@ Voice commands: `/voice on` (voice-to-voice), `/voice tts` (always voice), `/voi
 
 ---
 
-## Spawning Additional Helios Instances
+## Spawning Additional EVA Instances
 
-Run additional Helios processes as fully independent subprocesses — separate sessions, tools, and environments.
+Run additional EVA processes as fully independent subprocesses — separate sessions, tools, and environments.
 
 ### Quand l'utiliser This vs delegate_task
 
-| | `delegate_task` | Spawning `helios` process |
+| | `delegate_task` | Spawning `EVA` process |
 |-|-----------------|--------------------------|
 | Isolation | Separate conversation, shared process | Fully independent process |
 | Duration | Minutes (bounded by parent loop) | Hours/days |
@@ -557,19 +557,19 @@ Run additional Helios processes as fully independent subprocesses — separate s
 ### One-Shot Mode
 
 ```
-terminal(command="helios chat -q 'Research GRPO papers and write summary to ~/research/grpo.md'", timeout=300)
+terminal(command="EVA chat -q 'Research GRPO papers and write summary to ~/research/grpo.md'", timeout=300)
 
 # Background for long tasks:
-terminal(command="helios chat -q 'Set up CI/CD for ~/myapp'", background=true)
+terminal(command="EVA chat -q 'Set up CI/CD for ~/myapp'", background=true)
 ```
 
 ### Interactive PTY Mode (via tmux)
 
-Helios uses prompt_toolkit, which requires a real terminal. Use tmux for interactive spawning:
+EVA uses prompt_toolkit, which requires a real terminal. Use tmux for interactive spawning:
 
 ```
 # Start
-terminal(command="tmux new-session -d -s agent1 -x 120 -y 40 'helios'", timeout=10)
+terminal(command="tmux new-session -d -s agent1 -x 120 -y 40 'EVA'", timeout=10)
 
 # Wait for startup, then send a message
 terminal(command="sleep 8 && tmux send-keys -t agent1 'Build a FastAPI auth service' Enter", timeout=15)
@@ -588,11 +588,11 @@ terminal(command="tmux send-keys -t agent1 '/exit' Enter && sleep 2 && tmux kill
 
 ```
 # Agent A: backend
-terminal(command="tmux new-session -d -s backend -x 120 -y 40 'helios -w'", timeout=10)
+terminal(command="tmux new-session -d -s backend -x 120 -y 40 'EVA -w'", timeout=10)
 terminal(command="sleep 8 && tmux send-keys -t backend 'Build REST API for user management' Enter", timeout=15)
 
 # Agent B: frontend
-terminal(command="tmux new-session -d -s frontend -x 120 -y 40 'helios -w'", timeout=10)
+terminal(command="tmux new-session -d -s frontend -x 120 -y 40 'EVA -w'", timeout=10)
 terminal(command="sleep 8 && tmux send-keys -t frontend 'Build React dashboard for user management' Enter", timeout=15)
 
 # Check progress, relay context between them
@@ -604,10 +604,10 @@ terminal(command="tmux send-keys -t frontend 'Here is the API schema from the ba
 
 ```
 # Resume most recent session
-terminal(command="tmux new-session -d -s resumed 'helios --continue'", timeout=10)
+terminal(command="tmux new-session -d -s resumed 'EVA --continue'", timeout=10)
 
 # Resume specific session
-terminal(command="tmux new-session -d -s resumed 'helios --resume 20260225_143052_a1b2c3'", timeout=10)
+terminal(command="tmux new-session -d -s resumed 'EVA --resume 20260225_143052_a1b2c3'", timeout=10)
 ```
 
 ### Tips
@@ -615,7 +615,7 @@ terminal(command="tmux new-session -d -s resumed 'helios --resume 20260225_14305
 - **Prefer `delegate_task` for quick subtasks** — less overhead than spawning a full process
 - **Use `-w` (worktree mode)** when spawning agents that edit code — prevents git conflicts
 - **Set timeouts** for one-shot mode — complex tasks can take 5-10 minutes
-- **Use `helios chat -q` for fire-and-forget** — no PTY needed
+- **Use `EVA chat -q` for fire-and-forget** — no PTY needed
 - **Use tmux for interactive sessions** — raw PTY mode has `\r` vs `\n` issues with prompt_toolkit
 - **For scheduled tasks**, use the `cronjob` tool instead of spawning — handles delivery and retry
 
@@ -646,7 +646,7 @@ Config: `delegation.*` in `config.yaml`.
 ### Cron (scheduled jobs)
 
 Durable scheduler — `cron/jobs.py` + `cron/scheduler.py`. Drive it via
-the `cronjob` tool, the `helios cron` CLI (`list`, `add`, `edit`,
+the `cronjob` tool, the `EVA cron` CLI (`list`, `add`, `edit`,
 `pause`, `resume`, `run`, `remove`), or the `/cron` slash command.
 
 - **Schedules:** duration (`"30m"`, `"2h"`), "every" phrase
@@ -662,7 +662,7 @@ the `cronjob` tool, the `helios cron` CLI (`list`, `add`, `edit`,
   header/footer instead of being mirrored into the target gateway
   session (keeps role alternation intact).
 
-User docs: https://helios-agent.actemium.com/docs/user-guide/features/cron
+User docs: https://EVA-agent.EVA.com/docs/user-guide/features/cron
 
 ### Curator (skill lifecycle)
 
@@ -670,26 +670,26 @@ Background maintenance for agent-created skills. Tracks usage, marks
 idle skills stale, archives stale ones, keeps a pre-run tar.gz backup
 so nothing is lost.
 
-- **CLI:** `helios curator <verb>` — `status`, `run`, `pause`, `resume`,
+- **CLI:** `EVA curator <verb>` — `status`, `run`, `pause`, `resume`,
   `pin`, `unpin`, `archive`, `restore`, `prune`, `backup`, `rollback`.
 - **Slash:** `/curator <subcommand>` mirrors the CLI.
 - **Scope:** only touches skills with `created_by: "agent"` provenance.
   Bundled + hub-installed skills are off-limits. **Never deletes** —
   max destructive action is archive. Pinned skills are exempt from
   every auto-transition and every LLM review pass.
-- **Telemetry:** sidecar at `~/.helios/skills/.usage.json` holds
+- **Telemetry:** sidecar at `~/.EVA/skills/.usage.json` holds
   per-skill `use_count`, `view_count`, `patch_count`,
   `last_activity_at`, `state`, `pinned`.
 
 Config: `curator.*` (`enabled`, `interval_hours`, `min_idle_hours`,
 `stale_after_days`, `archive_after_days`, `backup.*`).
-User docs: https://helios-agent.actemium.com/docs/user-guide/features/curator
+User docs: https://EVA-agent.EVA.com/docs/user-guide/features/curator
 
 ### Kanban (multi-agent work queue)
 
 Durable SQLite board for multi-profile / multi-worker collaboration.
-Users drive it via `helios kanban <verb>`; dispatcher-spawned workers
-see a focused `kanban_*` toolset gated by `HELIOS_KANBAN_TASK`, and
+Users drive it via `EVA kanban <verb>`; dispatcher-spawned workers
+see a focused `kanban_*` toolset gated by `EVA_KANBAN_TASK`, and
 orchestrator profiles can opt into the broader `kanban` toolset. Normal
 sessions still have zero `kanban_*` schema footprint unless configured.
 
@@ -709,16 +709,16 @@ sessions still have zero `kanban_*` schema footprint unless configured.
   (default 2; configurable via `kanban.failure_limit` or per-task
   `max_retries`).
 - **Isolation:** board is the hard boundary (workers get
-  `HELIOS_KANBAN_BOARD` pinned in env); tenant is a soft namespace
+  `EVA_KANBAN_BOARD` pinned in env); tenant is a soft namespace
   within a board for workspace-path + memory-key isolation.
 
-User docs: https://helios-agent.actemium.com/docs/user-guide/features/kanban
+User docs: https://EVA-agent.EVA.com/docs/user-guide/features/kanban
 
 ---
 
 ## Windows-Specific Quirks
 
-Helios runs natively on Windows (PowerShell, cmd, Windows Terminal, git-bash
+EVA runs natively on Windows (PowerShell, cmd, Windows Terminal, git-bash
 mintty, VS Code integrated terminal). Most of it just works, but a handful
 of differences between Win32 and POSIX have bitten us — document new ones
 here as you hit them so the next person (or the next session) doesn't
@@ -751,7 +751,7 @@ Ctrl+Enter?" This is how the Ctrl+Enter = c-j fact was established.
 
 **HTTP 400 "No models provided" on first run.** `config.yaml` was saved
 with a UTF-8 BOM (common when Windows apps write it). Re-save as UTF-8
-without BOM. `helios config edit` writes without BOM; manual edits in
+without BOM. `EVA config edit` writes without BOM; manual edits in
 Notepad are the usual culprit.
 
 ### `execute_code` / Sandbox
@@ -760,7 +760,7 @@ Notepad are the usual culprit.
 or initialized") from the sandbox child process — it can't create an
 `AF_INET` socket, so the loopback-TCP RPC fallback fails before
 `connect()`. Root cause is usually **not** a broken Winsock LSP; it's
-Helios's own env scrubber dropping `SYSTEMROOT` / `WINDIR` / `COMSPEC`
+EVA's own env scrubber dropping `SYSTEMROOT` / `WINDIR` / `COMSPEC`
 from the child env. Python's `socket` module needs `SYSTEMROOT` to locate
 `mswsock.dll`. Fixed via the `_WINDOWS_ESSENTIAL_ENV_VARS` allowlist in
 `tools/code_execution_tool.py`. If you still hit it, echo `os.environ`
@@ -770,7 +770,7 @@ diagnostic recipe in `references/execute-code-sandbox-env-windows.md`.
 ### Testing / Contributing
 
 **`scripts/run_tests.sh` doesn't work as-is on Windows** — it looks for
-POSIX venv layouts (`.venv/bin/activate`). The Helios-installed venv at
+POSIX venv layouts (`.venv/bin/activate`). The EVA-installed venv at
 `venv/Scripts/` has no pip or pytest either (stripped for install size).
 Workaround: install `pytest + pytest-xdist + pyyaml` into a system Python
 3.11 user site, then invoke pytest directly with `PYTHONPATH` set:
@@ -801,7 +801,7 @@ Git touches it`. Cosmetic — the repo's `.gitattributes` normalizes. Don't
 let editors auto-convert committed POSIX-newline files to CRLF.
 
 **Forward slashes work almost everywhere.** `C:/Users/...` is accepted by
-every Helios tool and most Windows APIs. Prefer forward slashes in code
+every EVA tool and most Windows APIs. Prefer forward slashes in code
 and logs — avoids shell-escaping backslashes in bash.
 
 ---
@@ -814,15 +814,15 @@ and logs — avoids shell-escaping backslashes in bash.
 3. In gateway: `/restart`. In CLI: exit and relaunch.
 
 ### Tool not available
-1. `helios tools` — check if toolset is enabled for your platform
+1. `EVA tools` — check if toolset is enabled for your platform
 2. Some tools need env vars (check `.env`)
 3. `/reset` after enabling tools
 
 ### Model/provider issues
-1. `helios doctor` — check config and dependencies
-2. `helios auth` — re-authenticate OAuth providers (or `helios auth add <provider>`)
+1. `EVA doctor` — check config and dependencies
+2. `EVA auth` — re-authenticate OAuth providers (or `EVA auth add <provider>`)
 3. Check `.env` has the right API key
-4. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `helios model` → GitHub Copilot.
+4. **Copilot 403**: `gh auth login` tokens do NOT work for Copilot API. You must use the Copilot-specific OAuth device code flow via `EVA model` → GitHub Copilot.
 
 ### Changes not taking effect
 - **Tools/skills:** `/reset` starts a new session with updated toolset
@@ -830,20 +830,20 @@ and logs — avoids shell-escaping backslashes in bash.
 - **Code changes:** Restart the CLI or gateway process
 
 ### Skills not showing
-1. `helios skills list` — verify installed
-2. `helios skills config` — check platform enablement
-3. Load explicitly: `/skill name` or `helios -s name`
+1. `EVA skills list` — verify installed
+2. `EVA skills config` — check platform enablement
+3. Load explicitly: `/skill name` or `EVA -s name`
 
 ### Gateway issues
 Check logs first:
 ```bash
-grep -i "failed to send\|error" ~/.helios/logs/gateway.log | tail -20
+grep -i "failed to send\|error" ~/.EVA/logs/gateway.log | tail -20
 ```
 
 Common gateway problems:
 - **Gateway dies on SSH logout**: Enable linger: `sudo loginctl enable-linger $USER`
 - **Gateway dies on WSL2 close**: WSL2 requires `systemd=true` in `/etc/wsl.conf` for systemd services to work. Without it, gateway falls back to `nohup` (dies when session closes).
-- **Gateway crash loop**: Reset the failed state: `systemctl --user reset-failed helios-gateway`
+- **Gateway crash loop**: Reset the failed state: `systemctl --user reset-failed EVA-gateway`
 
 ### Platform-specific issues
 - **Discord bot silent**: Must enable **Message Content Intent** in Bot → Privileged Gateway Intents.
@@ -853,8 +853,8 @@ Common gateway problems:
 ### Auxiliary models not working
 If `auxiliary` tasks (vision, compression, session_search) fail silently, the `auto` provider can't find a backend. Either set `OPENROUTER_API_KEY` or `GOOGLE_API_KEY`, or explicitly configure each auxiliary task's provider:
 ```bash
-helios config set auxiliary.vision.provider <your_provider>
-helios config set auxiliary.vision.model <model_name>
+EVA config set auxiliary.vision.provider <your_provider>
+EVA config set auxiliary.vision.model <model_name>
 ```
 
 ---
@@ -863,39 +863,39 @@ helios config set auxiliary.vision.model <model_name>
 
 | Looking for... | Location |
 |----------------|----------|
-| Config options | `helios config edit` or [Configuration docs](https://helios-agent.actemium.com/docs/user-guide/configuration) |
-| Available tools | `helios tools list` or [Tools reference](https://helios-agent.actemium.com/docs/reference/tools-reference) |
-| Slash commands | `/help` in session or [Slash commands reference](https://helios-agent.actemium.com/docs/reference/slash-commands) |
-| Skills catalog | `helios skills browse` or [Skills catalog](https://helios-agent.actemium.com/docs/reference/skills-catalog) |
-| Provider setup | `helios model` or [Providers guide](https://helios-agent.actemium.com/docs/integrations/providers) |
-| Platform setup | `helios gateway setup` or [Messaging docs](https://helios-agent.actemium.com/docs/user-guide/messaging/) |
-| MCP servers | `helios mcp list` or [MCP guide](https://helios-agent.actemium.com/docs/user-guide/features/mcp) |
-| Profiles | `helios profile list` or [Profiles docs](https://helios-agent.actemium.com/docs/user-guide/profiles) |
-| Cron jobs | `helios cron list` or [Cron docs](https://helios-agent.actemium.com/docs/user-guide/features/cron) |
-| Memory | `helios memory status` or [Memory docs](https://helios-agent.actemium.com/docs/user-guide/features/memory) |
-| Env variables | `helios config env-path` or [Env vars reference](https://helios-agent.actemium.com/docs/reference/environment-variables) |
-| CLI commands | `helios --help` or [CLI reference](https://helios-agent.actemium.com/docs/reference/cli-commands) |
-| Gateway logs | `~/.helios/logs/gateway.log` |
-| Session files | `helios sessions browse` (reads state.db) |
-| Source code | `~/.helios/helios-agent/` |
+| Config options | `EVA config edit` or [Configuration docs](https://EVA-agent.EVA.com/docs/user-guide/configuration) |
+| Available tools | `EVA tools list` or [Tools reference](https://EVA-agent.EVA.com/docs/reference/tools-reference) |
+| Slash commands | `/help` in session or [Slash commands reference](https://EVA-agent.EVA.com/docs/reference/slash-commands) |
+| Skills catalog | `EVA skills browse` or [Skills catalog](https://EVA-agent.EVA.com/docs/reference/skills-catalog) |
+| Provider setup | `EVA model` or [Providers guide](https://EVA-agent.EVA.com/docs/integrations/providers) |
+| Platform setup | `EVA gateway setup` or [Messaging docs](https://EVA-agent.EVA.com/docs/user-guide/messaging/) |
+| MCP servers | `EVA mcp list` or [MCP guide](https://EVA-agent.EVA.com/docs/user-guide/features/mcp) |
+| Profiles | `EVA profile list` or [Profiles docs](https://EVA-agent.EVA.com/docs/user-guide/profiles) |
+| Cron jobs | `EVA cron list` or [Cron docs](https://EVA-agent.EVA.com/docs/user-guide/features/cron) |
+| Memory | `EVA memory status` or [Memory docs](https://EVA-agent.EVA.com/docs/user-guide/features/memory) |
+| Env variables | `EVA config env-path` or [Env vars reference](https://EVA-agent.EVA.com/docs/reference/environment-variables) |
+| CLI commands | `EVA --help` or [CLI reference](https://EVA-agent.EVA.com/docs/reference/cli-commands) |
+| Gateway logs | `~/.EVA/logs/gateway.log` |
+| Session files | `EVA sessions browse` (reads state.db) |
+| Source code | `~/.EVA/EVA-agent/` |
 
 ---
 
 ## Contributor Quick Reference
 
-For occasional contributors and PR authors. Full developer docs: https://helios-agent.actemium.com/docs/developer-guide/
+For occasional contributors and PR authors. Full developer docs: https://EVA-agent.EVA.com/docs/developer-guide/
 
 ### Project Layout
 
 ```
-helios-agent/
+EVA-agent/
 ├── run_agent.py          # AIAgent — core conversation loop
 ├── model_tools.py        # Tool discovery and dispatch
 ├── toolsets.py           # Toolset definitions
-├── cli.py                # Interactive CLI (HeliosCLI)
-├── helios_state.py       # SQLite session store
+├── cli.py                # Interactive CLI (EVACLI)
+├── EVA_state.py       # SQLite session store
 ├── agent/                # Prompt builder, context compression, memory, model routing, credential pooling, skill dispatch
-├── helios_cli/           # CLI subcommands, config, setup, commands
+├── EVA_cli/           # CLI subcommands, config, setup, commands
 │   ├── commands.py       # Slash command registry (CommandDef)
 │   ├── config.py         # DEFAULT_CONFIG, env var definitions
 │   └── main.py           # CLI entry point and argparse
@@ -908,7 +908,7 @@ helios-agent/
 └── website/              # Docusaurus docs site
 ```
 
-Config: `~/.helios/config.yaml` (settings), `~/.helios/.env` (API keys) — both under `$HELIOS_HOME` when it is set.
+Config: `~/.EVA/config.yaml` (settings), `~/.EVA/.env` (API keys) — both under `$EVA_HOME` when it is set.
 
 ### Adding a Tool (3 files)
 
@@ -934,15 +934,15 @@ registry.register(
 )
 ```
 
-**2. Add to `toolsets.py`** → `_HELIOS_CORE_TOOLS` list.
+**2. Add to `toolsets.py`** → `_EVA_CORE_TOOLS` list.
 
 Auto-discovery: any `tools/*.py` file with a top-level `registry.register()` call is imported automatically — no manual list needed.
 
-All handlers must return JSON strings. Use `get_helios_home()` for paths, never hardcode `~/.helios`.
+All handlers must return JSON strings. Use `get_EVA_home()` for paths, never hardcode `~/.EVA`.
 
 ### Adding a Slash Command
 
-1. Add `CommandDef` to `COMMAND_REGISTRY` in `helios_cli/commands.py`
+1. Add `CommandDef` to `COMMAND_REGISTRY` in `EVA_cli/commands.py`
 2. Add handler in `cli.py` → `process_command()`
 3. (Optional) Add gateway handler in `gateway/run.py`
 
@@ -967,11 +967,11 @@ python -m pytest tests/ -o 'addopts=' -q   # Full suite
 python -m pytest tests/tools/ -q            # Specific area
 ```
 
-- Tests auto-redirect `HELIOS_HOME` to temp dirs — never touch real `~/.helios/`
+- Tests auto-redirect `EVA_HOME` to temp dirs — never touch real `~/.EVA/`
 - Run full suite before pushing any change
 - Use `-o 'addopts='` to clear any baked-in pytest flags
 
-**Windows contributors:** `scripts/run_tests.sh` currently looks for POSIX venvs (`.venv/bin/activate` / `venv/bin/activate`) and will error out on Windows where the layout is `venv/Scripts/activate` + `python.exe`. The Helios-installed venv at `venv/Scripts/` also has no `pip` or `pytest` — it's stripped for end-user install size. Workaround: install pytest + pytest-xdist + pyyaml into a system Python 3.11 user site (`/c/Program Files/Python311/python -m pip install --user pytest pytest-xdist pyyaml`), then run tests directly:
+**Windows contributors:** `scripts/run_tests.sh` currently looks for POSIX venvs (`.venv/bin/activate` / `venv/bin/activate`) and will error out on Windows where the layout is `venv/Scripts/activate` + `python.exe`. The EVA-installed venv at `venv/Scripts/` also has no `pip` or `pytest` — it's stripped for end-user install size. Workaround: install pytest + pytest-xdist + pyyaml into a system Python 3.11 user site (`/c/Program Files/Python311/python -m pip install --user pytest pytest-xdist pyyaml`), then run tests directly:
 
 ```bash
 export PYTHONPATH="$(pwd)"
@@ -982,7 +982,7 @@ Use `-n 0` (not `-n 4`) because `pyproject.toml`'s default `addopts` already inc
 
 **Cross-platform test guards:** tests that use POSIX-only syscalls need a skip marker. Common ones already in the codebase:
 - Symlink creation → `@pytest.mark.skipif(sys.platform == "win32", reason="Symlinks require elevated privileges on Windows")` (see `tests/cron/test_cron_script.py`)
-- POSIX file modes (0o600, etc.) → `@pytest.mark.skipif(sys.platform.startswith("win"), reason="POSIX mode bits not enforced on Windows")` (see `tests/helios_cli/test_auth_toctou_file_modes.py`)
+- POSIX file modes (0o600, etc.) → `@pytest.mark.skipif(sys.platform.startswith("win"), reason="POSIX mode bits not enforced on Windows")` (see `tests/EVA_cli/test_auth_toctou_file_modes.py`)
 - `signal.SIGALRM` → Unix-only (see `tests/conftest.py::_enforce_test_timeout`)
 - Live Winsock / Windows-specific regression tests → `@pytest.mark.skipif(sys.platform != "win32", reason="Windows-specific regression")`
 
@@ -1023,7 +1023,7 @@ Types: `fix:`, `feat:`, `refactor:`, `docs:`, `chore:`
 
 - **Never break prompt caching** — don't change context, tools, or system prompt mid-conversation
 - **Message role alternation** — never two assistant or two user messages in a row
-- Use `get_helios_home()` from `helios_constants` for all paths (profile-safe)
+- Use `get_EVA_home()` from `EVA_constants` for all paths (profile-safe)
 - Config values go in `config.yaml`, secrets go in `.env`
 - New tools need a `check_fn` so they only appear when requirements are met
 

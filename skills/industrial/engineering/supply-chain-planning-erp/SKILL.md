@@ -2,12 +2,12 @@
 name: supply-chain-planning-erp
 description: "Planifier la production via le calcul des besoins nets (MRP), concevoir le Plan Directeur de Production (PDP/MPS), ordonnancer la capacité et intégrer les données avec les modules de production ERP (SAP PP)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [supply-chain, erp, sap-pp, mrp, mps, planning, scheduling, capacity-planning, s-op, production-control]
-  helios:
+  EVA:
     related_skills: [lean-manufacturing-vsm, industrial-flow-simulation, materials-selection-metallurgy]
 ---
 
@@ -19,7 +19,7 @@ Cette compétence guide l'élaboration complète de la planification et de l'ord
 
 La planification industrielle repose sur un équilibre délicat entre la satisfaction de la demande client, l'optimisation des niveaux de stocks et la contrainte des capacités de production disponibles. Une erreur dans l'un des maillons de cette chaîne se répercute en cascade : stocks excédentaires, ruptures d'approvisionnement, heures supplémentaires non maîtrisées ou délais de livraison non tenus.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la configuration, l'optimisation ou l'analyse des flux planifiés de production dans un environnement industriel.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la configuration, l'optimisation ou l'analyse des flux planifiés de production dans un environnement industriel.
 
 ---
 

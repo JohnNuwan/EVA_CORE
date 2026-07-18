@@ -132,7 +132,7 @@ Pour chaque équipement standard, livrer :
 - Conception d'une bibliothèque commune Siemens + Rockwell.
 - Déploiement d'un standard Ignition multi-lignes.
 - Audit d'interfaces PLC ↔ SCADA.
-- Préparation d'un dossier de standardisation Actemium.
+- Préparation d'un dossier de standardisation EVA.
 
 ## 11. Checklist de revue experte
 - [ ] Le PLC porte la logique métier temps réel.

@@ -2,11 +2,11 @@
 name: multi-agent-orchestration
 description: "Orchestrer des tâches d'automatisme avec des sous-agents."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - multi-agent
       - delegation
@@ -30,7 +30,7 @@ metadata:
 
 ## Vue d'ensemble
 
-Les projets d'automatisme industriel impliquent souvent de grands volumes de fichiers, de multiples automates (PLC) ou des configurations complexes à traiter en parallèle. L'orchestration multi-agents permet de diviser ces charges de travail massives en sous-tâches indépendantes, exécutées simultanément par des sous-agents Helios.
+Les projets d'automatisme industriel impliquent souvent de grands volumes de fichiers, de multiples automates (PLC) ou des configurations complexes à traiter en parallèle. L'orchestration multi-agents permet de diviser ces charges de travail massives en sous-tâches indépendantes, exécutées simultanément par des sous-agents EVA.
 
 Cette compétence fournit les instructions et les patrons de conception nécessaires pour déléguer efficacement ces sous-tâches via l'outil [`delegate_task`](../../../tools/delegate_tool.py).
 
@@ -302,7 +302,7 @@ Chaque sous-agent consomme un budget API. Anticiper le coût total :
 
 ### 5.3 Stratégies d'exclusion
 
-> **Important :** Les sous-agents ne doivent jamais modifier les fichiers sources du noyau Helios (`run_agent.py`, `cli.py`, etc.). Si une opération nécessite une modification du noyau, elle doit être remontée à l'agent parent.
+> **Important :** Les sous-agents ne doivent jamais modifier les fichiers sources du noyau EVA (`run_agent.py`, `cli.py`, etc.). Si une opération nécessite une modification du noyau, elle doit être remontée à l'agent parent.
 
 ---
 
@@ -356,7 +356,7 @@ if failed:
 
 ## 7. Protocoles de Collaboration Hétérogène et Découverte (A2A, ACP, ARD, UCP, M2A)
 
-Helios supporte les standards ouverts de Google et de la Linux Foundation pour interagir avec des agents tiers, découvrir des ressources et sécuriser les transactions.
+EVA supporte les standards ouverts de Google et de la Linux Foundation pour interagir avec des agents tiers, découvrir des ressources et sécuriser les transactions.
 
 ### 7.1 Délégation Réseau (A2A & ACP)
 Contrairement à `delegate_task` qui instancie un sous-agent local, l'outil `delegate_to_a2a_agent` permet de soumettre des tâches à un autre agent sur le réseau en utilisant la spécification JSON-RPC 2.0 (A2A) ou REST (ACP d'IBM/BeeAI) :
@@ -375,7 +375,7 @@ res = delegate_to_a2a_agent(
 ### 7.2 Découverte d'Actifs (ARD)
 Le standard Agentic Resource Discovery (ARD) permet d'importer dynamiquement des capacités ou des schémas d'outils indexés par un registre global :
 - Le client ARD (`ARDClient`) interroge un annuaire pour enregistrer des outils à la volée.
-- Le publisher ARD (`ARDPublisher`) exporte les outils d'Helios pour les rendre découvrables.
+- Le publisher ARD (`ARDPublisher`) exporte les outils d'EVA pour les rendre découvrables.
 
 ### 7.3 Commerce Autonome Sécurisé (UCP & M2A)
 L'outil `ucp_shopping` gère les opérations d'agentic commerce de façon unifiée (recherche de pièces, panier, checkout). Toute action menant à des dépenses ou à des modifications système critiques est interceptée par la couche d'autorisation **Model-to-Agent/Authorization (M2A)** qui sollicite une approbation utilisateur.

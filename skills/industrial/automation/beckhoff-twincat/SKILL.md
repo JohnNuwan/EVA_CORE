@@ -2,11 +2,11 @@
 name: beckhoff-twincat
 description: "Programmer sous TwinCAT et utiliser le protocole ADS."
 version: 1.2.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [beckhoff, twincat, ads, ethercat, plc, industrial-automation, pyads, multi-read]
     related_skills: [industrial-protocols, systematic-debugging]
 ---
@@ -86,7 +86,7 @@ END_VAR
 
 ## 2. Communication Python ↔ TwinCAT via `pyads` (Recettes Avancées)
 
-Pour collecter des données à des fins d'analyse ou piloter l'automate depuis un script Python (comme l'agent Helios), la bibliothèque `pyads` est utilisée.
+Pour collecter des données à des fins d'analyse ou piloter l'automate depuis un script Python (comme l'agent EVA), la bibliothèque `pyads` est utilisée.
 
 ### Règle d'Or de Performance : La Lecture Groupée (Multi-Read)
 Pour optimiser la bande passante et éviter de surcharger le routeur ADS, regroupez toujours vos requêtes en une seule trame réseau TCP au lieu de faire des boucles de requêtes individuelles.

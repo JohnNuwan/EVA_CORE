@@ -2,8 +2,8 @@
 name: rockwell-l5x-generation
 description: "Générer et éditer des fichiers L5X Studio 5000."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [rockwell, studio-5000, l5x, plc, xml, automation-engineering]
@@ -251,9 +251,9 @@ Voir le fichier `references/roh-devassist-worked-example.md` pour le détail com
 
 ---
 
-## 5. Conventions Réelles Courbon/Actemium (Projets Industriels)
+## 5. Conventions Réelles Courbon/EVA (Projets Industriels)
 
-⚠️ **SECTION CRITIQUE** — Les sections 1-4 ci-dessus donnent une base générique, mais les projets réels de Courbon/Actemium Saint-Étienne utilisent une architecture **structurellement différente**. 
+⚠️ **SECTION CRITIQUE** — Les sections 1-4 ci-dessus donnent une base générique, mais les projets réels de Courbon/EVA Saint-Étienne utilisent une architecture **structurellement différente**. 
 
 **Avant de générer du code pour un projet Courbon, charger impérativement la skill `rockwell-l5x-courbon-conventions` et analyser les fichiers de référence ingénieurs.**
 

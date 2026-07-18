@@ -2,11 +2,11 @@
 name: industrial-databases
 description: "Utiliser quand l'utilisateur demande d'historiser des données d'automates, de concevoir des bases de données de production ou d'optimiser des requêtes SQL/InfluxQL industrielles."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [sql, postgresql, influxdb, time-series, trs, oee, scada, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ Le stockage des données est crucial pour la traçabilité, l'analyse qualité, 
 1. **Les bases relationnelles (SQL : PostgreSQL, SQL Server, MySQL) :** Pour les recettes de fabrication, les configurations d'équipements, la traçabilité des lots et les journaux d'alarmes.
 2. **Les bases de séries temporelles (NoSQL : InfluxDB, TimescaleDB) :** Conçues pour l'enregistrement à haute fréquence des données de capteurs (télémesures).
 
-Cette compétence guide l'agent Helios pour concevoir des schémas de base de données performants et des requêtes optimisées pour l'informatique industrielle.
+Cette compétence guide l'agent EVA pour concevoir des schémas de base de données performants et des requêtes optimisées pour l'informatique industrielle.
 
 ## Quand l'utiliser
 
@@ -107,7 +107,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 token = "mon_super_token_de_securite"
-org = "Actemium"
+org = "EVA"
 bucket = "Telemetrie_Atelier1"
 
 with InfluxDBClient(url="http://192.168.1.210:8086", token=token, org=org) as client:

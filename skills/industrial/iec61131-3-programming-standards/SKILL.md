@@ -2,10 +2,10 @@
 name: iec61131-3-programming-standards
 description: "Concevoir, comparer et standardiser les langages IEC 61131-3 (ST, LD, FBD, SFC) et leurs variantes constructeurs pour automates industriels."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, iec61131-3, structured-text, ladder, fbd, sfc, plc, codesys, tia, logix]
     related_skills: [siemens-scl, rockwell-studio5000, schneider-unity, beckhoff-twincat, omron-sysmac, plcopen-xml]
 ---

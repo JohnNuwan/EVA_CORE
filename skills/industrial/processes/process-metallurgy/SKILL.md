@@ -2,11 +2,11 @@
 name: process-metallurgy
 description: "Utiliser quand l'utilisateur demande d'écrire des algorithmes de régulation thermique (PID), de programmer des fonctions de sécurité machine (SIL/PL), ou de gérer des procédés en métallurgie et industrie lourde."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [metallurgy, heavy-industry, pid, safety-plc, sil, failsafe, alarm-storm, industrial-automation]
     related_skills: [simplify-code, plan]
 ---
@@ -19,7 +19,7 @@ La métallurgie et l'industrie lourde (sidérurgie, cimenteries, fonderies) se c
 1. **La régulation de procédés thermiques complexes :** Utilisation de boucles PID avancées (avec gestion d'Anti-Windup et régulation split-range pour le chauffage/refroidissement) et la gestion de rampes de cuisson.
 2. **La sécurité fonctionnelle (Safety) :** Programmation de fonctions de sécurité conformes aux niveaux de performance **SIL** (Safety Integrity Level) et **PL** (Performance Level) sur des automates de sécurité (Failsafe).
 
-Cette compétence guide l'agent Helios pour écrire des algorithmes de régulation thermique et des logiques de sécurité machine robustes.
+Cette compétence guide l'agent EVA pour écrire des algorithmes de régulation thermique et des logiques de sécurité machine robustes.
 
 ## Quand l'utiliser
 
@@ -41,7 +41,7 @@ Les procédés thermiques (ex: fours de traitement thermique) ont une inertie im
 ### Squelette d'une boucle PID simple en SCL avec Anti-Windup :
 
 ```scl
-FUNCTION "FC_Actemium_PID_Controller" : Real
+FUNCTION "FC_EVA_PID_Controller" : Real
 VERSION : 0.1
    VAR_INPUT
       i_Setpoint : Real;      // Consigne
@@ -100,7 +100,7 @@ BEGIN
    #iq_PrevError := #temp_Error;
    
    // Retourner la valeur calculée
-   #FC_Actemium_PID_Controller := #temp_Output;
+   #FC_EVA_PID_Controller := #temp_Output;
 END_FUNCTION
 ```
 

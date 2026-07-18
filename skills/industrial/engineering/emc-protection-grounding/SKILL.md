@@ -2,11 +2,11 @@
 name: emc-protection-grounding
 description: "Appliquer les règles de Compatibilité Électromagnétique (CEM/EMC), concevoir le réseau de terre (PE, masses HF), le blindage des câbles et sélectionner les filtres et parafoudres."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [emc, grounding, shielding, protection, electrical-noise, industrial-panels, surge-protection, lightning, filter]
     related_skills: [electrical-schematics-eplan, pcb-design-altium, pid-instrumentation]
 ---
@@ -24,7 +24,7 @@ La CEM a pour objectif de garantir que :
 
 Une mauvaise conception CEM se manifeste par des pannes intermittentes difficiles à diagnostiquer (communication réseau perdue aléatoirement, mesure de température erratique, déclenchement intempestif de protections), voire la destruction de composants électroniques.
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié à la conception CEM, à la mise à la terre, au blindage ou à la protection des installations électriques industrielles.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié à la conception CEM, à la mise à la terre, au blindage ou à la protection des installations électriques industrielles.
 
 ---
 

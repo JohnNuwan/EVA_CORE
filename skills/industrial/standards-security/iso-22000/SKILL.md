@@ -2,11 +2,11 @@
 name: iso-22000
 description: "Implémenter et auditer un système de management de la sécurité des denrées alimentaires (SMSDA) conforme à ISO 22000 basé sur la méthodologie HACCP : analyse des dangers, CCP/PRPO, traçabilité des lots, plans de maîtrise sanitaire (PMS), gestion des allergènes."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-22000, food-safety, haccp, agrifood-process, industrial-standards, smsda, ccp, prpo, traceability, allergen-management, hygeine, food-industry]
     related_skills: [process-agrifood, iso-quality, industrial-reporting, lean-manufacturing-vsm]
     difficulty: intermediate

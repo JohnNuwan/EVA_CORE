@@ -2,11 +2,11 @@
 name: prompt-method-least-to-most
 description: "Décomposer un problème complexe du simple au difficile."
 version: 1.0.0
-author: John Nuwan Moncel (adapté par Actemium)
-license: Privée Actemium St-Étienne
+author: John Nuwan Moncel (adapté par EVA)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [prompt-engineering, least-to-most, biblio-ia, methods]
     related_skills: [python-pep8, simplify-code, plan]
 ---

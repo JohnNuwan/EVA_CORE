@@ -2,10 +2,10 @@
 name: ot-it-integration-languages
 description: "Structurer les langages d’intégration OT/IT utilisés en industrie : Python, C#, Java, Go, Rust, Bash, PowerShell, SQL et APIs."
 version: 2.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [industrial, integration, python, csharp, java, go, rust, bash, powershell, sql, api]
     related_skills: [industrial-programming-languages, industrial-protocols, industrial-databases, mes-integration]
 ---

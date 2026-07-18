@@ -1,16 +1,16 @@
 ---
 name: rockwell-l5x-courbon-conventions
-description: "Conventions Courbon/Actemium pour projets Rockwell L5X."
+description: "Conventions Courbon/EVA pour projets Rockwell L5X."
 version: 1.0.0
-author: Actemium
-license: Privée Actemium
+author: EVA
+license: Privée EVA
 metadata:
-  helios:
-    tags: [rockwell, studio-5000, l5x, courbon, actemium, plc]
+  EVA:
+    tags: [rockwell, studio-5000, l5x, courbon, EVA, plc]
     related_skills: [rockwell-l5x-generation]
 ---
 
-# Conventions Rockwell Courbon/Actemium
+# Conventions Rockwell Courbon/EVA
 
 ## Architecture Projet
 
@@ -28,7 +28,7 @@ Projet 1756-L83E v33
 
 ### Étape 0 : Toujours demander les fichiers de référence AVANT de coder
 
-PITFALL CRITIQUE : Ne JAMAIS générer du code Rockwell pour un projet Courbon/Actemium sans avoir d'abord analysé les fichiers L5X existants fournis par les ingénieurs. La première version générée sans référence sera structurellement incorrecte et devra être réécrite.
+PITFALL CRITIQUE : Ne JAMAIS générer du code Rockwell pour un projet Courbon/EVA sans avoir d'abord analysé les fichiers L5X existants fournis par les ingénieurs. La première version générée sans référence sera structurellement incorrecte et devra être réécrite.
 
 **Process validé :**
 1. DEMANDER : \"Avez-vous des fichiers L5X de référence de projets similaires ?\"

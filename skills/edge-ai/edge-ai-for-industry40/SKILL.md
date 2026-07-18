@@ -2,11 +2,11 @@
 name: edge-ai-for-industry40
 description: "Déployer des modèles d'IA embarquée sur des dispositifs Edge pour l'Industrie 4.0 avec TensorFlow Lite, ONNX et exécution locale."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags:
       - edge-ai
       - industrie-4.0

@@ -2,8 +2,8 @@
 name: labview-industrial-test
 description: "Concevoir en LabVIEW pour les bancs de test et la mesure."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows]
 metadata:
   tags: [labview, g-code, daqmx, visa, gpib, instruments, signal-processing, test-benches, fat-sat]

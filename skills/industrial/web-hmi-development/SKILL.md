@@ -2,8 +2,8 @@
 name: web-hmi-development
 description: "Développer des IHMs web industrielles en HTML, CSS et JS."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [windows, linux]
 metadata:
   tags: [web-hmi, html5, css3, javascript, ignition-perspective, wincc-unified, svg, webvisu, websocket]

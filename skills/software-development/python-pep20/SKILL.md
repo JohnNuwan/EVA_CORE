@@ -2,11 +2,11 @@
 name: python-pep20
 description: "Écrire du code idiomatique selon le Zen de Python (PEP 20)."
 version: 1.0.0
-author: Helios Agent (adapté de obra/superpowers)
-license: Privée Actemium St-Étienne
+author: EVA Agent (adapté de obra/superpowers)
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [python, pep20, zen-of-python, clean-code, design-patterns]
     related_skills: [python-pep8, python-pep257, python-pep484, simplify-code]
 ---

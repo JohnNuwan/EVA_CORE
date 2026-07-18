@@ -2,12 +2,12 @@
 name: repository-artifact-hygiene
 description: "Use when creating, moving, or batch-editing many files in a repo so you finish with a clean canonical tree and a verified list of stray artifacts to remove."
 version: 1.0.0
-author: Helios Agent
-license: Privée Actemium St-Étienne
+author: EVA Agent
+license: Privée EVA St-Étienne
 metadata:
-  helios:
+  EVA:
     tags: [repository, hygiene, file-organization, cleanup, verification, artifacts]
-    related_skills: [project-output-organization, helios-agent-skill-authoring, test-driven-development]
+    related_skills: [project-output-organization, EVA-agent-skill-authoring, test-driven-development]
 ---
 
 # Repository Artifact Hygiene

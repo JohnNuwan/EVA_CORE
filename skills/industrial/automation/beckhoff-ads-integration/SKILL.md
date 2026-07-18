@@ -2,8 +2,8 @@
 name: beckhoff-ads-integration
 description: "Générer et intégrer du code Structured Text Beckhoff."
 version: 1.1.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [beckhoff, twincat, ads, plc, structured-text, automation-engineering]
@@ -30,7 +30,7 @@ Les outils de communication directe suivants peuvent être mobilisés :
 ## Guide d'Ingénierie & Patterns de Code TwinCAT
 
 ### 1. Configuration des Routes Réseau ADS
-Pour établir un dialogue entre Helios (ou toute application hôte) et le contrôleur Beckhoff via ADS, les routes doivent être mutuellement déclarées.
+Pour établir un dialogue entre EVA (ou toute application hôte) et le contrôleur Beckhoff via ADS, les routes doivent être mutuellement déclarées.
 * **AMS Net ID de la cible** : C'est l'identifiant du routeur ADS, composé de 6 octets (ex: `192.168.1.100.1.1`).
 * **Port ADS standard** :
   * `851` : Premier runtime PLC de TwinCAT 3.
@@ -41,9 +41,9 @@ Pour établir un dialogue entre Helios (ou toute application hôte) et le contr�
   <TcConfig>
     <RemoteConnections>
       <Route>
-        <Name>HeliosAgent</Name>
-        <Address>192.168.1.50</Address> <!-- IP de la machine Helios -->
-        <NetId>192.168.1.50.1.1</NetId>   <!-- AMS Net ID de la machine Helios -->
+        <Name>EVAAgent</Name>
+        <Address>192.168.1.50</Address> <!-- IP de la machine EVA -->
+        <NetId>192.168.1.50.1.1</NetId>   <!-- AMS Net ID de la machine EVA -->
         <Type>TCP_IP</Type>
       </Route>
     </RemoteConnections>

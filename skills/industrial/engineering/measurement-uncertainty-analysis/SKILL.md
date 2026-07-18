@@ -2,12 +2,12 @@
 name: measurement-uncertainty-analysis
 description: "Calculer les incertitudes de mesure selon le guide GUM (Type A et B, incertitude élargie) et évaluer la capabilité des systèmes de mesure par des études MSA R&R (Répétabilité & Reproductibilité)."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
   tags: [uncertainty-analysis, gum, msa, r-and-r, metrology, statistics, quality-control, measurement-system]
-  helios:
+  EVA:
     related_skills: [industrial-metrology-calibration, systems-engineering-sysml, pcb-design-altium]
 ---
 
@@ -23,7 +23,7 @@ Cette compétence guide l'évaluation statistique rigoureuse de la qualité des 
 
 Ces deux approches sont complémentaires : le GUM calcule l'incertitude d'une mesure spécifique, tandis que le MSA évalue la capabilité globale du *système de mesure* (instrument + opérateur + procédure).
 
-Cette compétence est conçue pour être actionnée par l'agent Helios lorsque l'utilisateur exprime un besoin lié au calcul d'incertitude, à la validation d'un système de mesure, ou à l'interprétation d'études statistiques de mesure.
+Cette compétence est conçue pour être actionnée par l'agent EVA lorsque l'utilisateur exprime un besoin lié au calcul d'incertitude, à la validation d'un système de mesure, ou à l'interprétation d'études statistiques de mesure.
 
 ---
 

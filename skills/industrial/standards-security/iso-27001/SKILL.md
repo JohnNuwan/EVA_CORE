@@ -2,11 +2,11 @@
 name: iso-27001
 description: "Concevoir, documenter et auditer un système de management de la sécurité de l'information (SMSI) conforme à ISO 27001, avec un focus sur la convergence IT/OT : politique de sécurité, analyse de risques, gestion des accès, segmentation réseau, télémaintenance sécurisée."
 version: 2.0.0
-author: Actemium
-license: Privée Actemium St-Étienne
+author: EVA
+license: Privée EVA St-Étienne
 platforms: [linux, macos, windows]
 metadata:
-  helios:
+  EVA:
     tags: [iso-27001, information-security, smsi, cybersecurity, it-ot-convergence, industrial-standards, risk-analysis, access-control, network-segmentation, dmz, pssi]
     related_skills: [cybersecurity-iec62443, ot-security, industrial-networks-ot]
     difficulty: advanced
