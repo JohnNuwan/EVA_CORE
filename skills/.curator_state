@@ -1,0 +1,9 @@
+{
+  "last_report_path": "/home/aza/.hermes/logs/curator/20260717-161939",
+  "last_run_at": "2026-07-17T16:19:39.745139+00:00",
+  "last_run_duration_seconds": 1.008101,
+  "last_run_summary": "auto: no changes; llm: skipped (consolidation off)",
+  "last_run_summary_shown_at": null,
+  "paused": false,
+  "run_count": 1
+}

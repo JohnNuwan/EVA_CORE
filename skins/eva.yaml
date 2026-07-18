@@ -1,0 +1,38 @@
+name: eva
+description: Eva theme - Cortana inspired
+colors:
+  banner_border: "#00BFFF"
+  banner_title: "#00FFFF"
+  banner_accent: "#0099FF"
+  banner_dim: "#4682B4"
+  banner_text: "#E0FFFF"
+  response_border: "#00BFFF"
+branding:
+  agent_name: "Eva"
+  welcome: "Eva is ready"
+  response_label: "  Eva "
+  prompt_symbol: "✦"
+spinner:
+  waiting_faces: ["(◉)", "(◎)", "(◕)"]
+  thinking_faces: ["(◉)", "(✦)", "(◕)"]
+  thinking_verbs: ["connecting", "synchronizing", "processing"]
+  wings:
+    - ["⟦✦", "✦⟧"]
+    - ["⟦◈", "◈⟧"]
+banner_hero: |
+  [#00BFFF]⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣷⣶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀[/]
+  [#00BFFF]⠀⠀⠀⠀⠀⢀⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀[/]
+  [#00FFFF]⠀⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀[/]
+  [#00FFFF]⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀[/]
+  [#00BFFF]⣼⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⠀⠈⠉⠛⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧[/]
+  [#00FFFF]⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿[/]
+  [#0099FF]⣿⣿⣿⣿⠃⠀⠀⠀⣠⣶⣿⣿⣿⣿⣷⣦⡀⠀⠀⠸⣿⣿⣿⣿⣿⣿⣿⣿[/]
+  [#00BFFF]⣿⣿⣿⡇⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿[/]
+  [#00FFFF]⣿⣿⣿⡇⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿[/]
+  [#0099FF]⣿⣿⣿⣇⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿[/]
+  [#00BFFF]⢿⣿⣿⣿⣆⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⡿⠋⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⡿[/]
+  [#00FFFF]⠸⣿⣿⣿⣿⣦⡀⠀⠀⠈⠙⠛⠛⠋⠁⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⠇[/]
+  [#0099FF]⠀⠹⣿⣿⣿⣿⣿⣷⣤⣀⣀⣀⣀⣀⣀⣤⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀[/]
+  [#00BFFF]⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⠀⠀[/]
+  [#00FFFF]⠀⠀⠀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀⠀⠀⠀[/]
+  [#0099FF]⠀⠀⠀⠀⠀⠀⠈⠙⠛⠿⣿⣿⣿⣿⣿⣿⠿⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀[/]

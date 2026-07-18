@@ -1,0 +1,171 @@
+# The Hive — Stack IA multi-services
+# Machine: 2x RTX 3090 (24GB each), 126GB RAM, 32 CPUs
+#
+# GPU 0: Entraînement (processus direct, hors Docker)
+# GPU 1: Services IA (un modèle à la fois sauf small+uncensored)
+#
+# Modèles disponibles (profils Docker Compose):
+#   --profile big         Qwen2.5-32B-Instruct AWQ (~18GB) — tâches complexes
+#   --profile uncensored  dolphin-2.9-llama3-8b (~6GB) — non censuré
+#   --profile small       Qwen2.5-7B-Instruct AWQ (~5GB) — petites tâches
+#   --profile comfyui     Génération d'images (Flux)
+#
+# Usage:
+#   docker compose up -d portainer                              # Manager UI
+#   docker compose --profile small up -d vllm-small             # Petit modèle
+#   docker compose --profile big up -d vllm-big                 # Gros modèle
+#   docker compose --profile uncensored up -d vllm-uncensored   # Non censuré
+#   docker compose --profile comfyui up -d comfyui              # Images
+#   docker compose --profile big down                           # Éteindre
+#   docker compose ps                                           # État
+#
+# Ports (adapter selon les ports déjà occupés sur la machine):
+#   Portainer:  http://localhost:9443
+#   vLLM big:   http://localhost:8001/v1
+#   vLLM small: http://localhost:8002/v1
+#   vLLM uncen: http://localhost:8003/v1
+#   ComfyUI:    http://localhost:8188
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9443:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - hive
+
+  vllm-big:
+    image: vllm/vllm-openai:v0.8.4
+    container_name: vllm-big
+    restart: unless-stopped
+    profiles: ["big"]
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=1
+      - HF_TOKEN=${HF_TOKEN:-}
+    ports:
+      - "8001:8000"
+    volumes:
+      - /home/aza/.cache/huggingface:/root/.cache/huggingface
+    command: >
+      --model Qwen/Qwen2.5-32B-Instruct-AWQ
+      --quantization awq
+      --gpu-memory-utilization 0.80
+      --max-model-len 8192
+      --tensor-parallel-size 1
+      --host 0.0.0.0
+      --port 8000
+      --trust-remote-code
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    networks:
+      - hive
+
+  vllm-small:
+    image: vllm/vllm-openai:v0.8.4
+    container_name: vllm-small
+    restart: unless-stopped
+    profiles: ["small"]
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=1
+      - HF_TOKEN=${HF_TOKEN:-}
+    ports:
+      - "8002:8000"
+    volumes:
+      - /home/aza/.cache/huggingface:/root/.cache/huggingface
+    command: >
+      --model Qwen/Qwen2.5-7B-Instruct-AWQ
+      --quantization awq
+      --gpu-memory-utilization 0.35
+      --max-model-len 8192
+      --tensor-parallel-size 1
+      --host 0.0.0.0
+      --port 8000
+      --trust-remote-code
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    networks:
+      - hive
+
+  vllm-uncensored:
+    image: vllm/vllm-openai:v0.8.4
+    container_name: vllm-uncensored
+    restart: unless-stopped
+    profiles: ["uncensored"]
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=1
+      - HF_TOKEN=${HF_TOKEN:-}
+    ports:
+      - "8003:8000"
+    volumes:
+      - /home/aza/.cache/huggingface:/root/.cache/huggingface
+    command: >
+      --model cognitivecomputations/dolphin-2.9-llama3-8b
+      --gpu-memory-utilization 0.35
+      --max-model-len 8192
+      --tensor-parallel-size 1
+      --host 0.0.0.0
+      --port 8000
+      --trust-remote-code
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    networks:
+      - hive
+
+  comfyui:
+    image: yanwk/comfyui-boot:latest
+    container_name: comfyui
+    restart: unless-stopped
+    profiles: ["comfyui"]
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=1
+    ports:
+      - "8188:8188"
+    volumes:
+      - /home/aza/ComfyUI/models:/root/ComfyUI/models
+      - /home/aza/ComfyUI/output:/root/ComfyUI/output
+      - /home/aza/ComfyUI/input:/root/ComfyUI/input
+      - /home/aza/ComfyUI/custom_nodes:/root/ComfyUI/custom_nodes
+    command: >
+      --listen 0.0.0.0
+      --port 8188
+      --gpu-device 1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["1"]
+              capabilities: [gpu]
+    networks:
+      - hive
+
+volumes:
+  portainer_data:
+
+networks:
+  hive:
+    driver: bridge
