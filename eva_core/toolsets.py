@@ -77,6 +77,9 @@ _HERMES_CORE_TOOLS = [
     "kanban_unblock",
     # Computer use (macOS, gated on cua-driver being installed via check_fn)
     "computer_use",
+    # Finance and trading capabilities
+    "finance_analyse_technique",
+    "finance_execution_ordres",
 ]
 
 # Webhook events may originate from untrusted third-party content (for example,
@@ -93,6 +96,11 @@ _HERMES_WEBHOOK_SAFE_TOOLS = [
 # Core toolset definitions
 # These can include individual tools or reference other toolsets
 TOOLSETS = {
+    "finance": {
+        "description": "Outils d'analyse technique et d'exécution de trading pour MetaTrader 5",
+        "tools": ["finance_analyse_technique", "finance_execution_ordres"],
+        "includes": []
+    },
     # Basic toolsets - individual tool categories
     "web": {
         "description": "Web research and content extraction tools",
