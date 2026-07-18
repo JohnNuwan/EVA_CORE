@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.1",
+  "device_type": "motor",
+  "name": "Device01",
+  "output_dir": "./generated",
+  "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+  "io": {},
+  "alarms": [],
+  "permissives": [],
+  "timers": {},
+  "units": {},
+  "scada": {
+    "platform": "ignition",
+    "provider": "default",
+    "tag_root": "AreaA/Device01",
+    "cmd_path": "AreaA/Device01/Cmd",
+    "sts_path": "AreaA/Device01/Sts",
+    "alm_path": "AreaA/Device01/Alm"
+  },
+  "mes": {
+    "equipment_id": "DEVICE01",
+    "class": "motor",
+    "line": "LineA"
+  },
+  "safety": {
+    "enabled": false,
+    "zone": "ZONE_01",
+    "plr": "PLd",
+    "sil": "SIL1",
+    "sto": false,
+    "ss1": false,
+    "sls": false,
+    "reset_required": true
+  },
+  "packml": {
+    "enabled": false,
+    "mode": "basic",
+    "state_model": "packml",
+    "unit_mode": "production"
+  }
+}

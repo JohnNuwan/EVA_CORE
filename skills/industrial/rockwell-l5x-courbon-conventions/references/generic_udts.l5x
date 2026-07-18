@@ -1,0 +1,146 @@
+<![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="UDT_GEN_Types" TargetType="Project">
+  <Controller UseAsFolder="true">
+    <ProcessorType Vendor="1" ProductType="14" ProductCode="66" MajorRev="33" MinorRev="11">1756-L83E</ProcessorType>
+  </Controller>
+
+  <DataTypes>
+
+    <!-- ============================================================ -->
+    <!-- GENERIC FCT INTERFACE                                        -->
+    <!-- ============================================================ -->
+    <DataType Name="UDT_GEN_FCT_CMD_BOOL" Family="" Class="User">
+      <Members>
+        <Member Name="START" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="STOP" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ABORT" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="RESET" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="HOLD" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="RESTART" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="SPARE1" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="SPARE2" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_CMD" Family="" Class="User">
+      <Members>
+        <Member Name="W" DataType="UDT_GEN_FCT_CMD_BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_STA_BOOL" Family="" Class="User">
+      <Members>
+        <Member Name="RUNNING" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="COMPLETE" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="FAILURE" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ABORTED" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="IDLE" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="HELD" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="STOPPING" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="STARTING" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="AUTO" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ALARMED" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="INHIBITED" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="PROD" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="CLEAN" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_STA" Family="" Class="User">
+      <Members>
+        <Member Name="W" DataType="UDT_GEN_FCT_STA_BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_WRK_BOOL" Family="" Class="User">
+      <Members>
+        <Member Name="ASK_START" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ASK_STOP" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ASK_ABORT" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ASK_RESET" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ASK_HOLD" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ASK_RESTART" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_WRK" Family="" Class="User">
+      <Members>
+        <Member Name="W" DataType="UDT_GEN_FCT_WRK_BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT_CONFIG" Family="" Class="User">
+      <Members>
+        <Member Name="ID_CONFIG" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="MODE" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="VERSION" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="PROD_RATE" DataType="REAL" Dimension="0" Radix="Float" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_FCT" Family="" Class="User">
+      <Description>Generic function interface - mandatory in every FCT</Description>
+      <Members>
+        <Member Name="ID_FCT" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="CMD" DataType="UDT_GEN_FCT_CMD" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="STA" DataType="UDT_GEN_FCT_STA" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="WRK" DataType="UDT_GEN_FCT_WRK" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="CFG" DataType="UDT_GEN_FCT_CONFIG" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <!-- ============================================================ -->
+    <!-- PLC / SYSTEM UDTs                                            -->
+    <!-- ============================================================ -->
+    <DataType Name="UDT_GEN_PLC_TASK_EXC" Family="" Class="User">
+      <Members>
+        <Member Name="FCT_TOTAL" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="NB_EM_TOTAL" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="NB_EM_RUNNING" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="NB_EM_ALARMED" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="NB_EM_FAILURE" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="SYN_PLC_MODE_AUTO" DataType="BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_PLC_TASK" Family="" Class="User">
+      <Members>
+        <Member Name="EXC" DataType="UDT_GEN_PLC_TASK_EXC" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_GEN_PLC_CONFIG" Family="" Class="User">
+      <Members>
+        <Member Name="PLC_ID" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="VERSION" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="PROJECT_NAME" DataType="STRING" Dimension="0" Radix="Null" Hidden="false"/>
+        <Member Name="FCT_COUNT" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <!-- ============================================================ -->
+    <!-- BATCH MANAGEMENT UDTs                                        -->
+    <!-- ============================================================ -->
+    <DataType Name="UDT_BATCH_MGT_FROM_FCT" Family="" Class="User">
+      <Members>
+        <Member Name="STEP" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="NB_RECIPE" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ID_BATCH" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ID_PRODUCT" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="BATCH_START" DataType="BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="BATCH_END" DataType="BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+    <DataType Name="UDT_BATCH_MGT_TO_FCT" Family="" Class="User">
+      <Members>
+        <Member Name="ID_BATCH" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="ID_PRODUCT" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="STEP" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false"/>
+        <Member Name="LAUNCH" DataType="BOOL" Dimension="0" Radix="Decimal" Hidden="false"/>
+      </Members>
+    </DataType>
+
+  </DataTypes>
+</RSLogix5000Content>
+]]>

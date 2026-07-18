@@ -1,0 +1,19 @@
+# Catalog entry for Beckhoff TwinCAT ADS MCP Server.
+manifest_version: 1
+
+name: beckhoff-ads-driver
+description: Bridge de communication direct TwinCAT ADS pour automates Beckhoff via pyads.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-beckhoff-ads-driver/mcp_server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Pour utiliser ce serveur MCP, assurez-vous que 'pyads' et 'mcp' sont installés :
+    pip install pyads mcp

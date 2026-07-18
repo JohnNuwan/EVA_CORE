@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.1",
+  "output_dir": "./generated_batch",
+  "equipment": [
+    {
+      "device_type": "motor",
+      "name": "Motor01",
+      "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+      "io": {"start_cmd": "DI_Start", "stop_cmd": "DI_Stop", "run_fb": "DI_RunFb", "fault_fb": "DI_FaultFb"},
+      "alarms": ["StartTimeout", "ExternalFault"],
+      "permissives": ["EStopOk", "ThermalOk"],
+      "timers": {"start_timeout_ms": 3000},
+      "units": {"pv": "status"},
+      "scada": {"platform": "ignition", "provider": "default", "tag_root": "AreaA/Motor01", "cmd_path": "AreaA/Motor01/Cmd", "sts_path": "AreaA/Motor01/Sts"},
+      "mes": {"equipment_id": "MOTOR01", "class": "motor", "line": "LineA"},
+      "safety": {"enabled": true, "zone": "ZONE_M01", "plr": "PLd", "sil": "SIL1", "sto": true, "ss1": false, "sls": false, "reset_required": true},
+      "packml": {"enabled": true, "mode": "basic", "state_model": "packml", "unit_mode": "production"}
+    },
+    {
+      "device_type": "valve",
+      "name": "Valve01",
+      "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+      "io": {"open_cmd": "DI_Open", "close_cmd": "DI_Close", "open_fb": "DI_OpenFb", "close_fb": "DI_CloseFb"},
+      "alarms": ["TravelTimeout", "Discordance"],
+      "permissives": ["AirPressureOk"],
+      "timers": {"travel_timeout_ms": 5000},
+      "units": {"pv": "%"},
+      "scada": {"platform": "ignition", "provider": "default", "tag_root": "AreaA/Valve01", "cmd_path": "AreaA/Valve01/Cmd", "sts_path": "AreaA/Valve01/Sts"},
+      "mes": {"equipment_id": "VALVE01", "class": "valve", "line": "LineA"},
+      "safety": {"enabled": true, "zone": "ZONE_V01", "plr": "PLe", "sil": "SIL2", "sto": false, "ss1": false, "sls": false, "reset_required": true},
+      "packml": {"enabled": false, "mode": "basic", "state_model": "packml", "unit_mode": "production"}
+    },
+    {
+      "device_type": "analog",
+      "name": "AIT101",
+      "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+      "io": {"raw_value": "AI_Raw_101"},
+      "alarms": ["HiHi", "Hi", "Lo", "LoLo", "BadQuality"],
+      "permissives": ["InstrumentHealthy"],
+      "timers": {"filter_ms": 250},
+      "units": {"pv": "bar"},
+      "scada": {"platform": "ignition", "provider": "default", "tag_root": "AreaA/AIT101", "pv_path": "AreaA/AIT101/Pv", "alm_path": "AreaA/AIT101/Alm"},
+      "mes": {"equipment_id": "AIT101", "class": "analog", "line": "LineA"},
+      "safety": {"enabled": false, "zone": "ZONE_AI01", "plr": "PLc", "sil": "SIL1", "sto": false, "ss1": false, "sls": false, "reset_required": false},
+      "packml": {"enabled": false, "mode": "basic", "state_model": "packml", "unit_mode": "production"}
+    }
+  ]
+}

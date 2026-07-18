@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabarit Industriel d'Élite - Actemium Premium Theme</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Utilisé à des fins de prototypage / production hybride) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        industrial: {
+                            black: '#08090a',       /* Fond principal profond (Linear Style) */
+                            panel: '#0f1011',       /* Arrière-plan de panneau de contrôle */
+                            surface: '#191a1b',     /* Élévation 3D de cartes et widgets */
+                            indigo: '#5e6ad2',      /* Accentuation primaire OT/IT */
+                            violet: '#7170ff',      /* Effet actif et laser */
+                            orange: '#f97316',      /* Accentuation secondaire (Sécurité / Matériels) */
+                            textPrimary: '#f7f8f8', /* Blanc doux sans fatigue oculaire */
+                            textSecondary: '#d0d6e0',/* Gris d'interfaçage standard */
+                            textMuted: '#8a8f98',   /* Commentaires techniques / Métadonnées */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-feature-settings: "cv01", "ss03"; /* Forçage des ligatures géométriques Inter */
+            background-color: #08090a;
+            color: #d0d6e0;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- 1. INTRO HERO : ACCENTS DE COULEURS CHAUDES VS GRADIANT DE GLOW SOMBRE -->
+    <section class="relative py-20 overflow-hidden bg-gradient-to-b from-[#0a0f1d] to-[#08090a] border-b border-white/[0.04]">
+        <!-- Glow discret en arrière-plan d'ingénierie -->
+        <div class="absolute top-0 right-1/4 w-[350px] h-[350px] bg-industrial-indigo/15 rounded-full blur-[110px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[90px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <!-- Badge Actemium de confiance industriel -->
+            <span class="inline-flex items-center space-x-2 text-xs text-industrial-orange font-mono border border-orange-500/30 bg-orange-500/5 px-4 py-1.5 rounded-full mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-industrial-orange animate-pulse"></span>
+                <span>SPÉCIFICATION CONFORME / CONTRÔLE DE FIABILITÉ</span>
+            </span>
+            <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-white mb-6">
+                Template d'Affichage pour <span class="bg-gradient-to-r from-industrial-orange via-industrial-violet to-industrial-indigo bg-clip-text text-transparent">Systèmes Complexes et OT/IT</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- 2. DIAGRAMME VECTORIEL OT-IT SÉCURISÉ (ISA/IEC 62443) -->
+    <section class="py-16 border-b border-white/[0.03]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-xs font-semibold tracking-widest text-industrial-violet font-mono uppercase mb-4 text-center">EXEMPLE : USINE CONNECTÉE AVEC SURVEILLANCE HYBRIDE</h2>
+            
+            <div class="p-6 rounded-2xl bg-gradient-to-b from-[#0e1017] to-[#08090a] border border-white/[0.08] shadow-2xl relative">
+                <svg viewBox="0 0 1000 320" class="w-full h-auto block select-none font-mono">
+                    <defs>
+                        <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#5e6ad2" />
+                        </marker>
+                        <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#10b981" />
+                        </marker>
+                        <pattern id="diag-grid-pat" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1e293b" stroke-width="0.3"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#diag-grid-pat)" rx="8" />
+
+                    <!-- NIVEAUX ZONE SCADA / CLOUD (N3) -->
+                    <rect x="40" y="30" width="920" height="80" rx="8" fill="rgba(8, 51, 68, 0.1)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3,3" />
+                    <text x="55" y="50" fill="#22d3ee" font-size="10" font-weight="700">ZONE EXPLOITATION (NIVEAU 3)</text>
+                    <rect x="100" y="60" width="160" height="36" rx="4" fill="#0f172a" stroke="#22d3ee" stroke-width="1.5" />
+                    <text x="180" y="82" fill="white" font-size="11" font-weight="600" text-anchor="middle">Ignition / WinCC</text>
+
+                    <!-- NIVEAUX AUTOMATES & AUTOMATISME (N2) -->
+                    <rect x="40" y="140" width="920" height="80" rx="8" fill="rgba(6, 78, 59, 0.1)" stroke="#34d399" stroke-width="1" stroke-dasharray="3,3" />
+                    <text x="55" y="160" fill="#34d399" font-size="10" font-weight="700">ZONE GESTION ET AUTOMATISME (NIVEAU 2)</text>
+                    <rect x="100" y="170" width="160" height="36" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1.5" />
+                    <text x="180" y="192" fill="white" font-size="11" font-weight="600" text-anchor="middle">PLC (SCL / ST / L5X)</text>
+
+                    <!-- LIAISONS ET CAPTEURS TERRAIN (N1) -->
+                    <rect x="40" y="250" width="920" height="50" rx="8" fill="transparent" stroke="#fbbf24" stroke-width="0.8" stroke-dasharray="4,4" />
+                    <text x="55" y="270" fill="#fbbf24" font-size="10" font-weight="700">CAPTEURS / ACTUATEURS (N1)</text>
+
+                    <!-- Flèches de conduits sécurisés -->
+                    <line x1="180" y1="96" x2="180" y2="162" stroke="#10b981" stroke-width="1.2" marker-end="url(#arrow-green)" />
+                    <text x="190" y="132" fill="#8a8f98" font-size="9">PROFINET / ADS</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CELLULE ROBOTIQUE (TRAJECTOIRE & PROTECTION LASER ISO 10218) -->
+    <section class="py-16 bg-[#0b0c10]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-xs font-semibold tracking-widest text-industrial-orange font-mono uppercase mb-4 text-center">EXEMPLE : SIMULATION ROBOTIQUE SPLINE & ESCURTEUR DE PROTECTION IMATION</h2>
+            <div class="p-6 rounded-2xl bg-gradient-to-b from-[#0f1011] to-[#08090a] border border-white/[0.05] shadow-xl">
+                <svg viewBox="0 0 900 240" class="w-full h-auto block select-none">
+                    <!-- Champ laser de sécurité -->
+                    <circle cx="450" cy="120" r="90" fill="rgba(239, 68, 68, 0.02)" stroke="#ef4444" stroke-dasharray="4,3" stroke-width="1" />
+                    <circle cx="450" cy="120" r="60" fill="rgba(249, 115, 22, 0.02)" stroke="#f97316" stroke-dasharray="3,2" stroke-width="1" />
+                    
+                    <!-- Base physique et bras articulé -->
+                    <rect x="430" y="110" width="40" height="20" rx="2" fill="#191a1b" stroke="#8a8f98" stroke-width="1.2" />
+                    <line x1="450" y1="120" x2="390" y2="80" stroke="#f97316" stroke-width="4" stroke-linecap="round" />
+                    <circle cx="390" cy="80" r="5" fill="white" stroke="#f97316" stroke-width="1" />
+                    
+                    <text x="450" y="225" fill="#ef4444" font-size="10" font-family="'JetBrains Mono', monospace" text-anchor="middle">ZONE DE SÉCURITÉ INFRAROUGE ACTIVE (SLS)</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

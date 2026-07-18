@@ -1,0 +1,19 @@
+# Catalog entry for Rockwell EtherNet/IP (CIP) MCP Server.
+manifest_version: 1
+
+name: rockwell-driver
+description: Bridge de communication direct EtherNet/IP (CIP) pour automates Rockwell Automation via pycomm3.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-rockwell-driver/mcp_server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Pour utiliser ce serveur MCP, assurez-vous que 'pycomm3' et 'mcp' sont installés dans votre environnement :
+    pip install pycomm3 mcp

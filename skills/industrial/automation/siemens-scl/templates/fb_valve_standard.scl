@@ -1,0 +1,26 @@
+# Template FB vanne Siemens
+
+FUNCTION_BLOCK "FB_ValveStandard"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+VAR_INPUT
+    i_OpenCmd : Bool;
+    i_CloseCmd : Bool;
+    i_OpenFb : Bool;
+    i_CloseFb : Bool;
+END_VAR
+VAR_OUTPUT
+    q_OpenCmd : Bool;
+    q_Fault : Bool;
+END_VAR
+BEGIN
+    IF #i_OpenCmd AND NOT #i_CloseCmd THEN
+        #q_OpenCmd := TRUE;
+    ELSIF #i_CloseCmd THEN
+        #q_OpenCmd := FALSE;
+    END_IF;
+
+    IF (#q_OpenCmd AND NOT #i_OpenFb AND #i_CloseFb) OR (NOT #q_OpenCmd AND NOT #i_CloseFb AND #i_OpenFb) THEN
+        #q_Fault := TRUE;
+    END_IF;
+END_FUNCTION_BLOCK

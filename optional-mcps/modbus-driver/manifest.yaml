@@ -1,0 +1,19 @@
+# Catalog entry for Modbus TCP/RTU Client MCP Server.
+manifest_version: 1
+
+name: modbus-driver
+description: Bridge de communication universel Modbus TCP pour serveurs et automates via pymodbus.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-modbus-driver/mcp_server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Pour utiliser ce serveur MCP, assurez-vous que 'pymodbus' et 'mcp' sont installés :
+    pip install pymodbus mcp

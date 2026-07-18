@@ -1,0 +1,19 @@
+# Template VAL 3 Stäubli pick and place
+
+program start()
+begin
+  wait(diPLCStart == true)
+  doRobotBusy := true
+  movej(jHome, tTool, mSpeed)
+  movej(appro(pPickPos,{0,0,-100,0,0,0}), tTool, mSpeed)
+  movel(pPickPos, tTool, mSpeed)
+  waitEndMove()
+  doCloseGripper := true
+  wait(diGripperClosed == true)
+  movej(appro(pDropPos,{0,0,-100,0,0,0}), tTool, mSpeed)
+  movel(pDropPos, tTool, mSpeed)
+  waitEndMove()
+  doCloseGripper := false
+  doRobotBusy := false
+  doRobotDone := true
+end

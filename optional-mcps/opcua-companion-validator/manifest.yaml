@@ -1,0 +1,20 @@
+# Catalog entry for OPC UA Companion Validator MCP Server.
+manifest_version: 1
+
+name: opcua-companion-validator
+description: Lightweight validator for OPC UA UANodeSet exports, namespace mappings, and companion-model structure checks.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-opcua-companion-validator/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le validateur OPC UA Companion s'exécute localement via Python.
+  Installer la dépendance MCP si nécessaire :
+    pip install mcp

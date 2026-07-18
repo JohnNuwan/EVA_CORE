@@ -1,0 +1,14 @@
+manifest_version: 1
+
+name: cm-tag-generator
+description: Génération automatique de Control Modules depuis des listes d'E/S Excel et chatbot RAG industriel.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/cm-tag-generator/app/mcp_server.py"
+
+auth:
+  type: none

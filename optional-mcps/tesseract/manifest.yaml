@@ -1,0 +1,21 @@
+# Catalog entry for Tesseract OCR MCP Server.
+manifest_version: 1
+
+name: tesseract
+description: Optical Character Recognition (ICP) bridge using Tesseract to read text from P&ID images.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "optional-mcps/tesseract/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur Tesseract utilise pytesseract et pillow.
+  Installez-les dans l'environnement virtuel avec :
+    pip install mcp pytesseract pillow
+  Note : L'exécutable Tesseract-OCR doit être installé sur le système.

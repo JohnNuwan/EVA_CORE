@@ -1,0 +1,19 @@
+# Template KRL KUKA pick and place
+
+DEF PickPlace( )
+  INI
+  $TOOL = TOOL_DATA[1]
+  $BASE = BASE_DATA[1]
+  WAIT FOR $IN[1]
+  $OUT[1] = TRUE
+  PTP xHome
+  PTP xApproachPick
+  LIN xPick
+  PULSE($OUT[2], TRUE, 0.5)
+  WAIT FOR $IN[2]
+  PTP xApproachDrop
+  LIN xDrop
+  PULSE($OUT[3], TRUE, 0.5)
+  $OUT[1] = FALSE
+  $OUT[4] = TRUE
+END

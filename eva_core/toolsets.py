@@ -80,6 +80,19 @@ _HERMES_CORE_TOOLS = [
     # Finance and trading capabilities
     "finance_analyse_technique",
     "finance_execution_ordres",
+    # Industrial automation and connectivity capabilities
+    "opcua_browse", "opcua_read", "opcua_write",
+    "plc_read", "plc_write", "plc_probe",
+    "plc_code_list_templates", "plc_code_generate",
+    "l5x_editor_analyze", "l5x_editor_validate", "l5x_editor_rename_tags",
+    "time_series_analyze", "time_series_anomaly_stl",
+    "ucp_shopping",
+    "industrial_connectivity_probe_target", "industrial_connectivity_probe_network", "industrial_connectivity_analyze_pcap",
+    "safety_calculate_sil", "safety_optimize_pti",
+    "query_industrial_rag",
+    "automation_rule_evaluate", "automation_rule_add", "automation_rule_list",
+    "doc_intel_extract_tables",
+    "mcp_list_servers",
 ]
 
 # Webhook events may originate from untrusted third-party content (for example,
@@ -99,6 +112,24 @@ TOOLSETS = {
     "finance": {
         "description": "Outils d'analyse technique et d'exécution de trading pour MetaTrader 5",
         "tools": ["finance_analyse_technique", "finance_execution_ordres"],
+        "includes": []
+    },
+    "industrial": {
+        "description": "Outils d'automatisation industrielle, connectivité PLC, OPC UA, analyse temporelle et PCAP",
+        "tools": [
+            "opcua_browse", "opcua_read", "opcua_write",
+            "plc_read", "plc_write", "plc_probe",
+            "plc_code_list_templates", "plc_code_generate",
+            "l5x_editor_analyze", "l5x_editor_validate", "l5x_editor_rename_tags",
+            "time_series_analyze", "time_series_anomaly_stl",
+            "ucp_shopping",
+            "industrial_connectivity_probe_target", "industrial_connectivity_probe_network", "industrial_connectivity_analyze_pcap",
+            "safety_calculate_sil", "safety_optimize_pti",
+            "query_industrial_rag",
+            "automation_rule_evaluate", "automation_rule_add", "automation_rule_list",
+            "doc_intel_extract_tables",
+            "mcp_list_servers"
+        ],
         "includes": []
     },
     # Basic toolsets - individual tool categories

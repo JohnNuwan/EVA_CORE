@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.1",
+  "device_type": "analog",
+  "name": "AIT101",
+  "output_dir": "./generated_analog",
+  "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+  "io": {
+    "raw_value": "AI_Raw_101"
+  },
+  "alarms": ["HiHi", "Hi", "Lo", "LoLo", "BadQuality"],
+  "permissives": ["InstrumentHealthy"],
+  "timers": {
+    "filter_ms": 250
+  },
+  "units": {
+    "pv": "bar"
+  },
+  "scada": {
+    "platform": "ignition",
+    "provider": "default",
+    "tag_root": "AreaA/AIT101",
+    "pv_path": "AreaA/AIT101/Pv",
+    "alm_path": "AreaA/AIT101/Alm"
+  },
+  "mes": {
+    "equipment_id": "AIT101",
+    "class": "analog",
+    "line": "LineA"
+  },
+  "safety": {
+    "enabled": false,
+    "zone": "ZONE_AI01",
+    "plr": "PLc",
+    "sil": "SIL1",
+    "sto": false,
+    "ss1": false,
+    "sls": false,
+    "reset_required": false
+  },
+  "packml": {
+    "enabled": false,
+    "mode": "basic",
+    "state_model": "packml",
+    "unit_mode": "production"
+  }
+}

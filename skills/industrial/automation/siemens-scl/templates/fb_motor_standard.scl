@@ -1,0 +1,41 @@
+FUNCTION_BLOCK "FB_MotorStandard"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+VAR_INPUT
+    i_Start : Bool;
+    i_Stop : Bool;
+    i_Reset : Bool;
+    i_PermissiveOk : Bool;
+    i_RunFb : Bool;
+    i_FaultFb : Bool;
+END_VAR
+VAR_OUTPUT
+    q_RunCmd : Bool;
+    q_Fault : Bool;
+    q_Ready : Bool;
+END_VAR
+VAR
+    stat_RunReq : Bool;
+    stat_StartTon : TON_TIME;
+END_VAR
+BEGIN
+    IF #i_Reset THEN
+        #q_Fault := FALSE;
+        #stat_RunReq := FALSE;
+    END_IF;
+
+    IF #i_Start AND #i_PermissiveOk AND NOT #q_Fault THEN
+        #stat_RunReq := TRUE;
+    ELSIF #i_Stop OR NOT #i_PermissiveOk THEN
+        #stat_RunReq := FALSE;
+    END_IF;
+
+    #stat_StartTon(IN := #stat_RunReq AND NOT #i_RunFb, PT := T#3s);
+    IF #stat_StartTon.Q OR #i_FaultFb THEN
+        #q_Fault := TRUE;
+        #stat_RunReq := FALSE;
+    END_IF;
+
+    #q_RunCmd := #stat_RunReq;
+    #q_Ready := #i_PermissiveOk AND NOT #q_Fault;
+END_FUNCTION_BLOCK

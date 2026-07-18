@@ -1,0 +1,20 @@
+# Catalog entry for Document Tag Extractor MCP Server.
+manifest_version: 1
+
+name: document-tag-extractor
+description: Extract, normalize, and compare industrial tag candidates from CSV, text, Markdown, XML, or JSON exports.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-document-tag-extractor/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur d'extraction documentaire s'exécute localement via Python.
+  Installer la dépendance MCP si nécessaire :
+    pip install mcp

@@ -1,0 +1,17 @@
+# Template TP Fanuc pick and place
+
+/PROG PICK_PLACE_STD
+/LINE
+  1: WAIT DI[1:PLC_Start]=ON ;
+  2: DO[1:Robot_Busy]=ON ;
+  3: J P[1:Home] 100% FINE ;
+  4: J PR[1:PickApproach] 100% CNT50 ;
+  5: L PR[2:Pick] 250mm/sec FINE ;
+  6: DO[2:CloseGripper]=ON ;
+  7: WAIT RI[1:GripperClosed]=ON ;
+  8: J PR[3:DropApproach] 100% CNT50 ;
+  9: L PR[4:Drop] 250mm/sec FINE ;
+ 10: DO[2:CloseGripper]=OFF ;
+ 11: DO[1:Robot_Busy]=OFF ;
+ 12: DO[3:Robot_Done]=ON ;
+/END

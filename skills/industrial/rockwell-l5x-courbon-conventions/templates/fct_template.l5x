@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="33.00" TargetName="FCT_XX_NAME" TargetType="Program">
+  <Controller UseAsFolder="true">
+    <ProcessorType Vendor="1" ProductType="14" ProductCode="66" MajorRev="33" MinorRev="11">1756-L83E</ProcessorType>
+    <RedundancyInfo RedundancyEnabled="false"/>
+    <SafetyInfo SafetyEnabled="false"/>
+    <ShareUnusedTags>true</ShareUnusedTags>
+    <TagLimitPercentage>90.0</TagLimitPercentage>
+  </Controller>
+
+  <!-- ============================================================ -->
+  <!-- GENERIC & EM-SPECIFIC UDTs                                   -->
+  <!-- ============================================================ -->
+  <DataTypes>
+    <!-- UDT_GEN_FCT, UDT_BATCH_MGT_FROM_FCT, UDT_BATCH_MGT_TO_FCT -->
+    <!-- UDT_GEN_PLC_TASK, UDT_GEN_PLC_CONFIG                       -->
+    <!-- UDT_EM_XXX, UDT_EM_XXX_CMD, UDT_EM_XXX_SETPOINT            -->
+    <!-- UDT_EM_XXX_STA, UDT_EM_XXX_STA_BOOL, UDT_EM_XXX_REPORT     -->
+    <!-- UDT_RECIPE_XXX, UDT_PARAM_XXX                               -->
+  </DataTypes>
+
+  <!-- ============================================================ -->
+  <!-- PROGRAM                                                       -->
+  <!-- ============================================================ -->
+  <Programs>
+    <Program Name="FCT_XX_NAME">
+
+      <!-- ===== PROGRAM TAGS ===== -->
+      <Tags>
+        <Tag Name="IO_FCT" DataType="UDT_GEN_FCT" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="IO_BATCH_MGT_FROM_FCT" DataType="UDT_BATCH_MGT_FROM_FCT" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="IO_BATCH_MGT_TO_FCT" DataType="UDT_BATCH_MGT_TO_FCT" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="PLC_TASK_EXC" DataType="UDT_GEN_PLC_TASK" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="PLC_CONFIG" DataType="UDT_GEN_PLC_CONFIG" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="L_CURRENT_STEP" DataType="DINT" Constant="false" ExternalAccess="Read/Write">
+          <Data Format="Dec">0</Data>
+        </Tag>
+        <Tag Name="L_EM_XXX" DataType="UDT_EM_XXX" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="IO_RECIPE" DataType="UDT_RECIPE_XXX" Constant="false" ExternalAccess="Read/Write"/>
+        <Tag Name="PARAM" DataType="UDT_PARAM_XXX" Constant="false" ExternalAccess="Read/Write"/>
+        <!-- I/O Synoptic tags: I_SYN_XXX -->
+      </Tags>
+
+      <!-- ===== ROUTINES ===== -->
+      <Routines>
+
+        <!-- ROUTINE 1: Main (SFC) -->
+        <Routine Name="Main" Type="SFC"/>
+
+        <!-- ROUTINE 2: Running (SFC) -->
+        <Routine Name="Running" Type="SFC"/>
+
+        <!-- ROUTINE 3: Logic (Structured Text with CDATA) -->
+        <Routine Name="Logic" Type="StructuredText">
+          <Content><![CDATA[
+// **********************************************************************
+// FCT_XX - Name
+// Courbon/Actemium conventions - 1756-L83E v33
+// **********************************************************************
+
+// ------------------------------------------------------------------
+// COMMAND INTERFACE
+//   CMD = 0 : Idle        STS = 0 : Idle
+//   CMD = 1 : Start       STS = 1 : Running
+//   CMD = 10: Stop        STS = 2 : Complete
+//   CMD = 20: Abort       STS = 3 : Aborted
+//   CMD = 30: Reset       STS = 10: Fault
+// ------------------------------------------------------------------
+
+CASE L_CURRENT_STEP OF
+
+    0:  // *** IDLE ***
+        L_EM_XXX.STATUS.STS := 0;
+        L_EM_XXX.COMMAND.CMD := 0;
+        // Check for start command
+        IF IO_FCT.CMD.W.START THEN
+            IO_FCT.CMD.W.START := 0;
+            L_CURRENT_STEP := 10;
+        END_IF;
+
+    10: // *** START ***
+        L_EM_XXX.COMMAND.CMD := 1;
+        L_EM_XXX.COMMAND.ID_EM := XX;  // EM ID
+        // Check permissives
+        IF L_EM_XXX.STATUS.STS = 1 THEN
+            L_CURRENT_STEP := 20;
+        END_IF;
+        // Stop/Abort handling
+        IF IO_FCT.CMD.W.STOP THEN
+            L_CURRENT_STEP := 999;
+        END_IF;
+        IF IO_FCT.CMD.W.ABORT THEN
+            L_CURRENT_STEP := 999;
+        END_IF;
+
+    20: // *** RUNNING ***
+        // Process logic here
+        // ...
+        // When complete:
+        L_CURRENT_STEP := 50;
+
+    50: // *** COMPLETE ***
+        L_EM_XXX.STATUS.STS := 2;
+        IO_FCT.STA.W.COMPLETE := 1;
+        L_CURRENT_STEP := 0;
+
+    999: // *** FAULT / ABORT ***
+        L_EM_XXX.STATUS.STS := 10;
+        L_EM_XXX.COMMAND.CMD := 0;
+        IO_FCT.STA.W.FAILURE := 1;
+        // Reset handling
+        IF IO_FCT.CMD.W.RESET THEN
+            IO_FCT.CMD.W.RESET := 0;
+            IO_FCT.STA.W.FAILURE := 0;
+            L_EM_XXX.STATUS.STS := 0;
+            L_CURRENT_STEP := 0;
+        END_IF;
+
+END_CASE;
+
+// ------------------------------------------------------------------
+// EM STATUS UPDATE
+// ------------------------------------------------------------------
+CASE L_EM_XXX.STATUS.STS OF
+    0:  L_EM_XXX.STATUS.MEASURE.ST_IDLE := 1;
+    1:  L_EM_XXX.STATUS.MEASURE.ST_RUNNING := 1;
+    2:  L_EM_XXX.STATUS.MEASURE.ST_COMPLETE := 1;
+    3:  L_EM_XXX.STATUS.MEASURE.ST_ABORTED := 1;
+    10: L_EM_XXX.STATUS.MEASURE.ST_FAILURE := 1;
+END_CASE;
+
+// ------------------------------------------------------------------
+// PLC TASK EXCHANGE
+// ------------------------------------------------------------------
+PLC_TASK_EXC.W.FCT_TOTAL := 46;
+PLC_TASK_EXC.SYN_PLC_MODE_AUTO := 1;
+]]></Content>
+        </Routine>
+
+        <!-- ROUTINE 4: EnableInFalse (RLL) -->
+        <Routine Name="EnableInFalse" Type="RLL">
+          <Content><![CDATA[XIC(IO_FCT.Enable_)
+OTL(IO_FCT.Active_)]]></Content>
+        </Routine>
+
+        <!-- ROUTINE 5: Prescan (RLL) -->
+        <Routine Name="Prescan" Type="RLL">
+          <Content><![CDATA[OTU(IO_FCT.Active_)
+OTU(IO_FCT.Fault_)]]></Content>
+        </Routine>
+
+      </Routines>
+    </Program>
+  </Programs>
+</RSLogix5000Content>

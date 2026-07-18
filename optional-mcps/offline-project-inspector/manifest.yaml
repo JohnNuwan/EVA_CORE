@@ -1,0 +1,20 @@
+# Catalog entry for Offline Project Inspector MCP Server.
+manifest_version: 1
+
+name: offline-project-inspector
+description: Offline inspector for PLC/SCADA project trees, XML exports, and symbol indexes across multiple automation vendors.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-offline-project-inspector/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur d'inspection hors-ligne s'exécute localement via Python.
+  Installer la dépendance MCP si nécessaire :
+    pip install mcp

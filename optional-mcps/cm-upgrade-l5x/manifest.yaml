@@ -1,0 +1,14 @@
+manifest_version: 1
+
+name: cm-upgrade-l5x
+description: Injection automatique de code Structured Text (ST) et de traçabilité dans les fichiers d'import Rockwell L5X.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/cm-upgrade-l5x/mcp_server.py"
+
+auth:
+  type: none

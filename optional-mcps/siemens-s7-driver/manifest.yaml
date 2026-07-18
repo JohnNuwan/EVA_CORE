@@ -1,0 +1,20 @@
+# Catalog entry for Siemens S7 TCP (S7Comm) MCP Server.
+manifest_version: 1
+
+name: siemens-s7-driver
+description: Bridge de communication direct S7Comm pour automates Siemens (S7-300/400/1200/1500) via python-snap7.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-siemens-s7-driver/mcp_server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Pour utiliser ce serveur MCP, assurez-vous que 'python-snap7' et 'mcp' sont installés :
+    pip install python-snap7 mcp
+  Remarque : La bibliothèque dynamique native Snap7 (snap7.dll / libsnap7.so) doit également être installée sur votre système.

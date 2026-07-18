@@ -1,0 +1,20 @@
+# Catalog entry for Industrial PCAP Analyzer MCP Server.
+manifest_version: 1
+
+name: industrial-pcap
+description: Offline industrial PCAP inspector for protocol summaries, conversation matrices, and quick triage of OT captures.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-industrial-pcap/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur d'analyse PCAP industrielle s'exécute localement via Python.
+  Installer la dépendance MCP si nécessaire :
+    pip install mcp

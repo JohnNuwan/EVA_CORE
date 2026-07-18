@@ -1,0 +1,20 @@
+# Catalog entry for OPC-UA MCP Server.
+manifest_version: 1
+
+name: opcua
+description: OPC-UA client protocol bridge to browse, read, and write tags.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-opcua/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur OPC-UA local utilise l'environnement Python courant.
+  Assurez-vous d'avoir installé les dépendances requises :
+    pip install mcp asyncua

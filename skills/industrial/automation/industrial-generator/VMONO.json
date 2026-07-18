@@ -1,0 +1,208 @@
+{
+  "documentation": {
+    "bindType": "parameter",
+    "binding": "{DESCRIPTION}"
+  },
+  "tooltip": {
+    "bindType": "parameter",
+    "binding": "{DESCRIPTION}"
+  },
+  "name": "VMONO",
+  "parameters": {
+    "FOLDER_NAME1": {
+      "dataType": "String",
+      "value": "ALARME"
+    },
+    "ALARM_PRIORITY": {
+      "dataType": "Integer"
+    },
+    "DESCRIPTION": {
+      "dataType": "String"
+    },
+    "FOLDER_NAME3": {
+      "dataType": "String",
+      "value": "ANIMATION_SYNOPTIQUE"
+    },
+    "FOLDER_NAME2": {
+      "dataType": "String",
+      "value": "ANIMATION_FACEPLATE"
+    },
+    "ALARM_GROUP": {
+      "dataType": "String"
+    },
+    "INSTANCE_FOLDER_NAME": {
+      "dataType": "String",
+      "value": {
+        "bindType": "parameter",
+        "binding": "{PathToParentFolder}"
+      }
+    }
+  },
+  "tagType": "UdtType",
+  "tags": [
+    {
+      "name": "ANIMATION_SYNOPTIQUE",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "MOT_IMAGE",
+          "typeId": "SOUS_UDT/VMONO/ANIMATION_SYNOPTIQUE/MOT_IMAGE",
+          "tagType": "UdtInstance",
+          "tags": [
+            {
+              "name": "DACT_SD",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "BYP_ASS",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "FDC_O",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "MODE",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "FDC_F",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "ASS",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "DF_GEN",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "ACT_MA",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "SIMUL",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "E_TYPE",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "AUTOR_MANU",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "AUTOR_SIMUL",
+              "tagType": "AtomicTag"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ANIMATION_FACEPLATE",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "opcItemPath": {
+            "bindType": "parameter",
+            "binding": "nsu\u003dhttp://www.siemens.com/simatic-s7-opcua;s\u003d\"{INSTANCE_FOLDER_NAME}\".\"{RootInstanceName}\".\"{FOLDER_NAME2}\".\"{TagName}\""
+          },
+          "valueSource": "opc",
+          "dataType": "Int4",
+          "name": "NB_MANO",
+          "tooltip": "Nombre de manoeuvres",
+          "tagGroup": "VMONO",
+          "tagType": "AtomicTag",
+          "opcServer": "SIMATIC.S7-1500.OPC-UA.Application:PLC_1"
+        },
+        {
+          "opcItemPath": {
+            "bindType": "parameter",
+            "binding": "nsu\u003dhttp://www.siemens.com/simatic-s7-opcua;s\u003d\"{INSTANCE_FOLDER_NAME}\".\"{RootInstanceName}\".\"{FOLDER_NAME2}\".\"{TagName}\""
+          },
+          "valueSource": "opc",
+          "rawHigh": 1000.0,
+          "scaleMode": "Linear",
+          "dataType": "Float4",
+          "name": "TPS_DIS",
+          "tagGroup": "VMONO",
+          "tagType": "AtomicTag",
+          "opcServer": "SIMATIC.S7-1500.OPC-UA.Application:PLC_1",
+          "scaledHigh": 1.0
+        },
+        {
+          "opcItemPath": {
+            "bindType": "parameter",
+            "binding": "nsu\u003dhttp://www.siemens.com/simatic-s7-opcua;s\u003d\"{INSTANCE_FOLDER_NAME}\".\"{RootInstanceName}\".\"{FOLDER_NAME2}\".\"{TagName}\""
+          },
+          "valueSource": "opc",
+          "dataType": "Int4",
+          "name": "NB_DF",
+          "tooltip": "Nombre de défauts",
+          "tagGroup": "VMONO",
+          "tagType": "AtomicTag",
+          "opcServer": "SIMATIC.S7-1500.OPC-UA.Application:PLC_1"
+        },
+        {
+          "name": "MOT_PILOTAGE",
+          "typeId": "SOUS_UDT/VMONO/ANIMATION_FACEPLATE/MOT_PILOTAGE",
+          "tagType": "UdtInstance",
+          "tags": [
+            {
+              "name": "BYP_SECU",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "SIMUL",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "DACT_SD",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "MODE",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "ACQ_DF",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "BYP_ASS",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "MARCHE_MANU",
+              "tagType": "AtomicTag"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ALARME",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "ALARMES",
+          "typeId": "SOUS_UDT/VMONO/ALARMES/ALARMES",
+          "tagType": "UdtInstance",
+          "tags": [
+            {
+              "name": "DF_DIS",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "DF_SEC",
+              "tagType": "AtomicTag"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

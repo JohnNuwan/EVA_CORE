@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.1",
+  "device_type": "valve",
+  "name": "Valve01",
+  "output_dir": "./generated_valve",
+  "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+  "io": {
+    "open_cmd": "DI_Open",
+    "close_cmd": "DI_Close",
+    "open_fb": "DI_OpenFb",
+    "close_fb": "DI_CloseFb"
+  },
+  "alarms": ["TravelTimeout", "Discordance"],
+  "permissives": ["AirPressureOk", "ESDNotActive"],
+  "timers": {
+    "travel_timeout_ms": 5000
+  },
+  "units": {
+    "pv": "%"
+  },
+  "scada": {
+    "platform": "ignition",
+    "provider": "default",
+    "tag_root": "AreaA/Valve01",
+    "cmd_path": "AreaA/Valve01/Cmd",
+    "sts_path": "AreaA/Valve01/Sts",
+    "alm_path": "AreaA/Valve01/Alm"
+  },
+  "mes": {
+    "equipment_id": "VALVE01",
+    "class": "valve",
+    "line": "LineA"
+  },
+  "safety": {
+    "enabled": true,
+    "zone": "ZONE_V01",
+    "plr": "PLe",
+    "sil": "SIL2",
+    "sto": false,
+    "ss1": false,
+    "sls": false,
+    "reset_required": true
+  },
+  "packml": {
+    "enabled": false,
+    "mode": "basic",
+    "state_model": "packml",
+    "unit_mode": "production"
+  }
+}

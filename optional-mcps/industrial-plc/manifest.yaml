@@ -1,0 +1,24 @@
+# Catalog entry for Dockerized Industrial PLC MCP Server.
+manifest_version: 1
+
+name: industrial-plc
+description: Multi-protocol PLC bridge (Modbus-TCP, Rockwell CIP, Siemens S7) running inside Docker.
+source: local
+
+transport:
+  type: stdio
+  command: "docker"
+  args:
+    - "run"
+    - "-i"
+    - "--rm"
+    - "--network=host"
+    - "helios-industrial-plc-mcp:latest"
+
+auth:
+  type: none
+
+post_install: |
+  Pour utiliser ce serveur MCP, vous devez d'abord construire l'image Docker locale :
+    cd projects/mcp-industrial-plc
+    docker build -t helios-industrial-plc-mcp:latest .

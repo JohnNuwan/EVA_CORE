@@ -1,0 +1,20 @@
+# Catalog entry for Historian Database MCP Server.
+manifest_version: 1
+
+name: historian
+description: Timeseries database bridge (InfluxDB Flux queries, PostgreSQL/TimescaleDB SQL queries).
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "projects/mcp-historian/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur de base de données Historian local utilise l'environnement Python courant.
+  Assurez-vous d'avoir installé les dépendances requises :
+    pip install mcp influxdb-client psycopg2-binary

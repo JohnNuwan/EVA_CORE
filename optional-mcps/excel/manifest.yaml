@@ -1,0 +1,20 @@
+# Catalog entry for Excel MCP Server.
+manifest_version: 1
+
+name: excel
+description: Excel file parsing and management bridge to inspect and read sheet cells.
+source: local
+
+transport:
+  type: stdio
+  command: "python"
+  args:
+    - "optional-mcps/excel/server.py"
+
+auth:
+  type: none
+
+post_install: |
+  Le serveur Excel utilise pandas et openpyxl.
+  Installez-les dans l'environnement virtuel avec :
+    pip install mcp pandas openpyxl

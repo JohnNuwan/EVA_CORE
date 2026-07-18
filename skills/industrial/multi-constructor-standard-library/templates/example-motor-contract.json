@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.1",
+  "device_type": "motor",
+  "name": "Motor01",
+  "output_dir": "./generated_motor",
+  "vendors": ["siemens", "rockwell", "schneider", "beckhoff", "omron", "wago"],
+  "io": {
+    "start_cmd": "DI_Start",
+    "stop_cmd": "DI_Stop",
+    "run_fb": "DI_RunFb",
+    "fault_fb": "DI_FaultFb",
+    "run_cmd": "DO_RunCmd"
+  },
+  "alarms": ["StartTimeout", "ExternalFault"],
+  "permissives": ["EStopOk", "ThermalOk", "RemoteMode"],
+  "timers": {
+    "start_timeout_ms": 3000
+  },
+  "units": {
+    "pv": "status"
+  },
+  "scada": {
+    "platform": "ignition",
+    "provider": "default",
+    "tag_root": "AreaA/Motor01",
+    "cmd_path": "AreaA/Motor01/Cmd",
+    "sts_path": "AreaA/Motor01/Sts",
+    "alm_path": "AreaA/Motor01/Alm"
+  },
+  "mes": {
+    "equipment_id": "MOTOR01",
+    "class": "motor",
+    "line": "LineA"
+  },
+  "safety": {
+    "enabled": true,
+    "zone": "ZONE_M01",
+    "plr": "PLd",
+    "sil": "SIL1",
+    "sto": true,
+    "ss1": false,
+    "sls": false,
+    "reset_required": true
+  },
+  "packml": {
+    "enabled": true,
+    "mode": "basic",
+    "state_model": "packml",
+    "unit_mode": "production"
+  }
+}

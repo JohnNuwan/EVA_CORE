@@ -1,0 +1,209 @@
+<!-- 
+Template name: industrial-premium-dark.html
+Description: A hyper-polished, content-dense, and highly vibrant dark-mode dashboard/landing page template.
+Design Inspiration: Linear.app meets industrial OT/IT telemetry.
+Key design guidelines to avoid "junior dev monotone slop":
+- Color temperature contrast: Deep dark backgrounds (#08090a) contrasted with custom deep indigo/violet (#5e6ad2 / #7170ff) and industrial warm orange (#f97316) highlights.
+- Ambient glow: Subtle cyan/indigo/purple background radial blur divs with low opacity and high blur (blur-[100px] or blur-[140px]).
+- Border rendering: Whispering glass borders (rgba(255,255,255,0.05)) and gradient borders rather than hard, opaque lines.
+- Typographic density: Clean geometric lowercase alternates with Inter's cv01 and ss03 OpenType settings globally, coupled with highly legibile mono layouts (JetBrains Mono) for codes and tags.
+-->
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Premium Dark Mode Template</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AlpineJS for interactive tabs/collapses -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        linear: {
+                            black: '#08090a',
+                            panel: '#0f1011',
+                            surface: '#191a1b',
+                            indigo: '#5e6ad2',
+                            violet: '#7170ff',
+                            textPrimary: '#f7f8f8',
+                            textSecondary: '#d0d6e0',
+                            textMuted: '#8a8f98',
+                            textSubtle: '#62666d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-feature-settings: "cv01", "ss03";
+            background-color: #08090a;
+            color: #d0d6e0;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #08090a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #191a1b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #23252a;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-linear-indigo selection:text-white">
+
+    <!-- Sticky Navigation -->
+    <header class="sticky top-0 z-50 bg-linear-panel/90 backdrop-blur-md border-b border-white/[0.05] transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-linear-indigo flex items-center justify-center font-bold text-white shadow-lg shadow-linear-indigo/20">
+                    S
+                </div>
+                <span class="font-mono text-linear-textPrimary font-semibold tracking-wider text-sm">SYSTEM_NAME</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#features" class="text-linear-textSecondary hover:text-linear-textPrimary transition">Caractéristiques</a>
+                <a href="#competences" class="text-linear-textSecondary hover:text-linear-textPrimary transition">Compétences</a>
+                <a href="#terminal" class="text-linear-textSecondary hover:text-linear-textPrimary transition">Terminal</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <span class="text-xs bg-white/[0.03] border border-white/[0.08] px-2.5 py-1 rounded text-orange-400 font-mono">
+                    SECURE OT/IT ENVIRONMENT
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section with depth glow -->
+    <section class="relative pt-28 pb-24 overflow-hidden border-b border-white/[0.03] bg-gradient-to-b from-[#0a0f1d] via-linear-black to-linear-black">
+        <div class="absolute top-0 right-1/4 w-[400px] h-[400px] bg-linear-indigo/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-1/4 w-[350px] h-[350px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-flex items-center space-x-2.5 text-xs text-orange-300 font-mono border border-orange-500/30 bg-orange-500/5 px-4 py-1.5 rounded-full mb-8">
+                <span class="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                <span>Active Industrial State</span>
+            </span>
+
+            <h1 class="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-tight mb-8">
+                Headline de l'Ingénierie <span class="bg-gradient-to-r from-orange-400 via-linear-violet to-linear-indigo bg-clip-text text-transparent">Premium & Réactive</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-linear-textSecondary max-w-3xl mx-auto font-light leading-relaxed mb-12">
+                Description synthétique, technique et extrêmement précise. Éviter d'insérer des paragraphes flous d'IA générale.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button class="w-full sm:w-auto bg-linear-indigo hover:bg-linear-violet text-white px-8 py-4 rounded-md font-semibold text-sm transition shadow-lg shadow-linear-indigo/20 flex items-center justify-center space-x-2">
+                    <span>Action Principale</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid Layout with structured border elements -->
+    <section id="competences" class="py-24 border-b border-white/[0.03] bg-[#0c0d12]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Card 1: Warm/Hot Color highlights -->
+                <div class="group p-8 rounded-xl bg-gradient-to-br from-red-500/20 to-orange-500/10 border border-white/[0.05] group-hover:border-red-500/40 transition-all duration-300 shadow-xl">
+                    <div class="flex items-center space-x-3 mb-6 border-b border-white/[0.05] pb-4">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                        <h4 class="text-lg font-bold text-white">Catégorie Accent chaud</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-linear-black/80 rounded-lg border border-white/[0.03] hover:border-white/[0.08] transition duration-200">
+                            <span class="text-xs font-mono text-linear-violet font-semibold">item-key-name</span>
+                            <p class="text-xs text-[#a0a5b5] font-light mt-1 pl-1">Explications précises et brèves.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Indigo Theme -->
+                <div class="group p-8 rounded-xl bg-gradient-to-br from-blue-500/20 to-indigo-500/10 border border-white/[0.05] group-hover:border-blue-500/40 transition-all duration-300 shadow-xl">
+                    <div class="flex items-center space-x-3 mb-6 border-b border-white/[0.05] pb-4">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+                        <h4 class="text-lg font-bold text-white">Catégorie Intermédiaire</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-linear-black/80 rounded-lg border border-white/[0.03] hover:border-white/[0.08] transition duration-200">
+                            <span class="text-xs font-mono text-linear-violet font-semibold">item-key-name</span>
+                            <p class="text-xs text-[#a0a5b5] font-light mt-1 pl-1">Explications précises et brèves.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Purple/Pink Theme -->
+                <div class="group p-8 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/10 border border-white/[0.05] group-hover:border-purple-500/40 transition-all duration-300 shadow-xl">
+                    <div class="flex items-center space-x-3 mb-6 border-b border-white/[0.05] pb-4">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse"></span>
+                        <h4 class="text-lg font-bold text-white">Catégorie Étoilée</h4>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-linear-black/80 rounded-lg border border-white/[0.03] hover:border-white/[0.08] transition duration-200">
+                            <span class="text-xs font-mono text-linear-violet font-semibold">item-key-name</span>
+                            <p class="text-xs text-[#a0a5b5] font-light mt-1 pl-1">Explications précises et brèves.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Component -->
+    <section id="terminal" class="py-20 bg-linear-panel/40 border-b border-white/[0.03]">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="bg-linear-panel border border-white/[0.08] rounded-xl shadow-2xl overflow-hidden font-mono text-xs text-linear-textSecondary">
+                <div class="bg-[#0b0c0d] px-4 py-3 border-b border-white/[0.05] flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-full bg-red-500/30 border border-red-500/10"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/30 border border-yellow-500/10"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/30 border border-green-500/10"></span>
+                        <span class="text-linear-textMuted font-mono text-[11px] ml-4">Terminal Session</span>
+                    </div>
+                </div>
+                <div class="p-6 space-y-4 max-h-[550px] overflow-y-auto bg-[#08090a]">
+                    <div class="flex items-center space-x-2 border-b border-white/[0.03] pb-2">
+                        <span class="text-linear-violet font-semibold">$</span>
+                        <span class="text-linear-textPrimary">command --flag value</span>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-linear-indigo/5 p-3 rounded border border-linear-indigo/10">
+                        <span class="text-linear-violet font-semibold shrink-0">SYSTEM &gt;</span>
+                        <span class="text-linear-textSecondary">Message structure de terminal.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-linear-black border-t border-white/[0.05] py-12 text-center text-xs text-linear-textSubtle">
+        <p>© 2026. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
