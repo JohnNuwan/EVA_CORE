@@ -1,5 +1,5 @@
 model:
-  default: moonshotai/kimi-k3
+  default: deepseek/deepseek-v4-flash
   provider: openrouter
   base_url: https://openrouter.ai/api/v1
   api_mode: chat_completions
@@ -107,7 +107,10 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
+  model: casperhansen/deepseek-r1-distill-qwen-14b-awq
+  provider: deepseek-local
   max_iterations: 50
+  context_length: 16384
 skills:
   creation_nudge_interval: 15
 command_allowlist:
@@ -175,6 +178,13 @@ platform_toolsets:
 known_plugin_toolsets:
   cli:
     - spotify
+
+# ── Custom Providers ────────────────────────────────────────────────
+providers:
+  deepseek-local:
+    base_url: http://localhost:8000/v1
+    api_key: EMPTY
+    api_mode: chat_completions
 
 # ── Security ──────────────────────────────────────────────────────────
 # Secret redaction is ON by default — strings that look like API keys,
