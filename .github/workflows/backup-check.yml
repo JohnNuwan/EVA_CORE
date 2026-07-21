@@ -1,0 +1,51 @@
+name: Vérification des Sauvegardes
+on:
+  schedule:
+    - cron: '0 6 * * *'    # Tous les jours à 06:00
+  workflow_dispatch:
+jobs:
+  check-backups:
+    name: Vérifier l'intégrité des backups
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vérifier le répertoire de backups
+        run: |
+          BACKUP_DIR="/mnt/data/backups"
+          if [ -d "$BACKUP_DIR" ]; then
+            echo "✅ Répertoire de backups présent : $BACKUP_DIR"
+          else
+            echo "❌ Répertoire de backups ABSENT : $BACKUP_DIR"
+            exit 1
+          fi
+      - name: Lister et vérifier les backups
+        run: |
+          BACKUP_DIR="/mnt/data/backups"
+          count=$(find "$BACKUP_DIR" -name "*.tar.gz" -o -name "*.tgz" -o -name "*.sql" -o -name "*.dump" 2>/dev/null | wc -l)
+          total_size=$(du -sh "$BACKUP_DIR" 2>/dev/null | cut -f1)
+          echo "📦 Fichiers de backup : $count"
+          echo "💾 Taille totale : $total_size"
+          echo ""
+          echo "### Dernières modifications :"
+          find "$BACKUP_DIR" -type f -printf '%T+ %p\n' 2>/dev/null | sort -r | head -10
+          if [ "$count" -eq 0 ]; then
+            echo "❌ Aucun fichier de backup trouvé !"
+            exit 1
+          fi
+      - name: Vérifier la date du dernier backup
+        run: |
+          BACKUP_DIR="/mnt/data/backups"
+          last_backup=$(find "$BACKUP_DIR" -type f -printf '%T@ %p\n' 2>/dev/null | sort -rn | head -1 | awk '{print $2}')
+          now=$(date +%s)
+          if [ -n "$last_backup" ]; then
+            last_time=$(stat -c %Y "$last_backup" 2>/dev/null || echo 0)
+            age_hours=$(( (now - last_time) / 3600 ))
+            echo "🕐 Dernier backup : $(date -d "@$last_time" '+%Y-%m-%d %H:%M' 2>/dev/null || echo 'inconnue')"
+            echo "⏳ Âge : ${age_hours}h"
+            if [ "$age_hours" -gt 48 ]; then
+              echo "⚠️  Dernier backup datant de plus de 48h !"
+            else
+              echo "✅ Backup récent"
+            fi
+          else
+            echo "❌ Impossible de déterminer le dernier backup"
+          fi

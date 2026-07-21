@@ -1,0 +1,38 @@
+name: Test des APIs
+on:
+  schedule:
+    - cron: '0 */4 * * *'   # Toutes les 4 heures
+  push:
+    paths:
+      - '.github/workflows/test-apis.yml'
+  workflow_dispatch:
+jobs:
+  health-check:
+    name: Vérifier la santé des APIs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        endpoint:
+          - port: 8081
+            name: API-1
+          - port: 8082
+            name: API-2
+          - port: 8083
+            name: API-RAG
+    steps:
+      - name: Tester http://localhost:${{ matrix.endpoint.port }}/health
+        run: |
+          echo "Test de ${{ matrix.endpoint.name }} sur :${{ matrix.endpoint.port }}..."
+          status=$(curl -s -o /dev/null -w "%{http_code}" --connect-timeout 10 \
+            http://localhost:${{ matrix.endpoint.port }}/health 2>/dev/null || echo "000")
+          if [ "$status" = "200" ]; then
+            echo "✅ ${{ matrix.endpoint.name }} répond (HTTP $status)"
+          else
+            echo "❌ ${{ matrix.endpoint.name }} NE répond PAS (HTTP $status)"
+            exit 1
+          fi
+      - name: Temps de réponse
+        run: |
+          timing=$(curl -s -o /dev/null -w "%{time_total}s" --connect-timeout 10 \
+            http://localhost:${{ matrix.endpoint.port }}/health 2>/dev/null || echo "timeout")
+          echo "⏱  ${{ matrix.endpoint.name }} : $timing"

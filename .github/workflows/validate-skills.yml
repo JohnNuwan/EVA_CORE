@@ -1,0 +1,28 @@
+name: Validation des Skills
+on:
+  push:
+    paths:
+      - 'skills/**/*.md'
+      - '.github/workflows/validate-skills.yml'
+  pull_request:
+    paths:
+      - 'skills/**/*.md'
+  workflow_dispatch:
+jobs:
+  validate:
+    name: Valider le frontmatter des SKILL.md
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer PyYAML
+        run: pip install pyyaml
+      - name: Vérifier tous les SKILL.md
+        run: python3 .github/scripts/validate-skill-frontmatter.py skills/
+      - name: Rapport
+        if: always()
+        run: |
+          echo "## Résumé validation skills" >> $GITHUB_STEP_SUMMARY
+          echo "- Fichiers vérifiés : $(find skills/ -name 'SKILL.md' -type f 2>/dev/null | wc -l)" >> $GITHUB_STEP_SUMMARY

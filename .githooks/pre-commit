@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# =============================================================================
+# pre-commit — ADAM-CICD
+# Vérifie le format des SKILL.md avant chaque commit
+#   - Frontmatter YAML valide
+#   - Champs requis : name, description, tags
+#   - Tags sous forme de liste
+# =============================================================================
+set -euo pipefail
+
+echo "━━━ [ADAM-CICD] pre-commit : validation des SKILL.md ━━━"
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+CHANGED_SKILLS=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'skills/.+/SKILL\.md$' || true)
+
+if [ -z "$CHANGED_SKILLS" ]; then
+    echo "  Aucun SKILL.md modifié — validation ignorée"
+    exit 0
+fi
+
+ERRORS=0
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+VALIDATOR="$REPO_ROOT/.github/scripts/validate-skill-frontmatter.py"
+
+echo "  Fichiers à valider :"
+echo "$CHANGED_SKILLS" | while IFS= read -r file; do
+    echo "    - $file"
+done
+
+# Utiliser le validateur centralisé s'il existe
+if [ -f "$VALIDATOR" ]; then
+    echo ""
+    echo "  Lancement du validateur centralisé..."
+    if python3 "$VALIDATOR" $(dirname "$REPO_ROOT/$CHANGED_SKILLS" | head -1); then
+        echo "  ✅ Validation réussie"
+    else
+        echo "  ❌ Validation échouée"
+        exit 1
+    fi
+else
+    # Validateur simplifié de secours
+    echo "$CHANGED_SKILLS" | while IFS= read -r file; do
+        full_path="$REPO_ROOT/$file"
+        skill_name=$(basename "$(dirname "$full_path")")
+        content=$(cat "$full_path")
+
+        if ! echo "$content" | python3 -c "
+import sys, yaml
+data = list(yaml.safe_load_all(sys.stdin.read()))
+if not data or not isinstance(data[0], dict):
+    sys.exit(1)
+fm = data[0]
+required = {'name', 'description', 'tags'}
+missing = required - set(fm.keys())
+if missing:
+    print(f'  Champs manquants dans $skill_name : {missing}')
+    sys.exit(2)
+if not isinstance(fm.get('tags'), list):
+    print(f'  tags doit être une liste dans $skill_name')
+    sys.exit(3)
+print(f'  ✅ $skill_name')
+" 2>&1; then
+            ERRORS=$((ERRORS + 1))
+        fi
+    done
+
+    if [ "$ERRORS" -gt 0 ]; then
+        echo ""
+        echo "━━━ ❌ $ERRORS erreur(s) — commit bloqué ━━━"
+        echo "  Corrige le frontmatter YAML avant de commit"
+        echo "  Champs requis : name, description, tags (liste)"
+        exit 1
+    fi
+fi
+
+echo "━━━ ✅ pre-commit : validation terminée avec succès ━━━"
+exit 0

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# =============================================================================
+# post-commit — ADAM-CICD
+# Notifie si des skills ont été modifiés dans le commit
+# =============================================================================
+set -euo pipefail
+
+echo "━━━ [ADAM-CICD] post-commit ━━━"
+
+# Récupérer les fichiers modifiés dans le dernier commit
+MODIFIED=$(git diff-tree --no-commit-id -r --name-only HEAD | grep -E 'skills/.+/SKILL\.md$' || true)
+NEW_SKILLS=$(git diff-tree --no-commit-id -r --diff-filter=A --name-only HEAD | grep -E 'skills/.+/SKILL\.md$' || true)
+OLD_SKILLS=$(git diff-tree --no-commit-id -r --diff-filter=M --name-only HEAD | grep -E 'skills/.+/SKILL\.md$' || true)
+
+HAS_SKILLS=false
+
+if [ -n "$NEW_SKILLS" ]; then
+    HAS_SKILLS=true
+    COUNT=$(echo "$NEW_SKILLS" | wc -l)
+    echo "  📦 Nouveaux skills ajoutés ($COUNT) :"
+    echo "$NEW_SKILLS" | while IFS= read -r s; do
+        name=$(basename "$(dirname "$s")")
+        echo "    ✨ $name"
+    done
+fi
+
+if [ -n "$OLD_SKILLS" ]; then
+    HAS_SKILLS=true
+    COUNT=$(echo "$OLD_SKILLS" | wc -l)
+    echo "  🔧 Skills modifiés ($COUNT) :"
+    echo "$OLD_SKILLS" | while IFS= read -r s; do
+        name=$(basename "$(dirname "$s")")
+        echo "    📝 $name"
+    done
+fi
+
+if [ "$HAS_SKILLS" = true ]; then
+    echo ""
+    echo "  💡 N'oublie pas de mettre à jour le catalogue des skills"
+    echo "     ~/wiki/entities/skills-categories.md"
+    echo ""
+    echo "  🔄 Pour créer une PR automatique :"
+    echo "     ~/scripts/auto-pr.sh"
+fi
+
+echo "━━━ ✅ post-commit terminé ━━━"
+exit 0
