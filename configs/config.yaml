@@ -107,8 +107,8 @@ memory:
   nudge_interval: 10
   flush_min_turns: 6
 delegation:
-  model: casperhansen/deepseek-r1-distill-qwen-14b-awq
-  provider: deepseek-local
+  model: deepseek/deepseek-v4-flash
+  provider: openrouter
   max_iterations: 50
   context_length: 16384
 skills:

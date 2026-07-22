@@ -11,6 +11,8 @@ accessibility-wcag:a1e8da4817f390bfa082d6468d50765e
 accounting-audit-fintech:c0d795e2de1137dadc46eee93bcf0ded
 active-directory:ad0f4b9477fed4fb55dd10983158bd19
 active-directory-advanced:f898401d9d1e568a0d9cc446ab73a8b2
+adam-chat:02215f0bce10e92d7a1e1099efaa8d01
+adam-sentinel:f65c98f3facdc77fbcb65817f00f2945
 advanced-llm-engineering:dc8e176b50e1ffb931666303a2829835
 advanced-pentesting-redteam:7bd548100ecbc308fc20df3c5e30a8f9
 aes-advanced:dfc8a885267abfc2d5a0df5d05a609c5
@@ -37,6 +39,7 @@ airtable:e3627375503516a02e1711aa78a27d10
 alarm-rationalization:a6570173dbb46919dd6452384d7d2c3b
 analytics-marketing:167932732b71682c2450cc8f78fd8cc5
 android-security:cbc5108e82a5aa74ab87b4f91b61e596
+animation-patterns-for-ui:6eebc3af395a86eec121ba40394f4c8f
 ansible-automation:eea38d397bef510d03e209f091601b96
 apache-flink:20e04e37b461efffbd1c26663f07a836
 apache-kafka:e6b9bce669eb5dd5b17a9deb3f6c5e8e
@@ -331,6 +334,7 @@ ftk-imager-forensics:ee18108ffa1125593b24c3734251b0d8
 functional-safety-iec61511:8aaf6ef4ef5619da8deb22bf7029ecf0
 fusion-360:16bc194f30aa83dfd860ea36f6c0218a
 game-ai-behavior-trees:d6f509850fb9e4f2992e20292ffa5e2c
+game-ai-character-design:a9ebfd5907e1ba62dddf46d1cf077923
 game-audio-sound-design:39393f744da58625078f21758ef1c087
 game-design:8e41f56ff136f55aff1e9f1f1cbcd74e
 game-development-engines:bb23fa46f2a2031ec2155ffa4c5bd0f7
@@ -376,6 +380,7 @@ hermes-agent-skill-authoring:c3aebbef0762f3a39a2c3433eadb19f6
 hermes-desktop-plugins:833712befee5b7f37a5c759eb717eedc
 himalaya:d215ffaa3c1aecbc68a326e45d6927c8
 historian-timeseries:433923a72a7932b84ef67627a5c96bcc
+holographic-interface-design:35c24e7aeacefbdfe1f0f497711f8780
 home-directory-cleanup:4454d9573ddb5751d5549a313eb322a3
 hr-talent-analytics-ai:4c216ab8a002d86f9484bc825c372f2d
 html-panel-header-analysis:82e7738d503d85c6a90e961c6f914f47
@@ -637,6 +642,7 @@ nopa-non-parametric-online-3d-scene:4be5b1e0f719b5e4752ff2e6754b825d
 nosql-injection:17f9fa5b46351bfc23a2a3fb31b607c8
 notion:a1235dab0b6904cc21756126b2612a8a
 notion-pm:32448d5bb5d4dbd3d8f614d2be89da85
+npc-behavior-trees:151815f88de67a60ad86d7319402726b
 nuclear-science-engineering:2fbb6929a06ba9a3973576c48b3bee1f
 nvidia-jetson-deployment:722bae266aaaf66fdda29040e8b12cd1
 oauth-oidc-attacks:71d761ba3189893c02bead053d1040e3
@@ -912,6 +918,7 @@ secure-sudo-workflows:290a9c8cb5a038305b7c5d4f9c5d189c
 security-testing:331e17c4d3edcda5e26e86f67c7e6cb8
 segment-anything-model:7f1317da421fb8eada27aeacdbb21d30
 selenium:fe914c191f3f635702fc789f3f299df3
+self-healing-watchdog:ce734afd124820274ff6662a69f8597f
 self-supervised-learning:71df24fa6478981b466bfcc211ac875a
 semantic-segmentation:69177caeb919093132cbb5100199e99b
 seo:2a908534aa882a0cf185f09ac3c69367
@@ -1025,6 +1032,7 @@ vba-industrial-excel:999dd2ff451f1b566a79eee6c0f22fb6
 vendor-aware-plc-agent:b02331d4281f58defeaa9052f2fb16e8
 veterinary-animal-health-ai:9dfe55064a3c159990419c82cff3c6be
 video-analysis:dd87919a2087fbb798941adfbabe84f9
+video-game-award-winning-ui:fde92b5d8e7214ed382fe114a01dd3c6
 virtual-commissioning:759b50be64b3c1052b34bde55f50bc08
 voice-cloning:0b23dfae4811f38aa1010a230e0a33d9
 voies-metaboliques:f35c6fb4db24166217b658d219b80a6c

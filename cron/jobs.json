@@ -1,46 +1,6 @@
 {
   "jobs": [
     {
-      "id": "b60b1a5a3071",
-      "name": "trade-republic-monitor",
-      "prompt": "Script de monitoring long-terme Trade Republic",
-      "skills": [],
-      "skill": null,
-      "model": null,
-      "provider": null,
-      "provider_snapshot": null,
-      "model_snapshot": null,
-      "base_url": null,
-      "script": "trade-republic-monitor.py",
-      "no_agent": true,
-      "context_from": null,
-      "schedule": {
-        "kind": "cron",
-        "expr": "0 22 * * 1-5",
-        "display": "0 22 * * 1-5"
-      },
-      "schedule_display": "0 22 * * 1-5",
-      "repeat": {
-        "times": null,
-        "completed": 3
-      },
-      "enabled": true,
-      "state": "scheduled",
-      "paused_at": null,
-      "paused_reason": null,
-      "created_at": "2026-07-08T14:24:56.450898+02:00",
-      "next_run_at": "2026-07-22T22:00:00+02:00",
-      "last_run_at": "2026-07-22T00:28:21.135454+02:00",
-      "last_status": "error",
-      "last_error": "Script not found: /home/aza/.hermes/scripts/trade-republic-monitor.py",
-      "last_delivery_error": null,
-      "deliver": "local",
-      "origin": null,
-      "enabled_toolsets": null,
-      "workdir": null,
-      "fire_claim": null
-    },
-    {
       "id": "ee485aa3dc73",
       "name": "ADAM-BACKUP",
       "prompt": "",
@@ -62,17 +22,17 @@
       "schedule_display": "0 4 * * *",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-22T00:34:33.782468+02:00",
-      "next_run_at": "2026-07-22T04:00:00+02:00",
-      "last_run_at": "2026-07-22T00:34:39.121239+02:00",
-      "last_status": "error",
-      "last_error": "Script exited with code 1\nstderr:\n/home/aza/.hermes/scripts/backup.sh: ligne 37: /mnt/data/backups/backup.log: Aucun fichier ou dossier de ce nom\n[2026-07-22 00:34:39] [ERREUR] Impossible de cr\u00e9er /mnt/data/backups \u2014 point de montage manquant ?\n/home/aza/.hermes/scripts/backup.sh: ligne 43: /mnt/data/backups/backup.log: Aucun fichier ou dossier de ce nom\n[2026-07-22 00:34:39] [ERREUR] Ex\u00e9cutez : sudo bash ~/scripts/setup-backup-dest.sh\n/home/aza/.hermes/scripts/backup.sh: ligne 43: /mnt/data/backups/backup.log: Aucun fichier ou dossier de ce nom\nstdout:\n[2026-07-22 00:34:39] [ADAM-BACKUP] Cr\u00e9ation du r\u00e9pertoire de destination : /mnt/data/backups\nSys. de fichiers Taille Utilis\u00e9 Dispo Uti% Mont\u00e9 sur\n/dev/sdb           916G    526G  344G  61% /mnt/data",
+      "next_run_at": "2026-07-23T04:00:00+02:00",
+      "last_run_at": "2026-07-22T04:00:24.900783+02:00",
+      "last_status": "ok",
+      "last_error": null,
       "last_delivery_error": null,
       "deliver": "local",
       "origin": null,
@@ -102,15 +62,15 @@
       "schedule_display": "every 5m",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 64
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-22T01:10:47.074366+02:00",
-      "next_run_at": "2026-07-22T01:33:40.745194+02:00",
-      "last_run_at": "2026-07-22T01:28:40.745194+02:00",
+      "next_run_at": "2026-07-22T08:13:53.445273+02:00",
+      "last_run_at": "2026-07-22T08:08:53.445273+02:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -142,23 +102,24 @@
       "schedule_display": "0 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 1
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-22T01:14:59.865266+02:00",
-      "next_run_at": "2026-07-22T08:00:00+02:00",
-      "last_run_at": null,
-      "last_status": null,
+      "next_run_at": "2026-07-23T08:00:00+02:00",
+      "last_run_at": "2026-07-22T08:06:16.542899+02:00",
+      "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "no delivery target resolved for deliver=all",
       "deliver": "all",
       "origin": null,
       "enabled_toolsets": null,
-      "workdir": null
+      "workdir": null,
+      "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-22T01:28:40.745371+02:00"
+  "updated_at": "2026-07-22T08:08:53.445404+02:00"
 }
