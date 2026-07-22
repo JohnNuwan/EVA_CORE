@@ -202,7 +202,11 @@ hermes update       # Mettre à jour vers la dernière version
 hermes doctor       # Diagnostiquer les problèmes éventuels
 ```
 
-📖 **[Documentation complète →](https://hermes-agent.nousresearch.com/docs/)**
+📖 **Documentation Technique EVA :**
+- [Index & Architecture de la Documentation](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/README.md)
+- [Fiches Techniques des 12 Agents ADAM](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/adam-agents.md)
+- [Guide des 1072+ Compétences (Skills)](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/skills-guide.md)
+- [Documentation Officielle Hermes →](https://hermes-agent.nousresearch.com/docs/)
 
 ---
 
