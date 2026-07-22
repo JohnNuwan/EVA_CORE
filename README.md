@@ -198,6 +198,91 @@ hermes doctor       # Diagnostiquer les problèmes éventuels
 
 ---
 
+## 🚀 Installation
+
+### Prérequis
+
+- **Python 3.11+** — recommandé via `uv` (installé automatiquement si absent)
+- **Git** — pour cloner le dépôt
+- **GPU (optionnel mais recommandé)** — NVIDIA avec CUDA 12.x pour inference locale (vLLM)
+- **OS** — Linux (recommandé), macOS, Windows (via WSL2)
+
+### Installation rapide (Linux / macOS)
+
+```bash
+# Clone EVA
+git clone https://github.com/JohnNuwan/EVA_CORE.git ~/.hermes/hermes-agent
+
+# Lance l'installateur
+cd ~/.hermes/hermes-agent
+bash scripts/install.sh
+```
+
+L'installateur détecte automatiquement votre OS, installe `uv`, crée un environnement virtuel, installe les dépendances Python, et lance l'assistant de configuration interactif.
+
+### Installation sur Windows (via PowerShell)
+
+```powershell
+iex (irm https://raw.githubusercontent.com/JohnNuwan/EVA_CORE/main/scripts/install.ps1)
+```
+
+### Installation minimaliste (sans assistant)
+
+```bash
+git clone https://github.com/JohnNuwan/EVA_CORE.git ~/.hermes/hermes-agent
+cd ~/.hermes/hermes-agent
+bash scripts/install.sh --skip-setup
+hermes setup   # Configurer les clés API plus tard
+```
+
+### Mise à jour
+
+```bash
+hermes update
+```
+
+### La Stack The Hive (inférence locale)
+
+Pour faire tourner EVA en local avec des LLM open-source sur The Hive :
+
+```bash
+# Installer Docker si pas déjà fait
+curl -fsSL https://get.docker.com | sh
+
+# Lancer la stack IA (vLLM + services)
+cd ~/.hermes/hermes-agent
+docker compose -f docker/docker-compose.yml up -d
+
+# Vérifier les modèles disponibles
+curl http://localhost:8001/v1/models
+```
+
+Puis configurer EVA pour utiliser le provider local :
+
+```bash
+hermes config set model "deepseek/deepseek-v4-flash"
+hermes config set provider "openrouter"
+# ou pour le local :
+hermes config set provider "deepseek-local"
+```
+
+### Configuration des ADAMs (agents autonomes)
+
+Les ADAMs sont des cron jobs qui tournent dans EVA. Pour les activer :
+
+```bash
+# Lister les jobs existants
+hermes cron list
+
+# Activer la surveillance PRAETOR (toutes les 5 min)
+hermes cron add "every 5m" "ADAM-PRAETOR — Cycle de surveillance" --model "deepseek/deepseek-v4-flash" --deliver local
+
+# Activer la veille SENTINEL (quotidienne à 8h)
+hermes cron add "0 8 * * *" "ADAM-SENTINEL Veille Quotidienne" --skills "web-first-research" --deliver local
+```
+
+---
+
 ## Licence
 
 MIT — voir [LICENSE](LICENSE).
