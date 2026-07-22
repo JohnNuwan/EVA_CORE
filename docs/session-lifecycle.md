@@ -98,39 +98,17 @@ behavior on the next access.
 
 ### State Transition Logic (get_or_create_session)
 
-```
-                    ┌──────────┐
-                    │  Incoming │
-                    │  Message  │
-                    └────┬─────┘
-                         │
-                         ▼
-              ┌──────────────────────┐
-              │  session_key exists  │──── No ──► Create fresh SessionEntry
-              │  AND !force_new      │
-              └──────────┬───────────┘
-                         │ Yes
-                         ▼
-              ┌──────────────────────┐
-              │  entry.suspended?    │──── Yes ──► Auto-reset: new session_id
-              └──────────┬───────────┘           (reason="suspended")
-                         │ No
-                         ▼
-              ┌──────────────────────┐
-              │ entry.resume_pending?│──── Yes ──► Return existing entry
-              └──────────┬───────────┘           (preserve session_id)
-                         │ No                     Clear flag on next successful turn
-                         ▼
-              ┌──────────────────────┐
-              │   Policy says reset? │──── Yes ──► Auto-reset: new session_id
-              └──────────┬───────────┘           (reason="idle"/"daily")
-                         │ No
-                         ▼
-              ┌──────────────────────┐
-              │  Return existing     │
-              │  entry, bump         │
-              │  updated_at          │
-              └──────────────────────┘
+```mermaid
+flowchart TD
+    A["Incoming Message"] --> B{"session_key exists<br/>AND !force_new?"}
+    B -- No --> C["Create fresh SessionEntry"]
+    B -- Yes --> D{"entry.suspended?"}
+    D -- Yes --> E["Auto-reset: new session_id<br/>(reason='suspended')"]
+    D -- No --> F{"entry.resume_pending?"}
+    F -- Yes --> G["Return existing entry<br/>(preserve session_id)<br/><i>Clear flag on next successful turn</i>"]
+    F -- No --> H{"Policy says reset?"}
+    H -- Yes --> I["Auto-reset: new session_id<br/>(reason='idle'/'daily')"]
+    H -- No --> J["Return existing entry,<br/>bump updated_at"]
 ```
 
 **Priority order in `get_or_create_session()`:**
@@ -349,42 +327,14 @@ restarts, crashes, and drain timeouts. It is the solution to issue #7536.
 
 ### Startup Recovery Sequence
 
-```
-Gateway starts
-       │
-       ▼
-┌───────────────────────────────┐
-│ Check for .clean_shutdown     │── Exists? ──► Skip suspension (clean exit)
-│ marker                        │
-└───────────────────────────────┘
-       │ Missing
-       ▼
-┌───────────────────────────────┐
-│ session_store                 │── Marks sessions updated within
-│ .suspend_recently_active()    │   last 120 seconds as resume_pending
-└───────────────────────────────┘
-       │
-       ▼
-┌───────────────────────────────┐
-│ _suspend_stuck_loop_sessions()│── Suspends sessions that have been
-│                               │   active across 3+ restarts
-└───────────────────────────────┘
-       │
-       ▼
-┌───────────────────────────────┐
-│ Queue inbound messages while  │
-│ startup restore runs          │
-│ (_startup_restore_in_progress)│
-└───────────────────────────────┘
-       │
-       ▼
-┌───────────────────────────────┐
-│ For each adapter, find        │
-│ resume_pending sessions →     │
-│ synthesize MessageEvent and   │
-│ run _handle_message to let    │
-│ the agent auto-continue       │
-└───────────────────────────────┘
+```mermaid
+flowchart TD
+    Start["Gateway starts"] --> Check{"Check for .clean_shutdown marker"}
+    Check -- Exists --> Skip["Skip suspension<br/>(Clean exit)"]
+    Check -- Missing --> Active["session_store.suspend_recently_active()<br/><i>Mark sessions updated within last 120s as resume_pending</i>"]
+    Active --> Stuck["_suspend_stuck_loop_sessions()<br/><i>Suspend sessions active across 3+ restarts</i>"]
+    Stuck --> Queue["Queue inbound messages while startup restore runs<br/>(_startup_restore_in_progress)"]
+    Queue --> Resume["For each adapter, find resume_pending sessions<br/>Synthesize MessageEvent & run _handle_message to auto-continue"]
 ```
 
 ### suspend_recently_active(max_age_seconds=120)

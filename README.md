@@ -51,36 +51,44 @@ EVA dispose d'une suite complète pour piloter et diagnostiquer les systèmes au
 
 ## 🏗️ Architecture — The Hive
 
+```mermaid
+graph TB
+    subgraph HIVE["☤ E.V.A — The Hive Architecture (2× RTX 3090 · AMD EPYC 32C · 125 GB RAM)"]
+        direction TB
+
+        subgraph INFRA["🧠 Inférence & Génération AI (GPU 1)"]
+            vLLM1["vLLM (:8001)<br/>DeepSeek 14B"]
+            vLLM2["vLLM (:8002)<br/>Modèle Secondaire"]
+            vLLM3["vLLM (:8003)<br/>Modèle Tertiaire"]
+            ComfyUI["ComfyUI (:8188)<br/>Génération d'images"]
+        end
+
+        subgraph SERVICES["📊 Services & Dashboards"]
+            Mon["Monitoring Cybersec<br/>:8081"]
+            Wiki["Wiki OKF (D3.js)<br/>:8082"]
+            RAG["RAG API Actemium<br/>:8083"]
+            Portainer["Portainer Docker<br/>:9443"]
+        end
+
+        subgraph AGENTS["🤖 Agents & Apprentissage RL (GPU 0)"]
+            JEPA["JEPA_EVA<br/>Trading RL"]
+            ADAM["ADAM-CI/CD<br/>12 Agents Autonomes"]
+            FTMO["FTMO Agent<br/>DreamerV3 / DeFi"]
+        end
+
+        subgraph INTERFACES["💬 Interfaces Client & Gateway"]
+            Gateway["Gateway Messagerie<br/>(Telegram, Discord, Slack...)"]
+            CLI["CLI & TUI Terminal"]
+            Desktop["Desktop Electron App"]
+        end
+    end
+
+    INTERFACES --> Gateway
+    Gateway --> AGENTS
+    AGENTS --> INFRA
+    AGENTS --> SERVICES
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    ☤ E.V.A (The Hive)                    │
-│              2× RTX 3090 · AMD EPYC 32C · 125 GB        │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────┐ │
-│  │  vLLM    │  │  vLLM    │  │  vLLM    │  │ComfyUI │ │
-│  │  :8001   │  │  :8002   │  │  :8003   │  │ :8188  │ │
-│  │ DeepSeek 14B  │  │ -           │  │ -          │  │ Image  │ │
-│  └──────────┘  └──────────┘  └──────────┘  └────────┘ │
-│                                                         │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────┐ │
-│  │Monitoring│  │   Wiki   │  │ RAG API  │  │Portainer│ │
-│  │  :8081   │  │  :8082   │  │  :8083   │  │ :9443  │ │
-│  │ Dashboard│  │  D3.js   │  │Actemium  │  │ Docker │ │
-│  └──────────┘  └──────────┘  └──────────┘  └────────┘ │
-│                                                         │
-│  ┌──────────────┐  ┌──────────────┐  ┌────────────────┐ │
-│  │  JEPA_EVA    │  │ ADAM-CI/CD   │  │  FTMO Agent    │ │
-│  │  Trading RL  │  │  12 Agents   │  │  DreamerV3     │ │
-│  │  GPU 0: entr │  │  Autonomes   │  │  FTMO Defi     │ │
-│  └──────────────┘  └──────────────┘  └────────────────┘ │
-│                                                         │
-│  ┌─────────────────────────────────────────────────────┐ │
-│  │         Gateway Messagerie (Telegram, Discord...)    │ │
-│  │         CLI · TUI · Desktop Electron                │ │
-│  └─────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
-```
+
 
 ### 📊 Allocation GPU
 

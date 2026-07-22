@@ -16,24 +16,21 @@ implementation detail**. The agent never talks to it, never holds its
 credentials, and never names it. The agent only knows the three NAS endpoints
 below.
 
-```
-create/update/pause/resume/remove a cron job (agent side)
-  │
-  ▼
-ChronosCronScheduler.reconcile()        ── agent computes next_run_at
-  │  POST {portal}/api/agent-cron/provision   (auth: agent's Nous access token)
-  ▼
-NAS arms a one-shot for fire_at         ── NAS owns the scheduler + its creds
-  │
-  ⏰ at fire_at
-  ▼
-scheduler → POST {portal}/api/agent-cron/relay   (auth: scheduler signature, NAS-verified)
-  │
-  ▼
-NAS mints a short-lived agent-audience JWT (purpose=cron_fire)
-  │  POST {agent_callback_url}/api/cron/fire        (auth: that JWT)
-  ▼
-agent verifies the NAS JWT → store CAS claim → run_one_job → re-arm next one-shot
+```mermaid
+sequenceDiagram
+    autonumber
+    actor UserAgent as Agent / ChronosCronScheduler
+    participant NAS as Nous Account Service (NAS)
+    participant Scheduler as External Scheduler
+    actor Callback as Agent Callback Handler
+
+    UserAgent->>NAS: POST /api/agent-cron/provision (Bearer Token)
+    Note over UserAgent,NAS: Reconcile job & compute next_run_at
+    NAS->>Scheduler: Arm one-shot timer for fire_at
+    Note over Scheduler: ⏰ Wait until fire_at
+    Scheduler->>NAS: POST /api/agent-cron/relay (Scheduler Signature)
+    NAS->>Callback: POST {agent_callback_url}/api/cron/fire (Short-lived NAS JWT)
+    Callback->>Callback: Verify NAS JWT -> CAS claim -> run_one_job -> Re-arm next fire
 ```
 
 ## Trust model (read this first)
