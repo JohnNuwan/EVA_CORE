@@ -64,6 +64,7 @@ DEPRECATION_THRESHOLD = 0.3   # Score < 0.3 → deprecated
 GRACE_PERIOD_SEC = 300    # 5 min de grâce avant suppression définitive
 POLL_INTERVAL = 10        # Secondes entre chaque cycle
 HEARTBEAT_INTERVAL = 60   # Secondes entre chaque heartbeat
+CODE_SCAN_INTERVAL = 1800  # 30 min entre chaque scan de code automatique
 AGENT_ID = "adam-evolution"
 CHANNEL_LISTEN = "adam:healed"
 
@@ -535,6 +536,380 @@ class EvolutionBus:
         })
 
 
+# ─── Analyseur de code source ────────────────────────────────────────────────
+#
+# Module d'analyse statique du code : complexité cyclomatique, duplication,
+# dead code (imports/fonctions inutilisés), et suggestions de factorisation.
+# Utilise uniquement le module `ast` de la stdlib — zéro dépendance externe.
+
+
+import ast
+import hashlib
+from collections import defaultdict
+
+
+# Dossiers à ignorer lors du scan (noms exacts + patterns)
+_CODE_SCAN_EXCLUDE = {
+    "__pycache__", ".git", "node_modules", ".venv", "venv",
+    "env", ".tox", ".eggs", "build", "dist", "site-packages",
+    "osint_env", ".env", "tests", "test", "_tests",
+}
+
+# Patterns de noms de dossiers à exclure (suffixes)
+_CODE_SCAN_EXCLUDE_SUFFIXES = ("_env", "-env", ".egg-info")
+
+
+def _is_excluded_dir(path: Path) -> bool:
+    """Vérifie si un chemin contient un dossier à exclure."""
+    for part in path.parts:
+        if part in _CODE_SCAN_EXCLUDE:
+            return True
+        for suffix in _CODE_SCAN_EXCLUDE_SUFFIXES:
+            if part.endswith(suffix) and len(part) > len(suffix):
+                return True
+    return False
+
+# Seuils de complexité cyclomatique
+_COMPLEXITY_WARN = 10    # > 10 = warning
+_COMPLEXITY_CRIT = 20    # > 20 = critical
+
+# Taille minimale (lignes) pour détecter la duplication
+_DUP_MIN_LINES = 6
+_DUP_MIN_TOKENS = 30
+
+
+class CodeAnalyzer:
+    """Analyse statique du code Python pour optimisation et factorisation."""
+
+    def __init__(self, root_path: Path) -> None:
+        self.root = root_path
+        self.findings: list[dict[str, Any]] = []
+        self._files_scanned = 0
+        self._total_lines = 0
+
+    # ─── API publique ────────────────────────────────────────────────────────
+
+    def scan(self) -> dict[str, Any]:
+        """Scanne tous les fichiers .py sous root_path et retourne un rapport.
+
+        Returns:
+            Dict avec 'findings' (liste), 'summary' (stats), 'files_scanned'.
+        """
+        self.findings = []
+        self._files_scanned = 0
+        self._total_lines = 0
+
+        all_funcs: list[dict[str, Any]] = []
+        all_blocks: dict[str, list[tuple[str, int, int]]] = defaultdict(list)
+
+        for py_file in self._iter_python_files():
+            try:
+                source = py_file.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+
+            self._files_scanned += 1
+            self._total_lines += source.count("\n") + 1
+
+            try:
+                tree = ast.parse(source, filename=str(py_file))
+            except SyntaxError as e:
+                self._add_finding(
+                    "syntax_error", "critical", str(py_file), e.lineno or 0,
+                    f"Erreur de syntaxe: {e.msg}",
+                )
+                continue
+
+            rel = str(py_file.relative_to(self.root))
+
+            # 1. Complexité cyclomatique
+            for func_info in self._analyze_complexity(tree, rel):
+                all_funcs.append(func_info)
+                self._check_complexity(func_info)
+
+            # 2. Imports inutilisés
+            self._check_unused_imports(tree, rel, source)
+
+            # 3. Dead code (fonctions jamais appelées dans ce fichier)
+            self._check_dead_functions(tree, rel)
+
+            # 4. Duplication de code (hash de blocs)
+            for block_hash, start, end in self._extract_blocks(source, rel):
+                all_blocks[block_hash].append((rel, start, end))
+
+        # 5. Duplication cross-fichiers
+        self._check_duplication(all_blocks)
+
+        # 6. Factorisation (fonctions similaires)
+        self._check_factorization(all_funcs)
+
+        return self._build_report()
+
+    # ─── Parcours des fichiers ──────────────────────────────────────────────
+
+    def _iter_python_files(self) -> list[Path]:
+        """Retourne tous les fichiers .py sous root, hors dossiers exclus."""
+        files: list[Path] = []
+        for path in self.root.rglob("*.py"):
+            if _is_excluded_dir(path):
+                continue
+            # Skip les fichiers trop gros (> 500 KB = probablement generated)
+            try:
+                if path.stat().st_size > 512_000:
+                    continue
+            except OSError:
+                continue
+            files.append(path)
+        return files
+
+    # ─── 1. Complexité cyclomatique ──────────────────────────────────────────
+
+    def _analyze_complexity(
+        self, tree: ast.AST, filename: str
+    ) -> list[dict[str, Any]]:
+        """Calcule la complexité cyclomatique de chaque fonction."""
+        results: list[dict[str, Any]] = []
+
+        for node in ast.walk(tree):
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+
+            complexity = 1  # Base
+            for child in ast.walk(node):
+                if isinstance(child, (ast.If, ast.While, ast.For, ast.AsyncFor)):
+                    complexity += 1
+                elif isinstance(child, ast.ExceptHandler):
+                    complexity += 1
+                elif isinstance(child, ast.BoolOp):
+                    complexity += len(child.values) - 1
+                elif isinstance(child, (ast.ListComp, ast.SetComp,
+                                        ast.DictComp, ast.GeneratorExp)):
+                    complexity += 1
+                elif isinstance(child, ast.Assert):
+                    complexity += 1
+
+            results.append({
+                "name": node.name,
+                "file": filename,
+                "line": node.lineno,
+                "complexity": complexity,
+                "args": len(node.args.args),
+            })
+
+        return results
+
+    def _check_complexity(self, func: dict[str, Any]) -> None:
+        """Ajoute un finding si la complexité est trop élevée."""
+        cx = func["complexity"]
+        if cx > _COMPLEXITY_CRIT:
+            self._add_finding(
+                "high_complexity", "critical", func["file"], func["line"],
+                f"Fonction '{func['name']}' complexité={cx} "
+                f"(> {_COMPLEXITY_CRIT}) — refactoriser en sous-fonctions",
+                suggestion="Diviser en fonctions plus petites, extraire la logique",
+            )
+        elif cx > _COMPLEXITY_WARN:
+            self._add_finding(
+                "high_complexity", "warning", func["file"], func["line"],
+                f"Fonction '{func['name']}' complexité={cx} "
+                f"(> {_COMPLEXITY_WARN}) — considérer refactoriser",
+            )
+
+    # ─── 2. Imports inutilisés ───────────────────────────────────────────────
+
+    def _check_unused_imports(
+        self, tree: ast.AST, filename: str, source: str
+    ) -> None:
+        """Détecte les imports qui ne sont pas utilisés dans le fichier."""
+        imported: list[tuple[str, str, int]] = []  # (name, alias, line)
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    name = alias.asname or alias.name.split(".")[0]
+                    imported.append((name, alias.asname or alias.name, node.lineno))
+            elif isinstance(node, ast.ImportFrom):
+                for alias in node.names:
+                    if alias.name == "*":
+                        continue
+                    name = alias.asname or alias.name
+                    imported.append((name, alias.asname or alias.name, node.lineno))
+
+        # Vérifier si le nom apparaît ailleurs dans le source (hors ligne d'import)
+        for name, orig, line in imported:
+            # Compter les occurrences hors les lignes d'import
+            lines = source.split("\n")
+            usage_count = 0
+            for i, src_line in enumerate(lines, 1):
+                if i == line:
+                    continue
+                # Match word boundary
+                if re.search(rf"\b{re.escape(name)}\b", src_line):
+                    usage_count += 1
+            if usage_count == 0:
+                self._add_finding(
+                    "unused_import", "info", filename, line,
+                    f"Import '{orig}' non utilisé — supprimer",
+                    suggestion=f"Retirer: import {orig}",
+                )
+
+    # ─── 3. Dead code (fonctions jamais appelées) ────────────────────────────
+
+    def _check_dead_functions(self, tree: ast.AST, filename: str) -> None:
+        """Détecte les fonctions privées (_xxx) jamais appelées dans le fichier."""
+        # Collecter toutes les fonctions définies
+        defined_funcs: list[tuple[str, int]] = []
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                if node.name.startswith("_") and node.name != "__init__":
+                    defined_funcs.append((node.name, node.lineno))
+
+        if not defined_funcs:
+            return
+
+        # Collecter tous les noms référencés (appels, attributs)
+        referenced: set[str] = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Attribute):
+                referenced.add(node.attr)
+            elif isinstance(node, ast.Name):
+                referenced.add(node.id)
+
+        for name, line in defined_funcs:
+            if name not in referenced:
+                self._add_finding(
+                    "dead_code", "warning", filename, line,
+                    f"Fonction privée '{name}' jamais appelée — dead code",
+                    suggestion=f"Supprimer la fonction '{name}'",
+                )
+
+    # ─── 4. Duplication de code ──────────────────────────────────────────────
+
+    def _extract_blocks(
+        self, source: str, filename: str
+    ) -> list[tuple[str, int, int]]:
+        """Extrait les blocs de code (fonctions) et les hash pour détection de doublons."""
+        try:
+            tree = ast.parse(source, filename=filename)
+        except SyntaxError:
+            return []
+
+        blocks: list[tuple[str, int, int]] = []
+        for node in ast.walk(tree):
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            # Normaliser: extraire le body, retirer docstrings et noms
+            try:
+                body_str = ast.dump(node, annotate_fields=False)
+            except Exception:
+                continue
+            # Hash de la structure (sans les noms de variables)
+            block_hash = hashlib.md5(body_str.encode()).hexdigest()
+            blocks.append((block_hash, node.lineno, node.end_lineno or node.lineno))
+
+        return blocks
+
+    def _check_duplication(
+        self, all_blocks: dict[str, list[tuple[str, int, int]]]
+    ) -> None:
+        """Signale les blocs dupliqués (même hash, fichiers différents)."""
+        for block_hash, locations in all_blocks.items():
+            if len(locations) < 2:
+                continue
+            # Au moins 2 fichiers différents
+            files = {loc[0] for loc in locations}
+            if len(files) < 2:
+                continue  # Même fichier = surcharge, pas dup
+            files_str = ", ".join(f"{l[0]}:{l[1]}" for l in locations[:4])
+            self._add_finding(
+                "duplication", "warning", locations[0][0], locations[0][1],
+                f"Bloc de code dupliqué dans {len(locations)} fichier(s): {files_str}",
+                suggestion="Extraire en fonction partagée",
+            )
+
+    # ─── 5. Factorisation (fonctions similaires) ─────────────────────────────
+
+    def _check_factorization(self, all_funcs: list[dict[str, Any]]) -> None:
+        """Détecte les fonctions avec signatures similaires (potentielle factorisation)."""
+        # Grouper par nombre d'args + complexité similaire
+        by_profile: dict[tuple, list[dict[str, Any]]] = defaultdict(list)
+        for func in all_funcs:
+            # Profile: (nb_args, complexity_bucket)
+            cx_bucket = func["complexity"] // 5  # Buckets de 5
+            profile = (func["args"], cx_bucket)
+            by_profile[profile].append(func)
+
+        for profile, funcs in by_profile.items():
+            if len(funcs) < 3:
+                continue
+            # Noms similaires ? (préfixe commun)
+            names = [f["name"] for f in funcs]
+            # Détecter préfixes communs de 3+ chars
+            prefixes: dict[str, int] = defaultdict(int)
+            for name in names:
+                for length in range(3, min(len(name), 10) + 1):
+                    prefixes[name[:length]] += 1
+
+            best_prefix = ""
+            best_count = 0
+            for prefix, count in prefixes.items():
+                if count >= 3 and count > best_count:
+                    best_prefix = prefix
+                    best_count = count
+
+            if best_prefix and best_count >= 3:
+                similar = [f for f in funcs if f["name"].startswith(best_prefix)]
+                files_str = ", ".join(
+                    f"{f['name']}({f['file']}:{f['line']})" for f in similar[:4]
+                )
+                self._add_finding(
+                    "factorization", "info", similar[0]["file"], similar[0]["line"],
+                    f"{len(similar)} fonctions similaires (préfixe '{best_prefix}'): "
+                    f"{files_str}",
+                    suggestion=f"Considérer une factory ou classe de base pour '{best_prefix}...'",
+                )
+
+    # ─── Helpers ─────────────────────────────────────────────────────────────
+
+    def _add_finding(
+        self,
+        finding_type: str,
+        severity: str,
+        file: str,
+        line: int,
+        message: str,
+        suggestion: str = "",
+    ) -> None:
+        self.findings.append({
+            "type": finding_type,
+            "severity": severity,
+            "file": file,
+            "line": line,
+            "message": message,
+            "suggestion": suggestion,
+        })
+
+    def _build_report(self) -> dict[str, Any]:
+        by_severity = defaultdict(int)
+        by_type = defaultdict(int)
+        for f in self.findings:
+            by_severity[f["severity"]] += 1
+            by_type[f["type"]] += 1
+
+        return {
+            "findings": self.findings,
+            "summary": {
+                "total": len(self.findings),
+                "critical": by_severity["critical"],
+                "warning": by_severity["warning"],
+                "info": by_severity["info"],
+                "by_type": dict(by_type),
+            },
+            "files_scanned": self._files_scanned,
+            "total_lines": self._total_lines,
+        }
+
+
 # ─── Agent principal ────────────────────────────────────────────────────────
 
 
@@ -553,6 +928,8 @@ class AdamEvolution:
         self._cycles = 0
         self._dernier_heartbeat = 0.0
         self._regle_stats = {"creees": 0, "mises_a_jour": 0, "supprimees": 0}
+        self._dernier_scan_code = 0.0  # Timestamp du dernier scan de code
+        self._code_scan_findings: list[dict[str, Any]] = []  # Cache findings
 
     def _load_cursor(self) -> int:
         """Charge le curseur du dernier event traité."""
@@ -641,6 +1018,85 @@ class AdamEvolution:
 
         self.bus.marquer_traite(event_id, succes=True)
 
+    def scan_code(self, root_dir: str = "") -> dict[str, Any]:
+        """Scanne le code source pour optimisation, factorisation, dead code.
+
+        Args:
+            root_dir: Répertoire à scanner (défaut: eva-adam-v2/).
+
+        Returns:
+            Rapport d'analyse (findings, summary, files_scanned).
+        """
+        scan_root = Path(root_dir) if root_dir else ADAM_V2_DIR
+        if not scan_root.exists():
+            logger.warning(f"Répertoire de scan introuvable: {scan_root}")
+            return {"error": "dir not found", "findings": [], "summary": {}}
+
+        logger.info(f"Scan de code source: {scan_root}")
+        analyzer = CodeAnalyzer(scan_root)
+        report = analyzer.scan()
+
+        s = report.get("summary", {})
+        logger.info(
+            f"Scan terminé: {report.get('files_scanned', 0)} fichiers, "
+            f"{report.get('total_lines', 0)} lignes — "
+            f"{s.get('total', 0)} findings "
+            f"(🔴{s.get('critical', 0)} 🟡{s.get('warning', 0)} 🔵{s.get('info', 0)})"
+        )
+
+        # Publier les findings critiques sur le bus
+        if not self.dry_run:
+            critical_findings = [
+                f for f in report.get("findings", [])
+                if f.get("severity") == "critical"
+            ]
+            if critical_findings:
+                self.bus.publier("evolution:code_review", {
+                    "scan_root": str(scan_root),
+                    "files_scanned": report.get("files_scanned", 0),
+                    "total_lines": report.get("total_lines", 0),
+                    "summary": s,
+                    "critical_findings": critical_findings[:20],
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                })
+                logger.info(
+                    f"{len(critical_findings)} finding(s) critique(s) "
+                    f"publié(s) sur evolution:code_review"
+                )
+
+        # Sauvegarder le rapport complet sur disque
+        if not self.dry_run:
+            report_file = EVOLUTION_DIR / "code_review_report.json"
+            try:
+                report_file.write_text(
+                    json.dumps(report, indent=2, ensure_ascii=False),
+                    encoding="utf-8",
+                )
+            except OSError as e:
+                logger.warning(f"Impossible de sauvegarder le rapport: {e}")
+
+        self._code_scan_findings = report.get("findings", [])
+        self._dernier_scan_code = time.time()
+
+        return report
+
+    def _run_periodic_code_scan(self) -> None:
+        """Lance un scan de code périodique (toutes les 30 min)."""
+        maintenant = time.time()
+        if maintenant - self._dernier_scan_code < CODE_SCAN_INTERVAL:
+            return
+
+        # Ne scanner que si des fichiers .py existent
+        py_files = list(ADAM_V2_DIR.rglob("*.py"))
+        if not py_files:
+            return
+
+        logger.info("Scan de code périodique déclenché")
+        try:
+            self.scan_code()
+        except Exception as e:
+            logger.error(f"Erreur scan de code: {e}", exc_info=True)
+
     def run_cycle(self) -> None:
         """Exécute un cycle de traitement."""
         self._cycles += 1
@@ -670,7 +1126,10 @@ class AdamEvolution:
                     f"{len(result['depreciees'])} dépréciée(s)"
                 )
 
-        # 3. Heartbeat
+        # 3. Scan de code périodique (toutes les 30 min)
+        self._run_periodic_code_scan()
+
+        # 4. Heartbeat
         maintenant = time.time()
         if maintenant - self._dernier_heartbeat >= HEARTBEAT_INTERVAL:
             self.bus.heartbeat()
@@ -767,6 +1226,14 @@ def main() -> int:
         "--debug", action="store_true",
         help="Active les logs de debug"
     )
+    parser.add_argument(
+        "--scan-code", action="store_true",
+        help="Scanne le code source (complexité, duplication, dead code, factorisation) puis quitte"
+    )
+    parser.add_argument(
+        "--scan-dir", type=str, default="",
+        help="Répertoire à scanner (avec --scan-code). Défaut: eva-adam-v2/"
+    )
     args = parser.parse_args()
 
     if args.debug:
@@ -774,6 +1241,43 @@ def main() -> int:
 
     if args.status:
         return AdamEvolution().status()
+
+    if args.scan_code:
+        agent = AdamEvolution(dry_run=args.dry_run)
+        report = agent.scan_code(root_dir=args.scan_dir)
+        # Affichage formaté
+        s = report.get("summary", {})
+        print(f"\n{'='*70}")
+        print(f"ADAM-EVOLUTION — Rapport d'analyse de code")
+        print(f"{'='*70}")
+        print(f"Fichiers scannés  : {report.get('files_scanned', 0)}")
+        print(f"Lignes totales    : {report.get('total_lines', 0)}")
+        print(f"Findings totaux   : {s.get('total', 0)}")
+        print(f"  🔴 Critiques     : {s.get('critical', 0)}")
+        print(f"  🟡 Warnings      : {s.get('warning', 0)}")
+        print(f"  🔵 Info          : {s.get('info', 0)}")
+        if s.get("by_type"):
+            print(f"\nPar type:")
+            for t, count in sorted(s["by_type"].items(), key=lambda x: -x[1]):
+                print(f"  {t:<25} {count}")
+        findings = report.get("findings", [])
+        if findings:
+            print(f"\n{'-'*70}")
+            print("Détails (50 premiers):")
+            print(f"{'-'*70}")
+            for f in findings[:50]:
+                sev_icon = {"critical": "🔴", "warning": "🟡", "info": "🔵"}.get(
+                    f.get("severity", ""), "  "
+                )
+                print(
+                    f"  {sev_icon} [{f.get('type', '?'):<20}] "
+                    f"{f.get('file', '?')}:{f.get('line', 0)} — "
+                    f"{f.get('message', '')[:80]}"
+                )
+                if f.get("suggestion"):
+                    print(f"      → {f['suggestion'][:80]}")
+        print()
+        return 0
 
     agent = AdamEvolution(dry_run=args.dry_run, once=args.once)
     return agent.run()

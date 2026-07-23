@@ -37,6 +37,7 @@ CHANNELS = {
     "file:deleted": "Fichier supprimé",
     "git:push": "Push Git détecté",
     "git:commit": "Commit Git détecté",
+    "git:pull": "Pull Git — synchronisation depuis le distant",
     "security:vulnerability_detected": "Vulnérabilité détectée par ADAM-RED",
     "security:permission_drift": "Dérive de permissions détectée",
     "security:suid_change": "Changement SUID détecté",
@@ -59,6 +60,7 @@ CHANNELS = {
     "skill:broken": "Compétence cassée (syntaxe/structure)",
     "test:failed": "Test automatisé échoué",
     "test:passed": "Tests passés avec succès",
+    "evolution:code_review": "Analyse de code par adam-evolution (optimisation, factorisation, dead code)",
     "backup:done": "Sauvegarde terminée",
     "backup:failed": "Sauvegarde échouée",
     "osint:finding": "Résultat OSINT intéressant",
@@ -439,6 +441,7 @@ DEFAULT_SUBSCRIPTIONS = [
     # ADAM-CICD : se déclenche sur file:changed (.py) et git:push
     ("adam-cicd", "file:changed", "bash ~/scripts/cicd-hook.sh"),
     ("adam-cicd", "git:push", "bash ~/scripts/cicd-hook.sh"),
+    ("adam-cicd", "git:pull", "bash ~/scripts/cicd-hook.sh"),
     ("adam-cicd", "test:failed", "bash ~/scripts/cicd-hook.sh"),
     # ADAM-BLUE : se déclenche sur alertes de sécurité
     ("adam-blue", "security:vulnerability_detected", "bash ~/scripts/blue-watch.sh --fix"),
