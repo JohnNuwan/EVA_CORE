@@ -17,7 +17,6 @@ Usage :
 
 import sqlite3
 import json
-import time
 import threading
 import logging
 from pathlib import Path
@@ -79,6 +78,13 @@ CHANNELS = {
     # ─── Canaux Phase 4: Treasurer ───
     "finance:report": "Rapport financier de adam-treasurer",
     "finance:alert": "Alerte budget dépassé",
+    # ─── Canaux Phase 5: Researcher ───
+    "research:finding": "Résultat de veille scientifique",
+    "research:opportunity": "Opportunité économique identifiée (brevet/startup)",
+    # ─── Canaux Phase 6: Social ───
+    "social:scheduled": "Contenu social planifié",
+    "social:engagement": "Métriques d'engagement réseaux sociaux",
+    "social:monetization": "Revenu/opportunité de monétisation sociale",
     "update:available": "Mise à jour disponible (système/paquet)",
 }
 
@@ -470,6 +476,18 @@ DEFAULT_SUBSCRIPTIONS = [
     ("adam-treasurer", "finance:report", "python3 ~/scripts/treasurer-track.py --event finance:report '{}'"),
     ("adam-treasurer", "finance:alert", "python3 ~/scripts/treasurer-track.py --event finance:alert '{}'"),
     ("adam-treasurer", "evolution:code_review", "python3 ~/scripts/treasurer-track.py --event evolution:code_review '{}'"),
+    # ADAM-CRITIC : auto-fix unused imports + tasks de refactor
+    ("adam-critic", "evolution:code_review", "python3 ~/scripts/critic-review.py --event evolution:code_review '{}'"),
+    # ADAM-RESEARCHER : veille scientifique biomédicale & pharma
+    ("adam-researcher", "research:finding", "python3 ~/scripts/researcher-scan.py --event research:finding '{}'"),
+    ("adam-researcher", "research:opportunity", "python3 ~/scripts/researcher-scan.py --event research:opportunity '{}'"),
+    ("adam-researcher", "osint:finding", "python3 ~/scripts/researcher-scan.py --event osint:finding '{}'"),
+    # ADAM-SOCIAL : influence virtuelle & monétisation
+    ("adam-social", "content:ready", "python3 ~/scripts/social-manage.py --event content:ready '{}'"),
+    ("adam-social", "social:scheduled", "python3 ~/scripts/social-manage.py --event social:scheduled '{}'"),
+    ("adam-social", "social:engagement", "python3 ~/scripts/social-manage.py --event social:engagement '{}'"),
+    ("adam-social", "social:monetization", "python3 ~/scripts/social-manage.py --event social:monetization '{}'"),
+    ("adam-social", "finance:report", "python3 ~/scripts/social-manage.py --event finance:report '{}'"),
     # ADAM-BLUE : se déclenche sur alertes de sécurité
     ("adam-blue", "security:vulnerability_detected", "bash ~/scripts/blue-watch.sh --fix"),
     ("adam-blue", "security:permission_drift", "bash ~/scripts/blue-watch.sh --fix"),
@@ -519,6 +537,8 @@ DEFAULT_AGENTS = [
     ("adam-architect", "ADAM-ARCHITECT — Conception & architecture", {"timeout": 300, "retries": 1}),
     ("adam-scribe", "ADAM-SCRIBE — Rédaction & documentation", {"timeout": 120, "retries": 2}),
     ("adam-treasurer", "ADAM-TREASURER — Finance & rentabilité", {"timeout": 60, "retries": 3}),
+    ("adam-researcher", "ADAM-RESEARCHER — Veille scientifique biomédicale", {"timeout": 120, "retries": 2}),
+    ("adam-social", "ADAM-SOCIAL — Influence virtuelle & monétisation", {"timeout": 120, "retries": 2}),
 ]
 
 
