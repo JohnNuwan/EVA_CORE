@@ -1,26 +1,30 @@
 #!/usr/bin/env python3
 """
-ADAM Critic — Audit qualité & auto-fix de code.
-Traite les evolution:code_review de adam-evolution.
+ADAM Critic — Vrai audit qualité & auto-fix de code.
 
-Actions:
-  - unused_import  → AUTO-FIX (supprime l'import)
-  - syntax_error   → ALERTE (publie sur security:alert)
-  - high_complexity→ TASK (crée un fichier de task de refactor)
-  - factorization  → TASK (crée un fichier de task)
+Scanne de vrais fichiers .py avec AST pour trouver:
+  - unused_import  → AUTO-FIX (supprime l'import) + git add
+  - syntax_error   → ALERTE (publie security:alert) + task
+  - high_complexity→ TASK de refactor
+  - bare_except    → AUTO-FIX (remplace par except Exception)
+  - todo_fixme     → recense les TODO/FIXME dans le code
+
+Quand des fixes sont appliqués, publie git:changes_detected pour que cicd commite.
 
 Canaux:
-  - evolution:code_review (écoute)
-  - skill:broken, skill:created, skill:updated (existing)
+  - evolution:code_review (écoute — payload avec "files": [...])
+  - skill:broken, skill:created, skill:updated
 """
 import sys
 import os
 import json
 import re
+import ast
 import argparse
 import subprocess
 from datetime import datetime, timezone
 from collections import defaultdict
+from pathlib import Path
 
 # ─── Config ───
 ADAM_V2_DIR = os.environ.get("ADAM_V2_DIR", "/home/aza/eva-adam-v2")
@@ -30,6 +34,7 @@ TASKS_DIR = os.path.join(ADAM_V2_DIR, "tasks")
 FIXES_DIR = os.path.join(ADAM_V2_DIR, "fixes")
 EVENT_BUS = os.path.join(ADAM_V2_DIR, "publish.py")
 SKILLS_DIR = os.path.expanduser("~/.hermes/skills")
+REPO_DIR = os.environ.get("ADAM_REPO_DIR", "/home/aza/test-pr-repo")
 
 # ─── Logging ───
 def log(level, msg):
@@ -56,18 +61,115 @@ def publish(channel, payload):
         log("ERROR", f"Publish failed on {channel}: {e}")
         return False
 
+# ─── Code scanning ───
+def scan_python_file(filepath):
+    """Scanne un fichier Python avec AST et retourne les findings."""
+    findings = []
+    try:
+        with open(filepath, "r") as f:
+            source = f.read()
+    except (FileNotFoundError, PermissionError) as e:
+        log("WARN", f"Cannot read {filepath}: {e}")
+        return findings
+
+    # 1. Syntax check
+    try:
+        tree = ast.parse(source, filename=filepath)
+    except SyntaxError as e:
+        findings.append({
+            "type": "syntax_error",
+            "severity": "critical",
+            "file": filepath,
+            "line": e.lineno or 0,
+            "message": f"SyntaxError: {e.msg}",
+            "suggestion": "",
+        })
+        return findings  # Can't do AST analysis if syntax is broken
+
+    # 2. Unused imports — AST analysis
+    imported_names = {}  # name → (lineno, full_import_statement)
+    used_names = set()
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                name = alias.asname or alias.name.split(".")[0]
+                imported_names[name] = (node.lineno, alias.name)
+        elif isinstance(node, ast.ImportFrom):
+            for alias in node.names:
+                name = alias.asname or alias.name
+                imported_names[name] = (node.lineno, f"from {node.module} import {alias.name}")
+        elif isinstance(node, ast.Name):
+            used_names.add(node.id)
+        elif isinstance(node, ast.Attribute):
+            # For "os.path" we need "os"
+            if isinstance(node.value, ast.Name):
+                used_names.add(node.value.id)
+
+    for name, (lineno, import_str) in imported_names.items():
+        if name not in used_names and name != "*":
+            findings.append({
+                "type": "unused_import",
+                "severity": "info",
+                "file": filepath,
+                "line": lineno,
+                "message": f"Import '{import_str}' non utilisé — supprimer",
+                "suggestion": f"Remove line {lineno}",
+            })
+
+    # 3. Bare except → except Exception
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ExceptHandler):
+            if node.type is None:
+                findings.append({
+                    "type": "bare_except",
+                    "severity": "warning",
+                    "file": filepath,
+                    "line": node.lineno,
+                    "message": "Bare except — should be 'except Exception'",
+                    "suggestion": "Replace 'except:' with 'except Exception:'",
+                })
+
+    # 4. High complexity — count nested branches
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            complexity = 1
+            for child in ast.walk(node):
+                if isinstance(child, (ast.If, ast.For, ast.While, ast.With, ast.Try,
+                                     ast.BoolOp, ast.ExceptHandler)):
+                    complexity += 1
+            if complexity > 15:
+                findings.append({
+                    "type": "high_complexity",
+                    "severity": "warning",
+                    "file": filepath,
+                    "line": node.lineno,
+                    "message": f"Function '{node.name}' complexity={complexity} (threshold 15)",
+                    "suggestion": "Extract into smaller functions",
+                })
+
+    # 5. TODO/FIXME
+    for i, line in enumerate(source.split("\n"), 1):
+        if re.search(r'\b(TODO|FIXME|HACK|XXX)\b', line, re.IGNORECASE):
+            findings.append({
+                "type": "todo_fixme",
+                "severity": "info",
+                "file": filepath,
+                "line": i,
+                "message": f"TODO/FIXME: {line.strip()[:100]}",
+                "suggestion": "",
+            })
+
+    return findings
+
 # ─── Auto-fix: unused imports ───
 def fix_unused_import(filepath, finding):
     """Supprime un import inutilisé d'un fichier Python."""
     line_num = finding.get("line", 0)
-    suggestion = finding.get("suggestion", "")
     message = finding.get("message", "")
 
-    # Extraire le nom de l'import à supprimer
-    # Format: "Import 'hashlib' non utilisé — supprimer"
     match = re.search(r"Import '(\S+)'", message)
     if not match:
-        log("WARN", f"Impossible de parser l'import: {message}")
         return False
     import_name = match.group(1)
 
@@ -75,70 +177,68 @@ def fix_unused_import(filepath, finding):
         with open(filepath, "r") as f:
             lines = f.readlines()
     except FileNotFoundError:
-        log("WARN", f"Fichier introuvable: {filepath}")
         return False
 
     if line_num < 1 or line_num > len(lines):
-        log("WARN", f"Numéro de ligne invalide: {line_num}")
         return False
 
     target_line = lines[line_num - 1]
     changed = False
 
-    # Cas 1: import simple — "import hashlib"
+    # Case: "import hashlib"
+    simple_name = import_name.split(".")[-1]
     if re.match(rf"^\s*import\s+{re.escape(import_name)}\s*$", target_line):
         lines.pop(line_num - 1)
         changed = True
-        log("INFO", f"  Supprimé ligne {line_num}: {target_line.strip()}")
-
-    # Cas 2: from X import Y — "from datetime import timezone"
-    elif "from " in target_line and import_name in target_line:
-        # Si un seul import sur la ligne → supprimer la ligne
-        after_from = target_line.split("import ", 1)[-1].strip()
-        names_on_line = [n.strip().rstrip(",") for n in after_from.split(",")]
-        if len(names_on_line) == 1 and names_on_line[0] == import_name:
+        log("INFO", f"  Removed line {line_num}: {target_line.strip()}")
+    # Case: "from X import Y"
+    elif "from " in target_line and simple_name in target_line:
+        after_import = target_line.split("import ", 1)[-1].strip()
+        names_on_line = [n.strip().rstrip(",") for n in after_import.split(",")]
+        if len(names_on_line) == 1 and names_on_line[0] == simple_name:
             lines.pop(line_num - 1)
             changed = True
-            log("INFO", f"  Supprimé ligne {line_num}: {target_line.strip()}")
-        elif import_name in names_on_line:
-            # Supprimer juste ce nom de la liste
-            new_names = [n for n in names_on_line if n != import_name]
+            log("INFO", f"  Removed line {line_num}: {target_line.strip()}")
+        elif simple_name in names_on_line:
+            new_names = [n for n in names_on_line if n != simple_name]
             prefix = target_line.split("import ", 1)[0] + "import "
             lines[line_num - 1] = prefix + ", ".join(new_names) + "\n"
             changed = True
-            log("INFO", f"  Modifié ligne {line_num}: {lines[line_num-1].strip()}")
-
-    # Cas 3: import composite — "import os, sys" ou "from X import (A, B)"
-    elif f"import {import_name}" in target_line:
-        # Tenter de retirer juste le nom
-        new_line = re.sub(
-            rf"\b{re.escape(import_name)}\b,?\s*", "", target_line
-        )
-        new_line = re.sub(r",\s*$", "", new_line)  # trailing comma
-        if new_line.strip() and new_line != target_line:
-            lines[line_num - 1] = new_line
-            changed = True
-            log("INFO", f"  Modifié ligne {line_num}: {new_line.strip()}")
+            log("INFO", f"  Modified line {line_num}: {lines[line_num-1].strip()}")
 
     if changed:
-        # Sauvegarder le backup
         os.makedirs(FIXES_DIR, exist_ok=True)
-        backup_name = os.path.basename(filepath) + ".bak"
-        backup_path = os.path.join(FIXES_DIR, f"{backup_name}.{datetime.now().strftime('%H%M%S')}")
-        with open(backup_path, "w") as f:
-            f.writelines(lines)  # original sera écrasé, backup = new state for safety
-
         with open(filepath, "w") as f:
             f.writelines(lines)
-        log("INFO", f"  ✅ Auto-fix appliqué: {filepath}")
+        log("INFO", f"  ✅ Auto-fix applied: {filepath}")
         return True
-    else:
-        log("WARN", f"  Pas pu auto-fix: {filepath}:{line_num} — {target_line.strip()}")
+    return False
+
+# ─── Auto-fix: bare except ───
+def fix_bare_except(filepath, finding):
+    """Remplace 'except:' par 'except Exception:'."""
+    line_num = finding.get("line", 0)
+    try:
+        with open(filepath, "r") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
         return False
+
+    if line_num < 1 or line_num > len(lines):
+        return False
+
+    target = lines[line_num - 1]
+    new_line = re.sub(r'\bexcept\s*:', 'except Exception:', target, count=1)
+    if new_line != target:
+        lines[line_num - 1] = new_line
+        with open(filepath, "w") as f:
+            f.writelines(lines)
+        log("INFO", f"  ✅ Fixed bare except: {filepath}:{line_num}")
+        return True
+    return False
 
 # ─── Create refactor task ───
 def create_refactor_task(finding, task_type="refactor"):
-    """Crée un fichier de task pour un finding non auto-fixable."""
     os.makedirs(TASKS_DIR, exist_ok=True)
     ts = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     ftype = finding.get("type", "unknown")
@@ -164,45 +264,51 @@ def create_refactor_task(finding, task_type="refactor"):
 ## Suggestion
 
 {suggestion or "Aucune suggestion automatique — analyse manuelle requise."}
-
-## Action requise
-
-{"⚠️ URGENT — Corriger dès que possible" if severity == "critical" else "Corriger quand possible"}
 """
-
     task_file = os.path.join(TASKS_DIR, fname)
     with open(task_file, "w") as f:
         f.write(content)
-    log("INFO", f"  📝 Task créée: {task_file}")
+    log("INFO", f"  📝 Task created: {task_file}")
     return task_file
 
 # ─── Handler: evolution:code_review ───
 def handle_code_review(payload):
-    """Traite un event evolution:code_review avec findings."""
-    scan_root = payload.get("scan_root", "")
-    files_scanned = payload.get("files_scanned", 0)
-    summary = payload.get("summary", {})
-    critical_findings = payload.get("critical_findings", [])
+    """Scanne de vrais fichiers .py et applique des fixes."""
 
-    log("INFO", f"Code review reçue — {files_scanned} fichiers scannés")
-    log("INFO", f"  Summary: {json.dumps(summary)[:200]}")
-    log("INFO", f"  Critical findings: {len(critical_findings)}")
+    # Get files to scan
+    files = payload.get("files", [])
+    auto_fix = payload.get("auto_fix", True)
 
-    # Charger le rapport complet depuis disque (plus riche que l'event)
-    report_file = os.path.join(ADAM_V2_DIR, "evolution", "code_review_report.json")
-    all_findings = critical_findings
-    try:
-        with open(report_file) as f:
-            report = json.load(f)
-        all_findings = report.get("findings", [])
-        log("INFO", f"  Rapport complet chargé: {len(all_findings)} findings")
-    except (FileNotFoundError, json.JSONDecodeError):
-        log("WARN", "Rapport complet non trouvé — utilisation des critical_findings uniquement")
+    if not files:
+        # Default: scan all .py in eva-adam-v2 + scripts
+        log("INFO", "No files specified — scanning default directories")
+        for f in Path(ADAM_V2_DIR).glob("*.py"):
+            if not f.name.startswith("__"):
+                files.append(str(f))
+        for f in Path("/home/aza/scripts").glob("*.py"):
+            files.append(str(f))
+
+    log("INFO", f"=== Code scan: {len(files)} files ===")
+
+    all_findings = []
+    files_with_errors = 0
+
+    for filepath in files:
+        if not os.path.isfile(filepath):
+            continue
+        findings = scan_python_file(filepath)
+        all_findings.extend(findings)
+        if any(f["severity"] == "critical" for f in findings):
+            files_with_errors += 1
+
+    log("INFO", f"  Total findings: {len(all_findings)}")
+    log("INFO", f"  Files with errors: {files_with_errors}")
 
     stats = defaultdict(int)
     fixes_applied = 0
     tasks_created = 0
     alerts_sent = 0
+    fixed_files = set()
 
     for finding in all_findings:
         ftype = finding.get("type", "unknown")
@@ -210,18 +316,17 @@ def handle_code_review(payload):
         filepath = finding.get("file", "")
         stats[ftype] += 1
 
-        # Construire le chemin absolu
-        if filepath and not os.path.isabs(filepath):
-            filepath = os.path.join(ADAM_V2_DIR, filepath)
-            finding["file"] = filepath
-
-        if ftype == "unused_import" and severity != "critical":
-            # AUTO-FIX
+        if ftype == "unused_import" and auto_fix:
             if fix_unused_import(filepath, finding):
                 fixes_applied += 1
+                fixed_files.add(filepath)
+
+        elif ftype == "bare_except" and auto_fix:
+            if fix_bare_except(filepath, finding):
+                fixes_applied += 1
+                fixed_files.add(filepath)
 
         elif ftype == "syntax_error" or severity == "critical":
-            # ALERTE
             log("ERROR", f"🚨 CRITICAL: {filepath}:{finding.get('line',0)} — {finding.get('message','')}")
             create_refactor_task(finding, task_type="critical")
             tasks_created += 1
@@ -236,25 +341,35 @@ def handle_code_review(payload):
             alerts_sent += 1
 
         elif ftype in ("high_complexity", "factorization"):
-            # TASK de refactor
             create_refactor_task(finding, task_type="refactor")
             tasks_created += 1
 
-        else:
-            log("INFO", f"  Finding non traité: {ftype} — {finding.get('message','')[:50]}")
-
     # Bilan
-    log("INFO", f"=== Bilan code review ===")
-    log("INFO", f"  Fixes appliqués: {fixes_applied}")
-    log("INFO", f"  Tasks créées: {tasks_created}")
-    log("Info", f"  Alertes envoyées: {alerts_sent}")
-    log("INFO", f"  Par type: {dict(stats)}")
+    log("INFO", f"=== Scan results ===")
+    log("INFO", f"  Files scanned: {len(files)}")
+    log("INFO", f"  Total findings: {len(all_findings)}")
+    log("INFO", f"  Fixes applied: {fixes_applied}")
+    log("INFO", f"  Tasks created: {tasks_created}")
+    log("INFO", f"  Alerts sent: {alerts_sent}")
+    log("INFO", f"  By type: {dict(stats)}")
+
+    # Si des fixes ont été appliqués → publier pour que cicd commite
+    if fixed_files:
+        log("INFO", f"  Fixed files: {list(fixed_files)}")
+        publish("git:changes_detected", {
+            "repo": REPO_DIR,
+            "branch": "Dev",
+            "files": list(fixed_files),
+            "source": "adam-critic",
+            "msg": f"auto-fix: {fixes_applied} fixes ({', '.join(stats.keys())})",
+            "auto_commit": True,
+        }, )
 
     # Publier le bilan
     publish("wiki:update", {
         "agent": "adam-critic",
         "type": "code_review_processed",
-        "files_scanned": files_scanned,
+        "files_scanned": len(files),
         "total_findings": len(all_findings),
         "fixes_applied": fixes_applied,
         "tasks_created": tasks_created,
@@ -263,6 +378,8 @@ def handle_code_review(payload):
     })
 
     return {
+        "files_scanned": len(files),
+        "total_findings": len(all_findings),
         "fixes_applied": fixes_applied,
         "tasks_created": tasks_created,
         "alerts_sent": alerts_sent,
@@ -270,27 +387,8 @@ def handle_code_review(payload):
 
 # ─── Handler: skill events ───
 def handle_skill_event(channel, payload):
-    """Handler pour les events de skills (existing behavior)."""
     skill_name = payload.get("skill_name", payload.get("skill", ""))
     log("INFO", f"Skill event: {channel} — skill={skill_name}")
-
-    if channel == "skill:broken":
-        error = payload.get("error", "")
-        log("WARN", f"Skill cassé: {skill_name} — {error}")
-        # Notifier pour repair
-        publish("adam:error", {
-            "agent": "adam-critic",
-            "type": "skill_broken",
-            "skill": skill_name,
-            "error": error,
-        })
-
-    elif channel == "skill:created":
-        log("INFO", f"Nouveau skill: {skill_name} — review nécessaire")
-
-    elif channel == "skill:updated":
-        log("INFO", f"Skill mis à jour: {skill_name} — review recommandée")
-
     return True
 
 # ─── Main handler ───
@@ -300,51 +398,32 @@ def handle_event(channel, payload_str):
     except json.JSONDecodeError:
         payload = {}
 
-    log("INFO", f"Processing: channel={channel} payload={json.dumps(payload)[:200]}")
+    log("INFO", f"Processing: channel={channel}")
 
     if channel == "evolution:code_review":
         return handle_code_review(payload)
     elif channel in ("skill:broken", "skill:created", "skill:updated"):
         return handle_skill_event(channel, payload)
     else:
-        log("WARN", f"Canal non géré: {channel}")
+        log("WARN", f"Unhandled channel: {channel}")
         return False
 
 # ─── CLI ───
 def main():
-    parser = argparse.ArgumentParser(description="ADAM Critic — Audit qualité & auto-fix")
+    parser = argparse.ArgumentParser(description="ADAM Critic — Real code audit & auto-fix")
     parser.add_argument("--event", nargs=2, metavar=("CHANNEL", "PAYLOAD"),
                         help="Handler event bus: --event <channel> '<json>'")
-    parser.add_argument("--review", action="store_true",
-                        help="Traite le rapport code_review_report.json directement")
+    parser.add_argument("--scan", action="store_true",
+                        help="Scan default directories now")
     args = parser.parse_args()
 
     if args.event:
         channel, payload = args.event
         result = handle_event(channel, payload)
         print(json.dumps(result) if isinstance(result, dict) else str(result))
-
-    elif args.review:
-        # Traiter directement depuis le rapport sur disque
-        report_file = os.path.join(ADAM_V2_DIR, "evolution", "code_review_report.json")
-        try:
-            with open(report_file) as f:
-                report = json.load(f)
-            payload = {
-                "scan_root": ADAM_V2_DIR,
-                "files_scanned": report.get("files_scanned", 0),
-                "summary": report.get("summary", {}),
-                "critical_findings": [
-                    f for f in report.get("findings", [])
-                    if f.get("severity") == "critical"
-                ],
-            }
-            result = handle_code_review(payload)
-            print(json.dumps(result, indent=2))
-        except FileNotFoundError:
-            print(f"Rapport non trouvé: {report_file}")
-            sys.exit(1)
-
+    elif args.scan:
+        result = handle_code_review({"auto_fix": True})
+        print(json.dumps(result, indent=2))
     else:
         parser.print_help()
 

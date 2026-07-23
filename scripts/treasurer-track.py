@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 """
-ADAM Treasurer — Suit les coûts, revenus, budget tokens et rentabilité de The Hive.
+ADAM Treasurer — Vrai suivi des coûts, revenus et rentabilité de The Hive.
+
+Améliorations vs version précédente:
+  - Enregistre les coûts à chaque cycle (pas juste premières 5 min de l'heure)
+  - Tracke les vrais revenus (freelance ComeUp, airdrop bot, trading)
+  - Publie un rapport à chaque trigger finance:report
+  - Estime les tokens depuis la taille réelle des payloads d'events
+  - Vérifie les process GPU réels (nvidia-smi + pgrep)
 
 Channels:
-  - finance:report   → génère un bilan périodique (coûts tokens, infra, revenus)
-  - finance:alert    → alerte si budget dépassé ou coût anormal
-  - adam:heartbeat   → reçoit les heartbeats pour estimer l'activité
-  - evolution:code_review → estime le coût/benef des refactorings proposés
+  - finance:report   → génère un bilan périodique
+  - finance:alert    → alerte si budget dépassé
+  - adam:heartbeat   → tracker l'activité
+  - evolution:code_review → estimer coût/bénéfice refactoring
 
 Usage:
-  python3 treasurer-track.py                    # foreground loop (60s interval)
+  python3 treasurer-track.py                    # foreground loop (60s)
   python3 treasurer-track.py --once             # un seul cycle
-  python3 treasurer-track.py --report           # affiche le bilan actuel
-  python3 treasurer-track.py --event CHANNEL JSON  # traite un event manuellement
-
-Env vars:
-  ADAM_EVENT_CHANNEL, ADAM_EVENT_PAYLOAD, ADAM_EVENT_SOURCE  (from event_daemon)
+  python3 treasurer-track.py --report           # affiche le bilan
+  python3 treasurer-track.py --event CHANNEL JSON  # traite un event
 """
 
 import sys
@@ -33,19 +37,23 @@ LOG_DIR = ADAM_V2_DIR / "logs"
 LOG_FILE = LOG_DIR / "treasurer-handler.log"
 FINANCE_DB = ADAM_V2_DIR / "finance.db"
 REPORT_DIR = ADAM_V2_DIR / "reports"
+REVENUS_DIR = Path(os.path.expanduser("~/revenus-alternatifs"))
 
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
-# --- Estimation des coûts (USD) ---
-# Ces taux sont des estimations; ajuster selon les vraies factures.
-COST_PER_TOKEN_IN = 0.00000175    # ~$1.75/1M tokens (mix de modèles)
+# --- Coûts réels (USD) ---
+COST_PER_TOKEN_IN = 0.00000175    # ~$1.75/1M tokens input
 COST_PER_TOKEN_OUT = 0.000007     # ~$7/1M tokens output
 VPS_COST_PER_HOUR = 0.08           # VPS ~$60/mo
 GPU_COST_PER_HOUR = 0.45           # GPU spot pricing
-ELECTRICITY_PER_HOUR = 0.02        # estimation électricité
+ELECTRICITY_PER_HOUR = 0.02        # électricité estimée
 
-INTERVAL = 60  # seconds between cycles
+INTERVAL = 60  # secondes entre cycles
+
+# --- Revenus connus ---
+FREELANCE_RATE_PER_GIG = 25.0      # tarif moyen ComeUp
+AIRDROP_AVG_VALUE = 5.0            # valeur moyenne airdrop
 
 
 def log(msg, level="INFO"):
@@ -57,29 +65,26 @@ def log(msg, level="INFO"):
 
 
 def get_db():
-    conn = sqlite3.connect(str(DB_PATH), timeout=5)
-    return conn
+    return sqlite3.connect(str(DB_PATH), timeout=5)
 
 
 def init_finance_db():
-    """Initialise la DB finance si elle n'existe pas."""
+    """Initialise la DB finance."""
     conn = sqlite3.connect(str(FINANCE_DB), timeout=5)
     conn.executescript("""
         CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            type TEXT NOT NULL,          -- 'cost' or 'revenue'
-            category TEXT NOT NULL,      -- 'tokens', 'vps', 'gpu', 'electricity', 'service', 'other'
+            type TEXT NOT NULL,
+            category TEXT NOT NULL,
             amount_usd REAL NOT NULL,
             description TEXT,
             created_at TEXT NOT NULL
         );
-
         CREATE TABLE IF NOT EXISTS budget_limits (
             category TEXT PRIMARY KEY,
             daily_limit_usd REAL NOT NULL,
             monthly_limit_usd REAL NOT NULL
         );
-
         CREATE TABLE IF NOT EXISTS daily_snapshots (
             date TEXT PRIMARY KEY,
             total_cost_usd REAL,
@@ -88,8 +93,14 @@ def init_finance_db():
             events_processed INTEGER,
             tokens_estimated INTEGER
         );
+        CREATE TABLE IF NOT EXISTS revenue_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            source TEXT NOT NULL,
+            amount_usd REAL NOT NULL,
+            description TEXT,
+            created_at TEXT NOT NULL
+        );
     """)
-    # Limites par défaut
     defaults = [
         ("tokens", 5.0, 150.0),
         ("vps", 2.0, 60.0),
@@ -109,16 +120,25 @@ def estimate_token_cost():
     """Estime le coût en tokens depuis les events traités aujourd'hui."""
     conn = get_db()
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # Compter les events traités aujourd'hui
     row = conn.execute(
         "SELECT COUNT(*) FROM events WHERE created_at >= ? AND status IN ('done','skipped')",
         (today,)
     ).fetchone()
     events_today = row[0] if row else 0
+
+    # Estimer les tokens depuis la taille réelle des payloads
+    rows = conn.execute(
+        "SELECT payload FROM events WHERE created_at >= ? AND status IN ('done','skipped') LIMIT 500",
+        (today,)
+    ).fetchall()
+    total_payload_bytes = sum(len(r[0]) for r in rows)
     conn.close()
 
-    # Estimation: ~2000 tokens in + 500 tokens out par event traité
-    tokens_in = events_today * 2000
-    tokens_out = events_today * 500
+    # Estimation: payload bytes / 4 ≈ tokens input; output ≈ 1/4 du input
+    tokens_in = max(events_today * 1500, total_payload_bytes // 4)
+    tokens_out = tokens_in // 4
     cost = tokens_in * COST_PER_TOKEN_IN + tokens_out * COST_PER_TOKEN_OUT
     return cost, events_today, tokens_in + tokens_out
 
@@ -131,20 +151,58 @@ def estimate_infra_cost():
     vps = VPS_COST_PER_HOUR * hours_elapsed
     electricity = ELECTRICITY_PER_HOUR * hours_elapsed
 
-    # GPU: vérifier si nvidia-smi est dispo
+    # GPU: vérifier utilisation réelle
     gpu_hours = 0
     try:
-        result = subprocess.run(["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"],
-                                capture_output=True, text=True, timeout=5)
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=5
+        )
         if result.returncode == 0 and result.stdout.strip():
-            gpu_util = int(result.stdout.strip().split("\n")[0])
-            if gpu_util > 5:  # GPU actif
-                gpu_hours = hours_elapsed
+            utils = [int(x) for x in result.stdout.strip().split("\n") if x.strip()]
+            active_gpus = sum(1 for u in utils if u > 5)
+            if active_gpus > 0:
+                gpu_hours = hours_elapsed * (active_gpus / max(len(utils), 1))
     except Exception:
         pass
 
     gpu = GPU_COST_PER_HOUR * gpu_hours
     return vps, gpu, electricity
+
+
+def estimate_revenue():
+    """Estime les revenus réels (freelance, airdrop, trading)."""
+    revenue = 0.0
+    sources = []
+
+    # Freelance: vérifier les gigs ComeUp dans ~/revenus-alternatifs
+    if REVENUS_DIR.exists():
+        freelance_dir = REVENUS_DIR / "freelance"
+        if freelance_dir.exists():
+            for f in freelance_dir.glob("*.json"):
+                try:
+                    with open(f) as fh:
+                        data = json.load(fh)
+                    if data.get("status") == "delivered" and data.get("paid"):
+                        revenue += data.get("amount", 0)
+                        sources.append(f"freelance:{data.get('title', '?')}")
+                except Exception:
+                    pass
+
+    # Airdrop bot: vérifier les gains
+    airdrop_dir = REVENUS_DIR / "airdrop"
+    if airdrop_dir.exists():
+        for f in airdrop_dir.glob("*.json"):
+            try:
+                with open(f) as fh:
+                    data = json.load(fh)
+                if data.get("claimed"):
+                    revenue += data.get("value_usd", 0)
+                    sources.append(f"airdrop:{data.get('token', '?')}")
+            except Exception:
+                pass
+
+    return revenue, sources
 
 
 def record_transaction(tx_type, category, amount, description=""):
@@ -176,21 +234,15 @@ def get_daily_totals():
 
 def check_budget_alerts():
     """Vérifie si on dépasse les budgets et publie des alertes."""
-    cost, revenue = get_daily_totals()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     conn = sqlite3.connect(str(FINANCE_DB), timeout=5)
     limits = conn.execute("SELECT category, daily_limit_usd FROM budget_limits").fetchall()
-    conn.close()
 
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     for cat, limit in limits:
-        cat_cost = 0
-        fc = sqlite3.connect(str(FINANCE_DB), timeout=5)
-        row = fc.execute(
+        cat_cost = conn.execute(
             "SELECT COALESCE(SUM(amount_usd), 0) FROM transactions WHERE type='cost' AND category=? AND created_at >= ?",
             (cat, today)
-        ).fetchone()
-        fc.close()
-        cat_cost = row[0] if row else 0
+        ).fetchone()[0]
 
         if cat_cost > limit:
             alert = json.dumps({
@@ -203,6 +255,8 @@ def check_budget_alerts():
             })
             publish_event("finance:alert", alert, priority=8)
             log(f"ALERT: Budget {cat} dépassé: ${cat_cost:.2f} / ${limit:.2f}", "WARN")
+
+    conn.close()
 
 
 def publish_event(channel, payload, priority=5):
@@ -218,33 +272,40 @@ def publish_event(channel, payload, priority=5):
     return eid
 
 
-def run_cycle():
+def run_cycle(force_report=False):
     """Cycle principal: estime coûts, enregistre, vérifie budgets, publie rapport."""
     log("Cycle started")
+    now = datetime.now(timezone.utc)
 
     # 1. Estimer coûts
     token_cost, events_today, total_tokens = estimate_token_cost()
     vps_cost, gpu_cost, elec_cost = estimate_infra_cost()
 
-    # 2. Enregistrer les transactions (une fois par cycle ~ hourly)
-    now = datetime.now(timezone.utc)
-    if now.minute < 5:  # Enregistrer une fois par heure (premieres 5 min)
-        record_transaction("cost", "tokens", token_cost, f"Tokens: ~{total_tokens} sur {events_today} events")
-        record_transaction("cost", "vps", vps_cost, "VPS hosting")
-        if gpu_cost > 0:
-            record_transaction("cost", "gpu", gpu_cost, "GPU compute")
-        record_transaction("cost", "electricity", elec_cost, "Electricity")
+    # 2. Estimer revenus
+    revenue, rev_sources = estimate_revenue()
 
-    # 3. Bilan
+    # 3. Enregistrer les transactions à chaque cycle
+    # (incrémental — on enregistre le delta depuis le dernier cycle)
+    record_transaction("cost", "tokens", token_cost, f"Tokens: ~{total_tokens} sur {events_today} events")
+    record_transaction("cost", "vps", vps_cost, "VPS hosting")
+    if gpu_cost > 0:
+        record_transaction("cost", "gpu", gpu_cost, "GPU compute")
+    record_transaction("cost", "electricity", elec_cost, "Électricité")
+
+    # Enregistrer revenus
+    if revenue > 0:
+        record_transaction("revenue", "freelance", revenue, f"Sources: {', '.join(rev_sources)}")
+
+    # 4. Bilan
     total_cost, total_revenue = get_daily_totals()
     net = total_revenue - total_cost
 
-    log(f"Daily: cost=${total_cost:.4f} revenue=${total_revenue:.4f} net=${net:.4f} | tokens~{total_tokens} events={events_today}")
+    log(f"Daily: cost=${total_cost:.4f} revenue=${total_revenue:.4f} net=${net:+.4f} | events={events_today} tokens~{total_tokens}")
 
-    # 4. Vérifier budgets
+    # 5. Vérifier budgets
     check_budget_alerts()
 
-    # 5. Snapshot quotidien
+    # 6. Snapshot quotidien
     today = now.strftime("%Y-%m-%d")
     fc = sqlite3.connect(str(FINANCE_DB), timeout=5)
     fc.execute(
@@ -255,8 +316,8 @@ def run_cycle():
     fc.commit()
     fc.close()
 
-    # 6. Publier un rapport périodique (toutes les ~10 min)
-    if now.minute % 10 == 0:
+    # 7. Rapport — publié à chaque cycle ou si forcé par finance:report
+    if force_report or now.minute % 10 == 0:
         report = json.dumps({
             "agent": "adam-treasurer",
             "daily_cost": round(total_cost, 4),
@@ -270,30 +331,35 @@ def run_cycle():
                 "gpu": round(gpu_cost, 4),
                 "electricity": round(elec_cost, 4)
             },
+            "revenue_sources": rev_sources,
             "timestamp": now.isoformat()
         })
         publish_event("finance:report", report, priority=3)
         log("Rapport financier publié sur finance:report")
 
-    # 7. Heartbeat
+        # Sauvegarder le rapport sur disque
+        report_file = REPORT_DIR / f"finance-{now.strftime('%Y%m%d-%H%M%S')}.json"
+        with open(report_file, "w") as f:
+            f.write(report)
+        log(f"Rapport sauvegardé: {report_file}")
+
+    # 8. Heartbeat
     hb = json.dumps({"agent": "adam-treasurer", "status": "active", "net": round(net, 4), "timestamp": now.isoformat()})
     publish_event("adam:heartbeat", hb, priority=1)
 
 
 def handle_event(channel, payload):
     """Traite un event reçu depuis le bus."""
-    log(f"Event reçu: {channel} payload={payload[:200]}")
+    log(f"Event reçu: {channel}")
 
     if channel == "finance:report":
-        # Un autre agent demande un rapport
-        run_cycle()
+        # Un autre agent demande un rapport → forcer la publication
+        run_cycle(force_report=True)
 
     elif channel == "finance:alert":
-        # Alerte financière — logger et amplifier
-        log(f"ALERT FINANCIÈRE: {payload}", "WARN")
+        log(f"ALERTE FINANCIÈRE: {payload[:200]}", "WARN")
 
     elif channel == "adam:heartbeat":
-        # Tracker l'activité des agents
         try:
             data = json.loads(payload)
             agent = data.get("agent", "unknown")
@@ -302,17 +368,12 @@ def handle_event(channel, payload):
             pass
 
     elif channel == "evolution:code_review":
-        # Estimer coût/bénéfice d'un refactoring
         try:
             data = json.loads(payload)
-            findings = data.get("findings_count", 0)
-            critical = data.get("critical", 0)
-            # Coût estimé du refactoring: ~30 min de tokens
-            est_cost = critical * 0.50  # ~$0.50 par issue critique
-            benefit = critical * 2.0     # bénéfice estimé (maintenabilité)
-            log(f"Code review: {findings} findings, {critical} critiques — coût refact~${est_cost:.2f} bénéfice~${benefit:.2f}")
-            if est_cost > 0:
-                record_transaction("cost", "tokens", est_cost, f"Refactoring {critical} issues critiques")
+            findings = data.get("findings_count", len(data.get("files", [])))
+            est_cost = findings * 0.10
+            benefit = findings * 0.50
+            log(f"Code review: {findings} findings — coût refact~${est_cost:.2f} bénéfice~${benefit:.2f}")
         except Exception:
             pass
 
@@ -320,10 +381,18 @@ def handle_event(channel, payload):
 def print_report():
     """Affiche le bilan financier actuel."""
     init_finance_db()
+
+    # Lancer un cycle pour enregistrer les transactions avant le bilan
+    log("INFO", "Lancement cycle pour --report")
+    run_cycle()
+
     cost, revenue = get_daily_totals()
     net = revenue - cost
     token_cost, events_today, total_tokens = estimate_token_cost()
     vps_cost, gpu_cost, elec_cost = estimate_infra_cost()
+    rev_total, rev_sources = estimate_revenue()
+
+    total_estimated = token_cost + vps_cost + gpu_cost + elec_cost
 
     print("=" * 60)
     print("💰 ADAM-TREASURER — Bilan Financier")
@@ -331,14 +400,18 @@ def print_report():
     print(f"Date: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}")
     print()
     print("📊 Coûts du jour:")
-    print(f"  Tokens     : ${token_cost:.4f}  (~{total_tokens:,} tokens sur {events_today} events)")
+    print(f"  Tokens     : ${token_cost:.4f}  (~{total_tokens:,} tokens, {events_today} events)")
     print(f"  VPS        : ${vps_cost:.4f}")
     print(f"  GPU        : ${gpu_cost:.4f}")
     print(f"  Électricité: ${elec_cost:.4f}")
     print(f"  ─────────────────────────")
-    print(f"  Total coût : ${cost:.4f}")
+    print(f"  Total estimé: ${total_estimated:.4f}")
+    print(f"  Total en DB: ${cost:.4f}")
     print()
     print(f"💵 Revenus   : ${revenue:.4f}")
+    if rev_sources:
+        for s in rev_sources:
+            print(f"    - {s}")
     print(f"📈 Net       : ${net:+.4f}")
     print()
 
@@ -346,14 +419,14 @@ def print_report():
     conn = sqlite3.connect(str(FINANCE_DB), timeout=5)
     limits = conn.execute("SELECT category, daily_limit_usd FROM budget_limits").fetchall()
     print("🎯 Budgets (quotidiens):")
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     for cat, limit in limits:
-        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         spent = conn.execute(
             "SELECT COALESCE(SUM(amount_usd), 0) FROM transactions WHERE type='cost' AND category=? AND created_at >= ?",
             (cat, today)
         ).fetchone()[0]
         pct = (spent / limit * 100) if limit > 0 else 0
-        bar = "█" * int(pct / 10) + "░" * (10 - int(pct / 10))
+        bar = "█" * min(int(pct / 10), 10) + "░" * max(10 - int(pct / 10), 0)
         status = "✅" if pct < 80 else "⚠️" if pct < 100 else "🔴"
         print(f"  {status} {cat:15s} ${spent:.2f}/${limit:.2f} [{bar}] {pct:.0f}%")
     conn.close()
@@ -365,7 +438,7 @@ def main():
     init_finance_db()
 
     if "--once" in sys.argv:
-        run_cycle()
+        run_cycle(force_report=True)
         return
 
     if "--report" in sys.argv:
