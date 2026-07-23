@@ -13,8 +13,8 @@
   <a href="https://discord.gg/NousResearch"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
   <a href="https://github.com/JohnNuwan/EVA_CORE/blob/main/LICENSE"><img src="https://img.shields.io/badge/Licence-MIT-green?style=for-the-badge" alt="Licence: MIT"></a>
   <img src="https://img.shields.io/badge/domaines-60+-blue?style=for-the-badge" alt="60+ domaines">
-  <img src="https://img.shields.io/badge/agents_Adam-12-orange?style=for-the-badge" alt="12 Adam agents">
-  <img src="https://img.shields.io/badge/skills-1072+-brightgreen?style=for-the-badge" alt="1072+ skills">
+  <img src="https://img.shields.io/badge/agents_Adam-17-orange?style=for-the-badge" alt="17 Adam agents">
+  <img src="https://img.shields.io/badge/skills-1127+-brightgreen?style=for-the-badge" alt="1127+ skills">
   <img src="https://img.shields.io/badge/GPU-2×_RTX_3090-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="2× RTX 3090">
 </p>
 
@@ -26,9 +26,9 @@
 
 EVA n'est pas un simple assistant de code ; c'est un **système d'exploitation agentique industriel et financier** doté d'une bibliothèque gigantesque :
 
-* 🎯 **1072+ Skills (Compétences Métiers) :** Des directives de haut niveau écrites en français pour guider les décisions de l'agent, couvrant 60+ domaines.
+* 🎯 **1127+ Skills (Compétences Métiers) :** Des directives de haut niveau écrites en français pour guider les décisions de l'agent, couvrant 60+ domaines.
 * 🛠️ **118+ Tools (Outils d'Exécution) :** Des scripts Python modulaires auto-enregistrés permettant à EVA d'agir directement sur son environnement.
-* 🤖 **12 Agents Adam :** Une équipe d'agents spécialisés en CI/CD, QA, documentation, backup, et plus encore.
+* 🤖 **17 Agents Adam :** Une équipe d'agents spécialisés en CI/CD, QA, documentation, backup, red team, finance, recherche biomédicale, et plus encore.
 
 ### 📈 Capacités de Finance & Trading (MetaTrader 5)
 
@@ -53,13 +53,12 @@ EVA dispose d'une suite complète pour piloter et diagnostiquer les systèmes au
 
 ```mermaid
 graph TB
-    subgraph HIVE["☤ E.V.A — The Hive Architecture (2× RTX 3090 · AMD EPYC 32C · 125 GB RAM)"]
+    subgraph HIVE["☤ E.V.A — The Hive (2× RTX 3090 · 144 GB VRAM · 192.168.1.5)"]
         direction TB
 
         subgraph INFRA["🧠 Inférence & Génération AI (GPU 1)"]
-            vLLM1["vLLM (:8001)<br/>DeepSeek 14B"]
-            vLLM2["vLLM (:8002)<br/>Modèle Secondaire"]
-            vLLM3["vLLM (:8003)<br/>Modèle Tertiaire"]
+            vLLM1["vLLM (:8000)<br/>Mistral 24B"]
+            Ollama["Ollama (:11434)"]
             ComfyUI["ComfyUI (:8188)<br/>Génération d'images"]
         end
 
@@ -67,19 +66,19 @@ graph TB
             Mon["Monitoring Cybersec<br/>:8081"]
             Wiki["Wiki OKF (D3.js)<br/>:8082"]
             RAG["RAG API Actemium<br/>:8083"]
+            AdamViz["Adam-Viz 3D (Three.js)<br/>:8084"]
             Portainer["Portainer Docker<br/>:9443"]
         end
 
         subgraph AGENTS["🤖 Agents & Apprentissage RL (GPU 0)"]
             JEPA["JEPA_EVA<br/>Trading RL"]
-            ADAM["ADAM-CI/CD<br/>12 Agents Autonomes"]
+            ADAM["ADAM v2<br/>17 Agents Autonomes (Event Bus)"]
             FTMO["FTMO Agent<br/>DreamerV3 / DeFi"]
         end
 
         subgraph INTERFACES["💬 Interfaces Client & Gateway"]
             Gateway["Gateway Messagerie<br/>(Telegram, Discord, Slack...)"]
             CLI["CLI & TUI Terminal"]
-            Desktop["Desktop Electron App"]
         end
     end
 
@@ -89,34 +88,46 @@ graph TB
     AGENTS --> SERVICES
 ```
 
-
 ### 📊 Allocation GPU
 
 | GPU | Usage | Services |
 |-----|-------|---------|
-| **GPU 0** | Entraînement | JEPA_EVA, FTMO DreamerV3, ADAM-LORA |
-| **GPU 1** | Inférence | vLLM (3 profils), ComfyUI |
+| **GPU 0** | Entraînement | JEPA_EVA, FTMO DreamerV3, ADAM v2 |
+| **GPU 1** | Inférence | vLLM Mistral 24B, Ollama, ComfyUI |
 
 ---
 
-## 🤖 Adam Agents — L'Équipe Autonome
+## 🤖 Adam Agents — L'Équipe Autonome (v2)
 
-EVA orchestre une équipe de **12 agents spécialisés** (les Adam) qui travaillent en parallèle :
+EVA orchestre une équipe de **17 agents spécialisés** (les Adam) qui travaillent en parallèle via un event bus SQLite WAL :
 
 | Agent | Mission | Statut |
 |-------|---------|--------|
-| **ADAM-CICD** | Pipeline CI/CD, hooks git, auto-PR, déploiement | ✅ Actif |
-| **ADAM-DOCS** | Génération et mise à jour de la documentation | ✅ Actif |
-| **ADAM-LORA** | Fine-tuning QLoRA, extraction datasets, push HF | ✅ Actif |
-| **ADAM-GIT** | Workflow git, synchronisation, gestion de branches | ✅ Actif |
-| **ADAM-BACKUP** | Sauvegarde et récupération des données critiques | ✅ Actif |
-| **ADAM-TEST** | Tests automatisés, validation de structure, rapports | ✅ Actif |
-| **ADAM-RED** | Pentest, red team, audit de sécurité OT | ✅ Actif |
-| **ADAM-BLUE** | Hardening, correctifs de sécurité, blue team | ✅ Actif |
-| **ADAM-MONITOR** | Surveillance système, alertes, métriques | ✅ Actif |
-| **ADAM-RAG** | Mise à jour du RAG industriel, indexation | ✅ Actif |
-| **ADAM-DEPLOY** | Déploiement continu, rollback, validation | ✅ Actif |
-| **ADAM-CURATOR** | Organisation des skills, dédoublonnage, catégorisation | ✅ Actif |
+| **ADAM-PRAETOR** | Surveillance système, cycles réguliers | ✅ Actif |
+| **ADAM-SENTINEL** | Veille technologique 24/24 | ✅ Actif |
+| **ADAM-CRITIC** | Audit qualité, scan AST, auto-fix imports | ✅ Actif |
+| **ADAM-CICD** | Pipeline CI/CD, hooks git, auto-commit + push | ✅ Actif |
+| **ADAM-ARCHITECT** | Conception & architecture logicielle | ✅ Actif |
+| **ADAM-SCRIBE** | Rédaction & documentation | ✅ Actif |
+| **ADAM-TREASURER** | Finance & rentabilité ($51/jour tracking) | ✅ Actif |
+| **ADAM-RESEARCHER** | Veille scientifique biomédicale (PubMed + arXiv + bioRxiv) | ✅ Actif |
+| **ADAM-SOCIAL** | Influence virtuelle & monétisation | ✅ Actif |
+| **ADAM-RED** | Red team, pentest Android (Nothing Phone 2) | ✅ Actif |
+| **ADAM-BLUE** | Sécurité 24/24, hardening, blue team | ✅ Actif |
+| **ADAM-MONITOR** | Surveillance hardware, métriques GPU | ✅ Actif |
+| **ADAM-BACKUP** | Sauvegarde et récupération des données | ✅ Actif |
+| **ADAM-DEPLOY** | Déploiement & restart des services | ✅ Actif |
+| **ADAM-DOCTOR** | Visite médicale, diagnostic système | ✅ Actif |
+| **ADAM-SELF-HEAL** | Auto-guérison, heartbeat, correction automatique | ✅ Actif |
+| **ADAM-VIZ-CHECKER** | Vérification des dashboards | ✅ Actif |
+
+### 🔴 ADAM-RED — Défi en cours : Nothing Phone 2
+
+Cible : **Nothing Phone 2** (modèle A065, codename Pong, SoC Snapdragon 8+ Gen 1)
+- Connecté en USB (serial `2f109ecc`, vendor 18d1:4ee7)
+- Handler : `scripts/adam-red-challenge.py` — 5 phases (recon → fingerprint → enum → escalation → report)
+- Dernier scan : Android 16, patch 2026-04-01, SELinux Enforcing, bootloader verrouillé
+- **Root non obtenu** — device durci
 
 ---
 
@@ -126,10 +137,13 @@ Le monitoring en temps réel de The Hive est accessible via les dashboards suiva
 
 | Service | Port | Description |
 |---------|------|-------------|
-| **Monitoring Cybersec** | `http://localhost:8081` | Métriques CPU, RAM, GPU, réseau, alertes |
+| **Monitoring Cybersec** | `http://localhost:8081` | Métriques CPU, RAM, GPU, réseau, alertes (Chart.js local) |
 | **Wiki OKF (D3.js)** | `http://localhost:8082` | Graphe de connaissances, index des pages |
 | **RAG Actemium** | `http://localhost:8083` | API de recherche RAG, stats `/api/rag/stats` |
+| **Adam-Viz 3D** | `http://localhost:8084` | Visualisation 3D des agents Adam (Three.js local) |
 | **Portainer** | `http://localhost:9443` | Gestion des conteneurs Docker |
+
+> ⚠️ **Toutes les dépendances JS/CSS sont servies en local** (pas de CDN) — The Hive n'a pas d'accès Internet direct.
 
 ---
 
@@ -139,7 +153,7 @@ Le wiki EVA suit le format **OKF (Open Knowledge Format)** — un système de co
 
 - **60+ pages** organisées en entités, concepts et comparaisons
 - **Graphe de connaissances D3.js** visualisé sur :8082
-- **1072 skills** documentées en 52 catégories
+- **1127 skills** documentées en 52 catégories
 - **Liens [[wikilinks]]** pour la navigation inter-pages
 - **Frontmatter YAML** structuré sur chaque page
 
@@ -179,9 +193,9 @@ Les scripts se trouvent dans `~/monitoring-cybersec/` et sont configurés via `c
 | Recherche scientifique | 160+ | arXiv, domaines académiques, veille |
 | Cybersécurité | 140+ | Pentest, OSINT, reverse, forensics, OT |
 | Prompt engineering | 22 | 22 méthodes avancées |
-| DevOps / MLOPs | 22+ | Docker, Kubernetes, CI/CD, GPU training |
+| DevOps / MLOps | 22+ | Docker, Kubernetes, CI/CD, GPU training |
 | Développement | 25+ | Python, test, GitHub, refactoring |
-| Finance / Trading | 12+ | DéFi, analyse technique, options, DeFi |
+| Finance / Trading | 12+ | DeFi, analyse technique, options, rendement |
 | Création / Média | 14+ | ASCII art, design, audio, vidéo |
 | Systèmes | 11+ | Linux, Windows AD, BSD, AIX, Solaris |
 | Productivité | 13+ | Freelance, Notion, Airtable, PowerPoint |
@@ -203,9 +217,9 @@ hermes doctor       # Diagnostiquer les problèmes éventuels
 ```
 
 📖 **Documentation Technique EVA :**
-- [Index & Architecture de la Documentation](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/README.md)
-- [Fiches Techniques des 12 Agents ADAM](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/adam-agents.md)
-- [Guide des 1072+ Compétences (Skills)](file:///c:/Users/john.moncel/Desktop/IA_Recherche/EVA_CORE/docs/skills-guide.md)
+- [Index & Architecture de la Documentation](docs/README.md)
+- [Fiches Techniques des 17 Agents ADAM](docs/adam-agents.md)
+- [Guide des 1127+ Compétences (Skills)](docs/skills-guide.md)
 - [Documentation Officielle Hermes →](https://hermes-agent.nousresearch.com/docs/)
 
 ---
@@ -266,7 +280,7 @@ cd ~/.hermes/hermes-agent
 docker compose -f docker/docker-compose.yml up -d
 
 # Vérifier les modèles disponibles
-curl http://localhost:8001/v1/models
+curl http://localhost:8000/v1/models
 ```
 
 Puis configurer EVA pour utiliser le provider local :
@@ -275,22 +289,23 @@ Puis configurer EVA pour utiliser le provider local :
 hermes config set model "deepseek/deepseek-v4-flash"
 hermes config set provider "openrouter"
 # ou pour le local :
-hermes config set provider "deepseek-local"
+hermes config set provider "local-vllm"
 ```
 
 ### Configuration des ADAMs (agents autonomes)
 
-Les ADAMs sont des cron jobs qui tournent dans EVA. Pour les activer :
+Les ADAMs sont gérés par l'event bus v2 (SQLite WAL) dans `~/eva-adam-v2/`. Pour les activer :
 
 ```bash
-# Lister les jobs existants
-hermes cron list
+# Lancer le daemon event bus
+cd ~/eva-adam-v2
+python3 event_daemon.py &
 
-# Activer la surveillance PRAETOR (toutes les 5 min)
-hermes cron add "every 5m" "ADAM-PRAETOR — Cycle de surveillance" --model "deepseek/deepseek-v4-flash" --deliver local
+# Lancer le cycle principal (hive_cycler)
+python3 hive_cycler.py &
 
-# Activer la veille SENTINEL (quotidienne à 8h)
-hermes cron add "0 8 * * *" "ADAM-SENTINEL Veille Quotidienne" --skills "web-first-research" --deliver local
+# Lancer l'auto-guérison
+python3 self_heal.py &
 ```
 
 ---
