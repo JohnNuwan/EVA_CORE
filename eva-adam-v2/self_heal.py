@@ -20,7 +20,6 @@ Usage :
 Dépendances : sqlite3 (stdlib), json, subprocess, logging, time, os
 """
 
-from __future__ import annotations
 
 import json
 import logging
@@ -371,6 +370,19 @@ class HealBus:
             "service": "self-heal",
             "pid": os.getpid(),
         }, source="self-heal", priority=0)
+        # Mettre à jour heartbeat_at dans la table agents
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc).isoformat()
+        try:
+            conn = self._connect()
+            conn.execute(
+                "UPDATE agents SET heartbeat_at=? WHERE agent_id=?",
+                (now, "adam-self-heal"),
+            )
+            conn.commit()
+            conn.close()
+        except Exception:
+            pass
 
 
 # ─── Résolveurs ─────────────────────────────────────────────────────────────
@@ -1042,7 +1054,7 @@ class SelfHealLoop:
                 # Heartbeat périodique
                 maintenant = time.time()
                 if maintenant - self._dernier_heartbeat >= HEARTBEAT_INTERVAL:
-                    self.bus.heartbeat()
+                    self.bus.heartbeat()  # HealBus.heartbeat: publie event + met à jour DB
                     self._dernier_heartbeat = maintenant
 
                 if once:
