@@ -58,17 +58,7 @@ case "$CHANNEL" in
             exit 0
         fi
 
-        # Check if there are actual changes to commit
-        CHANGES=$(cd "$REPO" && git status --porcelain 2>/dev/null | grep -v "^??" | head -50)
-        if [ -z "$CHANGES" ]; then
-            log "INFO" "No uncommitted changes, skipping"
-            exit 0
-        fi
-
-        CHANGE_COUNT=$(echo "$CHANGES" | wc -l)
-        log "INFO" "$CHANGE_COUNT file(s) to commit"
-
-        # Copier les fichiers modifiés (du payload) vers le dépôt
+        # Copier les fichiers modifiés (du payload) vers le dépôt AVANT le check
         FILES_JSON=$(echo "$PAYLOAD" | python3 -c "
 import json, sys
 try:
@@ -89,6 +79,21 @@ except: pass
                 fi
             done <<< "$FILES_JSON"
         fi
+
+        # Check if there are actual changes to commit (après copie)
+        CHANGES=$(cd "$REPO" && git status --porcelain 2>/dev/null | grep -v "^??" | head -50)
+        if [ -z "$CHANGES" ]; then
+            # Check aussi les untracked files
+            UNTRACKED=$(cd "$REPO" && git status --porcelain 2>/dev/null | grep "^??" | head -50)
+            if [ -z "$UNTRACKED" ]; then
+                log "INFO" "No uncommitted changes, skipping"
+                exit 0
+            fi
+            CHANGES="$UNTRACKED"
+        fi
+
+        CHANGE_COUNT=$(echo "$CHANGES" | wc -l)
+        log "INFO" "$CHANGE_COUNT file(s) to commit"
 
         # Stage all tracked modifications
         cd "$REPO"
