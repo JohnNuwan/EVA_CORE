@@ -1,0 +1,10 @@
+# ADAM v2 Gitignore
+event_bus.db
+osint_env/
+osint_reports/
+logs/
+__pycache__/
+*.pyc
+*.pyo
+.pid
+*.log
