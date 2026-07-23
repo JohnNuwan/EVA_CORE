@@ -23,7 +23,6 @@ Lancement :
     python3 event_daemon.py --stop       # arrêt propre
 """
 
-import sqlite3
 import json
 import subprocess
 import time
@@ -128,10 +127,11 @@ class EventDaemon:
 
     def _poll_cycle(self):
         """Un cycle de polling : récupère et traite les événements pending."""
-        # Récupère tous les canaux qui ont des événements en attente
+        # Récupère tous les canaux qui ont des événements en attente ou skipped
+        # (skipped = potentiellement re-promotable si une sub a été ajoutée)
         conn = self.bus._get_conn()
         channels = conn.execute(
-            """SELECT DISTINCT channel FROM events WHERE status='pending'"""
+            """SELECT DISTINCT channel FROM events WHERE status IN ('pending', 'skipped')"""
         ).fetchall()
 
         if not channels:
@@ -151,6 +151,9 @@ class EventDaemon:
                 # Pas de souscripteur → marquer comme skipped
                 self._skip_orphan_events(channel)
                 continue
+
+            # Re-promote les events skipped en pending si une souscription existe maintenant
+            self._promote_skipped_events(channel)
 
             # Récupère les événements pending
             events = self.bus.get_pending_events(channel, limit=MAX_CONCURRENT)
@@ -401,6 +404,19 @@ class EventDaemon:
         conn = self.bus._get_conn()
         conn.execute(
             "UPDATE events SET status='skipped' WHERE channel=? AND status='pending'",
+            (channel,),
+        )
+        conn.commit()
+
+    def _promote_skipped_events(self, channel: str):
+        """Re-promote les events 'skipped' en 'pending' si une souscription existe maintenant.
+
+        Corrige le bug où un event publié avant l'ajout d'une souscription
+        restait bloqué en 'skipped' à jamais.
+        """
+        conn = self.bus._get_conn()
+        conn.execute(
+            "UPDATE events SET status='pending' WHERE channel=? AND status='skipped'",
             (channel,),
         )
         conn.commit()
