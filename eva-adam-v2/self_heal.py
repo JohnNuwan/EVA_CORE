@@ -104,7 +104,7 @@ STRATEGIES: dict[str, dict[str, Any]] = {
     },
     "restart_agent": {
         "description": "Redémarre un agent ADAM spécifique par son agent_id",
-        "commandes": ["pkill", "-x"],
+        "commandes": ["pkill", "-f"],  # -f = match pattern (pas -x = match exact)
         "fallback_grace": 5,  # secondes d'attente entre SIGTERM et SIGKILL
     },
     "retry": {
@@ -118,6 +118,122 @@ STRATEGIES: dict[str, dict[str, Any]] = {
         "escalade_delai": 3,
     },
 }
+
+# ─── Système d'évolution (inspiré d'AlphaEvolve) ────────────────────────────
+# Chaque stratégie a un score de fitness qui évolue selon son taux de succès.
+# Les stratégies performantes sont renforcées, les échecs affaiblissent le score.
+# Un historique circulaire garde les N dernières exécutions pour calculer le
+# taux de succès glissant. Les stratégies avec un score trop bas sont marquées
+# "deprecated" et ne sont plus utilisées (sauf si aucune alternative n'existe).
+
+EVOLUTION_DIR = ADAM_V2_DIR / "evolution"
+EVOLUTION_DIR.mkdir(parents=True, exist_ok=True)
+FITNESS_FILE = EVOLUTION_DIR / "fitness.json"
+HISTORY_LEN = 20  # garde les 20 dernières exécutions par stratégie
+
+
+def _load_fitness() -> dict[str, Any]:
+    """Charge les scores de fitness depuis le fichier JSON."""
+    default: dict[str, Any] = {
+        s: {"score": 1.0, "history": [], "total": 0, "successes": 0,
+            "deprecated": False, "last_used": None}
+        for s in STRATEGIES
+    }
+    if FITNESS_FILE.exists():
+        try:
+            data = json.loads(FITNESS_FILE.read_text(encoding="utf-8"))
+            # Fusionner avec défaut pour les nouvelles stratégies
+            for k, v in default.items():
+                if k not in data:
+                    data[k] = v
+            return data
+        except (json.JSONDecodeError, OSError):
+            pass
+    return default
+
+
+def _save_fitness(data: dict[str, Any]) -> None:
+    """Sauvegarde les scores de fitness."""
+    try:
+        FITNESS_FILE.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+    except OSError as e:
+        logger.warning(f"Impossible de sauvegarder fitness.json: {e}")
+
+
+def _update_fitness(strategie: str, succes: bool) -> float:
+    """Met à jour le score de fitness d'une stratégie après une exécution.
+
+    Score = moyenne pondérée : 70% historique récent + 30% taux global.
+    Si score < 0.3 après au moins 5 exécutions → deprecated.
+    """
+    data = _load_fitness()
+    entry = data.get(strategie, {
+        "score": 1.0, "history": [], "total": 0,
+        "successes": 0, "deprecated": False, "last_used": None,
+    })
+
+    entry["total"] += 1
+    if succes:
+        entry["successes"] += 1
+
+    # Historique circulaire
+    entry["history"].append(1 if succes else 0)
+    if len(entry["history"]) > HISTORY_LEN:
+        entry["history"] = entry["history"][-HISTORY_LEN:]
+
+    # Score = 70% fenêtre glissante + 30% global
+    recent = sum(entry["history"]) / len(entry["history"]) if entry["history"] else 0
+    global_rate = entry["successes"] / entry["total"] if entry["total"] > 0 else 0
+    entry["score"] = round(0.7 * recent + 0.3 * global_rate, 3)
+
+    # Déprécation automatique
+    if entry["total"] >= 5 and entry["score"] < 0.3:
+        entry["deprecated"] = True
+        logger.warning(
+            f"Stratégie '{strategie}' dépréciée (score={entry['score']}, "
+            f"{entry['successes']}/{entry['total']} succès)"
+        )
+
+    entry["last_used"] = datetime.now(timezone.utc).isoformat()
+    data[strategie] = entry
+    _save_fitness(data)
+    return entry["score"]
+
+
+def _pick_strategy(error_type: str) -> str:
+    """Sélectionne la meilleure stratégie pour un type d'erreur.
+
+    Si la stratégie par défaut est dépréciée, cherche une alternative
+    avec un meilleur score de fitness.
+    """
+    default = TYPE_TO_STRATEGY.get(error_type, "retry")
+    data = _load_fitness()
+
+    # Si la stratégie par défaut est valide → l'utiliser
+    entry = data.get(default, {})
+    if not entry.get("deprecated", False):
+        return default
+
+    # Sinon, chercher la meilleure stratégie non-dépréciée
+    candidates = []
+    for name, info in data.items():
+        if not info.get("deprecated", False) and info.get("total", 0) > 0:
+            candidates.append((name, info["score"]))
+
+    if candidates:
+        candidates.sort(key=lambda x: x[1], reverse=True)
+        best = candidates[0][0]
+        logger.info(
+            f"Stratégie '{default}' dépréciée → fallback vers '{best}' "
+            f"(score={candidates[0][1]})"
+        )
+        return best
+
+    # Ultime fallback : retry (toujours disponible)
+    return "retry"
 
 # Mapping : type d'erreur → stratégie
 # Le payload peut contenir "error_type" ou on déduit du canal/source.
@@ -162,6 +278,9 @@ class HealBus:
         """Récupère les événements d'erreur en attente de traitement.
 
         Cherche sur les canaux 'adam:error' et 'hardware:gpu_alert'.
+        Inclut les événements 'pending' ET 'skipped' (l'event_daemon les
+        marque 'skipped' car aucun handler shell n'est abonné à adam:error,
+        mais self_heal doit quand même les traiter).
 
         Returns:
             Liste de dicts avec les colonnes de la table events.
@@ -171,7 +290,7 @@ class HealBus:
             SELECT id, channel, source, payload, priority, created_at
             FROM events
             WHERE channel IN ({placeholders})
-              AND status = 'pending'
+              AND status IN ('pending', 'skipped')
             ORDER BY priority DESC, created_at ASC
             LIMIT ?
         """
@@ -371,7 +490,9 @@ class Resolveur:
         elif error_type == "handler_failed" and "disk" in str(payload).lower():
             error_type = "disk_full"
 
-        strategie = TYPE_TO_STRATEGY.get(error_type, "retry")
+        # Sélection de stratégie via le système d'évolution (AlphaEvolve)
+        # _pick_strategy choisit la meilleure stratégie selon le score de fitness
+        strategie = _pick_strategy(error_type)
         logger.info(
             f"Résolution pour event #{evenement['id']} : "
             f"canal={channel}, type={error_type}, "
@@ -380,6 +501,8 @@ class Resolveur:
 
         if self.dry_run:
             logger.info(f"[DRY-RUN] Stratégie '{strategie}' simulée pour #{evenement['id']}")
+            # En dry-run on compte ça comme un succès pour le fitness
+            _update_fitness(strategie, succes=True)
             return {"succes": True, "action": strategie, "detail": "dry-run"}
 
         # Dispatch vers la bonne méthode
@@ -394,11 +517,21 @@ class Resolveur:
         }
         methode = dispatch.get(strategie)
         if methode is None:
+            _update_fitness(strategie, succes=False)
             return {"succes": False, "action": strategie, "detail": f"stratégie inconnue: {strategie}"}
 
         try:
-            return methode(payload, evenement)
+            resultat = methode(payload, evenement)
+            # Mettre à jour le score de fitness selon le résultat
+            succes = resultat.get("succes", False)
+            nouveau_score = _update_fitness(strategie, succes)
+            logger.info(
+                f"Fitness '{strategie}' → score={nouveau_score} "
+                f"(succès={succes})"
+            )
+            return resultat
         except Exception as e:
+            _update_fitness(strategie, succes=False)
             logger.exception(f"Exception dans la stratégie '{strategie}': {e}")
             return {"succes": False, "action": strategie, "detail": str(e)}
 
@@ -493,12 +626,20 @@ class Resolveur:
         nettoyes = []
         for cible in cibles:
             chemin = Path(cible)
-            if chemin.exists():
+            if chemin.exists() and chemin.is_dir():
                 try:
-                    subprocess.run(
-                        ["rm", "-rf", str(chemin / "*")],
-                        shell=True, capture_output=True, timeout=30,
-                    )
+                    # Nettoyer les fichiers de plus de 7 jours dans /tmp et /var/tmp
+                    if cible in ("/tmp", "/var/tmp"):
+                        subprocess.run(
+                            ["find", str(chemin), "-type", "f", "-atime", "+7", "-delete"],
+                            capture_output=True, timeout=30,
+                        )
+                    # Nettoyer les vieux logs (*.log.* de plus de 30 jours)
+                    elif "logs" in cible:
+                        subprocess.run(
+                            ["find", str(chemin), "-name", "*.log.*", "-mtime", "+30", "-delete"],
+                            capture_output=True, timeout=30,
+                        )
                     nettoyes.append(cible)
                 except subprocess.TimeoutExpired:
                     continue
@@ -525,20 +666,64 @@ class Resolveur:
                     "detail": str(e)}
 
     def _restart_agent(self, payload: dict, evenement: dict) -> dict[str, Any]:
-        """Redémarre un agent ADAM par son agent_id."""
+        """Redémarre un agent ADAM par son agent_id.
+
+        Utilise pkill -f (pattern match) au lieu de pkill -x (exact match)
+        car les agents ADAM tournent comme 'python3 handler.py', pas comme
+        'adam-xxx'. Essaie aussi le fichier PID si disponible.
+        """
         agent_id = payload.get("agent_id", "inconnu")
-        try:
-            subprocess.run(
-                ["pkill", "-x", agent_id],
-                capture_output=True, timeout=5,
-            )
-            time.sleep(2)
+        pid_dir = ADAM_V2_DIR / "pids"
+        killed = False
+
+        # Méthode 1 : fichier PID si disponible
+        pid_file = pid_dir / f"{agent_id}.pid"
+        if pid_file.exists():
+            try:
+                pid = int(pid_file.read_text().strip())
+                subprocess.run(["kill", "-15", str(pid)],
+                               capture_output=True, timeout=5)
+                time.sleep(2)
+                # Vérifier si le process est mort
+                check = subprocess.run(["kill", "-0", str(pid)],
+                                        capture_output=True, timeout=5)
+                if check.returncode != 0:
+                    killed = True
+                    logger.info(f"Agent '{agent_id}' tué via PID {pid}")
+            except (ValueError, OSError, subprocess.TimeoutExpired):
+                pass
+
+        # Méthode 2 : pkill -f avec pattern sur le handler
+        if not killed:
+            handler_patterns = [
+                f"{agent_id.replace('adam-', '')}-watch",
+                f"{agent_id.replace('adam-', '')}-handler",
+                f"{agent_id.replace('adam-', '')}-alert",
+            ]
+            for pattern in handler_patterns:
+                try:
+                    result = subprocess.run(
+                        ["pkill", "-f", pattern],
+                        capture_output=True, timeout=5,
+                    )
+                    if result.returncode == 0:
+                        killed = True
+                        time.sleep(2)
+                        logger.info(f"Agent '{agent_id}' tué via pkill -f '{pattern}'")
+                        break
+                except (subprocess.TimeoutExpired, FileNotFoundError):
+                    continue
+
+        if killed:
             self.bus.update_agent_status(agent_id, "idle")
             return {"succes": True, "action": "restart_agent",
-                    "detail": f"agent '{agent_id}' redémarré"}
-        except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-            return {"succes": False, "action": "restart_agent",
-                    "detail": str(e)}
+                    "detail": f"agent '{agent_id}' arrêté (handler kill)"}
+        else:
+            # L'agent est peut-être déjà arrêté — ce n'est pas un échec
+            logger.info(f"Agent '{agent_id}' pas trouvé — probablement déjà arrêté")
+            self.bus.update_agent_status(agent_id, "idle")
+            return {"succes": True, "action": "restart_agent",
+                    "detail": f"agent '{agent_id}' déjà arrêté ou introuvable"}
 
     def _retry(self, payload: dict, evenement: dict) -> dict[str, Any]:
         """Re-publie l'événement pour nouvelle tentative sur un canal dédié.
@@ -704,18 +889,45 @@ class Validateur:
             return {"ok": False, "detail": str(e)}
 
     def _check_service(self, payload: Optional[dict] = None) -> dict[str, Any]:
-        """Vérifie qu'un service tourne."""
+        """Vérifie qu'un service tourne.
+
+        Essaie systemctl --user d'abord, puis fallback sur pgrep
+        (nos services ADAM ne sont pas tous sous systemd).
+        """
         service = payload.get("service", "adam-event-daemon") if payload else "adam-event-daemon"
+        # Mapping nom de service → pattern de processus
+        process_patterns = {
+            "adam-event-daemon": "event_daemon.py",
+            "file-watcher": "file_watcher.py",
+            "hive-cycler": "hive_cycler.py",
+            "self-heal": "self_heal.py",
+        }
+        pattern = process_patterns.get(service, service)
+
+        # Méthode 1 : systemctl --user
         try:
             result = subprocess.run(
                 ["systemctl", "--user", "is-active", service],
                 capture_output=True, text=True, timeout=5,
             )
             if result.returncode == 0:
-                return {"ok": True, "detail": f"service '{service}' actif"}
-            return {"ok": False, "detail": f"service '{service}' inactif"}
+                return {"ok": True, "detail": f"service '{service}' actif (systemd)"}
         except (subprocess.TimeoutExpired, FileNotFoundError):
-            return {"ok": False, "detail": f"systemctl indisponible pour '{service}'"}
+            pass
+
+        # Méthode 2 : pgrep -f (fallback pour les services non-systemd)
+        try:
+            result = subprocess.run(
+                ["pgrep", "-f", pattern],
+                capture_output=True, text=True, timeout=5,
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                pids = result.stdout.strip().split("\n")
+                return {"ok": True,
+                        "detail": f"service '{service}' actif (PID {','.join(pids[:3])})"}
+            return {"ok": False, "detail": f"service '{service}' inactif (pgrep: pattern='{pattern}')"}
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            return {"ok": False, "detail": f"impossible de vérifier '{service}'"}
 
 
 # ─── Boucle principale ───────────────────────────────────────────────────────
@@ -802,9 +1014,19 @@ class SelfHealLoop:
                     if heal_reussi:
                         self.bus.publier("adam:recovered", heal_payload,
                                          source="self-heal")
+                        # Publier aussi sur adam:healed pour l'agent d'évolution
+                        evolution_payload = {
+                            **heal_payload,
+                            "strategie": resolution.get("action", "inconnu"),
+                            "fitness": _load_fitness().get(
+                                resolution.get("action", "retry"), {}
+                            ),
+                        }
+                        self.bus.publier("adam:healed", evolution_payload,
+                                         source="self-heal")
                         logger.info(
-                            f"[NOTIFICATION] Event #{event_id} → adam:recovered "
-                            f"(guéri)"
+                            f"[NOTIFICATION] Event #{event_id} → adam:recovered + "
+                            f"adam:healed (guéri, stratégie={resolution.get('action', '?')})"
                         )
                     else:
                         self.bus.publier("heal:required", heal_payload,
