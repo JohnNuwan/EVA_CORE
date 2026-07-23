@@ -668,3 +668,7 @@ bc1d885dc5c4299c189b0cf52f04241194cc3b61:website/i18n/zh-Hans/docusaurus-plugin-
 e8e851b5a909ec84a442bdcbbf1c085e8c593c1b:skills/.bundled_manifest:linear-client-secret:299
 e8e851b5a909ec84a442bdcbbf1c085e8c593c1b:skills/mlops/eva-data-pipeline/SKILL.md:generic-api-key:107
 e8e851b5a909ec84a442bdcbbf1c085e8c593c1b:skills/mlops/eva-data-pipeline/SKILL.md:generic-api-key:116
+eva-adam-v2/skills/api-design-reviewer/SKILL.md:generic-api-key:***
+eva-adam-v2/skills/handoff/scripts/redaction_linter.py:generic-api-key:***
+eva-adam-v2/skills/tech-debt-tracker/assets/sample_codebase/src/frontend.js:generic-api-key:***
+eva-adam-v2/skills/tech-debt-tracker/assets/sample_codebase/src/user_service.py:generic-api-key:***
