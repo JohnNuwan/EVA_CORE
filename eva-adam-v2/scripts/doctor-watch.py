@@ -176,12 +176,94 @@ def main():
     except Exception:
         pass
 
+    # ──────────────────────────────────────────
+    # Surveillance des heartbeats agents
+    # ──────────────────────────────────────────
+    publish_path = os.path.join(ADAM_V2_DIR, "publish.py")
+    log("Vérification heartbeats agents...")
+    try:
+        import sqlite3 as _sqlite3
+        db_path = os.path.join(ADAM_V2_DIR, "event_bus.db")
+        conn = _sqlite3.connect(db_path)
+        conn.row_factory = _sqlite3.Row
+        cur = conn.cursor()
+
+        # Récupérer tous les agents avec leur dernier heartbeat
+        cur.execute("""
+            SELECT agent_id, status, heartbeat_at
+            FROM agents
+            ORDER BY agent_id
+        """)
+        agents = cur.fetchall()
+
+        # Seuil: 5 minutes pour les agents proactifs (qui battent régulièrement)
+        # Seuil: 30 minutes pour les agents réactifs (adam-cicd, adam-backup, adam-docs)
+        REACTIVE_AGENTS = {"adam-cicd", "adam-backup", "adam-docs"}
+        now = datetime.now(timezone.utc)
+        dead_agents = []
+        stale_agents = []
+
+        for row in agents:
+            aid = row["agent_id"]
+            hb = row["heartbeat_at"]
+            threshold_min = 30 if aid in REACTIVE_AGENTS else 5
+            label = "réactif" if aid in REACTIVE_AGENTS else "proactif"
+
+            if not hb:
+                log(f"  {aid} — JAMAIS de heartbeat ({label})")
+                dead_agents.append(aid)
+                continue
+
+            try:
+                hb_dt = datetime.fromisoformat(hb.replace("Z", "+00:00"))
+            except (ValueError, AttributeError):
+                log(f"  {aid} — heartbeat illisible: {hb}")
+                continue
+
+            elapsed_sec = (now - hb_dt).total_seconds()
+            elapsed_min = elapsed_sec / 60
+
+            if elapsed_min > threshold_min:
+                stale_agents.append((aid, elapsed_min, threshold_min, label))
+                log(f"  ⚠ {aid} — pas de heartbeat depuis {elapsed_min:.0f}min (seuil {label}: {threshold_min}min)")
+            else:
+                log(f"  ✓ {aid} — heartbeat il y a {elapsed_min:.0f}min (seuil {label}: {threshold_min}min)")
+
+        conn.close()
+
+        # Publier des alertes pour les agents stale
+        if stale_agents or dead_agents:
+            stale_names = [a[0] for a in stale_agents] + dead_agents
+            alert_payload = json.dumps({
+                "type": "agent_stale",
+                "agents": stale_names,
+                "dead": dead_agents,
+                "stale": [a[0] for a in stale_agents],
+                "message": f"{len(stale_names)} agent(s) sans heartbeat récent",
+                "checked_by": "adam-doctor"
+            })
+            try:
+                subprocess.run(
+                    ["python3", publish_path, "monitor:alert",
+                     alert_payload,
+                     "--source", "adam-doctor"],
+                    capture_output=True, text=True, timeout=10
+                )
+                log(f"→ published monitor:alert pour {len(stale_names)} agent(s) stale: {', '.join(stale_names)}")
+            except Exception as e:
+                log(f"⚠ Échec publication alerte stale: {e}")
+        else:
+            log("  Tous les agents ont un heartbeat récent ✓")
+
+    except Exception as e:
+        log(f"⚠ Erreur surveillance heartbeats: {e}")
+
+    # Vérification post-redémarrage terminée
     log("Vérification post-redémarrage terminée")
 
     # ──────────────────────────────────────────
     # Follow-up event — chaîne entre agents
     # ──────────────────────────────────────────
-    publish_path = os.path.join(ADAM_V2_DIR, "publish.py")
     try:
         subprocess.run(
             ["python3", publish_path, "dashboard:down",

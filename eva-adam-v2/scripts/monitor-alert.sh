@@ -330,6 +330,13 @@ case "${CHANNEL}" in
     service:unhealthy)
         timeout "${TIMEOUT}" bash -c "$(declare -f log); $(declare -f log_raw); $(declare -f known_services); $(declare -f handle_service_unhealthy); ADAM_V2_DIR='${ADAM_V2_DIR:-/home/aza/eva-adam-v2}'; LOGFILE='${LOGFILE}'; PAYLOAD='${PAYLOAD}'; handle_service_unhealthy" 2>&1 || log "WARN" "service:unhealthy handler timed out or failed"
         ;;
+    monitor:alert)
+        # Alerte d'agent stale envoyée par adam-doctor
+        agent_type="$(echo "${PAYLOAD:-}" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('type','unknown'))" 2>/dev/null || echo 'unknown')"
+        stale_agents="$(echo "${PAYLOAD:-}" | python3 -c "import sys,json; d=json.load(sys.stdin); print(', '.join(d.get('agents',[])))" 2>/dev/null || echo 'unknown')"
+        log "WARN" "agent_stale: ${stale_agents} (type=${agent_type})"
+        log "INFO" "monitor:alert reçu de adam-doctor — agents sans heartbeat récent"
+        ;;
     *)
         log "WARN" "unknown channel: ${CHANNEL}"
         ;;
