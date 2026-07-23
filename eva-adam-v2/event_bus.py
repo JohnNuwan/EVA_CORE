@@ -64,6 +64,21 @@ CHANNELS = {
     "backup:done": "Sauvegarde terminée",
     "backup:failed": "Sauvegarde échouée",
     "osint:finding": "Résultat OSINT intéressant",
+    "osint:alert": "Alerte OSINT (menace détectée)",
+    "security:scan": "Scan de sécurité demandé",
+    "security:alert": "Alerte sécurité générale",
+    "monitor:alert": "Alerte monitoring générale",
+    "wiki:update": "Mise à jour wiki/documentation",
+    "backup:requested": "Sauvegarde demandée",
+    "backup:retry": "Re-tentative de sauvegarde",
+    # ─── Canaux Phase 3: Architect + Scribe ───
+    "architecture:request": "Demande de conception d'architecture",
+    "architecture:proposal": "Proposition d'architecture par adam-architect",
+    "content:request": "Demande de rédaction de contenu",
+    "content:ready": "Contenu prêt par adam-scribe",
+    # ─── Canaux Phase 4: Treasurer ───
+    "finance:report": "Rapport financier de adam-treasurer",
+    "finance:alert": "Alerte budget dépassé",
     "update:available": "Mise à jour disponible (système/paquet)",
 }
 
@@ -443,6 +458,18 @@ DEFAULT_SUBSCRIPTIONS = [
     ("adam-cicd", "git:push", "bash ~/scripts/cicd-hook.sh"),
     ("adam-cicd", "git:pull", "bash ~/scripts/cicd-hook.sh"),
     ("adam-cicd", "test:failed", "bash ~/scripts/cicd-hook.sh"),
+    # ADAM-ARCHITECT : conçoit architectures, propose des refactors
+    ("adam-architect", "architecture:request", "bash ~/scripts/architect-design.sh"),
+    ("adam-architect", "evolution:code_review", "bash ~/scripts/architect-design.sh"),
+    ("adam-architect", "skill:created", "bash ~/scripts/architect-design.sh"),
+    # ADAM-SCRIBE : rédaction de contenu, docs, archivage propositions
+    ("adam-scribe", "content:request", "bash ~/scripts/scribe-write.sh"),
+    ("adam-scribe", "architecture:proposal", "bash ~/scripts/scribe-write.sh"),
+    ("adam-scribe", "skill:updated", "bash ~/scripts/scribe-write.sh"),
+    # ADAM-TREASURER : suivi financier, budgets, rentabilité
+    ("adam-treasurer", "finance:report", "python3 ~/scripts/treasurer-track.py --event finance:report '{}'"),
+    ("adam-treasurer", "finance:alert", "python3 ~/scripts/treasurer-track.py --event finance:alert '{}'"),
+    ("adam-treasurer", "evolution:code_review", "python3 ~/scripts/treasurer-track.py --event evolution:code_review '{}'"),
     # ADAM-BLUE : se déclenche sur alertes de sécurité
     ("adam-blue", "security:vulnerability_detected", "bash ~/scripts/blue-watch.sh --fix"),
     ("adam-blue", "security:permission_drift", "bash ~/scripts/blue-watch.sh --fix"),
@@ -488,6 +515,10 @@ DEFAULT_AGENTS = [
     ("adam-cicd", "ADAM-CICD — Intégration continue", {"timeout": 120, "retries": 2}),
     ("adam-monitor", "ADAM-MONITOR — Monitoring hardware", {"timeout": 60, "retries": 3}),
     ("adam-deploy", "ADAM-DEPLOY — Déploiement & restart", {"timeout": 120, "retries": 2}),
+    ("adam-evolution", "ADAM-EVOLUTION — Évolution & scan de code", {"timeout": 300, "retries": 1}),
+    ("adam-architect", "ADAM-ARCHITECT — Conception & architecture", {"timeout": 300, "retries": 1}),
+    ("adam-scribe", "ADAM-SCRIBE — Rédaction & documentation", {"timeout": 120, "retries": 2}),
+    ("adam-treasurer", "ADAM-TREASURER — Finance & rentabilité", {"timeout": 60, "retries": 3}),
 ]
 
 
