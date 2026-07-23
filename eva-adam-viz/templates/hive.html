@@ -660,6 +660,66 @@ function spawnParticle(agentId) {
   m.pulse.material.opacity = 0.6;
 }
 
+// ── Paquet inter-agent : source → target ──
+function spawnInterAgentPacket(fromId, toId, channel) {
+  const fromMesh = agentMeshes[fromId];
+  const toMesh = agentMeshes[toId];
+  if (!fromMesh || !toMesh) return;
+
+  const fromPos = fromMesh.group.position.clone();
+  const toPos = toMesh.group.position.clone();
+
+  // Courbe bézier pour une belle trajectoire arquée
+  const mid = new THREE.Vector3().lerpVectors(fromPos, toPos, 0.5);
+  const arcHeight = 3 + fromPos.distanceTo(toPos) * 0.15;
+  mid.y += arcHeight;
+
+  // Couleur du paquet = couleur de l'agent source
+  const color = fromMesh.baseColor;
+
+  // Sphère du paquet
+  const pktGeo = new THREE.SphereGeometry(0.25, 10, 10);
+  const pktMat = new THREE.MeshBasicMaterial({
+    color: color, transparent: true, opacity: 1,
+    blending: THREE.AdditiveBlending
+  });
+  const pkt = new THREE.Mesh(pktGeo, pktMat);
+  scene.add(pkt);
+
+  // Trail (ligne de traînée)
+  const trailGeo = new THREE.BufferGeometry().setFromPoints([fromPos, fromPos]);
+  const trailMat = new THREE.LineBasicMaterial({
+    color: color, transparent: true, opacity: 0.6,
+    blending: THREE.AdditiveBlending, linewidth: 2
+  });
+  const trail = new THREE.Line(trailGeo, trailMat);
+  scene.add(trail);
+
+  // Récupérer les points de la courbe
+  const curve = new THREE.QuadraticBezierCurve3(fromPos, mid, toPos);
+
+  particles.push({
+    head: pkt, trail, curve, progress: 0,
+    speed: 0.03, color: color, isInterAgent: true,
+    fromId, toId,
+    onArrive: () => {
+      // Pulse l'agent destinataire à l'arrivée
+      const tm = agentMeshes[toId];
+      if (tm) {
+        tm.lastPulse = performance.now();
+        tm.sphere.material.emissiveIntensity = 1.5;
+        tm.pulse.material.opacity = 0.8;
+      }
+      scene.remove(pkt);
+      scene.remove(trail);
+      pktGeo.dispose();
+      pktMat.dispose();
+      trailGeo.dispose();
+      trailMat.dispose();
+    }
+  });
+}
+
 // ── Animation loop ──
 function animate() {
   requestAnimationFrame(animate);
@@ -703,23 +763,45 @@ function animate() {
   particles = particles.filter(p => {
     p.progress += p.speed;
     if (p.progress >= 1) {
-      scene.remove(p.head);
-      scene.remove(p.trail);
+      if (p.onArrive) p.onArrive();
+      else {
+        scene.remove(p.head);
+        scene.remove(p.trail);
+      }
       return false;
     }
-    const idx = Math.floor(p.progress * (p.pointsArr.length - 1));
-    const pos = p.pointsArr[idx];
-    p.head.position.copy(pos);
-    p.head.material.opacity = 1 - p.progress * 0.5;
 
-    // Trail: derniers 5 points
-    const trailStart = Math.max(0, idx - 5);
-    const trailPts = p.pointsArr.slice(trailStart, idx + 1);
-    p.trail.geometry.setFromPoints(trailPts);
-    p.trail.material.opacity = 0.8 * (1 - p.progress);
+    if (p.isInterAgent && p.curve) {
+      // Particule inter-agent : suit la courbe de Bézier
+      const pos = p.curve.getPoint(p.progress);
+      p.head.position.copy(pos);
+      p.head.material.opacity = 1 - p.progress * 0.3;
+
+      // Trail : segment de la courbe
+      const trailStart = Math.max(0, p.progress - 0.15);
+      const trailPts = [];
+      for (let s = 0; s <= 8; s++) {
+        const tt = trailStart + (p.progress - trailStart) * (s / 8);
+        trailPts.push(p.curve.getPoint(tt));
+      }
+      p.trail.geometry.setFromPoints(trailPts);
+      p.trail.material.opacity = 0.7 * (1 - p.progress);
+    } else {
+      // Particule agent → core standard
+      const idx = Math.floor(p.progress * (p.pointsArr.length - 1));
+      const pos = p.pointsArr[idx];
+      p.head.position.copy(pos);
+      p.head.material.opacity = 1 - p.progress * 0.5;
+
+      // Trail: derniers 5 points
+      const trailStart = Math.max(0, idx - 5);
+      const trailPts = p.pointsArr.slice(trailStart, idx + 1);
+      p.trail.geometry.setFromPoints(trailPts);
+      p.trail.material.opacity = 0.8 * (1 - p.progress);
+    }
+
     return true;
   });
-
   // ── Anneaux d'énergie ──
   energyRings.forEach(r => {
     r.mesh.material.opacity = 0.1 + Math.sin(t * 1.5 + r.phase) * 0.08;
@@ -854,15 +936,48 @@ function connectWS() {
   ws.onmessage = (evt) => {
     try {
       const data = JSON.parse(evt.data);
-      if (data.type === 'event') handleEvent(data.event);
-      else if (data.type === 'agents') handleAgents(data.agents);
-      else if (data.type === 'stats') handleStats(data.stats);
+      if (data.type === 'update' && data.events) {
+        // Le serveur envoie un bundle "update" avec agents + events
+        if (data.agents) handleAgents(data.agents);
+        if (data.bus_stats) handleStats(data.bus_stats);
+        // Traiter chaque event individuellement
+        data.events.forEach(ev => {
+          handleRealtimeEvent(ev);
+        });
+      } else if (data.type === 'event') {
+        handleRealtimeEvent(data.event);
+      } else if (data.type === 'agents' && data.agents) {
+        handleAgents(data.agents);
+      } else if (data.type === 'stats' && data.stats) {
+        handleStats(data.stats);
+      }
     } catch (e) { console.error('[HIVE] WS parse error', e); }
   };
   ws.onclose = () => { setTimeout(connectWS, 3000); };
 }
 
-function handleEvent(event) {
+// ── Mapping canal → agent destinataire ──
+const CHANNEL_TO_AGENT = {
+  'wiki:update': 'adam-docs',
+  'docs:changed': 'adam-docs',
+  'monitor:alert': 'adam-doctor',
+  'doctor:watch': 'adam-doctor',
+  'security:alert': 'adam-sentinel',
+  'security:scan': 'adam-sentinel',
+  'osint:alert': 'adam-red',
+  'blue:watch': 'adam-blue',
+  'critic:review': 'adam-critic',
+  'deploy:requested': 'adam-deploy',
+  'deploy:completed': 'adam-blue',
+  'cicd:completed': 'adam-deploy',
+  'backup:requested': 'adam-backup',
+  'dashboard:down': 'adam-viz-checker',
+  'config:changed': 'adam-praetor',
+  'system:health': 'adam-doctor',
+  'service:restarted': 'adam-doctor',
+};
+
+function handleRealtimeEvent(event) {
   eventStats.total++;
   if (event.status === 'done') eventStats.done++;
   else if (event.status === 'failed') eventStats.failed++;
@@ -870,8 +985,8 @@ function handleEvent(event) {
   document.getElementById('hud-events').textContent = eventStats.total;
 
   // Event feed
-  const time = new Date(event.timestamp || Date.now()).toLocaleTimeString('fr-FR');
-  const agentId = event.agent_id || '?';
+  const time = new Date(event.created_at || event.timestamp || Date.now()).toLocaleTimeString('fr-FR');
+  const agentId = event.source || event.agent_id || '?';
   const channel = event.channel || '?';
   const status = event.status || '?';
   const sColor = status === 'done' ? 'var(--green)' : status === 'failed' ? 'var(--red)' : 'var(--orange)';
@@ -883,8 +998,14 @@ function handleEvent(event) {
   list.insertBefore(line, list.firstChild);
   while (list.children.length > 30) list.removeChild(list.lastChild);
 
-  // Spawn particle
+  // Particule agent → core (pulse l'agent source)
   if (agentMeshes[agentId]) spawnParticle(agentId);
+
+  // Paquet inter-agent : source → destinataire
+  const targetAgent = CHANNEL_TO_AGENT[channel];
+  if (targetAgent && targetAgent !== agentId && agentMeshes[targetAgent]) {
+    spawnInterAgentPacket(agentId, targetAgent, channel);
+  }
 }
 
 function handleAgents(agents) {
