@@ -55,9 +55,11 @@ sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --
 sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 
 # Services LAN seulement
-# Interface locale (192.168.1.x) pour les services internes
-LAN_IFACE=$(ip route get 192.168.1.1 2>/dev/null | grep -oP 'dev \K\S+' || echo "eth0")
-LAN_SUBNET="192.168.1.0/24"
+# Interface locale — détection dynamique (ne pas hardcoder l'IP)
+LAN_IFACE=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'dev \K\S+' || echo "eth0")
+LAN_GW=$(ip route get 1.1.1.1 2>/dev/null | grep -oP 'via \K[0-9.]+' || echo "")
+# Détecter le sous-réseau LAN à partir de l'interface
+LAN_SUBNET=$(ip -o -f inet addr show "$LAN_IFACE" 2>/dev/null | grep -oP 'inet \K[0-9./]+' || echo "10.0.0.0/24")
 
 # Services exposés — restreints au LAN
 for port in 3000 5900 6080 7860 8000 8016 8080 8081 8082 8090 9000 9001 9090 9100 51821; do

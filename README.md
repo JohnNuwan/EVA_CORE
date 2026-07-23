@@ -126,10 +126,10 @@ Le monitoring en temps réel de The Hive est accessible via les dashboards suiva
 
 | Service | Port | Description |
 |---------|------|-------------|
-| **Monitoring Cybersec** | `http://192.168.1.5:8081` | Métriques CPU, RAM, GPU, réseau, alertes |
-| **Wiki OKF (D3.js)** | `http://192.168.1.5:8082` | Graphe de connaissances, index des pages |
-| **RAG Actemium** | `http://192.168.1.5:8083` | API de recherche RAG, stats `/api/rag/stats` |
-| **Portainer** | `http://192.168.1.5:9443` | Gestion des conteneurs Docker |
+| **Monitoring Cybersec** | `http://localhost:8081` | Métriques CPU, RAM, GPU, réseau, alertes |
+| **Wiki OKF (D3.js)** | `http://localhost:8082` | Graphe de connaissances, index des pages |
+| **RAG Actemium** | `http://localhost:8083` | API de recherche RAG, stats `/api/rag/stats` |
+| **Portainer** | `http://localhost:9443` | Gestion des conteneurs Docker |
 
 ---
 
