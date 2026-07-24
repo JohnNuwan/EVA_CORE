@@ -28,7 +28,6 @@ import re
 import subprocess
 import time
 import base64
-import hashlib
 import string
 from datetime import datetime, timezone
 from pathlib import Path
@@ -684,11 +683,11 @@ def register_agent():
         ("ctf:challenge", "/home/aza/scripts/adam-ctf.py", 1),
         ("ctf:new_challenge", "/home/aza/scripts/adam-ctf.py", 1),
     ]
-    for channel, handler, active in subs:
+    for channel, handler, enabled in subs:
         conn.execute("""
-            INSERT OR IGNORE INTO subscriptions (agent_id, channel, handler, is_active)
+            INSERT OR IGNORE INTO subscriptions (agent_id, channel, handler, enabled)
             VALUES (?, ?, ?, ?)
-        """, (AGENT_ID, channel, handler, active))
+        """, (AGENT_ID, channel, handler, enabled))
     conn.commit()
     conn.close()
     log(f"Agent {AGENT_ID} enregistré dans la DB")
